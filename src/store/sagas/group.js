@@ -10,7 +10,7 @@ import Notifications from 'react-notification-system-redux';
 function* getGroup({ payload }) {
   try {
     const { id } = payload;
-    const response = yield call(api.get, `/admin/v1/groups/${id}`);
+    const response = yield call(api.get, `/v1/admin/groups/${id}`);
     yield put(Creators.getGroupSuccess(response.data));
   } catch (err) {
     yield put(Creators.getGroupFailure('Erro ao buscar na API'));
@@ -20,7 +20,7 @@ function* getGroup({ payload }) {
 function* getGroupInsert({ payload }) {
   try {
     const { group_father, description, name, order_position } = payload;
-    const response = yield call(api.post, '/admin/v1/groups', {
+    const response = yield call(api.post, '/v1/admin/groups', {
       name,
       order_position,
       description: description.toString('markdown'),
@@ -39,7 +39,7 @@ function* getGroupInsert({ payload }) {
 function* getGroupUpdate({ payload }) {
   try {
     const { id, group_father, description, name, order_position } = payload;
-    const response = yield call(api.put, `/admin/v1/groups/${id}`, {
+    const response = yield call(api.put, `/v1/admin/groups/${id}`, {
       name,
       order_position,
       description: description.toString('markdown'),
@@ -55,7 +55,7 @@ function* getGroupUpdate({ payload }) {
 function* getGroupDelete({ payload }) {
   try {
     const { id } = payload;
-    const response = yield call(api.delete, `/admin/v1/groups/${id}`);
+    const response = yield call(api.delete, `/v1/admin/groups/${id}`);
     yield put(Creators.getGroupDeleteSuccess());
     // Remove a categoria deletada da lista
     const { groupList, groupListTotal } = yield select(state => state.group);
@@ -74,7 +74,7 @@ function* getGroupDelete({ payload }) {
 function* getGroupList({ payload }) {
   try {
     const { page, perPage, search, orderByColumn, orderByDirection } = payload;
-    const request = call(api.get, '/admin/v1/groups', {
+    const request = call(api.get, '/v1/admin/groups', {
       page,
       search,
       per_page: perPage,

@@ -7,7 +7,7 @@ import { callApi } from 'store/sagas/auth';
 function* getCity({ payload }) {
   try {
     const { id } = payload;
-    const response = yield call(api.get, `/admin/v1/cities/${id}`);
+    const response = yield call(api.get, `/v1/admin/cities/${id}`);
     yield put(Creators.getCitySuccess(response.data));
   } catch (err) {
     yield put(Creators.getCityFailure('Erro ao buscar na API'));
@@ -17,7 +17,7 @@ function* getCity({ payload }) {
 function* getCityInsert({ payload }) {
   try {
     const { city_father, description, name, order_position } = payload;
-    const response = yield call(api.post, '/admin/v1/cities', {
+    const response = yield call(api.post, '/v1/admin/cities', {
       name,
       order_position,
       description: description.toString('markdown'),
@@ -32,7 +32,7 @@ function* getCityInsert({ payload }) {
 function* getCityUpdate({ payload }) {
   try {
     const { id, city_father, description, name, order_position } = payload;
-    const response = yield call(api.put, `/admin/v1/cities/${id}`, {
+    const response = yield call(api.put, `/v1/admin/cities/${id}`, {
       name,
       order_position,
       description: description.toString('markdown'),
@@ -47,7 +47,7 @@ function* getCityUpdate({ payload }) {
 function* getCityDelete({ payload }) {
   try {
     const { id } = payload;
-    const response = yield call(api.delete, `/admin/v1/cities/${id}`);
+    const response = yield call(api.delete, `/v1/admin/cities/${id}`);
     yield put(Creators.getCityDeleteSuccess());
     // Remove a categoria deletada da lista
     const { cityList, cityListTotal } = yield select(state => state.city);
@@ -66,7 +66,7 @@ function* getCityDelete({ payload }) {
 function* getCityList({ payload }) {
   try {
     const { page, perPage, search, orderByColumn, orderByDirection } = payload;
-    const request = call(api.get, '/admin/v1/cities', {
+    const request = call(api.get, '/v1/admin/cities', {
       page,
       search,
       per_page: perPage,
