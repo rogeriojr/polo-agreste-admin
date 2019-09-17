@@ -5,7 +5,7 @@ import { withStyles } from '@material-ui/core/styles';
 
 import layoutStyles from 'containers/Layout/styles';
 
-import Logo from './oferta_play_logo.png';
+import Logo from 'images/logo.png';
 
 const LeftSideDrawer = ({ classes, children }) => (
   <div className={classes.drawerInner}>

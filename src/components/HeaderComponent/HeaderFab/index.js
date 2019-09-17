@@ -6,13 +6,13 @@ import styled from 'styled-components';
 const StyledFab = styled(Fab)`
   && {
     box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
-    background: #f48a2a;
+    background: #ce4899;
     color: white;
     margin: 0;
     width: 43px;
     height: 43px;
     &:hover {
-      background: #de812d;
+      background: #b53f86;
       box-shadow: 0 1px 6px rgba(0, 0, 0, 0.4);
     }
     &:active {

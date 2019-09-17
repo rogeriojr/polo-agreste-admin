@@ -6,11 +6,11 @@ import PropTypes from 'prop-types';
 const StyledButton = styled(Button)`
   && {
     box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
-    background: #f48a2a;
+    background: #ce4899;
     padding: 10px;
     color: white;
     &:hover {
-      background: #de812d;
+      background: #b53f86;
     }
   }
 `;

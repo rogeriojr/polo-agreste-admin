@@ -32,7 +32,7 @@ const initialState = fromJS({
   selectedMenuItem,
   openViews: openedViews,
   selectedOpenedMenuItem: selectedMenuItem,
-  currentTheme: 'ofertaPlay', // atom, aurelia, quiet, sky, default
+  currentTheme: '44Express', // atom, aurelia, quiet, sky, default
   showOpenViews: false,
   showHeaderTabs: true,
   showSearch: false,

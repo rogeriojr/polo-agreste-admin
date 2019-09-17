@@ -7,7 +7,7 @@ import styled from 'styled-components';
 const StyledTabs = styled(TabsOriginal)`
   && {
     .MuiTabs-indicator {
-      background-color: #f48a2a;
+      background-color: #ce4899;
     }
   }
 `;
@@ -39,7 +39,7 @@ const StyledTab = styled(TabOriginal)`
       color: rgba(0, 0, 0, 0.38);
     }
     &[aria-selected='true'] .MuiTab-wrapper {
-      color: #f48a2a;
+      color: #ce4899;
     }
   }
 `;

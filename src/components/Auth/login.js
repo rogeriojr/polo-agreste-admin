@@ -6,7 +6,7 @@ import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
 
 import { isMobile } from 'utils/menuHelper';
-import Logo from 'images/oferta_play_logo.png';
+import Logo from 'images/logo.png';
 
 import { useDispatch, useSelector } from 'react-redux';
 
@@ -33,9 +33,9 @@ const Login = ({ classes }) => {
         <Paper className={classes.paper} elevation={3} square>
           <div className={classes.logoContainer}>
             <img
-              style={{ maxWidth: '100%', height: 60 }}
+              style={{ maxWidth: '90%', height: 'auto' }}
               src={Logo}
-              alt="Oferta Play"
+              alt="44express"
             />
           </div>
           {error ? (

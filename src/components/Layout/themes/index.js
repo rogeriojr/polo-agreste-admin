@@ -3,7 +3,7 @@ import ThemeAtom from './theme-atom';
 import ThemeAurelia from './theme-aurelia';
 import ThemeQuiet from './theme-quiet';
 import ThemeSky from './theme-sky';
-import ThemeOfertaPlay from './theme-ofertaplay';
+import Theme44Express from './theme-44express';
 
 const getCurrentTheme = currentTheme => {
   let muiTheme;
@@ -24,7 +24,7 @@ const getCurrentTheme = currentTheme => {
       muiTheme = ThemeDefault;
       break;
     default:
-      muiTheme = ThemeOfertaPlay;
+      muiTheme = Theme44Express;
       break;
   }
 

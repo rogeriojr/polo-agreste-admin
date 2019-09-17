@@ -9,7 +9,7 @@ const styles = () => ({
     paddingTop: '6px',
   },
   statIcon: {
-    color: '#F48A2A',
+    color: '#ce4899',
     fontSize: '32px',
   },
   statContent: {

@@ -221,9 +221,12 @@ const GlobalStyle = createGlobalStyle`
   .recharts-wrapper, .ReactTable {
     font-size: 14px;
   }
-  .logo{
+  .logo {
     max-width: 100%;
-    height: 40px;
+    padding-top: 10px;
+    padding-left: 10px;
+    height: auto;
+    padding-right: 10px;
   }
   .default-table > [class*="MuiPaper-root"]{
     background-color: transparent !important;
@@ -244,20 +247,20 @@ const GlobalStyle = createGlobalStyle`
   }
 
   .default-table [class*="MuiIconButton-root"]:not([class*="Mui-disabled"]){
-    color: #F48A2A !important;
+    color: #ce4899 !important;
   }
 
   .bt-out-orange {
-    border: 1px solid #F48A2A !important;
+    border: 1px solid #ce4899 !important;
     background: white !important;
     padding: 10px 10px !important;
-    color: #F48A2A !important;
+    color: #ce4899 !important;
     font-size: 14px !important;
     text-transform: uppercase;
   }
 
   .bt-orange {
-    background: #F48A2A !important;
+    background: #ce4899 !important;
     padding: 10px 10px !important;
     color: white !important;
     font-size: 14px !important;
@@ -266,7 +269,7 @@ const GlobalStyle = createGlobalStyle`
   }
 
   .bt-orange:hover{
-    background: #de812d !important;
+    background: #b53f86 !important;
   }
 
   .toolbar-container {
@@ -319,12 +322,12 @@ const GlobalStyle = createGlobalStyle`
 
   .fab-custom {
     color: white !important;
-    background-color: #F48A2A !important;
+    background-color: #ce4899 !important;
     box-shadow: 0px 1px 2px -1px rgba(0,0,0,0.2), 0px 1px 3px 0px rgba(0,0,0,0.14), 0px 1px 6px 0px rgba(0,0,0,0.12) !important;
   }
 
   .fab-custom {
-    background-color: #de812d !important;
+    background-color: #b53f86 !important;
   }
 
   .toolbar-buttons .fab-custom {
@@ -344,7 +347,7 @@ const GlobalStyle = createGlobalStyle`
   }
 
   .MuiTableCell-head{
-    color: #F48A2A !important;
+    color: #ce4899 !important;
     font-size: 0.95rem !important;
     font-weight: 400 !important;
     line-height: 1.6rem !important;
