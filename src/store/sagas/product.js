@@ -10,7 +10,7 @@ import Notifications from 'react-notification-system-redux';
 function* getProduct({ payload }) {
   try {
     const { id } = payload;
-    const response = yield call(api.get, `/v1/products/${id}`);
+    const response = yield call(api.get, `/admin/v1/products/${id}`);
     yield put(Creators.getProductSuccess(response.data));
   } catch (err) {
     yield put(Creators.getProductFailure('Erro ao buscar na API'));
@@ -24,7 +24,7 @@ function* getProductImagesUpload(payload) {
       images_data.map(image => {
         const data = new FormData();
         data.append('image', image);
-        return call(api.post, `/v1/products/${id}/images`, data);
+        return call(api.post, `/admin/v1/products/${id}/images`, data);
       }),
     );
     yield put({ type: 'UPLOAD_SUCCESS' });
@@ -58,7 +58,7 @@ function* getProductInsert({ payload }) {
       categories,
       images_data,
     } = payload;
-    const response = yield call(api.post, '/v1/products', {
+    const response = yield call(api.post, '/admin/v1/products', {
       code_integration,
       code_ncm,
       code_ean,
@@ -118,7 +118,7 @@ function* getProductUpdate({ payload }) {
       categories,
       images_data,
     } = payload;
-    /* const response =  */ yield call(api.put, `/v1/products/${id}`, {
+    /* const response =  */ yield call(api.put, `/admin/v1/products/${id}`, {
       code_integration,
       code_ncm,
       code_ean,
@@ -152,7 +152,7 @@ function* getProductUpdate({ payload }) {
 function* getProductDelete({ payload }) {
   try {
     const { id } = payload;
-    /* const response =  */ yield call(api.delete, `/v1/products/${id}`);
+    /* const response =  */ yield call(api.delete, `/admin/v1/products/${id}`);
     yield put(Creators.getProductDeleteSuccess());
     // Remove a categoria deletada da lista
     const { productList, productListTotal } = yield select(
@@ -173,7 +173,7 @@ function* getProductDelete({ payload }) {
 function* getImageProductDelete({ payload }) {
   try {
     const { id, id_product } = payload;
-    yield call(api.delete, `/v1/products/${id_product}/images/${id}`);
+    yield call(api.delete, `/admin/v1/products/${id_product}/images/${id}`);
     yield put(Creators.getImageProductDeleteSuccess());
   } catch (err) {
     yield put(Creators.getImageProductDeleteFailure('Erro ao buscar na API'));
@@ -183,7 +183,7 @@ function* getImageProductDelete({ payload }) {
 function* getProductList({ payload }) {
   try {
     const { page, perPage, search, orderByColumn, orderByDirection } = payload;
-    const request = call(api.get, '/v1/products', {
+    const request = call(api.get, '/admin/v1/products', {
       page,
       search,
       per_page: perPage,

@@ -12,7 +12,7 @@ function* getLogin({ payload: { email, password } }) {
       'Authorization',
       'b2ZlcnRhcGxheXVzZXI6b2ZlcnRhcGxheXBhc3N3b3Jk',
     );
-    const response = yield call(api.post, '/v1/auth/token', {
+    const response = yield call(api.post, '/oauth/token', {
       username: email,
       password,
       grant_type: 'password',
@@ -39,7 +39,7 @@ function* getRefreshToken() {
   } = yield select();
   try {
     yield call(api.setHeader, 'Authorization', `Bearer ${refresh_token}`);
-    const response = yield call(api.post, '/v1/auth/refresh');
+    const response = yield call(api.post, '/oauth/refresh');
     if (response.status !== 200) throw response;
     yield call(
       api.setHeader,

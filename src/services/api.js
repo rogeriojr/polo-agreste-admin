@@ -1,9 +1,8 @@
 import { create } from 'apisauce';
 
 const apiUrl = {
-  // hml: 'https://xbmfs67lyl.execute-api.us-east-1.amazonaws.com/dev',
-  hml: 'https://a17qs59l7b.execute-api.us-east-1.amazonaws.com/prod',
-  prod: 'https://a17qs59l7b.execute-api.us-east-1.amazonaws.com/prod',
+  hml: 'http://api.ofertaplay.com.br',
+  prod: 'http://api.ofertaplay.com.br',
 };
 
 const api = create({

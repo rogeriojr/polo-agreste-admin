@@ -10,7 +10,7 @@ import Notifications from 'react-notification-system-redux';
 function* getStore({ payload }) {
   try {
     const { id } = payload;
-    const request = call(api.get, `/v1/stores/${id}`);
+    const request = call(api.get, `/admin/v1/stores/${id}`);
     const response = yield call(callApi, request);
     yield put(Creators.getStoreSuccess(response.data));
   } catch (err) {
@@ -23,7 +23,7 @@ function* getStoreImageUpload(payload) {
     const { id, image_data } = payload;
     const data = new FormData();
     data.append('image', image_data);
-    const response = yield call(api.post, `/v1/stores/${id}/images`, data);
+    const response = yield call(api.post, `/admin/v1/stores/${id}/images`, data);
     return true;
   } catch (err) {
     return false;
@@ -48,7 +48,7 @@ function* getStoreInsert({ payload }) {
       bank,
       image_data,
     } = payload;
-    const response = yield call(api.post, '/v1/stores', {
+    const response = yield call(api.post, '/admin/v1/stores', {
       name,
       email,
       description: description.toString('markdown'),
@@ -96,7 +96,7 @@ function* getStoreUpdate({ payload }) {
       bank,
       image_data,
     } = payload;
-    const response = yield call(api.put, `/v1/stores/${id}`, {
+    const response = yield call(api.put, `/admin/v1/stores/${id}`, {
       name,
       email,
       description: description.toString('markdown'),
@@ -124,7 +124,7 @@ function* getStoreUpdate({ payload }) {
 function* getStoreDelete({ payload }) {
   try {
     const { id } = payload;
-    const response = yield call(api.delete, `/v1/stores/${id}`);
+    const response = yield call(api.delete, `/admin/v1/stores/${id}`);
     yield put(Creators.getStoreDeleteSuccess());
     // Remove a categoria deletada da lista
     const { storeList, storeListTotal } = yield select(state => state.store);
@@ -143,7 +143,7 @@ function* getStoreDelete({ payload }) {
 function* getStoreList({ payload }) {
   try {
     const { page, perPage, search, orderByColumn, orderByDirection } = payload;
-    const request = call(api.get, '/v1/stores', {
+    const request = call(api.get, '/admin/v1/stores', {
       page,
       search,
       per_page: perPage,

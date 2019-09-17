@@ -10,7 +10,7 @@ import Notifications from 'react-notification-system-redux';
 function* getPage({ payload }) {
   try {
     const { id } = payload;
-    const response = yield call(api.get, `/v1/pages/${id}`);
+    const response = yield call(api.get, `/admin/v1/pages/${id}`);
     yield put(Creators.getPageSuccess(response.data));
   } catch (err) {
     yield put(Creators.getPageFailure('Erro ao buscar na API'));
@@ -20,7 +20,7 @@ function* getPage({ payload }) {
 function* getPageInsert({ payload }) {
   try {
     const { name, description } = payload;
-    const response = yield call(api.post, '/v1/pages', {
+    const response = yield call(api.post, '/admin/v1/pages', {
       name,
       description: description.toString('markdown'),
     });
@@ -37,7 +37,7 @@ function* getPageInsert({ payload }) {
 function* getPageUpdate({ payload }) {
   try {
     const { id, name, description } = payload;
-    const response = yield call(api.put, `/v1/pages/${id}`, {
+    const response = yield call(api.put, `/admin/v1/pages/${id}`, {
       name,
       description: description.toString('markdown'),
     });
@@ -51,7 +51,7 @@ function* getPageUpdate({ payload }) {
 function* getPageDelete({ payload }) {
   try {
     const { id } = payload;
-    const response = yield call(api.delete, `/v1/pages/${id}`);
+    const response = yield call(api.delete, `/admin/v1/pages/${id}`);
     yield put(Creators.getPageDeleteSuccess());
     // Remove a categoria deletada da lista
     const { pageList, pageListTotal } = yield select(state => state.page);
@@ -70,7 +70,7 @@ function* getPageDelete({ payload }) {
 function* getPageList({ payload }) {
   try {
     const { page, perPage, search, orderByColumn, orderByDirection } = payload;
-    const request = call(api.get, '/v1/pages', {
+    const request = call(api.get, '/admin/v1/pages', {
       page,
       search,
       per_page: perPage,

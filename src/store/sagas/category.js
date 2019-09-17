@@ -10,7 +10,7 @@ import Notifications from 'react-notification-system-redux';
 function* getCategory({ payload }) {
   try {
     const { id } = payload;
-    const response = yield call(api.get, `/v1/categories/${id}`);
+    const response = yield call(api.get, `/admin/v1/categories/${id}`);
     yield put(Creators.getCategorySuccess(response.data));
   } catch (err) {
     yield put(Creators.getCategoryFailure('Erro ao buscar na API'));
@@ -22,7 +22,7 @@ function* getCategoryImageUpload(payload) {
     const { id, image_data } = payload;
     const data = new FormData();
     data.append('image', image_data);
-    const response = yield call(api.post, `/v1/categories/${id}/images`, data);
+    const response = yield call(api.post, `/admin/v1/categories/${id}/images`, data);
     return true;
   } catch (err) {
     return false;
@@ -38,7 +38,7 @@ function* getCategoryInsert({ payload }) {
       order_position,
       image_data,
     } = payload;
-    const response = yield call(api.post, '/v1/categories', {
+    const response = yield call(api.post, '/admin/v1/categories', {
       name,
       order_position,
       description: description.toString('markdown'),
@@ -68,7 +68,7 @@ function* getCategoryUpdate({ payload }) {
       order_position,
       image_data,
     } = payload;
-    const response = yield call(api.put, `/v1/categories/${id}`, {
+    const response = yield call(api.put, `/admin/v1/categories/${id}`, {
       name,
       order_position,
       description: description.toString('markdown'),
@@ -87,7 +87,7 @@ function* getCategoryUpdate({ payload }) {
 function* getCategoryDelete({ payload }) {
   try {
     const { id } = payload;
-    const response = yield call(api.delete, `/v1/categories/${id}`);
+    const response = yield call(api.delete, `/admin/v1/categories/${id}`);
     yield put(Creators.getCategoryDeleteSuccess());
     // Remove a categoria deletada da lista
     const { categoryList, categoryListTotal } = yield select(
@@ -108,7 +108,7 @@ function* getCategoryDelete({ payload }) {
 function* getCategoryList({ payload }) {
   try {
     const { page, perPage, search, orderByColumn, orderByDirection } = payload;
-    const request = call(api.get, '/v1/categories', {
+    const request = call(api.get, '/admin/v1/categories', {
       page,
       search,
       per_page: perPage,

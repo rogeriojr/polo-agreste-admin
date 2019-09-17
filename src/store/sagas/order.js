@@ -9,7 +9,7 @@ import Notifications from 'react-notification-system-redux';
 function* getOrder({ payload }) {
   try {
     const { id } = payload;
-    const response = yield call(api.get, `/v1/orders/${id}`);
+    const response = yield call(api.get, `/admin/v1/orders/${id}`);
     yield put(Creators.getOrderSuccess(response.data));
   } catch (err) {
     yield put(Creators.getOrderFailure('Erro ao buscar na API'));
@@ -19,7 +19,7 @@ function* getOrder({ payload }) {
 function* getOrderInsert({ payload }) {
   try {
     const { category_father, description, name, order_position } = payload;
-    const response = yield call(api.post, '/v1/orders', {
+    const response = yield call(api.post, '/admin/v1/orders', {
       name,
       order_position,
       description: description.toString('markdown'),
@@ -38,7 +38,7 @@ function* getOrderInsert({ payload }) {
 function* getOrderUpdate({ payload }) {
   // try {
   //   const { id, category_father, description, name, order_position } = payload;
-  //   const response = yield call(api.put, `/v1/orders/${id}`, {
+  //   const response = yield call(api.put, `/admin/v1/orders/${id}`, {
   //     name,
   //     order_position,
   //     description: description.toString('markdown'),
@@ -54,7 +54,7 @@ function* getOrderUpdate({ payload }) {
 function* getOrderDelete({ payload }) {
   try {
     const { id } = payload;
-    const response = yield call(api.delete, `/v1/orders/${id}`);
+    const response = yield call(api.delete, `/admin/v1/orders/${id}`);
     yield put(Creators.getOrderDeleteSuccess());
     // Remove a categoria deletada da lista
     const { categoryList, categoryListTotal } = yield select(
@@ -75,7 +75,7 @@ function* getOrderDelete({ payload }) {
 function* getOrderList({ payload }) {
   try {
     const { page, perPage, search, orderByColumn, orderByDirection } = payload;
-    const request = call(api.get, '/v1/orders', {
+    const request = call(api.get, '/admin/v1/orders', {
       page,
       search,
       per_page: perPage,
