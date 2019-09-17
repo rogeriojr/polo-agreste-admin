@@ -1,0 +1,14 @@
+{
+  "compilerOptions": {
+    "module": "commonjs",
+    "target": "esnext",
+    "jsx": "react",
+    "checkJs": false,
+    "baseUrl": "./src",
+    "typeRoots": ["node_modules/@types"]
+  },
+  "exclude": ["node_modules", "**/node_modules/*"],
+  "typeAcquisition": {
+    "include": ["jest"]
+  }
+}

@@ -1,0 +1,19 @@
+import styled from 'styled-components';
+
+const FormContainer = styled.div`
+  margin: 0;
+`;
+
+const InputContainer = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+  margin-top: 15px;
+`;
+
+const InputItem = styled.div`
+  flex-grow: ${props => props.flexGrow || 1};
+  margin: 0 10px;
+  min-width: 200px;
+`;
+
+export { InputContainer, InputItem, FormContainer };

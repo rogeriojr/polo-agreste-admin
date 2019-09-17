@@ -1,0 +1,155 @@
+import React from 'react';
+import PageBase from 'components/PageBase';
+import DefaultTable from 'components/Tables/DefaultTable';
+import { useDispatch, useSelector } from 'react-redux';
+import { Creators as OrderCreators } from 'store/ducks/order';
+import HeaderComponent from 'components/HeaderComponent';
+import OrderTableHeader from 'components/Pages/OrderPage/OrderTableHeader';
+import { Paper } from '@material-ui/core';
+import AlertDialog from 'components/AlertDialog';
+import OrderActions from 'components/Pages/OrderPage/OrderActions';
+import { InputItem, InputContainer } from 'components/form/StyledComponents';
+import CustomSelect from 'components/form/components/CustomSelect';
+
+const OrderListPage = () => {
+  const [storesState, setStoresState] = React.useState({
+    list: [
+      { name: 'Aprovado/Pago', id: 0 },
+      { name: 'Não autorizado/Não pago', id: 1 },
+    ],
+    selectedStore: 1,
+    isLoading: false,
+  });
+
+  const onChange = newValue => {
+    setStoresState(oldState => ({ ...oldState, selectedStore: newValue }));
+  };
+
+  const replaceSelect = {
+    setFieldValue: (event, newValue) => {
+      onChange(newValue);
+    },
+  };
+
+  const { list, isLoading, selectedStore } = storesState;
+
+  const columns = ({ onDeleteRequest }) => [
+    { title: 'Pedido', field: 'id', type: 'numeric' },
+    { title: 'Loja', field: 'store_name' },
+    { title: 'Cliente', field: 'user.name' },
+    { title: 'CPF/CNPJ', field: '' },
+    {
+      title: 'Status',
+      field: 'status',
+      render: rowData => (
+        <InputContainer>
+          <InputItem>
+            <CustomSelect
+              name="store_select"
+              label="Selecione"
+              field={{ value: selectedStore }}
+              options={list}
+              component={CustomSelect}
+              placeholder="Selecione"
+              isLoading={isLoading}
+              form={replaceSelect}
+            />
+          </InputItem>
+        </InputContainer>
+      ),
+    },
+    { title: 'Pagamento', field: 'payment_type' },
+    { title: 'Realizado', field: 'create_at' },
+    { title: 'Atualizado', field: 'update_at' },
+    {
+      title: 'Ações',
+      field: 'actions',
+      render: rowData => (
+        <OrderActions rowData={rowData} onDeleteRequest={onDeleteRequest} />
+      ),
+    },
+  ];
+
+  const dispatch = useDispatch();
+  const [deleteState, setDeleteState] = React.useState({
+    open: false,
+    item: {},
+  });
+
+  const [localState, setLocalState] = React.useState({
+    search: '',
+    orderByColumn: '',
+    orderByDirection: '',
+    page: 1,
+    perPage: 10,
+  });
+
+  const {
+    orderList,
+    orderListLoading,
+    orderListTotal,
+    orderDeleteLoading,
+  } = useSelector(state => state.order);
+
+  React.useEffect(() => {
+    dispatch(OrderCreators.getOrderListRequest(localState));
+  }, []);
+
+  const handleAlertDialogClose = () => {
+    setDeleteState({ open: false, item: {} });
+  };
+
+  React.useEffect(() => {
+    if (orderDeleteLoading === false && deleteState.open) {
+      handleAlertDialogClose();
+    }
+  }, [orderDeleteLoading]);
+
+  const getFunction = data => {
+    setLocalState(oldLocalState => ({ ...oldLocalState, ...data }));
+  };
+
+  React.useEffect(() => {
+    dispatch(OrderCreators.getOrderListRequest(localState));
+  }, [localState]);
+
+  const onDeleteRequest = item => {
+    setDeleteState({ open: true, item });
+  };
+
+  const onDeleteConfirm = () => {
+    dispatch(OrderCreators.getOrderDeleteRequest(deleteState.item.id));
+  };
+
+  return (
+    <PageBase>
+      <HeaderComponent title="Listar Pedidos">
+        <OrderTableHeader
+          getFunction={getFunction}
+          initialValues={{ search: localState.search }}
+        />
+      </HeaderComponent>
+      <Paper>
+        <DefaultTable
+          getFunction={getFunction}
+          columns={columns({ onDeleteRequest })}
+          data={orderList}
+          total={orderListTotal}
+          isLoading={orderListLoading}
+          page={localState.page}
+          perPage={localState.perPage}
+        />
+      </Paper>
+      <AlertDialog
+        isOpen={deleteState.open}
+        isLoading={orderListLoading}
+        handleClose={handleAlertDialogClose}
+        onConfirm={onDeleteConfirm}
+        title="Excluir registro?"
+        description={`Remover categoria: ${deleteState.item.name}`}
+      />
+    </PageBase>
+  );
+};
+
+export default OrderListPage;

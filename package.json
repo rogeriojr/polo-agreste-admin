@@ -1,0 +1,81 @@
+{
+  "name": "44express-admin",
+  "version": "0.1.0",
+  "private": true,
+  "dependencies": {
+    "@date-io/luxon": "^1.3.8",
+    "@material-ui/core": "^4.2.1",
+    "@material-ui/icons": "^4.2.1",
+    "@material-ui/pickers": "^3.2.0",
+    "@types/jest": "^24.0.15",
+    "apisauce": "^1.0.3",
+    "classnames": "^2.2.6",
+    "connected-react-router": "^6.5.2",
+    "formik": "1.5.8",
+    "history": "^4.9.0",
+    "hoist-non-react-statics": "^3.3.0",
+    "immutable": "^4.0.0-rc.12",
+    "js-brasil": "^1.4.1",
+    "loadable-components": "^2.2.3",
+    "luxon": "^1.17.2",
+    "material-table": "^1.40.1",
+    "prop-types": "^15.7.2",
+    "react": "^16.8.6",
+    "react-dom": "^16.8.6",
+    "react-input-mask": "^2.0.4",
+    "react-notification-system": "^0.2.17",
+    "react-notification-system-redux": "^2.0.0",
+    "react-number-format": "^4.0.8",
+    "react-redux": "^7.1.0",
+    "react-router": "^5.0.1",
+    "react-router-dom": "^5.0.1",
+    "react-rte": "^0.16.1",
+    "react-scripts": "3.0.1",
+    "react-select": "^3.0.4",
+    "reactotron-react-js": "^3.3.2",
+    "reactotron-redux": "^3.1.1",
+    "reactotron-redux-saga": "^4.2.2",
+    "recharts": "^1.6.2",
+    "redux": "^4.0.4",
+    "redux-immutable": "^4.0.0",
+    "redux-persist": "^5.10.0",
+    "redux-persist-transform-immutable": "^5.0.0",
+    "redux-saga": "^1.0.5",
+    "reselect": "^4.0.0",
+    "sanitize.css": "^11.0.0",
+    "seamless-immutable": "^7.1.4",
+    "styled-components": "^4.3.2",
+    "yup": "^0.27.0"
+  },
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject",
+    "clean-mergeds": "git fetch -p && git branch -vv | awk '/: gone]/{print $1}' | xargs git branch -d"
+  },
+  "eslintConfig": {
+    "extends": "react-app"
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  },
+  "devDependencies": {
+    "@types/luxon": "^1.15.2",
+    "eslint-config-airbnb": "^17.1.1",
+    "eslint-config-import": "^0.13.0",
+    "eslint-config-prettier": "^6.0.0",
+    "eslint-plugin-import": "^2.18.2",
+    "eslint-plugin-prettier": "^3.1.0",
+    "prettier": "^1.18.2"
+  }
+}

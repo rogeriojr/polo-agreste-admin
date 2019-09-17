@@ -1,0 +1,623 @@
+import React from 'react';
+import { Formik, FastField, Form, Field } from 'formik';
+import * as Yup from 'yup';
+import PropTypes from 'prop-types';
+import { Card, Typography, Input } from '@material-ui/core';
+import { Tab, Tabs } from 'components/Layout/Tabs';
+import { InputContainer, InputItem } from 'components/form/StyledComponents';
+import CustomTextField from 'components/form/components/CustomTextField';
+import CustomSelect from 'components/form/components/CustomSelect';
+import FormButtons from 'components/form/components/FormButtons';
+import CustomRichText from 'components/form/components/CustomRichText';
+import { useDispatch, useSelector } from 'react-redux';
+import { Creators as CityCreators } from 'store/ducks/city';
+import CustomMaskField from 'components/form/components/CustomMaskField';
+import { validateBr } from 'js-brasil';
+import validators from 'utils/validators';
+import CustomInputDate from 'components/form/components/CustomInputDate';
+import CustomImageField from 'components/form/components/CustomImageField';
+import { formatCityName } from 'utils/converters';
+
+const TabContainer = ({ children }) => {
+  return (
+    <Typography component="div" style={{ padding: 8 * 3 }}>
+      {children}
+    </Typography>
+  );
+};
+
+TabContainer.propTypes = {
+  children: PropTypes.node.isRequired,
+};
+
+export const formInitialValues = {
+  id: '',
+  name: '',
+  email: '',
+  description: '',
+  cnpj: '',
+  social_name: '',
+  state_register: '',
+  cell_phone: '',
+  cnai: '',
+  segment: '',
+  website: '',
+  address: {
+    code_post: '',
+    street: '',
+    number: '',
+    district: '',
+    complement: '',
+    city: {
+      id: '',
+    },
+  },
+  manager: {
+    name: '',
+    father_name: '',
+    mother_name: '',
+    email: '',
+    cpf: '',
+    rg_number: '',
+    rg_issuer: '',
+    rg_issuer_date: null,
+    cell_phone: '',
+    birth_date: null,
+    code_post: '',
+    street: '',
+    number: '',
+    district: '',
+    complement: '',
+    city: {
+      id: '',
+    },
+  },
+  bank: {
+    bank_number: '',
+    agency_number: '',
+    agency_check_number: '',
+    account_number: '',
+    account_check_number: '',
+    type: '',
+    doc_type: 'CPF',
+    doc_number: '',
+    account_holder: '',
+  },
+};
+
+const schema = Yup.object().shape({
+  id: Yup.number(),
+  name: Yup.string().required('Campo obrigatório'),
+  email: Yup.string()
+    .email('E-mail inválido')
+    .required('Campo obrigatório'),
+  // description: Yup.string(),
+  cnpj: Yup.string()
+    .test('cnpj', 'CNPJ inválido', val =>
+      val === undefined ? false : validateBr.cnpj(val),
+    )
+    .required('Obrigatório'),
+  social_name: Yup.string().required('Campo obrigatório'),
+  state_register: Yup.string().required('Campo obrigatório'),
+  cell_phone: Yup.string().required('Campo obrigatório'),
+  cnai: Yup.string(),
+  segment: Yup.string().required('Campo obrigatório'),
+  website: Yup.string(),
+  address: Yup.object().shape({
+    code_post: Yup.string().test('cep', 'CEP inválido', val =>
+      val === undefined ? false : validateBr.cep(val),
+    ),
+    street: Yup.string(),
+    number: Yup.number().nullable(),
+    district: Yup.string(),
+    complement: Yup.string(),
+    city: Yup.object().shape({
+      id: Yup.number().nullable(),
+    }),
+  }),
+  manager: Yup.object().shape({
+    name: Yup.string().required('Este campo é obrigatório'),
+    father_name: Yup.string(),
+    mother_name: Yup.string(),
+    email: Yup.string().email('E-mail inválido'),
+    cpf: Yup.string()
+      .test(...validators.cpfInvalid('CPF inválido'))
+      .required('Obrigatório'),
+    rg_number: Yup.string(),
+    rg_issuer: Yup.string(),
+    rg_issuer_date: Yup.string(),
+    cell_phone: Yup.string(),
+    birth_date: Yup.date(),
+    code_post: Yup.string().test('cep', 'CEP inválido', val =>
+      val === undefined ? false : validateBr.cep(val),
+    ),
+    street: Yup.string(),
+    number: Yup.number().nullable(),
+    district: Yup.string(),
+    complement: Yup.string(),
+    city: Yup.object().shape({
+      id: Yup.number().nullable(),
+    }),
+    image: '',
+    image_data: '',
+    image_info: '',
+  }),
+  bank: Yup.object().shape({
+    bank_number: Yup.number().nullable(),
+    agency_number: Yup.number().nullable(),
+    agency_check_number: Yup.string().test(
+      ...validators.numberNotRequired('Apenas numeros'),
+    ),
+    account_number: Yup.number().nullable(),
+    account_check_number: Yup.number().nullable(),
+    type: Yup.string(),
+    doc_type: Yup.string(),
+    doc_number: Yup.string(),
+    account_holder: Yup.string(),
+  }),
+});
+
+const StoreForm = ({
+  onSubmit,
+  initialValues = formInitialValues,
+  submitText,
+  handleBack,
+  isLoading,
+}) => {
+  const dispatch = useDispatch();
+  const [value, setValue] = React.useState(0);
+  const { cityList, cityListLoading } = useSelector(state => state.city);
+
+  const getInitialData = () =>
+    dispatch(CityCreators.getCityListRequest({ perPage: 1000 }));
+
+  React.useEffect(() => {
+    getInitialData();
+  }, []);
+
+  const handleChange = (event, newValue) => {
+    setValue(newValue);
+  };
+
+  return (
+    <Formik
+      initialValues={initialValues}
+      validationSchema={schema}
+      onSubmit={onSubmit}
+      render={({ values }) => (
+        <Form>
+          <Card style={{ marginTop: 20 }}>
+            <Tabs value={value} onChange={handleChange}>
+              <Tab label="LOJA" />
+              <Tab label="RESPONSÁVEL" />
+              <Tab label="INFORMAÇÕES BANCÁRIAS" />
+              <Tab label="QUEM SOMOS " />
+            </Tabs>
+            {value === 0 && (
+              <TabContainer>
+                <Typography variant="h6">Dados Básico</Typography>
+                <InputContainer>
+                  <InputItem>
+                    <FastField
+                      name="name"
+                      label="Nome da loja"
+                      component={CustomTextField}
+                    />
+                  </InputItem>
+                  <InputItem>
+                    <FastField
+                      name="segment"
+                      label="Segmento"
+                      component={CustomTextField}
+                    />
+                  </InputItem>
+                </InputContainer>
+                <InputContainer>
+                  <InputItem>
+                    <FastField
+                      name="social_name"
+                      label="Razão Social"
+                      component={CustomTextField}
+                    />
+                  </InputItem>
+                  <InputItem>
+                    <FastField
+                      name="cell_phone"
+                      label="Telefone"
+                      mask="(99) 99999-9999"
+                      component={CustomMaskField}
+                    />
+                  </InputItem>
+                </InputContainer>
+                <InputContainer>
+                  <InputItem>
+                    <FastField
+                      name="cnpj"
+                      label="CNPJ"
+                      mask="99.999.999/9999-99"
+                      component={CustomMaskField}
+                    />
+                  </InputItem>
+                  <InputItem>
+                    <FastField
+                      name="state_register"
+                      label="Inscrição Estadual"
+                      component={CustomTextField}
+                    />
+                  </InputItem>
+                </InputContainer>
+                <InputContainer>
+                  <InputItem>
+                    <FastField
+                      name="cnai"
+                      label="CNAI"
+                      component={CustomTextField}
+                    />
+                  </InputItem>
+                  <InputItem>
+                    <FastField
+                      name="email"
+                      label="E-mail"
+                      component={CustomTextField}
+                    />
+                  </InputItem>
+                </InputContainer>
+                <InputContainer>
+                  <InputItem>
+                    <FastField
+                      name="website"
+                      label="Website"
+                      component={CustomTextField}
+                    />
+                  </InputItem>
+                </InputContainer>
+                <Typography variant="h6">Endereço</Typography>
+                <InputContainer>
+                  <InputItem>
+                    <FastField
+                      name="address.code_post"
+                      label="CEP"
+                      component={CustomMaskField}
+                      mask="99999-999"
+                    />
+                  </InputItem>
+                  <InputItem>
+                    <FastField
+                      name="address.street"
+                      label="Logradouro"
+                      component={CustomTextField}
+                    />
+                  </InputItem>
+                </InputContainer>
+                <InputContainer>
+                  <InputItem>
+                    <FastField
+                      name="address.number"
+                      label="Número"
+                      type="number"
+                      component={CustomTextField}
+                    />
+                  </InputItem>
+                  <InputItem>
+                    <FastField
+                      name="address.complement"
+                      label="Complemento"
+                      component={CustomTextField}
+                    />
+                  </InputItem>
+                </InputContainer>
+                <InputContainer>
+                  <InputItem>
+                    <FastField
+                      name="address.district"
+                      label="Bairro"
+                      component={CustomTextField}
+                    />
+                  </InputItem>
+                  <InputItem>
+                    <Field
+                      name="address.city.id"
+                      label="Cidade"
+                      options={cityList}
+                      component={CustomSelect}
+                      placeholder="Cidade"
+                      isLoading={cityListLoading}
+                    />
+                  </InputItem>
+                </InputContainer>
+                <InputContainer>
+                  <InputItem>
+                    <FastField
+                      name="image"
+                      label="Imagem"
+                      component={CustomImageField}
+                      previewUrl={
+                        values.image_info && values.image_info.small
+                          ? values.image_info.small
+                          : ''
+                      }
+                    />
+                  </InputItem>
+                </InputContainer>
+              </TabContainer>
+            )}
+            {value === 1 && (
+              <TabContainer>
+                <Typography variant="h6">Dados Pessoais</Typography>
+                <InputContainer>
+                  <InputItem>
+                    <FastField
+                      name="manager.name"
+                      label="Nome completo"
+                      component={CustomTextField}
+                    />
+                  </InputItem>
+                  <InputItem>
+                    <FastField
+                      name="manager.cpf"
+                      label="CPF"
+                      mask="999.999.999-99"
+                      component={CustomMaskField}
+                    />
+                  </InputItem>
+                  {<div>{values.cpf}</div>}
+                </InputContainer>
+                <InputContainer>
+                  <InputItem>
+                    <Field
+                      name="manager.birth_date"
+                      label="Data de nascimento"
+                      component={CustomInputDate}
+                    />
+                  </InputItem>
+                  <InputItem>
+                    <FastField
+                      name="manager.cell_phone"
+                      label="Telefone"
+                      mask="(99) 99999-9999"
+                      component={CustomMaskField}
+                    />
+                  </InputItem>
+                </InputContainer>
+                <InputContainer>
+                  <InputItem>
+                    <FastField
+                      name="manager.email"
+                      label="E-mail"
+                      component={CustomTextField}
+                    />
+                  </InputItem>
+                </InputContainer>
+                <InputContainer>
+                  <InputItem>
+                    <FastField
+                      name="manager.rg_number"
+                      label="Número de RG"
+                      component={CustomTextField}
+                    />
+                  </InputItem>
+                  <InputItem>
+                    <FastField
+                      name="manager.rg_issuer"
+                      label="Orgão Emissor"
+                      component={CustomTextField}
+                    />
+                  </InputItem>
+                  <InputItem>
+                    <FastField
+                      name="manager.rg_issuer_date"
+                      label="Data de emissão"
+                      component={CustomInputDate}
+                    />
+                  </InputItem>
+                </InputContainer>
+                <InputContainer>
+                  <InputItem>
+                    <FastField
+                      name="manager.father_name"
+                      label="Nome do Pai"
+                      component={CustomTextField}
+                    />
+                  </InputItem>
+                  <InputItem>
+                    <FastField
+                      name="manager.mother_name"
+                      label="Nome da Mãe"
+                      component={CustomTextField}
+                    />
+                  </InputItem>
+                </InputContainer>
+                <Typography variant="h6">Endereço</Typography>
+                <InputContainer>
+                  <InputItem>
+                    <FastField
+                      name="manager.code_post"
+                      label="CEP"
+                      component={CustomMaskField}
+                      mask="99999-999"
+                    />
+                  </InputItem>
+                  <InputItem>
+                    <FastField
+                      name="manager.street"
+                      label="Logradouro"
+                      component={CustomTextField}
+                    />
+                  </InputItem>
+                </InputContainer>
+                <InputContainer>
+                  <InputItem>
+                    <FastField
+                      name="manager.number"
+                      label="Número"
+                      type="number"
+                      component={CustomTextField}
+                    />
+                  </InputItem>
+                  <InputItem>
+                    <FastField
+                      name="manager.complement"
+                      label="Complemento"
+                      component={CustomTextField}
+                    />
+                  </InputItem>
+                </InputContainer>
+                <InputContainer>
+                  <InputItem>
+                    <FastField
+                      name="manager.district"
+                      label="Bairro"
+                      component={CustomTextField}
+                    />
+                  </InputItem>
+                  <InputItem>
+                    <FastField
+                      name="manager.city.id"
+                      label="Cidade"
+                      options={formatCityName(cityList)}
+                      component={CustomSelect}
+                      placeholder="Cidade"
+                      isLoading={cityListLoading}
+                    />
+                  </InputItem>
+                </InputContainer>
+              </TabContainer>
+            )}
+            {value === 2 && (
+              <TabContainer>
+                <InputContainer>
+                  <InputItem>
+                    <FastField
+                      name="bank.bank_number"
+                      label="Número do banco"
+                      type="number"
+                      component={CustomTextField}
+                    />
+                  </InputItem>
+                  <InputItem>
+                    <FastField
+                      name="bank.agency_number"
+                      label="Número da agência"
+                      type="number"
+                      component={CustomTextField}
+                    />
+                  </InputItem>
+                  <InputItem>
+                    <FastField
+                      name="bank.agency_check_number"
+                      label="Dígito da agência"
+                      // type="number"
+                      component={CustomTextField}
+                    />
+                  </InputItem>
+                </InputContainer>
+                <InputContainer>
+                  <InputItem>
+                    <FastField
+                      name="bank.account_number"
+                      label="Número da Conta"
+                      type="number"
+                      component={CustomTextField}
+                    />
+                  </InputItem>
+                  <InputItem>
+                    <FastField
+                      name="bank.account_check_number"
+                      label="Dígito da Conta"
+                      type="number"
+                      component={CustomTextField}
+                    />
+                  </InputItem>
+                  <InputItem>
+                    <FastField
+                      name="bank.type"
+                      label="Tipo de conta"
+                      options={[
+                        { id: 'Corrente', name: 'Corrente' },
+                        { id: 'Poupança', name: 'Poupança' },
+                      ]}
+                      component={CustomSelect}
+                      placeholder="Tipo de conta"
+                      isLoading={false}
+                    />
+                  </InputItem>
+                </InputContainer>
+                <InputContainer>
+                  <InputItem>
+                    <FastField
+                      name="bank.account_holder"
+                      label="Titular da conta"
+                      component={CustomTextField}
+                    />
+                  </InputItem>
+                </InputContainer>
+                <InputContainer>
+                  <InputItem>
+                    <FastField
+                      name="bank.doc_type"
+                      label="Tipo de conta"
+                      options={[
+                        { id: 'CPF', name: 'CPF' },
+                        { id: 'CNPJ', name: 'CNPJ' },
+                      ]}
+                      placeholder="Tipo de conta"
+                      component={CustomSelect}
+                      isLoading={false}
+                    />
+                  </InputItem>
+                  <InputItem>
+                    <Field
+                      name="bank.doc_number"
+                      label="Número do documento"
+                      component={CustomMaskField}
+                      mask={
+                        values.bank.doc_type === 'CPF'
+                          ? '999.999.999-99'
+                          : '99.999.999/9999-99'
+                      }
+                    />
+                  </InputItem>
+                </InputContainer>
+              </TabContainer>
+            )}
+            {value === 3 && (
+              <TabContainer>
+                <InputContainer>
+                  <InputItem style={{ width: '50%' }}>
+                    <Field
+                      name="description"
+                      label="Descrição"
+                      component={CustomRichText}
+                    />
+                  </InputItem>
+                </InputContainer>
+              </TabContainer>
+            )}
+            <FormButtons
+              handleBack={handleBack}
+              isLoading={isLoading}
+              submitText={submitText}
+            />
+          </Card>
+        </Form>
+      )}
+    />
+  );
+};
+
+StoreForm.propTypes = {
+  onSubmit: PropTypes.func,
+  initialValues: PropTypes.oneOfType([PropTypes.object]),
+  submitText: PropTypes.string,
+  handleBack: PropTypes.oneOfType([PropTypes.bool, PropTypes.func]),
+  isLoading: PropTypes.bool.isRequired,
+};
+
+StoreForm.defaultProps = {
+  initialValues: formInitialValues,
+  submitText: 'Salvar',
+  handleBack: false,
+  onSubmit: () => {},
+};
+
+export default StoreForm;
