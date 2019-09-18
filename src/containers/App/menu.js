@@ -111,7 +111,7 @@ const Menu = [
   {
     id: 'category',
     text: 'Categorias',
-    icon: <Icon>style</Icon>,
+    icon: <Icon>category</Icon>,
     children: [
       {
         id: 'category-list',

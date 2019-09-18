@@ -148,8 +148,9 @@ const ProductForm = ({
               <InputItem>
                 <Tabs value={value} onChange={handleChange}>
                   <Tab label="PRODUTO" icon={<Icon>style</Icon>} />
+                  <Tab label="GALERIA" icon={<Icon>image</Icon>} />
                   <Tab label="DESCRIÇÕES" icon={<Icon>text_format</Icon>} />
-                  <Tab label="CATEGORIAS" icon={<Icon>style</Icon>} />
+                  <Tab label="CATEGORIAS" icon={<Icon>category</Icon>} />
                 </Tabs>
                 {value === 0 && (
                   <TabContainer>
@@ -298,6 +299,10 @@ const ProductForm = ({
                         />
                       </InputItem>
                     </InputContainer>
+                  </TabContainer>
+                )}
+                {value === 1 && (
+                  <TabContainer>
                     <InputContainer>
                       <InputItem>
                         <Field
@@ -313,7 +318,7 @@ const ProductForm = ({
                     </InputContainer>
                   </TabContainer>
                 )}
-                {value === 1 && (
+                {value === 2 && (
                   <TabContainer>
                     <InputContainer>
                       <InputItem style={{ width: '50%' }}>
@@ -335,7 +340,7 @@ const ProductForm = ({
                     </InputContainer>
                   </TabContainer>
                 )}
-                {value === 2 && (
+                {value === 3 && (
                   <TabContainer>
                     <InputContainer>
                       <InputItem>

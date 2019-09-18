@@ -101,7 +101,7 @@ const CategoryForm = ({
             <InputContainer>
               <InputItem>
                 <Tabs value={value} onChange={handleChange}>
-                  <Tab label="CATEGORIA PAI" icon={<Icon>style</Icon>} />
+                  <Tab label="CATEGORIA PAI" icon={<Icon>category</Icon>} />
                   <Tab label="BANNER" icon={<Icon>image</Icon>} />
                 </Tabs>
                 {value === 0 && (
