@@ -2,7 +2,7 @@ import React from 'react';
 import { Formik, FastField, Form, Field } from 'formik';
 import * as Yup from 'yup';
 import PropTypes from 'prop-types';
-import { Card, Typography, Input } from '@material-ui/core';
+import { Card, Typography, Input, Icon } from '@material-ui/core';
 import { Tab, Tabs } from 'components/Layout/Tabs';
 import { InputContainer, InputItem } from 'components/form/StyledComponents';
 import CustomTextField from 'components/form/components/CustomTextField';
@@ -188,10 +188,13 @@ const StoreForm = ({
         <Form>
           <Card style={{ marginTop: 20 }}>
             <Tabs value={value} onChange={handleChange}>
-              <Tab label="LOJA" />
-              <Tab label="RESPONSÁVEL" />
-              <Tab label="INFORMAÇÕES BANCÁRIAS" />
-              <Tab label="QUEM SOMOS " />
+              <Tab label="LOJA" icon={<Icon>store_mall_directory</Icon>} />
+              <Tab label="RESPONSÁVEL" icon={<Icon>person</Icon>} />
+              <Tab
+                label="INFORMAÇÕES BANCÁRIAS"
+                icon={<Icon>attach_money</Icon>}
+              />
+              <Tab label="QUEM SOMOS " icon={<Icon>text_format</Icon>} />
             </Tabs>
             {value === 0 && (
               <TabContainer>

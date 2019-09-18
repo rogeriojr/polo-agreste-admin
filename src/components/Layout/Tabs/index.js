@@ -37,6 +37,13 @@ const StyledTab = styled(TabOriginal)`
     }
     .MuiTab-wrapper {
       color: rgba(0, 0, 0, 0.38);
+      flex-direction: row;
+    }
+    .MuiIcon-root {
+      margin-right: 10px;
+    }
+    .MuiTab-wrapper > *:first-child {
+      margin-bottom: 0;
     }
     &[aria-selected='true'] .MuiTab-wrapper {
       color: #ce4899;
