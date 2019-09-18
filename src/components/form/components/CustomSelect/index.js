@@ -10,10 +10,8 @@ const StyledSelect = styled(Select)`
   && {
     & > div {
       min-height: 43px;
-      margin-bottom:20px;
     }
   }
-  
 `;
 
 const CustomSelect = ({

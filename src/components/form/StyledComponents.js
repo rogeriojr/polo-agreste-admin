@@ -7,7 +7,8 @@ const FormContainer = styled.div`
 const InputContainer = styled.div`
   display: flex;
   flex-wrap: wrap;
-  margin-top: 15px;
+  margin-top: 7px;
+  margin-bottom: 7px;
 `;
 
 const InputItem = styled.div`

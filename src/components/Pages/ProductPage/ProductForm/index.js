@@ -153,6 +153,7 @@ const ProductForm = ({
                 </Tabs>
                 {value === 0 && (
                   <TabContainer>
+                    <Typography variant="h6">Preços</Typography>
                     <InputContainer>
                       <InputItem>
                         <FastField
@@ -185,6 +186,7 @@ const ProductForm = ({
                         />
                       </InputItem>
                     </InputContainer>
+                    <Typography variant="h6">Estoques</Typography>
                     <InputContainer>
                       <InputItem>
                         <FastField
@@ -226,6 +228,7 @@ const ProductForm = ({
                         />
                       </InputItem>
                     </InputContainer>
+                    <Typography variant="h6">Dimensões</Typography>
                     <InputContainer>
                       <InputItem>
                         <FastField
@@ -258,6 +261,7 @@ const ProductForm = ({
                         />
                       </InputItem>
                     </InputContainer>
+                    <Typography variant="h6">Códigos</Typography>
                     <InputContainer>
                       <InputItem>
                         <FastField
@@ -281,6 +285,7 @@ const ProductForm = ({
                         />
                       </InputItem>
                     </InputContainer>
+                    <Typography variant="h6">Empresa</Typography>
                     <InputContainer>
                       <InputItem>
                         <Field
