@@ -9,6 +9,11 @@ const InputContainer = styled.div`
   flex-wrap: wrap;
   margin-top: 7px;
   margin-bottom: 7px;
+  && ~ .MuiTypography-root {
+    margin-top: 14px;
+    margin-left: 10px;
+    margin-bottom: 14px;
+  }
 `;
 
 const InputItem = styled.div`

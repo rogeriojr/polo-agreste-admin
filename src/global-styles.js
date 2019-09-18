@@ -353,6 +353,12 @@ const GlobalStyle = createGlobalStyle`
     line-height: 1.6rem !important;
     text-transform: none !important;
   }
+
+  .MuiTabs-root + .MuiTypography-root .MuiTypography-root:first-child {
+    margin-top: 0;
+    margin-left: 10px;
+    margin-bottom: 14px;
+  }
 `;
 
 export default GlobalStyle;

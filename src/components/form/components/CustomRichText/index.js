@@ -11,7 +11,12 @@ const CustomRichText = ({ field, label, form }) => {
     <>
       <Typography
         variant="h6"
-        style={{ color: '#282829', marginLeft: -10, marginBottom: 5 }}
+        style={{
+          color: '#282829',
+          marginTop: 10,
+          marginBottom: 14,
+          marginLeft: -1,
+        }}
       >
         {label}
       </Typography>
