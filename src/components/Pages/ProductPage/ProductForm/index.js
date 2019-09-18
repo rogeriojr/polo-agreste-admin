@@ -2,7 +2,7 @@ import React from 'react';
 import { Formik, FastField, Form, Field } from 'formik';
 import * as Yup from 'yup';
 import PropTypes from 'prop-types';
-import { Card, Typography } from '@material-ui/core';
+import { Card, Typography, Icon } from '@material-ui/core';
 import { Tab, Tabs } from 'components/Layout/Tabs';
 import { InputContainer, InputItem } from 'components/form/StyledComponents';
 import CustomTextField from 'components/form/components/CustomTextField';
@@ -147,9 +147,9 @@ const ProductForm = ({
             <InputContainer>
               <InputItem>
                 <Tabs value={value} onChange={handleChange}>
-                  <Tab label="PRODUTO" />
-                  <Tab label="DESCRIÇÕES" />
-                  <Tab label="CATEGORIAS" />
+                  <Tab label="PRODUTO" icon={<Icon>style</Icon>} />
+                  <Tab label="DESCRIÇÕES" icon={<Icon>text_format</Icon>} />
+                  <Tab label="CATEGORIAS" icon={<Icon>style</Icon>} />
                 </Tabs>
                 {value === 0 && (
                   <TabContainer>
