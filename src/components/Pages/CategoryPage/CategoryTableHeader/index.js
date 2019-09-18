@@ -29,14 +29,16 @@ const CategoryTableHeader = ({ getFunction, initialValues }) => {
                 placeholder="Informe uma palavra-chave"
               />
             </HeaderBoxItem>
-            <HeaderBoxItem style={{ paddingLeft: 6, paddingRight: 6 }}>
+            <HeaderBoxItem style={{ paddingLeft: 6, paddingRight: 0 }}>
               <Link to="/category/new">
                 <HeaderButton icon="add">Adicionar</HeaderButton>
               </Link>
             </HeaderBoxItem>
+            {/*
             <HeaderBoxItem style={{ paddingLeft: 6 }}>
               <HeaderButton icon="save_alt">Exportar</HeaderButton>
             </HeaderBoxItem>
+            */}
           </HeaderBoxContainer>
         </Form>
       )}

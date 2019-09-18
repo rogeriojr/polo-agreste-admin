@@ -23,10 +23,11 @@ const ClientTableHeader = ({ getFunction, initialValues }) => {
               name="search"
               placeholder="Informe uma palavra-chave"
             />
-          
+          {/*
           <Box style={{ padding: '0 6px', paddingRight: 12 }}>
               <HeaderButton icon="get_app">Exportar</HeaderButton>
             </Box>
+          */}
             </Box>
         </Form>
       )}

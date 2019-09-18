@@ -30,12 +30,14 @@ const ProductTableHeader = ({ getFunction, initialValues }) => {
                 placeholder="Informe uma palavra-chave"
               />
             </HeaderBoxItem>
-            <HeaderBoxItem style={{ paddingLeft: 12, paddingRight: 12 }}>
+            <HeaderBoxItem style={{ paddingLeft: 12, paddingRight: 6 }}>
               <HeaderButton icon="search">Busca Avançada</HeaderButton>
             </HeaderBoxItem>
+            {/*
             <HeaderBoxItem style={{ paddingRight: 6, paddingLeft: '0' }}>
               <HeaderButton icon="get_app">Exportar</HeaderButton>
             </HeaderBoxItem>
+            */}
             <HeaderBoxItem style={{ paddingLeft: 6, paddingRight: '12px' }}>
               <Link to="/product/new">
                 <HeaderFab icon="add" />

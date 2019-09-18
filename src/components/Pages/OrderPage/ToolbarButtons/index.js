@@ -12,10 +12,12 @@ const ToolbarButtons = () => (
         <SearchIcon className="bt-icon" />
         Busca avançada
       </Button>
+      {/*
       <Button variant="contained" className="bt-orange">
         <GetAppIcon className="bt-icon" />
         Exportar
       </Button>
+      */}
     </span>
   </div>
 );

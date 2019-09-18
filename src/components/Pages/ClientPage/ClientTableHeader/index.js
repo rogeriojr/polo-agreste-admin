@@ -31,9 +31,11 @@ const ClientTableHeader = ({ getFunction, initialValues }) => {
             <HeaderBoxItem style={{ paddingLeft: 6, paddingRight: 6 }}>
               <HeaderButton icon="search">Busca Avançada</HeaderButton>
             </HeaderBoxItem>
+            {/*
             <HeaderBoxItem style={{ paddingLeft: 6 }}>
               <HeaderButton icon="get_app">Exportar</HeaderButton>
             </HeaderBoxItem>
+            */}
           </HeaderBoxContainer>
         </Form>
       )}
