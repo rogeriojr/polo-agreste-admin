@@ -9,7 +9,10 @@ const CustomRichText = ({ field, label, form }) => {
   };
   return (
     <>
-      <Typography variant="h6" style={{ color: '#717171', marginBottom: 5 }}>
+      <Typography
+        variant="h6"
+        style={{ color: '#282829', marginLeft: -10, marginBottom: 5 }}
+      >
         {label}
       </Typography>
       <RichTextEditor
