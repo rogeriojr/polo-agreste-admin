@@ -15,6 +15,7 @@ import { Creators as StoreCreators } from 'store/ducks/stores';
 import { Creators as ProductCreators } from 'store/ducks/product';
 import CustomCurrencyField from 'components/form/components/CustomCurrencyField';
 import CustomImageField from 'components/form/components/CustomImageField';
+import VariationField from 'components/Pages/ProductPage/ProductForm/VariationField';
 
 const TabContainer = ({ children }) => {
   return (
@@ -53,6 +54,7 @@ export const formInitialValues = {
   images: '',
   images_data: [],
   images_info: [],
+  variations: [],
 };
 
 const schema = Yup.object().shape({
@@ -151,6 +153,7 @@ const ProductForm = ({
                   <Tab label="GALERIA" icon={<Icon>image</Icon>} />
                   <Tab label="DESCRIÇÕES" icon={<Icon>text_format</Icon>} />
                   <Tab label="CATEGORIAS" icon={<Icon>category</Icon>} />
+                  <Tab label="VARIAÇÕES" icon={<Icon>toc</Icon>} />
                 </Tabs>
                 {value === 0 && (
                   <TabContainer>
@@ -356,6 +359,22 @@ const ProductForm = ({
                         />
                       </InputItem>
                     </InputContainer>
+                  </TabContainer>
+                )}
+                {value === 4 && (
+                  <TabContainer>
+                    <Field
+                      name="variations"
+                      label="Variations"
+                      component={VariationField}
+                      placeholder="Variações"
+                      variations={[
+                        { name: 'Tamanho P', id: 1 },
+                        { name: 'Tamanho M', id: 2 },
+                        { name: 'Tamanho G', id: 3 },
+                      ]}
+                      isLoading={false}
+                    />
                   </TabContainer>
                 )}
               </InputItem>
