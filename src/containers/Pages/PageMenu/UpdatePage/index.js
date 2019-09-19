@@ -56,7 +56,11 @@ const PageUpdatePage = ({ match }) => {
     <PageBase>
       <HeaderComponent title="Atualizar página" />
       {localState && (
-        <PageForm initialValues={localState} handleBack={handleBack} onSubmit={onSubmit} />
+        <PageForm
+          initialValues={localState}
+          handleBack={handleBack}
+          onSubmit={onSubmit}
+        />
       )}
     </PageBase>
   );
