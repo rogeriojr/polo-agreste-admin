@@ -342,6 +342,7 @@ const ProductForm = ({
                 )}
                 {value === 3 && (
                   <TabContainer>
+                    <Typography variant="h6">Categorias</Typography>
                     <InputContainer>
                       <InputItem>
                         <Field
