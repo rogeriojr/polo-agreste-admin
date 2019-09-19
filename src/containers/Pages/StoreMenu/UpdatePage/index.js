@@ -8,6 +8,7 @@ import StoreForm from 'components/Pages/StorePage/StoreForm';
 import { withRouter } from 'react-router-dom';
 import RichTextEditor from 'react-rte';
 import PropTypes from 'prop-types';
+import { push } from 'connected-react-router';
 
 const StoreUpdatePage = ({ match }) => {
   const dispatch = useDispatch();
@@ -51,6 +52,10 @@ const StoreUpdatePage = ({ match }) => {
     dispatch(StoreCreators.getStoreUpdateRequest(data));
   };
 
+  const handleBack = () => {
+    dispatch(push(`/store`));
+  };
+
   return (
     <PageBase>
       <HeaderComponent title="Atualizar loja" />
@@ -59,6 +64,7 @@ const StoreUpdatePage = ({ match }) => {
           <StoreForm
             initialValues={localState}
             onSubmit={onSubmit}
+            handleBack={handleBack}
             isLoading={storeUpdateLoading}
           />
         )}

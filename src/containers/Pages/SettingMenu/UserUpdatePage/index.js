@@ -7,6 +7,7 @@ import UserForm from 'components/Pages/UserPage/UserForm';
 import { withRouter } from 'react-router-dom';
 import RichTextEditor from 'react-rte';
 import PropTypes from 'prop-types';
+import { push } from 'connected-react-router';
 
 const UserUpdatePage = ({ match }) => {
   const dispatch = useDispatch();
@@ -51,6 +52,10 @@ const UserUpdatePage = ({ match }) => {
     dispatch(UserCreators.getUserUpdateRequest(data));
   };
 
+  const handleBack = () => {
+    dispatch(push(`/user`));
+  };
+
   return (
     <PageBase>
       <HeaderComponent title="Atualizar usuário" />
@@ -58,6 +63,7 @@ const UserUpdatePage = ({ match }) => {
         <UserForm
           initialValues={localState}
           onSubmit={onSubmit}
+          handleBack={handleBack}
           isLoading={userUpdateLoading}
         />
       )}

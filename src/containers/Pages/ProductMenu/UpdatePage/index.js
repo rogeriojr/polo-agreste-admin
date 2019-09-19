@@ -7,6 +7,7 @@ import ProductForm from 'components/Pages/ProductPage/ProductForm';
 import { withRouter } from 'react-router-dom';
 import RichTextEditor from 'react-rte';
 import PropTypes from 'prop-types';
+import { push } from 'connected-react-router';
 
 const ProductUpdatePage = ({ match }) => {
   const dispatch = useDispatch();
@@ -56,6 +57,10 @@ const ProductUpdatePage = ({ match }) => {
     dispatch(ProductCreators.getProductUpdateRequest(data));
   };
 
+  const handleBack = () => {
+    dispatch(push(`/product`));
+  };
+
   return (
     <PageBase>
       <HeaderComponent title="Atualizar produto" />
@@ -64,6 +69,7 @@ const ProductUpdatePage = ({ match }) => {
           initialValues={localState}
           isLoading={productUpdateLoading}
           onSubmit={onSubmit}
+          handleBack={handleBack}
         />
       )}
     </PageBase>

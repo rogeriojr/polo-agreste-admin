@@ -3,6 +3,7 @@ import PageBase from 'components/PageBase';
 import StoreForm from 'components/Pages/StorePage/StoreForm';
 import { useDispatch, useSelector } from 'react-redux';
 import { Creators } from 'store/ducks/stores';
+import { push } from 'connected-react-router';
 
 const StoreNewPage = () => {
   const dispatch = useDispatch();
@@ -10,11 +11,19 @@ const StoreNewPage = () => {
     dispatch(Creators.getStoreInsertRequest(data));
   };
 
+  const handleBack = () => {
+    dispatch(push(`/store`));
+  };
+
   const { storeInsertLoading } = useSelector(state => state.store);
 
   return (
     <PageBase title="Cadastrar Loja">
-      <StoreForm onSubmit={onSubmit} isLoading={storeInsertLoading} />
+      <StoreForm
+        onSubmit={onSubmit}
+        handleBack={handleBack}
+        isLoading={storeInsertLoading}
+      />
     </PageBase>
   );
 };

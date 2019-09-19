@@ -8,6 +8,7 @@ import PageForm from 'components/Pages/PageComponents/PageForm';
 import { withRouter } from 'react-router-dom';
 import RichTextEditor from 'react-rte';
 import PropTypes from 'prop-types';
+import { push } from 'connected-react-router';
 
 const PageUpdatePage = ({ match }) => {
   const dispatch = useDispatch();
@@ -47,11 +48,15 @@ const PageUpdatePage = ({ match }) => {
     dispatch(PageCreators.getPageUpdateRequest(data));
   };
 
+  const handleBack = () => {
+    dispatch(push(`/page`));
+  };
+
   return (
     <PageBase>
       <HeaderComponent title="Atualizar página" />
       {localState && (
-        <PageForm initialValues={localState} onSubmit={onSubmit} />
+        <PageForm initialValues={localState} handleBack={handleBack} onSubmit={onSubmit} />
       )}
     </PageBase>
   );

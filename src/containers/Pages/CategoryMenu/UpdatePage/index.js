@@ -8,6 +8,7 @@ import CategoryForm from 'components/Pages/CategoryPage/CategoryForm';
 import { withRouter } from 'react-router-dom';
 import RichTextEditor from 'react-rte';
 import PropTypes from 'prop-types';
+import { push } from 'connected-react-router';
 
 const CategoryUpdatePage = ({ match }) => {
   const dispatch = useDispatch();
@@ -51,6 +52,10 @@ const CategoryUpdatePage = ({ match }) => {
     dispatch(CategoryCreators.getCategoryUpdateRequest(data));
   };
 
+  const handleBack = () => {
+    dispatch(push(`/category`));
+  };
+
   return (
     <PageBase>
       <HeaderComponent title="Atualizar categoria" />
@@ -59,6 +64,7 @@ const CategoryUpdatePage = ({ match }) => {
           initialValues={localState}
           isLoading={categoryUpdateLoading}
           onSubmit={onSubmit}
+          handleBack={handleBack}
         />
       )}
     </PageBase>
