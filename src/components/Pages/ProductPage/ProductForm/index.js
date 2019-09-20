@@ -42,8 +42,6 @@ export const formInitialValues = {
   stock_control: '',
   price: '',
   price_discount: '',
-  price_whole: '',
-  price_whole_discount: '',
   quantity_max: '',
   quantity_min_whole: '',
   quantity_max_whole: '',
@@ -70,8 +68,6 @@ const schema = Yup.object().shape({
   stock_control: Yup.string(),
   price: Yup.string(),
   price_discount: Yup.string(),
-  price_whole: Yup.string(),
-  price_whole_discount: Yup.string(),
   quantity_max: Yup.number(),
   quantity_min_whole: Yup.number(),
   quantity_max_whole: Yup.number(),
@@ -177,24 +173,8 @@ const ProductForm = ({
                       </InputItem>
                       <InputItem>
                         <FastField
-                          name="price_discount"
-                          label="Desconto"
-                          component={CustomCurrencyField}
-                        />
-                      </InputItem>
-                    </InputContainer>
-                    <InputContainer>
-                      <InputItem>
-                        <FastField
                           name="price_whole"
                           label="Preço total"
-                          component={CustomCurrencyField}
-                        />
-                      </InputItem>
-                      <InputItem>
-                        <FastField
-                          name="price_whole_discount"
-                          label="Preço total com desconto"
                           component={CustomCurrencyField}
                         />
                       </InputItem>
