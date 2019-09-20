@@ -60,7 +60,9 @@ function* getUserInsert({ payload }) {
       address,
     });
     const { id } = response.data.data;
-    const imageUpload = yield getUserImageUpload({ id, image_data });
+    if (typeof image_data === 'object' && image_data instanceof File) {
+      const imageUpload = yield getUserImageUpload({ id, image_data });
+    }
     yield put(Creators.getUserInsertSuccess());
     yield put(
       Notifications.success({ title: 'Cadastro concluido com sucesso' }),
@@ -100,7 +102,9 @@ function* getUserUpdate({ payload }) {
       group,
       address,
     });
-    const imageUpload = yield getUserImageUpload({ id, image_data });
+    if (typeof image_data === 'object' && image_data instanceof File) {
+      const imageUpload = yield getUserImageUpload({ id, image_data });
+    }
     yield put(Creators.getUserUpdateSuccess());
     yield put(Notifications.success({ title: 'Edição concluida com sucesso' }));
   } catch (err) {
