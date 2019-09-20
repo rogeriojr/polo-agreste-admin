@@ -369,7 +369,7 @@ const ProductForm = ({
                       component={VariationField}
                       placeholder="Variações"
                       variations={[
-                        { name: 'Tamanho P', id: 1 },
+                        { name: 'Tamanho: P, Cor: Azul', id: 1 },
                         { name: 'Tamanho M', id: 2 },
                         { name: 'Tamanho G', id: 3 },
                       ]}

@@ -10,6 +10,7 @@ import groupSaga from './group';
 import orderSaga from './order';
 import pageSaga from './page';
 import profileAccessSaga from './profileAccess';
+import attributeSaga from './attribute';
 
 export default function* rootSaga() {
   yield all([
@@ -24,5 +25,6 @@ export default function* rootSaga() {
     fork(orderSaga),
     fork(pageSaga),
     fork(profileAccessSaga),
+    fork(attributeSaga),
   ]);
 }

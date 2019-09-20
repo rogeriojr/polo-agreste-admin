@@ -35,6 +35,7 @@ const ActionFab = ({ icon, ...otherProps }) => (
   <StyledFab
     size="small"
     onClick={otherProps.onClick ? otherProps.onClick : null}
+    {...otherProps}
   >
     <StyledIcon>{icon}</StyledIcon>
   </StyledFab>

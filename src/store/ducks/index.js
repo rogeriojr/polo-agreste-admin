@@ -17,6 +17,7 @@ import groupReducer from 'store/ducks/group';
 import orderReducer from 'store/ducks/order';
 import pageReducer from 'store/ducks/page';
 import profileAccessReducer from 'store/ducks/profileAccess';
+import attributeReducer from 'store/ducks/attribute';
 
 /**
  * Merges the main reducer with the router state and dynamically injected reducers
@@ -36,4 +37,5 @@ export default history =>
     order: orderReducer,
     page: pageReducer,
     profileAccess: profileAccessReducer,
+    attribute: attributeReducer,
   });
