@@ -6,6 +6,9 @@ import { Formik, Field, Form } from 'formik';
 import SearchInput from 'components/HeaderComponent/SearchInput';
 import HeaderBoxContainer from 'components/HeaderComponent/HeaderBoxContainer';
 import HeaderBoxItem from 'components/HeaderComponent/HeaderBoxItem';
+import CustomInputDate from 'components/form/components/CustomInputDate';
+import CustomTextField from 'components/form/components/CustomTextField';
+import HeaderFab from 'components/HeaderComponent/HeaderFab';
 
 const OrderTableHeader = ({ getFunction, initialValues }) => {
   const onSubmit = values => {
@@ -24,10 +27,27 @@ const OrderTableHeader = ({ getFunction, initialValues }) => {
             </HeaderBoxItem>
             <HeaderBoxItem style={{ paddingLeft: 6, paddingRight: 6 }}>
               <Field
-                component={SearchInput}
+                component={CustomInputDate}
+                name="dateStart"
+                label="Data inicial"
+              />
+            </HeaderBoxItem>
+            <HeaderBoxItem style={{ paddingLeft: 6, paddingRight: 6 }}>
+              <Field
+                component={CustomInputDate}
+                name="dateEnd"
+                label="Data final"
+              />
+            </HeaderBoxItem>
+            <HeaderBoxItem style={{ paddingLeft: 6, paddingRight: 6 }}>
+              <Field
+                component={CustomTextField}
                 name="search"
                 placeholder="Informe uma palavra-chave"
               />
+            </HeaderBoxItem>
+            <HeaderBoxItem style={{ paddingLeft: 6, paddingRight: 6 }}>
+              <HeaderFab icon="search" type="submit" />
             </HeaderBoxItem>
             <HeaderBoxItem style={{ paddingLeft: 6, paddingRight: 0 }}>
               <HeaderButton icon="search">Busca Avançada</HeaderButton>

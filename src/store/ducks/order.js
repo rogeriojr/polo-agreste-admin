@@ -191,9 +191,19 @@ export const Creators = {
     search,
     orderByColumn,
     orderByDirection,
+    dateStart,
+    dateEnd,
   }) => ({
     type: Types.GET_LIST_REQUEST,
-    payload: { page, perPage, search, orderByColumn, orderByDirection },
+    payload: {
+      page,
+      perPage,
+      search,
+      orderByColumn,
+      orderByDirection,
+      dateStart,
+      dateEnd,
+    },
   }),
   getOrderListSuccess: ({ data, total }) => ({
     type: Types.GET_LIST_SUCCESS,

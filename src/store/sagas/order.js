@@ -74,13 +74,23 @@ function* getOrderDelete({ payload }) {
 
 function* getOrderList({ payload }) {
   try {
-    const { page, perPage, search, orderByColumn, orderByDirection } = payload;
+    const {
+      page,
+      perPage,
+      search,
+      orderByColumn,
+      orderByDirection,
+      dateStart,
+      dateEnd,
+    } = payload;
     const request = call(api.get, '/v1/admin/orders', {
       page,
       search,
       per_page: perPage,
       order: orderByColumn,
       order_by: orderByDirection,
+      date_start: dateStart,
+      date_end: dateEnd,
     });
 
     const response = yield call(callApi, request);

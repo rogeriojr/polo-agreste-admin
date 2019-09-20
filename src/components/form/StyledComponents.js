@@ -19,7 +19,7 @@ const InputContainer = styled.div`
 const InputItem = styled.div`
   flex-grow: ${props => props.flexGrow || 1};
   margin: 0 10px;
-  min-width: 200px;
+  min-width: 150px;
 `;
 
 export { InputContainer, InputItem, FormContainer };

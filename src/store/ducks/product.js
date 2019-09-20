@@ -219,6 +219,7 @@ export const Creators = {
     store,
     categories,
     images_data,
+    variations,
   }) => ({
     type: Types.GET_INSERT_REQUEST,
     payload: {
@@ -243,6 +244,7 @@ export const Creators = {
       store,
       categories,
       images_data,
+      variations,
     },
   }),
   getProductInsertSuccess: () => ({
@@ -296,6 +298,7 @@ export const Creators = {
     store,
     categories,
     images_data,
+    variations,
   }) => ({
     type: Types.GET_UPDATE_REQUEST,
     payload: {
@@ -321,6 +324,7 @@ export const Creators = {
       store,
       categories,
       images_data,
+      variations,
     },
   }),
   getProductUpdateSuccess: () => ({

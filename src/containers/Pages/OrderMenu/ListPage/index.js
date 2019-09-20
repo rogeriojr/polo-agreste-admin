@@ -82,6 +82,8 @@ const OrderListPage = () => {
     orderByDirection: '',
     page: 1,
     perPage: 10,
+    dateStart: '',
+    dateEnd: '',
   });
 
   const {
@@ -126,7 +128,11 @@ const OrderListPage = () => {
       <HeaderComponent title="Listar Pedidos">
         <OrderTableHeader
           getFunction={getFunction}
-          initialValues={{ search: localState.search }}
+          initialValues={{
+            search: localState.search,
+            dateStart: null,
+            dateEnd: null,
+          }}
         />
       </HeaderComponent>
       <Paper>

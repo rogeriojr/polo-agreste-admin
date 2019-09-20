@@ -64,12 +64,16 @@ const VariationField = ({
 
   const newVariation = () => [
     {
-      variation: {
+      color: {
         id: null,
-        value: null,
+        name: null,
+      },
+      size: {
+        id: null,
+        name: null,
       },
       price: null,
-      code: null,
+      code_ean: null,
       stock: null,
     },
   ];
@@ -83,10 +87,20 @@ const VariationField = ({
       field.name,
       field.value.map((fieldValue, i) => {
         if (i === indexVariation) {
-          if (curField === 'variation') {
+          if (curField === 'color') {
             return {
               ...fieldValue,
-              variation: {
+              color: {
+                id: option.value,
+                name: option.label,
+              },
+            };
+          }
+
+          if (curField === 'size') {
+            return {
+              ...fieldValue,
+              size: {
                 id: option.value,
                 name: option.label,
               },
@@ -113,13 +127,15 @@ const VariationField = ({
     );
   };
 
-  const convertVariation = variation => {
-    if (variation.id === null) {
+  const convertVariation = (variation, indexVariation) => {
+    if (!variation || variation.id === null) {
       return null;
     }
-    const actualVariation = variations.find(variationElm => {
-      return variation.id === variationElm.id;
-    });
+    const actualVariation = variations[indexVariation].options.find(
+      variationElm => {
+        return variation.id === variationElm.id;
+      },
+    );
 
     return {
       value: actualVariation.id,
@@ -135,6 +151,8 @@ const VariationField = ({
       }),
     );
   };
+
+  console.log(field.value);
 
   const actualVariations = responseToSelect(variations);
 
@@ -158,10 +176,27 @@ const VariationField = ({
                       return { ...rest, zIndex: 9999 };
                     },
                   }}
-                  value={convertVariation(fieldValue.variation)}
-                  onChange={onChangeVariation(indexVariation, 'variation')}
-                  placeholder="Variação"
-                  options={actualVariations}
+                  value={convertVariation(fieldValue.color, 0)}
+                  onChange={onChangeVariation(indexVariation, 'color')}
+                  placeholder="Cor"
+                  options={responseToSelect(variations[0].options)}
+                  isMulti={false}
+                  menuPortalTarget={document.querySelector('body')}
+                  isLoading={isLoading}
+                />
+              </InputItem>
+              <InputItem>
+                <StyledSelect
+                  styles={{
+                    menuPortal: base => {
+                      const { zIndex, ...rest } = base; // remove zIndex from base by destructuring
+                      return { ...rest, zIndex: 9999 };
+                    },
+                  }}
+                  value={convertVariation(fieldValue.size, 1)}
+                  onChange={onChangeVariation(indexVariation, 'size')}
+                  placeholder="Tamanho"
+                  options={responseToSelect(variations[1].options)}
                   isMulti={false}
                   menuPortalTarget={document.querySelector('body')}
                   isLoading={isLoading}
@@ -212,9 +247,10 @@ const VariationField = ({
           {field &&
             field.value &&
             field.value[0] &&
-            field.value[0].variation.id !== null && (
-              <CustomButton onClick={addVariation} label="Adicionar variação" />
-            )}
+            (field.value[0].color.id !== null ||
+              field.value[0].size.id !== null) && (
+            <CustomButton onClick={addVariation} label="Adicionar variação" />
+          )}
         </InputItem>
       </InputContainer>
     </>

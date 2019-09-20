@@ -25,6 +25,7 @@ const HeaderFab = ({ icon, ...otherProps }) => (
   <StyledFab
     size="small"
     onClick={otherProps.onClick ? otherProps.onClick : null}
+    {...otherProps}
   >
     <Icon>{icon}</Icon>
   </StyledFab>

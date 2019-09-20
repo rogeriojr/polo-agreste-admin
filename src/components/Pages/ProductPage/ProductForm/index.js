@@ -13,6 +13,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Creators as CategoryCreators } from 'store/ducks/category';
 import { Creators as StoreCreators } from 'store/ducks/stores';
 import { Creators as ProductCreators } from 'store/ducks/product';
+import { Creators as AttributeCreators } from 'store/ducks/attribute';
 import CustomCurrencyField from 'components/form/components/CustomCurrencyField';
 import CustomImageField from 'components/form/components/CustomImageField';
 import VariationField from 'components/Pages/ProductPage/ProductForm/VariationField';
@@ -97,16 +98,18 @@ const ProductForm = ({
   const dispatch = useDispatch();
   const [value, setValue] = React.useState(0);
 
-  const { category, store, product } = useSelector(state => state);
+  const { category, store, product, attribute } = useSelector(state => state);
 
   const { categoryList, categoryListLoading } = category;
   const { storeList, storeListLoading } = store;
   const { productImageDeleteLoading } = product;
   const productInfo = product.product;
+  const { attributeList, attributeListLoading } = attribute;
 
   const getInitialData = () => {
     dispatch(CategoryCreators.getCategoryListRequest({ perPage: 1000 }));
     dispatch(StoreCreators.getStoreListRequest({ perPage: 1000 }));
+    dispatch(AttributeCreators.getAttributeListRequest({ perPage: 1000 }));
   };
 
   const onDeleteImageRequest = image => {
@@ -368,12 +371,8 @@ const ProductForm = ({
                       label="Variations"
                       component={VariationField}
                       placeholder="Variações"
-                      variations={[
-                        { name: 'Tamanho: P, Cor: Azul', id: 1 },
-                        { name: 'Tamanho M', id: 2 },
-                        { name: 'Tamanho G', id: 3 },
-                      ]}
-                      isLoading={false}
+                      variations={attributeList}
+                      isLoading={attributeListLoading}
                     />
                   </TabContainer>
                 )}

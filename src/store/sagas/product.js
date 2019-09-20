@@ -57,6 +57,7 @@ function* getProductInsert({ payload }) {
       store,
       categories,
       images_data,
+      variations,
     } = payload;
     const response = yield call(api.post, '/v1/admin/products', {
       code_integration,
@@ -79,6 +80,7 @@ function* getProductInsert({ payload }) {
       weight,
       store,
       categories,
+      variations,
     });
     const { id } = response.data.data;
     yield getProductImagesUpload({ id, images_data });
@@ -117,6 +119,7 @@ function* getProductUpdate({ payload }) {
       store,
       categories,
       images_data,
+      variations,
     } = payload;
     /* const response =  */ yield call(api.put, `/v1/admin/products/${id}`, {
       code_integration,
@@ -139,6 +142,7 @@ function* getProductUpdate({ payload }) {
       weight,
       store,
       categories,
+      variations,
     });
     yield getProductImagesUpload({ id, images_data });
     yield put(Creators.getProductUpdateSuccess());
