@@ -80,6 +80,7 @@ const CategoryForm = ({
       validationSchema={schema}
       onSubmit={onSubmit}
       validateOnBlur
+      enableReinitialize
       render={({ values }) => (
         <Form>
           <Card style={{ padding: 20 }}>

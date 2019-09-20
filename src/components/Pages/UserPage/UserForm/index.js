@@ -134,6 +134,7 @@ const UserForm = ({
       validationSchema={schema}
       onSubmit={onSubmit}
       validateOnBlur
+      enableReinitialize
       render={({ values }) => (
         <Form>
           <Card style={{ marginTop: 20 }}>

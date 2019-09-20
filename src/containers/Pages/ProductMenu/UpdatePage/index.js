@@ -29,6 +29,7 @@ const ProductUpdatePage = ({ match }) => {
   }, []);
 
   React.useEffect(() => {
+    
     const { params } = match;
     if (
       Object.keys(product).length > 0 &&

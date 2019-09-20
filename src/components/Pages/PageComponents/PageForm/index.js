@@ -49,6 +49,7 @@ const PageForm = ({
       validationSchema={schema}
       onSubmit={onSubmit}
       validateOnBlur
+      enableReinitialize
       render={() => (
         <Form>
           <Card style={{ padding: 20 }}>

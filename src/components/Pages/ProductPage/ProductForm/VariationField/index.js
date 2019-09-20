@@ -57,8 +57,10 @@ const VariationField = ({
   placeholder,
   field,
   form,
-  variations,
-  isLoading,
+  colors,
+  sizes,
+  isLoadingColor,
+  isLoadingSize,
 }) => {
   //const [setRoot, setVariationsInfo] = React.useState();
 
@@ -127,15 +129,13 @@ const VariationField = ({
     );
   };
 
-  const convertVariation = (variation, indexVariation) => {
+  const convertAttributes = (variation, variations) => {
     if (!variation || variation.id === null) {
       return null;
     }
-    const actualVariation = variations[indexVariation].options.find(
-      variationElm => {
-        return variation.id === variationElm.id;
-      },
-    );
+    const actualVariation = variations.find(variationElm => {
+      return variation.id === variationElm.id;
+    });
 
     return {
       value: actualVariation.id,
@@ -151,10 +151,6 @@ const VariationField = ({
       }),
     );
   };
-
-  console.log(field.value);
-
-  const actualVariations = responseToSelect(variations);
 
   const addVariation = () => {
     const values = field.value.concat(newVariation());
@@ -176,13 +172,13 @@ const VariationField = ({
                       return { ...rest, zIndex: 9999 };
                     },
                   }}
-                  value={convertVariation(fieldValue.color, 0)}
+                  value={convertAttributes(fieldValue.color, colors)}
                   onChange={onChangeVariation(indexVariation, 'color')}
                   placeholder="Cor"
-                  options={responseToSelect(variations[0].options)}
+                  options={responseToSelect(colors)}
                   isMulti={false}
                   menuPortalTarget={document.querySelector('body')}
-                  isLoading={isLoading}
+                  isLoading={isLoadingColor}
                 />
               </InputItem>
               <InputItem>
@@ -193,13 +189,13 @@ const VariationField = ({
                       return { ...rest, zIndex: 9999 };
                     },
                   }}
-                  value={convertVariation(fieldValue.size, 1)}
+                  value={convertAttributes(fieldValue.size, sizes)}
                   onChange={onChangeVariation(indexVariation, 'size')}
                   placeholder="Tamanho"
-                  options={responseToSelect(variations[1].options)}
+                  options={responseToSelect(sizes)}
                   isMulti={false}
                   menuPortalTarget={document.querySelector('body')}
-                  isLoading={isLoading}
+                  isLoading={isLoadingSize}
                 />
               </InputItem>
               <InputItem>
@@ -249,8 +245,8 @@ const VariationField = ({
             field.value[0] &&
             (field.value[0].color.id !== null ||
               field.value[0].size.id !== null) && (
-            <CustomButton onClick={addVariation} label="Adicionar variação" />
-          )}
+              <CustomButton onClick={addVariation} label="Adicionar variação" />
+            )}
         </InputItem>
       </InputContainer>
     </>
@@ -260,9 +256,11 @@ const VariationField = ({
 VariationField.propTypes = {
   field: PropTypes.oneOfType([PropTypes.object]).isRequired,
   form: PropTypes.oneOfType([PropTypes.object]).isRequired,
-  variations: PropTypes.oneOfType([PropTypes.array]).isRequired,
+  colors: PropTypes.oneOfType([PropTypes.array]).isRequired,
+  sizes: PropTypes.oneOfType([PropTypes.array]).isRequired,
   placeholder: PropTypes.string.isRequired,
-  isLoading: PropTypes.bool.isRequired,
+  isLoadingColor: PropTypes.bool.isRequired,
+  isLoadingSize: PropTypes.bool.isRequired,
 };
 
 export default VariationField;

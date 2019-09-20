@@ -13,7 +13,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Creators as CategoryCreators } from 'store/ducks/category';
 import { Creators as StoreCreators } from 'store/ducks/stores';
 import { Creators as ProductCreators } from 'store/ducks/product';
-import { Creators as AttributeCreators } from 'store/ducks/attribute';
+import { Creators as ProductColorCreators } from 'store/ducks/productColor';
+import { Creators as ProductSizeCreators } from 'store/ducks/productSize';
 import CustomCurrencyField from 'components/form/components/CustomCurrencyField';
 import CustomImageField from 'components/form/components/CustomImageField';
 import VariationField from 'components/Pages/ProductPage/ProductForm/VariationField';
@@ -98,18 +99,22 @@ const ProductForm = ({
   const dispatch = useDispatch();
   const [value, setValue] = React.useState(0);
 
-  const { category, store, product, attribute } = useSelector(state => state);
+  const { category, store, product, productColor, productSize } = useSelector(state => state);
 
   const { categoryList, categoryListLoading } = category;
   const { storeList, storeListLoading } = store;
   const { productImageDeleteLoading } = product;
   const productInfo = product.product;
-  const { attributeList, attributeListLoading } = attribute;
+  const { productColorList, productColorListLoading } = productColor;
+  const { productSizeList, productSizeListLoading } = productSize;
 
   const getInitialData = () => {
     dispatch(CategoryCreators.getCategoryListRequest({ perPage: 1000 }));
     dispatch(StoreCreators.getStoreListRequest({ perPage: 1000 }));
-    dispatch(AttributeCreators.getAttributeListRequest({ perPage: 1000 }));
+    dispatch(
+      ProductColorCreators.getProductColorListRequest({ perPage: 1000 }),
+    );
+    dispatch(ProductSizeCreators.getProductSizeListRequest({ perPage: 1000 }));
   };
 
   const onDeleteImageRequest = image => {
@@ -135,6 +140,7 @@ const ProductForm = ({
       validationSchema={schema}
       onSubmit={onSubmit}
       validateOnBlur
+      enableReinitialize
       render={({ values }) => (
         <Form>
           <Card style={{ padding: 20 }}>
@@ -371,8 +377,10 @@ const ProductForm = ({
                       label="Variations"
                       component={VariationField}
                       placeholder="Variações"
-                      variations={attributeList}
-                      isLoading={attributeListLoading}
+                      colors={productColorList}
+                      sizes={productSizeList}
+                      isLoadingColor={productColorListLoading}
+                      isLoadingSize={productSizeListLoading}
                     />
                   </TabContainer>
                 )}

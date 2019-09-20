@@ -86,6 +86,7 @@ const ProfileNewForm = ({
     validationSchema={schema}
     onSubmit={onSubmit}
     validateOnBlur
+    enableReinitialize
     render={() => (
       <Form>
         <Card style={{ marginTop: 20 }}>

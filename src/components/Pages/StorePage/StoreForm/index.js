@@ -184,6 +184,7 @@ const StoreForm = ({
       initialValues={initialValues}
       validationSchema={schema}
       onSubmit={onSubmit}
+      enableReinitialize
       render={({ values }) => (
         <Form>
           <Card style={{ marginTop: 20 }}>
