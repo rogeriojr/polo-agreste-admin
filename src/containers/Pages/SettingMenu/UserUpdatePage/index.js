@@ -38,10 +38,6 @@ const UserUpdatePage = ({ match }) => {
       setLocalState({
         ...user,
         password: '',
-        description: RichTextEditor.createValueFromString(
-          user.description,
-          'markdown',
-        ),
         image_info: user.image,
         image: '',
       });

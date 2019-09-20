@@ -66,7 +66,7 @@ export const formInitialValues = {
 
 const schema = Yup.object().shape({
   email: Yup.string()
-    .email()
+    .email('E-mail inválido')
     .required('Campo obrigatório'),
   password: Yup.string(),
   password_confirm: Yup.string().oneOf(
@@ -140,7 +140,9 @@ const UserForm = ({
               <InputItem>
                 <Tabs value={value} onChange={handleChange}>
                   <Tab label="INFORMAÇÕES BÁSICAS" />
+                  {/*
                   <Tab label="DESCRIÇÕES" />
+                  */}
                   <Tab label="ENDEREÇO" />
                 </Tabs>
                 {value === 0 && (
@@ -259,6 +261,7 @@ const UserForm = ({
                     </InputContainer>
                   </TabContainer>
                 )}
+                {/*
                 {value === 1 && (
                   <TabContainer>
                     <InputContainer>
@@ -271,8 +274,8 @@ const UserForm = ({
                       </InputItem>
                     </InputContainer>
                   </TabContainer>
-                )}
-                {value === 2 && (
+                )} */}
+                {value === 1 && (
                   <TabContainer>
                     <InputContainer>
                       <InputItem>
