@@ -88,9 +88,7 @@ const schema = Yup.object().shape({
     id: Yup.string(),
   }),
   address: Yup.object().shape({
-    code_post: Yup.string().test('cep', 'CEP inválido', val =>
-      val === undefined ? false : validateBr.cep(val),
-    ),
+    code_post: Yup.string(),
     street: Yup.string(),
     number: Yup.number().nullable(),
     district: Yup.string(),

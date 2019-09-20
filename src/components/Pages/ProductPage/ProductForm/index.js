@@ -40,6 +40,7 @@ export const formInitialValues = {
   description: '',
   description_tec: '',
   stock_control: '',
+  stock: '',
   price: '',
   price_discount: '',
   quantity_max: '',
@@ -65,8 +66,9 @@ const schema = Yup.object().shape({
   name: Yup.string().required('Campo obrigatório'),
   description: Yup.string().required('Campo obrigatório'),
   description_tec: Yup.string(),
-  stock_control: Yup.string(),
-  price: Yup.string(),
+  stock_control: Yup.string().required('Campo obrigatório'),
+  stock: Yup.number(),
+  price: Yup.string().required('Campo obrigatório'),
   price_discount: Yup.string(),
   quantity_max: Yup.number(),
   quantity_min_whole: Yup.number(),
@@ -167,14 +169,14 @@ const ProductForm = ({
                       <InputItem>
                         <FastField
                           name="price"
-                          label="Preço padrão"
+                          label="Preço varejo"
                           component={CustomCurrencyField}
                         />
                       </InputItem>
                       <InputItem>
                         <FastField
                           name="price_whole"
-                          label="Preço total"
+                          label="Preço atacado"
                           component={CustomCurrencyField}
                         />
                       </InputItem>
@@ -196,19 +198,28 @@ const ProductForm = ({
                       </InputItem>
                       <InputItem>
                         <FastField
-                          name="quantity_max"
+                          name="stock"
                           type="number"
-                          label="Quantidade máxima"
+                          label="Quantidade de estoque"
                           component={CustomTextField}
                         />
                       </InputItem>
                     </InputContainer>
+                    <Typography variant="h6">Limite de vendas</Typography>
                     <InputContainer>
+                      <InputItem>
+                        <FastField
+                          name="quantity_max"
+                          type="number"
+                          label="Quantidade máxima de varejo"
+                          component={CustomTextField}
+                        />
+                      </InputItem>
                       <InputItem>
                         <FastField
                           name="quantity_min_whole"
                           type="number"
-                          label="Quantidade minima total"
+                          label="Quantidade minima de atacado"
                           component={CustomTextField}
                         />
                       </InputItem>
@@ -216,7 +227,7 @@ const ProductForm = ({
                         <FastField
                           name="quantity_max_whole"
                           type="number"
-                          label="Quantidade máxima total"
+                          label="Quantidade máxima de atacado"
                           component={CustomTextField}
                         />
                       </InputItem>
