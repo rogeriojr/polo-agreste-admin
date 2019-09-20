@@ -72,9 +72,9 @@ const VariationField = ({
         id: null,
         name: null,
       },
-      price: null,
-      code_ean: null,
-      stock: null,
+      price: '',
+      code_ean: '',
+      stock: '',
     },
   ];
 
@@ -216,8 +216,8 @@ const VariationField = ({
               </InputItem>
               <InputItem>
                 <StyledTextField
-                  value={fieldValue.code}
-                  onChange={onChangeVariation(indexVariation, 'code')}
+                  value={fieldValue.code_ean}
+                  onChange={onChangeVariation(indexVariation, 'code_ean')}
                   fullWidth
                   variant="outlined"
                   label="Código"
