@@ -31,7 +31,7 @@ export const formInitialValues = {
   description: '',
   order_position: '',
   category_father: {
-    id: '',
+    id: 0,
   },
   image: '',
   image_data: '',
@@ -41,12 +41,10 @@ export const formInitialValues = {
 const schema = Yup.object().shape({
   id: Yup.number(),
   name: Yup.string().required('Este campo é obrigatório'),
-  description: Yup.string().required('Este campo é obrigatório'),
-  order_position: Yup.number().required('Este campo é obrigatório'),
+  description: Yup.string(),
+  order_position: Yup.number(),
   category_father: Yup.object().shape({
-    id: Yup.number()
-      .typeError('Este campo é obrigatório')
-      .required(),
+    id: Yup.number(),
   }),
 });
 
