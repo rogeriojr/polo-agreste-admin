@@ -1,8 +1,8 @@
 import { create } from 'apisauce';
 
 const apiUrl = {
-  hml: 'http://api.ofertaplay.com.br',
-  prod: 'http://api.ofertaplay.com.br',
+  hml: 'http://api.44express.com',
+  prod: 'http://api.44express.com',
 };
 
 const api = create({
