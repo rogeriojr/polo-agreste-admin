@@ -44,12 +44,8 @@ const Login = ({ classes }) => {
             onFormSubmit={onSubmit}
             classes={classes}
             isLoading={loading}
+            error={error}
           />
-          {error ? (
-            <Typography paragraph className={classes.errorMessage}>
-              * {error}
-            </Typography>
-          ) : null}
         </Paper>
       </div>
     </div>

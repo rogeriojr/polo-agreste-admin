@@ -36,6 +36,7 @@ const styles = () => ({
   errorMessage: {
     color: red[500],
     marginTop: 20,
+    marginBottom: '-14px !important',
     textAlign: 'center',
   },
   flatButton: {

@@ -1,7 +1,7 @@
 import React from 'react';
 import { Formik, Field } from 'formik';
 import * as Yup from 'yup';
-import { Button } from '@material-ui/core';
+import { Button, Typography } from '@material-ui/core';
 import classNames from 'classnames';
 import PropTypes from 'prop-types';
 import Checkbox from '@material-ui/core/Checkbox';
@@ -22,7 +22,13 @@ const schema = Yup.object().shape({
   password: Yup.string().required('Este campo é obrigatório'),
 });
 
-const LoginForm = ({ onFormSubmit, initialValues, isLoading, classes }) => (
+const LoginForm = ({
+  onFormSubmit,
+  initialValues,
+  isLoading,
+  classes,
+  error,
+}) => (
   <div>
     <Formik
       initialValues={initialValues}
@@ -46,6 +52,11 @@ const LoginForm = ({ onFormSubmit, initialValues, isLoading, classes }) => (
               />
             </InputItem>
           </InputContainer>
+          {error ? (
+            <Typography paragraph className={classes.errorMessage}>
+              * {error}
+            </Typography>
+          ) : null}
           <div className={classes.buttonsContainer}>
             <div className={classes.checkRememberContainer}>
               <FormControlLabel
