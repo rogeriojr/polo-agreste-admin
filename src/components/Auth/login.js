@@ -40,16 +40,16 @@ const Login = ({ classes }) => {
               alt="44express"
             />
           </div>
-          {error ? (
-            <Typography paragraph className={classes.errorMessage}>
-              * {error}
-            </Typography>
-          ) : null}
           <LoginForm
             onFormSubmit={onSubmit}
             classes={classes}
             isLoading={loading}
           />
+          {error ? (
+            <Typography paragraph className={classes.errorMessage}>
+              * {error}
+            </Typography>
+          ) : null}
         </Paper>
       </div>
     </div>
