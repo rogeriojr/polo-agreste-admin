@@ -11,8 +11,8 @@ import { InputContainer, InputItem } from 'components/form/StyledComponents';
 import CustomTextField from 'components/form/components/CustomTextField';
 
 export const initialValues = {
-  email: 'email@teste.com',
-  password: 'Senha1',
+  email: '',
+  password: '',
 };
 
 const schema = Yup.object().shape({
