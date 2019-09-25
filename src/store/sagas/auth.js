@@ -1,5 +1,6 @@
 import { call, put, all, takeLatest, select, take } from 'redux-saga/effects';
 import { Creators as AuthCreators, Types as AuthTypes } from 'store/ducks/auth';
+import { Creators as AuthErrorCreators, Types as AuthErrorTypes } from 'store/ducks/authError';
 import { push } from 'connected-react-router';
 import { REHYDRATE } from 'redux-persist';
 
@@ -7,6 +8,7 @@ import api from 'services/api';
 
 function* getLogin({ payload: { email, password } }) {
   try {
+    yield put(AuthErrorCreators.getAuthErrorRequest());
     yield call(
       api.setHeader,
       'Authorization',
@@ -27,6 +29,12 @@ function* getLogin({ payload: { email, password } }) {
     // yield put(LoginCreators.getLoginSuccess());
     yield put(push('/'));
   } catch (err) {
+    if (err.status === 401) {
+      yield put(AuthCreators.getAuthFailure());
+      yield put(
+        AuthErrorCreators.getAuthErrorFailure('E-mail e/ou senha incorreto'),
+      );
+    }
     // yield put(LoginCreators.getLoginFailure(err.data.msg));
   }
 }

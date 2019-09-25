@@ -16,7 +16,9 @@ import styles from './styles';
 
 const Login = ({ classes }) => {
   const dispatch = useDispatch();
-  const { error, loading } = useSelector(state => state.auth);
+  const { auth, authError } = useSelector(state => state);
+  const { loading } = auth;
+  const { error } = authError;
 
   const onSubmit = ({ email, password }) => {
     dispatch(Creators.getAuthRequest({ email, password }));

@@ -8,6 +8,7 @@ import { reducer as notifications } from 'react-notification-system-redux';
 
 import appReducer from 'store/ducks/app';
 import authReducer from 'store/ducks/auth';
+import authErrorReducer from 'store/ducks/authError';
 import productReducer from 'store/ducks/product';
 import categoryReducer from 'store/ducks/category';
 import storeReducer from 'store/ducks/stores';
@@ -30,6 +31,7 @@ export default history =>
     app: appReducer,
     product: productReducer,
     auth: authReducer,
+    authError: authErrorReducer,
     category: categoryReducer,
     store: storeReducer,
     city: cityReducer,

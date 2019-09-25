@@ -1,3 +1,5 @@
+import { typeCastExpression } from "@babel/types";
+
 export const Types = {
   GET_REQUEST: 'auth/GET_REQUEST',
   GET_SUCCESS: 'auth/GET_SUCCESS',
@@ -43,6 +45,13 @@ export default function(state = initialState, action) {
         isAuth: true,
         loading: false,
         error: null,
+      };
+    case Types.GET_FAILURE:
+      return {
+        ...state,
+        isAuth: false,
+        loading: false,
+        error: action.payload,
       };
     default:
       return state;
