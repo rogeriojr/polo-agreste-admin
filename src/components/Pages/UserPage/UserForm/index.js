@@ -42,7 +42,7 @@ export const formInitialValues = {
   genre: '',
   description: '',
   cell_phone: '',
-  birth_date: null,
+  birth_date: '',
   group: {
     id: '',
   },
@@ -52,11 +52,11 @@ export const formInitialValues = {
   address: {
     code_post: '',
     street: '',
-    number: null,
+    number: '',
     district: '',
     complement: '',
     city: {
-      id: null,
+      id: '',
     },
   },
   image: '',
@@ -90,11 +90,11 @@ const schema = Yup.object().shape({
   address: Yup.object().shape({
     code_post: Yup.string(),
     street: Yup.string(),
-    number: Yup.number().nullable(),
+    number: Yup.string().test(...validators.numberNotRequired()),
     district: Yup.string(),
     complement: Yup.string(),
     city: Yup.object().shape({
-      id: Yup.number().nullable(),
+      id: Yup.string().test(...validators.numberNotRequired()),
     }),
   }),
 });
