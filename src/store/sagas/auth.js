@@ -6,7 +6,7 @@ import { REHYDRATE } from 'redux-persist';
 
 import api from 'services/api';
 
-function* getLogin({ payload: { email, password } }) {
+function* getLogin({ payload: { email, password, rememberMe } }) {
   try {
     yield put(AuthErrorCreators.getAuthErrorRequest());
     yield call(
@@ -25,7 +25,17 @@ function* getLogin({ payload: { email, password } }) {
       'Authorization',
       `Bearer ${response.data.access_token}`,
     );
-    yield put(AuthCreators.getAuthSuccess(response.data));
+    let dataSaved = response.data;
+
+    console.log(rememberMe);
+    if (rememberMe === true) {
+      dataSaved = {
+        ...dataSaved,
+        rememberMe,
+        email,
+      };
+    }
+    yield put(AuthCreators.getAuthSuccess(dataSaved));
     // yield put(LoginCreators.getLoginSuccess());
     yield put(push('/'));
   } catch (err) {

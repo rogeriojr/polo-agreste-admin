@@ -9,10 +9,12 @@ import FormControlLabel from '@material-ui/core/FormControlLabel';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import { InputContainer, InputItem } from 'components/form/StyledComponents';
 import CustomTextField from 'components/form/components/CustomTextField';
+import CustomSimpleCheckbox from 'components/form/components/CustomSimpleCheckbox';
 
-export const initialValues = {
+export const formInitialValues = {
   email: '',
   password: '',
+  rememberMe: false,
 };
 
 const schema = Yup.object().shape({
@@ -20,11 +22,12 @@ const schema = Yup.object().shape({
     .email('Este email não é valido')
     .required('Este campo é obrigatório'),
   password: Yup.string().required('Este campo é obrigatório'),
+  rememberMe: Yup.bool(),
 });
 
 const LoginForm = ({
   onFormSubmit,
-  initialValues,
+  initialValues = formInitialValues,
   isLoading,
   classes,
   error,
@@ -59,16 +62,11 @@ const LoginForm = ({
           ) : null}
           <div className={classes.buttonsContainer}>
             <div className={classes.checkRememberContainer}>
-              <FormControlLabel
-                control={
-                  <Checkbox
-                    className={classes.checkRemember}
-                    checked={false}
-                    value="rememberMe"
-                    // onChange={onRememberMeChange}
-                  />
-                }
+              <Field
+                name="rememberMe"
                 label="Lembrar-me"
+                component={CustomSimpleCheckbox}
+                className={classes.checkRemember}
               />
             </div>
 
@@ -98,10 +96,11 @@ LoginForm.propTypes = {
   submitText: PropTypes.string,
   handleBack: PropTypes.oneOfType([PropTypes.bool, PropTypes.func]),
   isLoading: PropTypes.bool.isRequired,
+  initialValues: PropTypes.oneOfType(PropTypes.object),
 };
 
 LoginForm.defaultProps = {
-  initialValues,
+  initialValues: formInitialValues,
   submitText: 'Salvar',
   handleBack: false,
 };

@@ -18,6 +18,8 @@ const initialState = {
     expires_in: '',
     access_token: '',
     refresh_token: '',
+    email: '',
+    rememberMe: false,
   },
   isAuth: false,
   loading: false,
@@ -37,7 +39,14 @@ export default function(state = initialState, action) {
         isAuth: true,
       };
     case Types.GET_UNAUTH_USER:
-      return initialState;
+      return {
+        ...initialState,
+        data: {
+          ...initialState.data,
+          email: state.data.email,
+          rememberMe: state.data.rememberMe,
+        },
+      };
     case Types.GET_REFRESH_TOKEN_SUCCESS:
       return {
         ...state,
@@ -59,9 +68,9 @@ export default function(state = initialState, action) {
 }
 
 export const Creators = {
-  getAuthRequest: ({ email, password }) => ({
+  getAuthRequest: ({ email, password, rememberMe }) => ({
     type: Types.GET_REQUEST,
-    payload: { email, password },
+    payload: { email, password, rememberMe },
   }),
   getAuthSuccess: data => ({
     type: Types.GET_SUCCESS,

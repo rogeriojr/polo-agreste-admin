@@ -14,14 +14,20 @@ import LoginForm from 'components/form/Login';
 import { Creators } from 'store/ducks/auth';
 import styles from './styles';
 
+const initialValues = {
+  email: '',
+  password: '',
+  rememberMe: false,
+};
+
 const Login = ({ classes }) => {
   const dispatch = useDispatch();
   const { auth, authError } = useSelector(state => state);
   const { loading } = auth;
   const { error } = authError;
 
-  const onSubmit = ({ email, password }) => {
-    dispatch(Creators.getAuthRequest({ email, password }));
+  const onSubmit = ({ email, password, rememberMe }) => {
+    dispatch(Creators.getAuthRequest({ email, password, rememberMe }));
   };
 
   return (
@@ -45,6 +51,10 @@ const Login = ({ classes }) => {
             classes={classes}
             isLoading={loading}
             error={error}
+            initialValues={{
+              ...initialValues,
+              ...auth.data,
+            }}
           />
         </Paper>
       </div>
