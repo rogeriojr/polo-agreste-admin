@@ -96,7 +96,7 @@ LoginForm.propTypes = {
   submitText: PropTypes.string,
   handleBack: PropTypes.oneOfType([PropTypes.bool, PropTypes.func]),
   isLoading: PropTypes.bool.isRequired,
-  initialValues: PropTypes.oneOfType(PropTypes.object),
+  initialValues: PropTypes.oneOfType([PropTypes.object]),
 };
 
 LoginForm.defaultProps = {
