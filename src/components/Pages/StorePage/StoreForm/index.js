@@ -39,7 +39,7 @@ export const formInitialValues = {
   social_name: '',
   state_register: '',
   cell_phone: '',
-  cnai: '',
+  cnae: '',
   segment: '',
   website: '',
   address: {
@@ -100,7 +100,7 @@ const schema = Yup.object().shape({
   social_name: Yup.string().required('Campo obrigatório'),
   state_register: Yup.string(),
   cell_phone: Yup.string().required('Campo obrigatório'),
-  cnai: Yup.string(),
+  cnae: Yup.string(),
   website: Yup.string(),
   address: Yup.object().shape({
     code_post: Yup.string().test('cep', 'CEP inválido', val =>
@@ -240,8 +240,8 @@ const StoreForm = ({
                 <InputContainer>
                   <InputItem>
                     <FastField
-                      name="cnai"
-                      label="CNAI"
+                      name="cnae"
+                      label="CNAE"
                       component={CustomTextField}
                     />
                   </InputItem>
