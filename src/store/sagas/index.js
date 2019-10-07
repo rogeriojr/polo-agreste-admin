@@ -12,6 +12,7 @@ import pageSaga from './page';
 import profileAccessSaga from './profileAccess';
 import productColorSaga from './productColor';
 import productSizeSaga from './productSize';
+import bankSaga from './bank';
 
 export default function* rootSaga() {
   yield all([
@@ -28,5 +29,6 @@ export default function* rootSaga() {
     fork(profileAccessSaga),
     fork(productColorSaga),
     fork(productSizeSaga),
+    fork(bankSaga),
   ]);
 }

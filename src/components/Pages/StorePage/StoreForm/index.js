@@ -11,12 +11,13 @@ import FormButtons from 'components/form/components/FormButtons';
 import CustomRichText from 'components/form/components/CustomRichText';
 import { useDispatch, useSelector } from 'react-redux';
 import { Creators as CityCreators } from 'store/ducks/city';
+import { Creators as BankCreators } from 'store/ducks/bank';
 import CustomMaskField from 'components/form/components/CustomMaskField';
 import { validateBr } from 'js-brasil';
 import validators from 'utils/validators';
 import CustomInputDate from 'components/form/components/CustomInputDate';
 import CustomImageField from 'components/form/components/CustomImageField';
-import { formatCityName } from 'utils/converters';
+import { formatCityName, formatBankName } from 'utils/converters';
 
 const TabContainer = ({ children }) => {
   return (
@@ -73,11 +74,13 @@ export const formInitialValues = {
     },
   },
   bank: {
-    bank_number: '',
-    agency_number: '',
-    agency_check_number: '',
-    account_number: '',
-    account_check_number: '',
+    bank: {
+      id: '',
+    },
+    agency: '',
+    agency_check: '',
+    account: '',
+    account_check: '',
     type: '',
     doc_type: 'CPF',
     doc_number: '',
@@ -137,13 +140,15 @@ const schema = Yup.object().shape({
     image_info: '',
   }),
   bank: Yup.object().shape({
-    bank_number: Yup.string().test(...validators.numberNotRequired()),
-    agency_number: Yup.string().test(...validators.numberNotRequired()),
-    agency_check_number: Yup.string().test(
+    bank: Yup.object().shape({
+      id: Yup.string().test(...validators.numberNotRequired()),
+    }),
+    agency: Yup.string().test(...validators.numberNotRequired()),
+    agency_check: Yup.string().test(
       ...validators.numberNotRequired('Apenas numeros'),
     ),
-    account_number: Yup.string().test(...validators.numberNotRequired()),
-    account_check_number: Yup.string().test(...validators.numberNotRequired()),
+    account: Yup.string().test(...validators.numberNotRequired()),
+    account_check: Yup.string().test(...validators.numberNotRequired()),
     type: Yup.string(),
     doc_type: Yup.string(),
     doc_number: Yup.string(),
@@ -161,9 +166,12 @@ const StoreForm = ({
   const dispatch = useDispatch();
   const [value, setValue] = React.useState(0);
   const { cityList, cityListLoading } = useSelector(state => state.city);
+  const { bankList, bankListLoading } = useSelector(state => state.bank);
 
-  const getInitialData = () =>
+  const getInitialData = () => {
     dispatch(CityCreators.getCityListRequest({ perPage: 1000 }));
+    dispatch(BankCreators.getBankListRequest({ perPage: 1000 }));
+  };
 
   React.useEffect(() => {
     getInitialData();
@@ -309,7 +317,7 @@ const StoreForm = ({
                     <Field
                       name="address.city.id"
                       label="Cidade"
-                      options={cityList}
+                      options={formatCityName(cityList)}
                       component={CustomSelect}
                       placeholder="Cidade"
                       isLoading={cityListLoading}
@@ -439,16 +447,18 @@ const StoreForm = ({
               <TabContainer>
                 <InputContainer>
                   <InputItem>
-                    <FastField
-                      name="bank.bank_number"
-                      label="Número do banco"
-                      type="number"
-                      component={CustomTextField}
+                    <Field
+                      name="bank.bank.id"
+                      label="Banco"
+                      options={formatBankName(bankList)}
+                      component={CustomSelect}
+                      placeholder="Banco"
+                      isLoading={bankListLoading}
                     />
                   </InputItem>
                   <InputItem>
                     <FastField
-                      name="bank.agency_number"
+                      name="bank.agency"
                       label="Número da agência"
                       type="number"
                       component={CustomTextField}
@@ -456,7 +466,7 @@ const StoreForm = ({
                   </InputItem>
                   <InputItem>
                     <FastField
-                      name="bank.agency_check_number"
+                      name="bank.agency_check"
                       label="Dígito da agência"
                       // type="number"
                       component={CustomTextField}
@@ -466,7 +476,7 @@ const StoreForm = ({
                 <InputContainer>
                   <InputItem>
                     <FastField
-                      name="bank.account_number"
+                      name="bank.account"
                       label="Número da Conta"
                       type="number"
                       component={CustomTextField}
@@ -474,7 +484,7 @@ const StoreForm = ({
                   </InputItem>
                   <InputItem>
                     <FastField
-                      name="bank.account_check_number"
+                      name="bank.account_check"
                       label="Dígito da Conta"
                       type="number"
                       component={CustomTextField}

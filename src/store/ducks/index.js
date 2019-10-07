@@ -20,6 +20,7 @@ import pageReducer from 'store/ducks/page';
 import profileAccessReducer from 'store/ducks/profileAccess';
 import productColorReducer from 'store/ducks/productColor';
 import productSizeReducer from 'store/ducks/productSize';
+import bankReducer from 'store/ducks/bank';
 
 /**
  * Merges the main reducer with the router state and dynamically injected reducers
@@ -42,4 +43,5 @@ export default history =>
     profileAccess: profileAccessReducer,
     productColor: productColorReducer,
     productSize: productSizeReducer,
+    bank: bankReducer,
   });

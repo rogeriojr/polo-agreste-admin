@@ -18,4 +18,13 @@ const formatCityName = cityData => {
   });
 };
 
-export { toMutable, toPrice, formatCityName };
+const formatBankName = bankData => {
+  return bankData.map(bankInfo => {
+    return {
+      id: bankInfo.id,
+      name: `${bankInfo.code} - ${bankInfo.name}`,
+    };
+  });
+};
+
+export { toMutable, toPrice, formatCityName, formatBankName };
