@@ -98,10 +98,9 @@ const schema = Yup.object().shape({
     )
     .required('Obrigatório'),
   social_name: Yup.string().required('Campo obrigatório'),
-  state_register: Yup.string().required('Campo obrigatório'),
+  state_register: Yup.string(),
   cell_phone: Yup.string().required('Campo obrigatório'),
   cnai: Yup.string(),
-  segment: Yup.string().required('Campo obrigatório'),
   website: Yup.string(),
   address: Yup.object().shape({
     code_post: Yup.string().test('cep', 'CEP inválido', val =>
@@ -117,15 +116,10 @@ const schema = Yup.object().shape({
   }),
   manager: Yup.object().shape({
     name: Yup.string().required('Este campo é obrigatório'),
-    father_name: Yup.string(),
-    mother_name: Yup.string(),
     email: Yup.string().email('E-mail inválido'),
     cpf: Yup.string()
       .test(...validators.cpfInvalid('CPF inválido'))
       .required('Obrigatório'),
-    rg_number: Yup.string(),
-    rg_issuer: Yup.string(),
-    rg_issuer_date: Yup.string(),
     cell_phone: Yup.string(),
     birth_date: Yup.date(),
     code_post: Yup.string().test('cep', 'CEP inválido', val =>
@@ -205,13 +199,6 @@ const StoreForm = ({
                     <FastField
                       name="name"
                       label="Nome da loja"
-                      component={CustomTextField}
-                    />
-                  </InputItem>
-                  <InputItem>
-                    <FastField
-                      name="segment"
-                      label="Segmento"
                       component={CustomTextField}
                     />
                   </InputItem>
@@ -388,45 +375,6 @@ const StoreForm = ({
                     <FastField
                       name="manager.email"
                       label="E-mail"
-                      component={CustomTextField}
-                    />
-                  </InputItem>
-                </InputContainer>
-                <InputContainer>
-                  <InputItem>
-                    <FastField
-                      name="manager.rg_number"
-                      label="Número de RG"
-                      component={CustomTextField}
-                    />
-                  </InputItem>
-                  <InputItem>
-                    <FastField
-                      name="manager.rg_issuer"
-                      label="Orgão Emissor"
-                      component={CustomTextField}
-                    />
-                  </InputItem>
-                  <InputItem>
-                    <FastField
-                      name="manager.rg_issuer_date"
-                      label="Data de emissão"
-                      component={CustomInputDate}
-                    />
-                  </InputItem>
-                </InputContainer>
-                <InputContainer>
-                  <InputItem>
-                    <FastField
-                      name="manager.father_name"
-                      label="Nome do Pai"
-                      component={CustomTextField}
-                    />
-                  </InputItem>
-                  <InputItem>
-                    <FastField
-                      name="manager.mother_name"
-                      label="Nome da Mãe"
                       component={CustomTextField}
                     />
                   </InputItem>
