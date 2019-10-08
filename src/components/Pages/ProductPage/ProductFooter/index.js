@@ -6,10 +6,10 @@ import LegendItem from 'components/Legend/LegendItem';
 const ProductFooter = () => (
   <LegendContainer>
     <LegendRow>
-      <LegendItem color="#286de5" letter="A">
+      <LegendItem color="#00A146" letter="A">
         Ativo
       </LegendItem>
-      <LegendItem color="#BFC0BF" letter="I">
+      <LegendItem color="#FF5151" letter="I">
         Inativo
       </LegendItem>
       <LegendItem color="#EFA700" letter="E">
@@ -22,12 +22,6 @@ const ProductFooter = () => (
     <LegendRow>
       <LegendItem color="#9B6B34" letter="B">
         Bloqueado
-      </LegendItem>
-      <LegendItem color="#00A146" letter="A">
-        Aprovado
-      </LegendItem>
-      <LegendItem color="#FF5151" letter="R">
-        Reprovado
       </LegendItem>
       <LegendItem />
     </LegendRow>

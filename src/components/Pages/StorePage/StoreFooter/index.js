@@ -6,7 +6,7 @@ import LegendItem from 'components/Legend/LegendItem';
 const StoreFooter = () => (
   <LegendContainer>
     <LegendRow>
-      <LegendItem color="#286de5" letter="A">
+      <LegendItem color="#00A146" letter="A">
         Ativo
       </LegendItem>
       <LegendItem color="#9B6B34" letter="B">

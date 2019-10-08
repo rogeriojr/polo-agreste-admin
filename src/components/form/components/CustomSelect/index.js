@@ -2,7 +2,7 @@ import React from 'react';
 import Select from 'react-select';
 import PropTypes from 'prop-types';
 import { responseToSelect } from 'utils/response';
-import { FormHelperText } from '@material-ui/core';
+import { FormHelperText, InputLabel } from '@material-ui/core';
 import { ErrorMessage } from 'formik';
 import styled from 'styled-components';
 
@@ -11,6 +11,25 @@ const StyledSelect = styled(Select)`
     & > div {
       min-height: 43px;
     }
+  }
+`;
+
+const StyledDiv = styled('div')`
+  && {
+    position: relative;
+  }
+`;
+
+const StyledInputLabel = styled(InputLabel)`
+  && {
+    position: absolute;
+    top: 1px;
+    padding-left: 5px;
+    padding-right: 5px;
+    left: 10px;
+    transform: translateY(-50%);
+    background: white;
+    font-size: 12px;
   }
 `;
 
@@ -66,7 +85,7 @@ const CustomSelect = ({
   }, [selectOptions, field.value]);
 
   return (
-    <>
+    <StyledDiv>
       <StyledSelect
         styles={{ menuPortal: base => {
           const { zIndex, ...rest } = base;  // remove zIndex from base by destructuring
@@ -81,10 +100,13 @@ const CustomSelect = ({
         menuPortalTarget={document.querySelector('body')}
         isLoading={isLoading}
       />
+      {selectedOption!=='' && (
+        <StyledInputLabel>{placeholder}</StyledInputLabel>
+      )}
       <ErrorMessage name={field.name}>
         {msg => <FormHelperText error>{msg}</FormHelperText>}
       </ErrorMessage>
-    </>
+    </StyledDiv>
   );
 };
 

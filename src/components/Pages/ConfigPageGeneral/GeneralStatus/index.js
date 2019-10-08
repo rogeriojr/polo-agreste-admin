@@ -5,9 +5,9 @@ import LegendStatus from 'components/Legend/LegendStatus';
 const ProductStatus = ({ rowData }) => (
   <div>
     {rowData.status === 1 ? (
-      <LegendStatus color="#286de5" letter="A" />
+      <LegendStatus color="#00A146" letter="A" />
     ) : (
-      <LegendStatus color="#BFC0BF" letter="I" />
+      <LegendStatus color="#FF5151" letter="I" />
     )}
     {Number(rowData.stock_control) === 0 && (
       <LegendStatus color="#EFA700" letter="E" />

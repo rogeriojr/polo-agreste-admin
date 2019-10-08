@@ -50,6 +50,7 @@ export const formInitialValues = {
   width: '',
   length: '',
   weight: '',
+  status: 0,
   store: {},
   categories: [],
   images: '',
@@ -77,6 +78,7 @@ const schema = Yup.object().shape({
   width: Yup.string(),
   length: Yup.string(),
   weight: Yup.string(),
+  status: Yup.number().required('Campo obrigatório'),
   store: Yup.object().shape({
     id: Yup.number(),
   }),
@@ -143,11 +145,25 @@ const ProductForm = ({
         <Form>
           <Card style={{ padding: 20 }}>
             <InputContainer>
-              <InputItem>
+              <InputItem style={{ flexGrow: 2 }}>
                 <FastField
                   name="name"
                   label="Nome"
                   component={CustomTextField}
+                />
+              </InputItem>
+              <InputItem>
+                <FastField
+                  name="status"
+                  label="Status"
+                  options={[
+                    { id: 0, name: 'Inativo' },
+                    { id: 1, name: 'Ativo' },
+                    { id: 2, name: 'Bloqueado' },
+                  ]}
+                  component={CustomSelect}
+                  placeholder="Status"
+                  isLoading={false}
                 />
               </InputItem>
             </InputContainer>

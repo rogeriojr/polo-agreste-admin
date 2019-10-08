@@ -43,6 +43,7 @@ export const formInitialValues = {
   cnae: '',
   segment: '',
   website: '',
+  status: 0,
   address: {
     code_post: '',
     street: '',
@@ -105,6 +106,7 @@ const schema = Yup.object().shape({
   cell_phone: Yup.string().required('Campo obrigatório'),
   cnae: Yup.string(),
   website: Yup.string(),
+  status: Yup.number().required('Campo obrigatório'),
   address: Yup.object().shape({
     code_post: Yup.string().test('cep', 'CEP inválido', val =>
       val === undefined ? false : validateBr.cep(val),
@@ -267,6 +269,20 @@ const StoreForm = ({
                       name="website"
                       label="Website"
                       component={CustomTextField}
+                    />
+                  </InputItem>
+                  <InputItem>
+                    <FastField
+                      name="status"
+                      label="Status"
+                      options={[
+                        { id: 0, name: 'Aguardando aprovação' },
+                        { id: 1, name: 'Ativo' },
+                        { id: 2, name: 'Bloqueado' },
+                      ]}
+                      component={CustomSelect}
+                      placeholder="Status"
+                      isLoading={false}
                     />
                   </InputItem>
                 </InputContainer>
