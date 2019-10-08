@@ -11,12 +11,19 @@ import { toPrice } from 'utils/converters';
 import ProductStatus from 'components/Pages/ProductPage/ProductStatus';
 import ProductFooter from 'components/Pages/ProductPage/ProductFooter';
 import AlertDialog from 'components/AlertDialog';
+import ProductImage from 'components/Pages/ProductPage/ProductImage';
 
 const columns = ({ onDeleteRequest }) => [
   {
     title: 'Referência',
-    field: 'id',
+    field: 'code_internal',
     sorting: false,
+  },
+  {
+    title: 'Imagem',
+    field: 'images',
+    sorting: false,
+    render: rowData => <ProductImage rowData={rowData} />
   },
   {
     title: 'Nome',
@@ -33,11 +40,6 @@ const columns = ({ onDeleteRequest }) => [
     field: 'price',
     sorting: false,
     render: rowData => <span>R$ {toPrice(rowData.price)}</span>,
-  },
-  {
-    title: 'Atualizado',
-    field: 'update_at',
-    sorting: false,
   },
   {
     title: 'Loja',
