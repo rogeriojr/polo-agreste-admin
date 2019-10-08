@@ -34,6 +34,7 @@ function NumberFormatCustom(props) {
       }}
       thousandSeparator="."
       decimalSeparator=","
+      fixedDecimalScale
       decimalScale={2}
       prefix="R$ "
     />
@@ -79,10 +80,6 @@ const VariationField = ({
       stock: '',
     },
   ];
-
-  if (!field.value || field.value.length === 0) {
-    form.setFieldValue(field.name, newVariation());
-  }
 
   const onChangeVariation = (indexVariation, curField) => option => {
     form.setFieldValue(
@@ -228,7 +225,7 @@ const VariationField = ({
                   label="Estoque"
                 />
               </InputItem>
-              {field.value.length > 1 && (
+              {field.value.length > 0 && (
                 <ActionFab
                   style={{ marginTop: 5 }}
                   onClick={removeVariation(indexVariation)}
@@ -240,13 +237,9 @@ const VariationField = ({
         ))}
       <InputContainer>
         <InputItem>
-          {field &&
-            field.value &&
-            field.value[0] &&
-            (field.value[0].color.id !== null ||
-              field.value[0].size.id !== null) && (
-              <CustomButton onClick={addVariation} label="Adicionar variação" />
-            )}
+          {field && field.value && (
+            <CustomButton onClick={addVariation} label="Adicionar variação" />
+          )}
         </InputItem>
       </InputContainer>
     </>
