@@ -39,7 +39,7 @@ export const formInitialValues = {
   name: '',
   description: '',
   description_tec: '',
-  stock_control: '',
+  stock_control: 1,
   stock: '',
   price: '',
   price_discount: '',
@@ -255,6 +255,7 @@ const ProductForm = ({
                           name="width"
                           label="Largura"
                           component={CustomTextField}
+                          endAdornment="cm"
                         />
                       </InputItem>
                       <InputItem>
@@ -262,6 +263,7 @@ const ProductForm = ({
                           name="height"
                           label="Altura"
                           component={CustomTextField}
+                          endAdornment="cm"
                         />
                       </InputItem>
                     </InputContainer>
@@ -271,6 +273,7 @@ const ProductForm = ({
                           name="length"
                           label="Profundidade"
                           component={CustomTextField}
+                          endAdornment="cm"
                         />
                       </InputItem>
                       <InputItem>
@@ -278,6 +281,7 @@ const ProductForm = ({
                           name="weight"
                           label="Peso"
                           component={CustomTextField}
+                          endAdornment="g"
                         />
                       </InputItem>
                     </InputContainer>

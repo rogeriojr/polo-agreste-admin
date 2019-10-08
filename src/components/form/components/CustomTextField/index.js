@@ -1,5 +1,5 @@
 import React from 'react';
-import { TextField, FormHelperText } from '@material-ui/core';
+import { TextField, FormHelperText, InputAdornment } from '@material-ui/core';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import { ErrorMessage } from 'formik';
@@ -22,6 +22,7 @@ const CustomTextField = ({
   field,
   label,
   form: { touched, errors },
+  endAdornment,
   ...props
 }) => {
   return (
@@ -33,6 +34,15 @@ const CustomTextField = ({
         error={Boolean(touched[field.name] && errors[field.name])}
         fullWidth
         variant="outlined"
+        InputProps={
+          endAdornment
+            ? {
+              endAdornment: (
+                <InputAdornment position="end">{endAdornment}</InputAdornment>
+              ),
+            }
+            : null
+        }
       />
       <ErrorMessage name={field.name}>
         {msg => <FormHelperText error>{msg}</FormHelperText>}
@@ -45,6 +55,11 @@ CustomTextField.propTypes = {
   field: PropTypes.oneOfType([PropTypes.object]).isRequired,
   form: PropTypes.oneOfType([PropTypes.object]).isRequired,
   label: PropTypes.string.isRequired,
+  endAdornment: PropTypes.string,
+};
+
+CustomTextField.defaultProps = {
+  endAdornment: null,
 };
 
 export default CustomTextField;

@@ -354,7 +354,7 @@ const GlobalStyle = createGlobalStyle`
     text-transform: none !important;
   }
 
-  .MuiTabs-root + .MuiTypography-root .MuiTypography-root:first-child {
+  .MuiTabs-root + .MuiTypography-root > .MuiTypography-root:first-child {
     margin-top: 0;
     margin-left: 10px;
     margin-bottom: 14px;
