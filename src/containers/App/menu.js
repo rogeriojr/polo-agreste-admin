@@ -7,6 +7,7 @@ import DashboardPage from 'containers/Pages/DashboardMenu/HomePage/Loadable';
 
 // Menu Pedidos
 import OrderListPage from 'containers/Pages/OrderMenu/ListPage/Loadable';
+import OrderViewPage from 'containers/Pages/OrderMenu/ViewPage/Loadable';
 
 // Menu Produtos
 import ProductListPage from 'containers/Pages/ProductMenu/ListPage/Loadable';
@@ -73,6 +74,13 @@ const Menu = [
         text: 'Listar Pedidos',
         url: '/order',
         component: OrderListPage,
+      },
+      {
+        id: 'order-view',
+        text: 'Visualizar Pedido',
+        url: '/order/view/:id',
+        component: OrderViewPage,
+        showInMenu: false,
       },
     ],
   },
