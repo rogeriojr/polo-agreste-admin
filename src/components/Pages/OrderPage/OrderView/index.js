@@ -53,7 +53,9 @@ const OrderView = ({ orderInfo }) => {
             <CardContent>
               <b>Centro de distribuição:</b> Desconhecido <br />
               <b>Endereço:</b> {orderInfo.address.street}
-              {orderInfo.address.number && <>, Nº {orderInfo.address.number} </>}
+              {orderInfo.address.number && (
+                <>, Nº {orderInfo.address.number} </>
+              )}
               {orderInfo.address.complement && (
                 <>, {orderInfo.address.complement}</>
               )}
@@ -88,6 +90,7 @@ const OrderView = ({ orderInfo }) => {
               </TableHead>
               <TableBody>
                 {orderInfo.products.map((orderItem, i) => (
+                  // eslint-disable-next-line react/no-array-index-key
                   <TableRow key={i}>
                     <TableCell>Não def.</TableCell>
                     <TableCell>{orderItem.product.name}</TableCell>
@@ -121,7 +124,7 @@ const OrderView = ({ orderInfo }) => {
                   <TableCell align="right">R$ XX,XX</TableCell>
                 </TableRow>
                 <TableRow>
-                <TableCell colSpan={6}>&nbsp;</TableCell>
+                  <TableCell colSpan={6}>&nbsp;</TableCell>
                   <TableCell>
                     <b>Total</b>
                   </TableCell>
@@ -159,7 +162,7 @@ const OrderView = ({ orderInfo }) => {
         <Box flexGrow={1} p={1}>
           <Card style={{ height: '100%' }}>
             <CardHeader title="Notas fiscais" />
-            <CardContent style={{textAlign: 'center'}}>
+            <CardContent style={{ textAlign: 'center' }}>
               Nenhuma nota fiscal cadastrada
             </CardContent>
           </Card>
