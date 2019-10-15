@@ -10,6 +10,7 @@ import AlertDialog from 'components/AlertDialog';
 import OrderActions from 'components/Pages/OrderPage/OrderActions';
 import { InputItem, InputContainer } from 'components/form/StyledComponents';
 import CustomSelect from 'components/form/components/CustomSelect';
+import { formatPaymentType } from 'utils/converters';
 
 const OrderListPage = () => {
   const [storesState, setStoresState] = React.useState({
@@ -58,7 +59,11 @@ const OrderListPage = () => {
         </InputContainer>
       ),
     },
-    { title: 'Pagamento', field: 'payment_type' },
+    {
+      title: 'Pagamento',
+      field: 'payment_type',
+      render: rowData => <>{formatPaymentType(rowData.payment_type)}</>,
+    },
     { title: 'Realizado', field: 'create_at' },
     { title: 'Atualizado', field: 'update_at' },
     {

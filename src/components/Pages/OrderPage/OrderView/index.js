@@ -13,7 +13,7 @@ import {
   TableRow,
   TableFooter,
 } from '@material-ui/core';
-import { toPrice } from 'utils/converters';
+import { toPrice, formatPaymentType } from 'utils/converters';
 
 const OrderView = ({ orderInfo }) => {
   let totalValue = 0;
@@ -152,7 +152,7 @@ const OrderView = ({ orderInfo }) => {
             <CardHeader title="Forma de Pagamento" />
             <CardContent>
               <b>Valor:</b> R$ {toPrice(orderInfo.price)} <br />
-              <b>Forma:</b> {orderInfo.payments[0].card_brand} <br />
+              <b>Forma:</b> {formatPaymentType(orderInfo.payment_type)} <br />
               <b>Parcelas:</b> Valor desconhecido <br />
               <b>ID Pedido Wirecard:</b> Valor desconhecido <br />
               <b>ID Pagamento Wirecard:</b> {orderInfo.payments[0].wirecard_id}

@@ -27,4 +27,21 @@ const formatBankName = bankData => {
   });
 };
 
-export { toMutable, toPrice, formatCityName, formatBankName };
+const formatPaymentType = paymentType => {
+  const paymentTypeInt = Number(paymentType);
+  if (paymentTypeInt === 1) {
+    return 'Cartão';
+  }
+  if (paymentTypeInt === 2) {
+    return 'Boleto';
+  }
+  return '';
+};
+
+export {
+  toMutable,
+  toPrice,
+  formatCityName,
+  formatBankName,
+  formatPaymentType,
+};
