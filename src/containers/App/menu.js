@@ -46,6 +46,9 @@ import ProfileAccessInsertPage from 'containers/Pages/SettingMenu/ProfileAccessI
 import UserListPage from 'containers/Pages/SettingMenu/UserListPage/Loadable';
 import UserNewPage from 'containers/Pages/SettingMenu/UserInsertPage/Loadable';
 import UserUpdatePage from 'containers/Pages/SettingMenu/UserUpdatePage/Loadable';
+import ColorListPage from 'containers/Pages/SettingMenu/ColorListPage/Loadable';
+import ColorInsertPage from 'containers/Pages/SettingMenu/ColorInsertPage/Loadable';
+import ColorUpdatePage from 'containers/Pages/SettingMenu/ColorUpdatePage/Loadable';
 
 // Menu Página
 import PageListPage from 'containers/Pages/PageMenu/ListPage/Loadable';
@@ -271,6 +274,25 @@ const Menu = [
         text: 'Atualizar Usuário',
         url: '/user/update/:id',
         component: UserUpdatePage,
+        showInMenu: false,
+      },
+      {
+        id: 'color-list',
+        text: 'Listar Cor',
+        url: '/color',
+        component: ColorListPage,
+      },
+      {
+        id: 'color-new',
+        text: 'Cadastrar Cor',
+        url: '/color/new',
+        component: ColorInsertPage,
+      },
+      {
+        id: 'color-update',
+        text: 'Atualizar Cor',
+        url: '/color/update/:id',
+        component: ColorUpdatePage,
         showInMenu: false,
       },
     ],
