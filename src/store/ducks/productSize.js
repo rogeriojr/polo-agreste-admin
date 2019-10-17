@@ -147,18 +147,17 @@ export const Creators = {
     payload: error,
   }),
   // Insere uma categoria
-  getProductSizeInsertRequest: ({
-    productSize_father,
-    description,
-    name,
-    order_position,
-  }) => ({
+  getProductSizeInsertRequest: ({ order_position, code, name, status }) => ({
     type: Types.GET_INSERT_REQUEST,
-    payload: { productSize_father, description, name, order_position },
+    payload: {
+      order_position,
+      code,
+      name,
+      status,
+    },
   }),
-  getProductSizeInsertSuccess: ({ data }) => ({
+  getProductSizeInsertSuccess: () => ({
     type: Types.GET_INSERT_SUCCESS,
-    payload: { data },
   }),
   getProductSizeInsertFailure: error => ({
     type: Types.GET_INSERT_FAILURE,
@@ -187,13 +186,19 @@ export const Creators = {
   // Insere uma categoria
   getProductSizeUpdateRequest: ({
     id,
-    productSize_father,
-    description,
-    name,
     order_position,
+    code,
+    name,
+    status,
   }) => ({
     type: Types.GET_UPDATE_REQUEST,
-    payload: { id, productSize_father, description, name, order_position },
+    payload: {
+      id,
+      order_position,
+      code,
+      name,
+      status,
+    },
   }),
   getProductSizeUpdateSuccess: () => ({
     type: Types.GET_UPDATE_SUCCESS,

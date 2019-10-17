@@ -3,6 +3,8 @@ import api from 'services/api';
 
 import { Types, Creators } from 'store/ducks/productSize';
 import { callApi } from 'store/sagas/auth';
+import { push } from 'connected-react-router';
+import Notifications from 'react-notification-system-redux';
 
 function* getProductSize({ payload }) {
   try {
@@ -16,14 +18,19 @@ function* getProductSize({ payload }) {
 
 function* getProductSizeInsert({ payload }) {
   try {
-    const { productSize_father, description, name, order_position } = payload;
+    const { order_position, code, name, status } = payload;
     const response = yield call(api.post, '/v1/admin/products/sizes', {
-      name,
       order_position,
-      description: description.toString('markdown'),
-      productSize_father,
+      code,
+      name,
+      status,
     });
+    const { id } = response.data.data;
     yield put(Creators.getProductSizeInsertSuccess());
+    yield put(
+      Notifications.success({ title: 'Cadastro concluido com sucesso' }),
+    );
+    yield put(push(`/size/update/${id}`));
   } catch (err) {
     yield put(Creators.getProductSizeInsertFailure('Erro ao buscar na API'));
   }
@@ -31,14 +38,15 @@ function* getProductSizeInsert({ payload }) {
 
 function* getProductSizeUpdate({ payload }) {
   try {
-    const { id, productSize_father, description, name, order_position } = payload;
+    const { id, order_position, code, name, status } = payload;
     const response = yield call(api.put, `/v1/admin/products/sizes/${id}`, {
-      name,
       order_position,
-      description: description.toString('markdown'),
-      productSize_father,
+      code,
+      name,
+      status,
     });
     yield put(Creators.getProductSizeUpdateSuccess());
+    yield put(Notifications.success({ title: 'Edição concluida com sucesso' }));
   } catch (err) {
     yield put(Creators.getProductSizeUpdateFailure('Erro ao buscar na API'));
   }

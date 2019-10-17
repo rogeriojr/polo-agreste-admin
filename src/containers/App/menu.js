@@ -14,9 +14,12 @@ import ProductListPage from 'containers/Pages/ProductMenu/ListPage/Loadable';
 import ProductInsertPage from 'containers/Pages/ProductMenu/InsertPage/Loadable';
 import ProductUpdatePage from 'containers/Pages/ProductMenu/UpdatePage';
 import ProductImportPage from 'containers/Pages/ProductMenu/ImportPage/Loadable';
-import ColorListPage from 'containers/Pages/SettingMenu/ColorListPage/Loadable';
-import ColorInsertPage from 'containers/Pages/SettingMenu/ColorInsertPage/Loadable';
-import ColorUpdatePage from 'containers/Pages/SettingMenu/ColorUpdatePage/Loadable';
+import ColorListPage from 'containers/Pages/ProductMenu/ColorListPage/Loadable';
+import ColorInsertPage from 'containers/Pages/ProductMenu/ColorInsertPage/Loadable';
+import ColorUpdatePage from 'containers/Pages/ProductMenu/ColorUpdatePage/Loadable';
+import SizeListPage from 'containers/Pages/ProductMenu/SizeListPage/Loadable';
+import SizeInsertPage from 'containers/Pages/ProductMenu/SizeInsertPage/Loadable';
+import SizeUpdatePage from 'containers/Pages/ProductMenu/SizeUpdatePage/Loadable';
 
 // Menu Categorias
 import CategoryListPage from 'containers/Pages/CategoryMenu/ListPage/Loadable';
@@ -134,6 +137,25 @@ const Menu = [
         text: 'Atualizar Cor',
         url: '/color/update/:id',
         component: ColorUpdatePage,
+        showInMenu: false,
+      },
+      {
+        id: 'size-list',
+        text: 'Listar Tamanho',
+        url: '/size',
+        component: SizeListPage,
+      },
+      {
+        id: 'size-new',
+        text: 'Cadastrar Tamanho',
+        url: '/size/new',
+        component: SizeInsertPage,
+      },
+      {
+        id: 'size-update',
+        text: 'Atualizar Tamanho',
+        url: '/size/update/:id',
+        component: SizeUpdatePage,
         showInMenu: false,
       },
     ],
