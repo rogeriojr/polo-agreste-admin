@@ -8,6 +8,7 @@ import CustomTextField from 'components/form/components/CustomTextField';
 import FormButtons from 'components/form/components/FormButtons';
 import CustomRichText from 'components/form/components/CustomRichText';
 import CustomSelect from 'components/form/components/CustomSelect';
+import CustomColorPicker from 'components/form/components/CustomColorPicker';
 
 const TabContainer = ({ children }) => {
   return (
@@ -91,7 +92,7 @@ const ColorForm = ({
                 />
               </InputItem>
               <InputItem>
-                <Field name="hexa" label="Cor" component={CustomTextField} />
+                <Field name="hexa" label="Cor" component={CustomColorPicker} />
               </InputItem>
             </InputContainer>
             <FormButtons handleBack={handleBack} submitText={submitText} />
