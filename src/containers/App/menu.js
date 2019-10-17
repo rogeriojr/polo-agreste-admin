@@ -58,6 +58,11 @@ import PageListPage from 'containers/Pages/PageMenu/ListPage/Loadable';
 import PageInsertPage from 'containers/Pages/PageMenu/InsertPage/Loadable';
 import PageUpdatePage from 'containers/Pages/PageMenu/UpdatePage/Loadable';
 
+// Menu Banner
+import BannerListPage from 'containers/Pages/BannerMenu/ListPage/Loadable';
+import BannerInsertPage from 'containers/Pages/BannerMenu/InsertPage/Loadable';
+import BannerUpdatePage from 'containers/Pages/BannerMenu/UpdatePage/Loadable';
+
 // Páginas gerais
 import NotFoundPage from 'containers/NotFoundPage/Loadable';
 
@@ -343,6 +348,32 @@ const Menu = [
         text: 'Atualizar página',
         url: '/page/update/:id',
         component: PageUpdatePage,
+        showInMenu: false,
+      },
+    ],
+  },
+  {
+    id: 'banner',
+    text: 'Banner',
+    icon: <Icon>image</Icon>,
+    children: [
+      {
+        id: 'banner-list',
+        text: 'Listar banner',
+        url: '/banner',
+        component: BannerListPage,
+      },
+      {
+        id: 'banner-new',
+        text: 'Cadastrar banner',
+        url: '/banner/new',
+        component: BannerInsertPage,
+      },
+      {
+        id: 'banner-update',
+        text: 'Atualizar banner',
+        url: '/banner/update/:id',
+        component: BannerUpdatePage,
         showInMenu: false,
       },
     ],
