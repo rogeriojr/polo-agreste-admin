@@ -131,6 +131,7 @@ const Menu = [
         text: 'Cadastrar Cor',
         url: '/color/new',
         component: ColorInsertPage,
+        showInMenu: false,
       },
       {
         id: 'color-update',
@@ -150,6 +151,7 @@ const Menu = [
         text: 'Cadastrar Tamanho',
         url: '/size/new',
         component: SizeInsertPage,
+        showInMenu: false,
       },
       {
         id: 'size-update',
