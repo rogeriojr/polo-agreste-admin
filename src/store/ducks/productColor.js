@@ -148,17 +148,23 @@ export const Creators = {
   }),
   // Insere uma categoria
   getProductColorInsertRequest: ({
-    productColor_father,
-    description,
-    name,
     order_position,
+    hexa,
+    code,
+    name,
+    status,
   }) => ({
     type: Types.GET_INSERT_REQUEST,
-    payload: { productColor_father, description, name, order_position },
+    payload: {
+      order_position,
+      hexa,
+      code,
+      name,
+      status,
+    },
   }),
-  getProductColorInsertSuccess: ({ data }) => ({
+  getProductColorInsertSuccess: () => ({
     type: Types.GET_INSERT_SUCCESS,
-    payload: { data },
   }),
   getProductColorInsertFailure: error => ({
     type: Types.GET_INSERT_FAILURE,
@@ -187,13 +193,21 @@ export const Creators = {
   // Insere uma categoria
   getProductColorUpdateRequest: ({
     id,
-    productColor_father,
-    description,
-    name,
     order_position,
+    hexa,
+    code,
+    name,
+    status,
   }) => ({
     type: Types.GET_UPDATE_REQUEST,
-    payload: { id, productColor_father, description, name, order_position },
+    payload: {
+      id,
+      order_position,
+      hexa,
+      code,
+      name,
+      status,
+    },
   }),
   getProductColorUpdateSuccess: () => ({
     type: Types.GET_UPDATE_SUCCESS,

@@ -7,7 +7,7 @@ import { InputContainer, InputItem } from 'components/form/StyledComponents';
 import CustomTextField from 'components/form/components/CustomTextField';
 import FormButtons from 'components/form/components/FormButtons';
 import CustomRichText from 'components/form/components/CustomRichText';
-import CustomSelect from 'components/Select';
+import CustomSelect from 'components/form/components/CustomSelect';
 
 const TabContainer = ({ children }) => {
   return (
@@ -24,7 +24,7 @@ TabContainer.propTypes = {
 export const formInitialValues = {
   id: '',
   order_position: '',
-  hexa: '#000',
+  hexa: '#000000',
   code: '',
   name: '',
   status: 1,
@@ -78,7 +78,7 @@ const ColorForm = ({
             </InputContainer>
             <InputContainer>
               <InputItem>
-                <FastField
+                <Field
                   name="status"
                   label="Status"
                   options={[
@@ -91,7 +91,7 @@ const ColorForm = ({
                 />
               </InputItem>
               <InputItem>
-                
+                <Field name="hexa" label="Cor" component={CustomTextField} />
               </InputItem>
             </InputContainer>
             <FormButtons handleBack={handleBack} submitText={submitText} />

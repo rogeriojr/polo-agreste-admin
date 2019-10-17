@@ -3,6 +3,8 @@ import api from 'services/api';
 
 import { Types, Creators } from 'store/ducks/productColor';
 import { callApi } from 'store/sagas/auth';
+import { push } from 'connected-react-router';
+import Notifications from 'react-notification-system-redux';
 
 function* getProductColor({ payload }) {
   try {
@@ -16,14 +18,20 @@ function* getProductColor({ payload }) {
 
 function* getProductColorInsert({ payload }) {
   try {
-    const { productColor_father, description, name, order_position } = payload;
+    const { order_position, hexa, code, name, status } = payload;
     const response = yield call(api.post, '/v1/admin/products/colors', {
-      name,
       order_position,
-      description: description.toString('markdown'),
-      productColor_father,
+      hexa,
+      code,
+      name,
+      status,
     });
+    const { id } = response.data.data;
     yield put(Creators.getProductColorInsertSuccess());
+    yield put(
+      Notifications.success({ title: 'Cadastro concluido com sucesso' }),
+    );
+    yield put(push(`/color/update/${id}`));
   } catch (err) {
     yield put(Creators.getProductColorInsertFailure('Erro ao buscar na API'));
   }
@@ -31,14 +39,16 @@ function* getProductColorInsert({ payload }) {
 
 function* getProductColorUpdate({ payload }) {
   try {
-    const { id, productColor_father, description, name, order_position } = payload;
+    const { id, order_position, hexa, code, name, status } = payload;
     const response = yield call(api.put, `/v1/admin/products/colors/${id}`, {
-      name,
       order_position,
-      description: description.toString('markdown'),
-      productColor_father,
+      hexa,
+      code,
+      name,
+      status,
     });
     yield put(Creators.getProductColorUpdateSuccess());
+    yield put(Notifications.success({ title: 'Edição concluida com sucesso' }));
   } catch (err) {
     yield put(Creators.getProductColorUpdateFailure('Erro ao buscar na API'));
   }
