@@ -8,12 +8,19 @@ import HeaderComponent from 'components/HeaderComponent';
 import CategoryTableHeader from 'components/Pages/CategoryPage/CategoryTableHeader';
 import CategoryActions from 'components/Pages/CategoryPage/CategoryActions';
 import AlertDialog from 'components/AlertDialog';
+import CategoryImage from 'components/Pages/CategoryPage/CategoryImage';
 
 const columns = ({ onDeleteRequest }) => [
   {
     title: 'Referência',
     field: 'id',
     sorting: false,
+  },
+  {
+    title: 'Imagem',
+    field: 'image',
+    sorting: false,
+    render: rowData => <CategoryImage rowData={rowData} />,
   },
   {
     title: 'Nome',
@@ -23,11 +30,6 @@ const columns = ({ onDeleteRequest }) => [
   {
     title: 'Categoria Pai',
     field: 'category_father.name',
-    sorting: false,
-  },
-  {
-    title: 'Ordem',
-    field: 'order_position',
     sorting: false,
   },
   {

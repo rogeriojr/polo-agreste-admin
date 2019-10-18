@@ -31,11 +31,9 @@ const StoreActions = ({ rowData, onDeleteRequest }) => {
         open={Boolean(localState.anchorEl)}
       >
         <ActionMenuItem>Acessar Vitrine</ActionMenuItem>
-        <ActionMenuItem>Gateways de pagamento</ActionMenuItem>
         <ActionMenuItem>
           <Link to={`/store/update/${rowData.id}`}>Editar</Link>
         </ActionMenuItem>
-        <ActionMenuItem>Editar usuário</ActionMenuItem>
         <ActionMenuItem>Bloquear</ActionMenuItem>
         <ActionMenuItem onClick={onDelete}>Remover</ActionMenuItem>
       </ActionMenu>
