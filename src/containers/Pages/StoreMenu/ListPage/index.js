@@ -10,6 +10,7 @@ import StoreActions from 'components/Pages/StorePage/StoreActions';
 import StoreStatus from 'components/Pages/StorePage/StoreStatus';
 import StoreFooter from 'components/Pages/StorePage/StoreFooter';
 import AlertDialog from 'components/AlertDialog';
+import StoreImage from 'components/Pages/StorePage/StoreImage';
 
 const columns = ({ onDeleteRequest }) => [
   {
@@ -18,24 +19,35 @@ const columns = ({ onDeleteRequest }) => [
     sorting: false,
   },
   {
+    title: 'Imagem',
+    field: 'image',
+    sorting: false,
+    render: rowData => <StoreImage rowData={rowData} />
+  },
+  {
     title: 'Nome',
     field: 'name',
+    sorting: false,
+  },
+  {
+    title: 'CNPJ',
+    field: 'cnpj',
+    sorting: false,
+  },
+  {
+    title: 'Telefone',
+    field: 'cell_phone',
+    sorting: false,
+  },
+  {
+    title: 'Wirecard',
+    field: 'wirecard_id',
     sorting: false,
   },
   {
     title: 'Status',
     sorting: false,
     render: rowData => <StoreStatus rowData={rowData} />,
-  },
-  {
-    title: 'Criada',
-    field: 'create_at',
-    sorting: false,
-  },
-  {
-    title: 'Última alteração',
-    field: 'update_at',
-    sorting: false,
   },
   {
     title: 'Ações',
