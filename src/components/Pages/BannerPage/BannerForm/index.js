@@ -9,7 +9,7 @@ import FormButtons from 'components/form/components/FormButtons';
 import CustomRichText from 'components/form/components/CustomRichText';
 import CustomSelect from 'components/form/components/CustomSelect';
 import { Creators as BannerCreators } from 'store/ducks/banner';
-import CustomImageField from 'components/form/components/CustomImageField';
+import GalleryField from './GalleryField';
 import { useDispatch, useSelector } from 'react-redux';
 
 const TabContainer = ({ children }) => {
@@ -46,11 +46,9 @@ const BannerForm = ({
   handleBack,
 }) => {
   const dispatch = useDispatch();
-  const { productImageDeleteLoading, banner } = useSelector(
+  const { bannerImageDeleteLoading, banner } = useSelector(
     state => state.banner,
   );
-
-  const bannerInfo = banner.banner;
 
   const [value, setValue] = React.useState(0);
   const handleChange = (event, newValue) => {
@@ -61,7 +59,7 @@ const BannerForm = ({
     dispatch(
       BannerCreators.getImageBannerDeleteRequest({
         id: image.id,
-        id_banner: bannerInfo.id,
+        id_banner: banner.id,
       }),
     );
   };
@@ -99,9 +97,9 @@ const BannerForm = ({
                 <Field
                   name="images"
                   label="Galeria"
-                  component={CustomImageField}
+                  component={GalleryField}
                   images={values.images_info}
-                  deleteLoading={productImageDeleteLoading}
+                  deleteLoading={bannerImageDeleteLoading}
                   onDeleteRequest={onDeleteImageRequest}
                   isMulti
                 />

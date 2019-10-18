@@ -19,14 +19,28 @@ function* getBanner({ payload }) {
 
 function* getBannerImagesUpload(payload) {
   try {
-    const { id, images_data } = payload;
-    yield all(
-      images_data.map(image => {
+    const { id, images_data, images_info } = payload;
+    let iLocal = 0;
+    for (let i = 0; i < images_info.length; i += 1) {
+      const image_info = images_info[i];
+      if (image_info.type === 'local') {
+        const image = images_data[iLocal];
         const data = new FormData();
         data.append('image', image);
-        return call(api.post, `/v1/admin/banners/${id}/images`, data);
-      }),
-    );
+        const response = yield call(api.post, `/v1/admin/banners/${id}/images`, data);
+        const id_image = response.data.data.id;
+        image_info.id = id_image;
+        iLocal += 1;
+      }
+      yield call(api.put, `/v1/admin/banners/${id}/images/${image_info.id}`, {
+        order_position: image_info.order_position,
+        link: image_info.link,
+        route: image_info.route,
+        show_mobile: image_info.show_mobile,
+        show_tablet: image_info.show_tablet,
+        show_desktop: image_info.show_desktop,
+      });
+    }
     yield put({ type: 'UPLOAD_SUCCESS' });
   } catch (err) {
     yield put({ type: 'UPLOAD_FAILURE' });
@@ -35,13 +49,13 @@ function* getBannerImagesUpload(payload) {
 
 function* getBannerInsert({ payload }) {
   try {
-    const { name, status, images_data } = payload;
+    const { name, status, images_data, images_info } = payload;
     const response = yield call(api.post, '/v1/admin/banners', {
       name,
       status,
     });
     const { id } = response.data.data;
-    yield getBannerImagesUpload({ id, images_data });
+    yield getBannerImagesUpload({ id, images_data, images_info });
     yield put(Creators.getBannerInsertSuccess());
     yield put(
       Notifications.success({ title: 'Cadastro concluido com sucesso' }),
@@ -54,12 +68,12 @@ function* getBannerInsert({ payload }) {
 
 function* getBannerUpdate({ payload }) {
   try {
-    const { id, name, status, images_data } = payload;
+    const { id, name, status, images_data, images_info } = payload;
     /* const response =  */ yield call(api.put, `/v1/admin/banners/${id}`, {
       name,
       status,
     });
-    yield getBannerImagesUpload({ id, images_data });
+    yield getBannerImagesUpload({ id, images_data, images_info });
     yield put(Creators.getBannerUpdateSuccess());
     yield put(Creators.getBannerRequest({ id }));
     yield put(Notifications.success({ title: 'Edição concluida com sucesso' }));

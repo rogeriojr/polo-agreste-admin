@@ -197,12 +197,13 @@ export const Creators = {
     payload: error,
   }),
   // Insere uma categoria
-  getBannerInsertRequest: ({ name, status, images_data }) => ({
+  getBannerInsertRequest: ({ name, status, images_data, images_info }) => ({
     type: Types.GET_INSERT_REQUEST,
     payload: {
       name,
       status,
       images_data,
+      images_info,
     },
   }),
   getBannerInsertSuccess: () => ({
@@ -233,13 +234,14 @@ export const Creators = {
   }),
   // Atualiza uma  Produto
   // Insere uma categoria
-  getBannerUpdateRequest: ({ id, name, status, images_data }) => ({
+  getBannerUpdateRequest: ({ id, name, status, images_data, images_info }) => ({
     type: Types.GET_UPDATE_REQUEST,
     payload: {
       id,
       name,
       status,
       images_data,
+      images_info,
     },
   }),
   getBannerUpdateSuccess: () => ({

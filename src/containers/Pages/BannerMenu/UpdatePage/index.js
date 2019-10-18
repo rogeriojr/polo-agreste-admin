@@ -36,6 +36,7 @@ const BannerUpdatePage = ({ match }) => {
       !bannerLoading &&
       banner.id === Number(params.id)
     ) {
+      console.log(banner.images);
       setLocalState({
         ...banner,
         images_info: banner.images,
