@@ -11,6 +11,7 @@ import StoreStatus from 'components/Pages/StorePage/StoreStatus';
 import StoreFooter from 'components/Pages/StorePage/StoreFooter';
 import AlertDialog from 'components/AlertDialog';
 import StoreImage from 'components/Pages/StorePage/StoreImage';
+import StoreWirecardStatus from 'components/Pages/StorePage/StoreWirecardStatus';
 
 const columns = ({ onDeleteRequest }) => [
   {
@@ -43,6 +44,7 @@ const columns = ({ onDeleteRequest }) => [
     title: 'Wirecard',
     field: 'wirecard_id',
     sorting: false,
+    render: rowData => <StoreWirecardStatus rowData={rowData} />,
   },
   {
     title: 'Status',

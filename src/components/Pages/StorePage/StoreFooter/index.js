@@ -9,6 +9,9 @@ const StoreFooter = () => (
       <LegendItem color="#00A146" letter="A">
         Ativo
       </LegendItem>
+      <LegendItem color="#FF5151" letter="I">
+        Inativo
+      </LegendItem>
       <LegendItem color="#9B6B34" letter="B">
         Bloqueada
       </LegendItem>
