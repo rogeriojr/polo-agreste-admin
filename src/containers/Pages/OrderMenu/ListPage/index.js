@@ -11,6 +11,7 @@ import OrderActions from 'components/Pages/OrderPage/OrderActions';
 import { InputItem, InputContainer } from 'components/form/StyledComponents';
 import CustomSelect from 'components/form/components/CustomSelect';
 import { formatPaymentType, formatStoresName, formatDate } from 'utils/converters';
+import OrderPaymentType from 'components/Pages/OrderPage/OrderPaymentType';
 
 const OrderListPage = () => {
   const [storesState, setStoresState] = React.useState({
@@ -70,7 +71,7 @@ const OrderListPage = () => {
     {
       title: 'Pagamento',
       field: 'payment_type',
-      render: rowData => <>{formatPaymentType(rowData.payment_type)}</>,
+      render: rowData => <OrderPaymentType rowData={rowData} />,
     },
     {
       title: 'Realizado',
