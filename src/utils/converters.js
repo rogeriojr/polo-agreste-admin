@@ -44,7 +44,9 @@ const formatStoresName = stores => {
   const storesNames = [];
   if (stores) {
     stores.forEach(store => {
-      storesNames.push(store.store.name);
+      if (store.store) {
+        storesNames.push(store.store.name);
+      }
     });
     return storesNames.join(', \n');
   }

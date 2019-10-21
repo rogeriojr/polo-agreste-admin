@@ -40,8 +40,8 @@ const OrderView = ({ orderInfo }) => {
             <CardContent>
               <b>Cliente:</b> {orderInfo.user.name} <br />
               <b>Email:</b> Valor desconhecido <br />
-              <b>Telefone principal:</b> Valor desconhecido <br />
-              <b>CPF:</b> Valor desconhecido <br />
+              <b>Telefone principal:</b> {orderInfo.user.cell_phone}<br />
+              <b>CPF:</b> {orderInfo.user.cpf} <br />
               <b>Data de nascimento:</b> Valor desconhecido <br />
               <b>Perfil de cliente:</b> Valor desconhecido <br />
             </CardContent>
@@ -155,7 +155,7 @@ const OrderView = ({ orderInfo }) => {
               <b>Forma:</b> {formatPaymentType(orderInfo.payment_type)} <br />
               <b>Parcelas:</b> Valor desconhecido <br />
               <b>ID Pedido Wirecard:</b> Valor desconhecido <br />
-              <b>ID Pagamento Wirecard:</b> {orderInfo.payments[0].wirecard_id}
+              <b>ID Pagamento Wirecard:</b> Valor desconhecido
             </CardContent>
           </Card>
         </Box>
