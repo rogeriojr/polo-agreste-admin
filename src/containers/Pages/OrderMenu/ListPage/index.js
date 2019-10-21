@@ -10,7 +10,7 @@ import AlertDialog from 'components/AlertDialog';
 import OrderActions from 'components/Pages/OrderPage/OrderActions';
 import { InputItem, InputContainer } from 'components/form/StyledComponents';
 import CustomSelect from 'components/form/components/CustomSelect';
-import { formatPaymentType, formatStoresName } from 'utils/converters';
+import { formatPaymentType, formatStoresName, formatDate } from 'utils/converters';
 
 const OrderListPage = () => {
   const [storesState, setStoresState] = React.useState({
@@ -39,7 +39,11 @@ const OrderListPage = () => {
     {
       title: 'Loja',
       field: 'stores',
-      render: rowData => <span>{formatStoresName(rowData.stores)}</span>,
+      render: rowData => (
+        <span style={{ whiteSpace: 'pre' }}>
+          {formatStoresName(rowData.stores)}
+        </span>
+      ),
     },
     { title: 'Cliente', field: 'user.name' },
     { title: 'CPF/CNPJ', field: 'user.cpf' },
@@ -68,8 +72,16 @@ const OrderListPage = () => {
       field: 'payment_type',
       render: rowData => <>{formatPaymentType(rowData.payment_type)}</>,
     },
-    { title: 'Realizado', field: 'create_at' },
-    { title: 'Atualizado', field: 'update_at' },
+    {
+      title: 'Realizado',
+      field: 'created_at',
+      render: rowData => <span>{formatDate(rowData.created_at)}</span>,
+    },
+    {
+      title: 'Atualizado',
+      field: 'updated_at',
+      render: rowData => <span>{formatDate(rowData.updated_at)}</span>,
+    },
     {
       title: 'Ações',
       field: 'actions',

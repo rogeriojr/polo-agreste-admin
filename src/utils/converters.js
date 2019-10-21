@@ -1,4 +1,6 @@
 import Immutable from 'seamless-immutable';
+import moment from 'moment';
+import 'moment/locale/pt-br';
 
 const toPrice = val =>
   Number(val)
@@ -40,11 +42,19 @@ const formatPaymentType = paymentType => {
 
 const formatStoresName = stores => {
   const storesNames = [];
-  stores.forEach(store => {
-    storesNames.push(store.store.name);
-  });
-  return storesNames.join(', ');
+  if (stores) {
+    stores.forEach(store => {
+      storesNames.push(store.store.name);
+    });
+    return storesNames.join(', \n');
+  }
+  return '';
 };
+
+const formatDate = date => {
+  moment.locale('pt-br');
+  return moment(date).format('DD/MM/YYYY HH:mm');
+}
 
 export {
   toMutable,
@@ -53,4 +63,5 @@ export {
   formatBankName,
   formatPaymentType,
   formatStoresName,
+  formatDate,
 };
