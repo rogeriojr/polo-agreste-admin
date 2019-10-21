@@ -9,30 +9,37 @@ import 'react-dates/lib/css/_datepicker.css';
 import moment from 'moment';
 import 'moment/locale/pt-br';
 
-const CustomDateRange = ({ field, form: { touched, errors }, ...props }) => {
+const CustomDateRange = ({
+  field,
+  form: { values, setFieldValue },
+  ...props
+}) => {
   const [localState, setLocalState] = React.useState({
-    startDate: null,
-    endDate: null,
     focusedInput: null,
     startDateId: null,
     endDateId: null,
   });
 
   const onDatesChange = ({ startDate, endDate }) => {
-    console.log(startDate);
-    console.log(endDate);
-    setLocalState({
-      ...localState,
-      startDate,
-      endDate,
-    });
-  }
+    setFieldValue(
+      'dateStart',
+      startDate ? startDate.format('YYYY-MM-DD') : null,
+    );
+    setFieldValue('dateEnd', endDate ? endDate.format('YYYY-MM-DD') : null);
+  };
 
   const onFocusChange = focusedInput => {
     setLocalState({
       ...localState,
       focusedInput,
     });
+  };
+
+  const convDate = date => {
+    if (date !== null) {
+      return moment(date);
+    }
+    return null;
   };
 
   React.useEffect(() => {
@@ -45,14 +52,20 @@ const CustomDateRange = ({ field, form: { touched, errors }, ...props }) => {
       startDateId: `sd_${time}_${rand}`,
       endDateId: `ed_${time}_${rand}`,
     });
+    if (!values.dateStart) {
+      setFieldValue('dateStart', null);
+    }
+    if (!values.dateEnd) {
+      setFieldValue('dateEnd', null);
+    }
   }, []);
 
   return (
     <>
       <DateRangePicker
-        startDate={localState.startDate} // momentPropTypes.momentObj or null,
+        startDate={convDate(values.dateStart)} // momentPropTypes.momentObj or null,
         startDateId={localState.startDateId} // PropTypes.string.isRequired,
-        endDate={localState.endDate} // momentPropTypes.momentObj or null,
+        endDate={convDate(values.dateEnd)} // momentPropTypes.momentObj or null,
         endDateId={localState.endDateId} // PropTypes.string.isRequired,
         onDatesChange={onDatesChange} // PropTypes.func.isRequired,
         focusedInput={localState.focusedInput} // PropTypes.oneOf([START_DATE, END_DATE]) or null,
