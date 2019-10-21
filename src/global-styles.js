@@ -359,6 +359,20 @@ const GlobalStyle = createGlobalStyle`
     margin-left: 10px;
     margin-bottom: 14px;
   }
+  .DateRangePicker_picker{
+    z-index: 30 !important;
+  }
+  .DateInput_fang {
+    z-index: 31 !important;
+  }
+  .DateRangePickerInput__withBorder {
+    border: 1px solid rgba(0, 0, 0, 0.23) !important;
+    border-radius: 4px !important;
+  }
+  .DateInput_input{
+    font-size: 15px !important;
+    padding: 9px 11px 7px !important
+  }
 `;
 
 export default GlobalStyle;

@@ -9,11 +9,14 @@ import HeaderBoxItem from 'components/HeaderComponent/HeaderBoxItem';
 import CustomInputDate from 'components/form/components/CustomInputDate';
 import CustomTextField from 'components/form/components/CustomTextField';
 import HeaderFab from 'components/HeaderComponent/HeaderFab';
+import CustomDateRange from 'components/form/components/CustomDateRange';
 
 const OrderTableHeader = ({ getFunction, initialValues }) => {
   const onSubmit = values => {
     getFunction(values);
   };
+
+  
 
   return (
     <Formik
@@ -25,6 +28,7 @@ const OrderTableHeader = ({ getFunction, initialValues }) => {
             <HeaderBoxItem style={{ paddingTop: 12, paddingRight: 6 }}>
               Busca
             </HeaderBoxItem>
+            {/*
             <HeaderBoxItem style={{ paddingLeft: 6, paddingRight: 6 }}>
               <Field
                 component={CustomInputDate}
@@ -38,6 +42,10 @@ const OrderTableHeader = ({ getFunction, initialValues }) => {
                 name="dateEnd"
                 label="Data final"
               />
+            </HeaderBoxItem>
+            */}
+            <HeaderBoxItem style={{paddingLeft: 6, paddingRight: 6}}>
+              <Field name="dateStartEnd" component={CustomDateRange} />
             </HeaderBoxItem>
             <HeaderBoxItem style={{ paddingLeft: 6, paddingRight: 6 }}>
               <Field
