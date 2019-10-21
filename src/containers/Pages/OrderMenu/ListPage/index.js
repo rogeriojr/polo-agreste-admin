@@ -10,7 +10,7 @@ import AlertDialog from 'components/AlertDialog';
 import OrderActions from 'components/Pages/OrderPage/OrderActions';
 import { InputItem, InputContainer } from 'components/form/StyledComponents';
 import CustomSelect from 'components/form/components/CustomSelect';
-import { formatPaymentType } from 'utils/converters';
+import { formatPaymentType, formatStoresName } from 'utils/converters';
 
 const OrderListPage = () => {
   const [storesState, setStoresState] = React.useState({
@@ -36,9 +36,13 @@ const OrderListPage = () => {
 
   const columns = ({ onDeleteRequest }) => [
     { title: 'Pedido', field: 'id', type: 'numeric' },
-    { title: 'Loja', field: 'store_name' },
+    {
+      title: 'Loja',
+      field: 'stores',
+      render: rowData => <span>{formatStoresName(rowData.stores)}</span>,
+    },
     { title: 'Cliente', field: 'user.name' },
-    { title: 'CPF/CNPJ', field: '' },
+    { title: 'CPF/CNPJ', field: 'user.cpf' },
     {
       title: 'Status',
       field: 'status',

@@ -38,10 +38,19 @@ const formatPaymentType = paymentType => {
   return '';
 };
 
+const formatStoresName = stores => {
+  const storesNames = [];
+  stores.forEach(store => {
+    storesNames.push(store.store.name);
+  });
+  return storesNames.join(', ');
+};
+
 export {
   toMutable,
   toPrice,
   formatCityName,
   formatBankName,
   formatPaymentType,
+  formatStoresName,
 };
