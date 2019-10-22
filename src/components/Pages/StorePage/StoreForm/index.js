@@ -118,9 +118,9 @@ const schema = Yup.object().shape({
     district: Yup.string().required('Campo obrigatório'),
     complement: Yup.string(),
     city: Yup.object().shape({
-      id: Yup.string().test(
-        ...validators.numberNotRequired().required('Campo obrigatório'),
-      ),
+      id: Yup.string()
+        .test(...validators.numberNotRequired())
+        .required('Campo obrigatório'),
     }),
   }),
   manager: Yup.object().shape({
@@ -132,7 +132,7 @@ const schema = Yup.object().shape({
       .test(...validators.cpfInvalid('CPF inválido'))
       .required('Obrigatório'),
     cell_phone: Yup.string().required('Campo obrigatório'),
-    birth_date: Yup.date().required('Campo obrigatório'),
+    birth_date: Yup.string().required('Campo obrigatório'),
     code_post: Yup.string()
       .test('cep', 'CEP inválido', val =>
         val === undefined ? false : validateBr.cep(val),
