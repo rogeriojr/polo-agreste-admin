@@ -22,6 +22,7 @@ import productColorReducer from 'store/ducks/productColor';
 import productSizeReducer from 'store/ducks/productSize';
 import bankReducer from 'store/ducks/bank';
 import bannerReducer from 'store/ducks/banner';
+import addressReducer from 'store/ducks/address';
 
 /**
  * Merges the main reducer with the router state and dynamically injected reducers
@@ -46,4 +47,5 @@ export default history =>
     productSize: productSizeReducer,
     bank: bankReducer,
     banner: bannerReducer,
+    address: addressReducer,
   });

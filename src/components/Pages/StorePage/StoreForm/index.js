@@ -108,34 +108,44 @@ const schema = Yup.object().shape({
   website: Yup.string(),
   status: Yup.number().required('Campo obrigatório'),
   address: Yup.object().shape({
-    code_post: Yup.string().test('cep', 'CEP inválido', val =>
-      val === undefined ? false : validateBr.cep(val),
-    ),
-    street: Yup.string(),
-    number: Yup.string().test(...validators.numberNotRequired()),
-    district: Yup.string(),
+    code_post: Yup.string()
+      .test('cep', 'CEP inválido', val =>
+        val === undefined ? false : validateBr.cep(val),
+      )
+      .required('Campo obrigatório'),
+    street: Yup.string().required('Campo obrigatório'),
+    number: Yup.string().required('Campo obrigatório'),
+    district: Yup.string().required('Campo obrigatório'),
     complement: Yup.string(),
     city: Yup.object().shape({
-      id: Yup.string().test(...validators.numberNotRequired()),
+      id: Yup.string().test(
+        ...validators.numberNotRequired().required('Campo obrigatório'),
+      ),
     }),
   }),
   manager: Yup.object().shape({
     name: Yup.string().required('Este campo é obrigatório'),
-    email: Yup.string().email('E-mail inválido'),
+    email: Yup.string()
+      .email('E-mail inválido')
+      .required('Campo obrigatório'),
     cpf: Yup.string()
       .test(...validators.cpfInvalid('CPF inválido'))
       .required('Obrigatório'),
-    cell_phone: Yup.string(),
-    birth_date: Yup.date(),
-    code_post: Yup.string().test('cep', 'CEP inválido', val =>
-      val === undefined ? false : validateBr.cep(val),
-    ),
-    street: Yup.string(),
-    number: Yup.string().test(...validators.numberNotRequired()),
-    district: Yup.string(),
+    cell_phone: Yup.string().required('Campo obrigatório'),
+    birth_date: Yup.date().required('Campo obrigatório'),
+    code_post: Yup.string()
+      .test('cep', 'CEP inválido', val =>
+        val === undefined ? false : validateBr.cep(val),
+      )
+      .required('Campo obrigatório'),
+    street: Yup.string().required('Campo obrigatório'),
+    number: Yup.string().required('Campo obrigatório'),
+    district: Yup.string().required('Campo obrigatório'),
     complement: Yup.string(),
     city: Yup.object().shape({
-      id: Yup.string().test(...validators.numberNotRequired()),
+      id: Yup.string()
+        .test(...validators.numberNotRequired())
+        .required('Campo obrigatório'),
     }),
     image: '',
     image_data: '',

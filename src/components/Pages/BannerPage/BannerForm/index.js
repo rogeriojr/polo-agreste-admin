@@ -44,6 +44,7 @@ const BannerForm = ({
   initialValues = formInitialValues,
   submitText,
   handleBack,
+  isLoading,
 }) => {
   const dispatch = useDispatch();
   const { bannerImageDeleteLoading, banner } = useSelector(
@@ -105,7 +106,11 @@ const BannerForm = ({
                 />
               </InputItem>
             </InputContainer>
-            <FormButtons handleBack={handleBack} submitText={submitText} />
+            <FormButtons
+              handleBack={handleBack}
+              isLoading={isLoading}
+              submitText={submitText}
+            />
           </Card>
         </Form>
       )}
@@ -118,6 +123,7 @@ BannerForm.propTypes = {
   initialValues: PropTypes.oneOfType([PropTypes.object]),
   submitText: PropTypes.string,
   handleBack: PropTypes.oneOfType([PropTypes.bool, PropTypes.func]),
+  isLoading: PropTypes.bool.isRequired,
 };
 
 BannerForm.defaultProps = {
