@@ -12,6 +12,7 @@ import CustomRichText from 'components/form/components/CustomRichText';
 import { useDispatch, useSelector } from 'react-redux';
 import { Creators as CityCreators } from 'store/ducks/city';
 import { Creators as BankCreators } from 'store/ducks/bank';
+import { Creators as AddressCreators } from 'store/ducks/address';
 import CustomMaskField from 'components/form/components/CustomMaskField';
 import { validateBr } from 'js-brasil';
 import validators from 'utils/validators';
@@ -176,18 +177,77 @@ const StoreForm = ({
   isLoading,
 }) => {
   const dispatch = useDispatch();
+
+  const cepTypes = {
+    STORE: 0,
+    MANAGER: 1,
+  };
+
   const [value, setValue] = React.useState(0);
+
+  const [cepType, setCepType] = React.useState(cepTypes.STORE);
+
+  const [formikForm, setFormikForm] = React.useState({});
+
   const { cityList, cityListLoading } = useSelector(state => state.city);
   const { bankList, bankListLoading } = useSelector(state => state.bank);
+  const { addressValidate, addressValidateLoading } = useSelector(
+    state => state.address,
+  );
 
   const getInitialData = () => {
-    dispatch(CityCreators.getCityListRequest({ perPage: 1000 }));
+    dispatch(CityCreators.getCityListRequest({ perPage: 10000 }));
     dispatch(BankCreators.getBankListRequest({ perPage: 1000 }));
   };
 
   React.useEffect(() => {
     getInitialData();
   }, []);
+
+  React.useEffect(() => {
+    if (
+      addressValidateLoading === false &&
+      formikForm.setFieldValue &&
+      addressValidate
+    ) {
+      if (cepType === cepTypes.STORE) {
+        formikForm.setFieldValue('address.street', addressValidate.street);
+        formikForm.setFieldValue('address.district', addressValidate.district);
+        formikForm.setFieldValue('address.city.id', addressValidate.city.id);
+      } else if (cepType === cepTypes.MANAGER) {
+        formikForm.setFieldValue('manager.street', addressValidate.street);
+        formikForm.setFieldValue('manager.district', addressValidate.district);
+        formikForm.setFieldValue('manager.city.id', addressValidate.city.id);
+      }
+    } else if (
+      addressValidateLoading === false &&
+      formikForm.setFieldValue &&
+      typeof addressValidate === 'undefined'
+    ) {
+      if (cepType === cepTypes.STORE) {
+        formikForm.setFieldValue('address.street', '');
+        formikForm.setFieldValue('address.district', '');
+        formikForm.setFieldValue('address.city.id', '');
+      } else if (cepType === cepTypes.MANAGER) {
+        formikForm.setFieldValue('manager.street', '');
+        formikForm.setFieldValue('manager.district', '');
+        formikForm.setFieldValue('manager.city.id', '');
+      }
+    }
+  }, [addressValidate]);
+
+  const onCepChange = (form, curCepType) => event => {
+    const fieldValue = event.target.value;
+
+    setCepType(curCepType);
+    setFormikForm(form);
+
+    if (fieldValue.indexOf('_') < 0 && fieldValue.length === 9) {
+      dispatch(
+        AddressCreators.getAddressValidateRequest({ code_post: fieldValue }),
+      );
+    }
+  };
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
@@ -199,7 +259,7 @@ const StoreForm = ({
       validationSchema={schema}
       onSubmit={onSubmit}
       enableReinitialize
-      render={({ values }) => (
+      render={({ values, ...form }) => (
         <Form>
           <Card style={{ marginTop: 20 }}>
             <Tabs value={value} onChange={handleChange}>
@@ -304,6 +364,7 @@ const StoreForm = ({
                       label="CEP"
                       component={CustomMaskField}
                       mask="99999-999"
+                      onKeyUp={onCepChange(form, cepTypes.STORE)}
                     />
                   </InputItem>
                   <InputItem>
@@ -339,7 +400,7 @@ const StoreForm = ({
                       component={CustomTextField}
                     />
                   </InputItem>
-                  <InputItem>
+                  <InputItem style={{ pointerEvents: 'none' }}>
                     <Field
                       name="address.city.id"
                       label="Cidade"
@@ -420,6 +481,7 @@ const StoreForm = ({
                       name="manager.code_post"
                       label="CEP"
                       component={CustomMaskField}
+                      onKeyUp={onCepChange(form, cepTypes.MANAGER)}
                       mask="99999-999"
                     />
                   </InputItem>
@@ -456,7 +518,7 @@ const StoreForm = ({
                       component={CustomTextField}
                     />
                   </InputItem>
-                  <InputItem>
+                  <InputItem style={{ pointerEvents: 'none' }}>
                     <FastField
                       name="manager.city.id"
                       label="Cidade"

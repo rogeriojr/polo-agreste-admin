@@ -7,7 +7,7 @@ import { callApi } from 'store/sagas/auth';
 function* getAddressValidate({ payload }) {
   try {
     const { code_post } = payload;
-    const response = yield call(api.get, '/v1/cliente/address/validate', {
+    const response = yield call(api.get, '/v1/client/address/validate', {
       code_post,
     });
     yield put(Creators.getAddressValidateSuccess(response.data));
@@ -17,6 +17,6 @@ function* getAddressValidate({ payload }) {
 }
 
 // Individual exports for testing
-export default function* productListSaga() {
+export default function* addressSaga() {
   yield all([takeLatest(Types.GET_VALIDATE_REQUEST, getAddressValidate)]);
 }

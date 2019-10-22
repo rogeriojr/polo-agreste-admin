@@ -19,11 +19,12 @@ const StyledTextField = styled(TextField)`
   }
 `;
 
-const CustomMaskField = ({ mask, field, label, form }) => {
+const CustomMaskField = ({ mask, field, label, form, ...otherProps }) => {
   return (
     <>
       <InputMask
         {...field}
+        {...otherProps}
         fullWidth
         variant="outlined"
         label={label}

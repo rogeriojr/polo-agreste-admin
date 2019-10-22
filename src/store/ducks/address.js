@@ -48,10 +48,12 @@ export default (state = initialState, action) => {
 
 export const Creators = {
   // Busca uma categoria
-  getAddressValidateRequest: ({ code_post }) => ({
-    type: Types.GET_VALIDATE_REQUEST,
-    payload: { code_post },
-  }),
+  getAddressValidateRequest: ({ code_post }) => {
+    return {
+      type: Types.GET_VALIDATE_REQUEST,
+      payload: { code_post },
+    };
+  },
   getAddressValidateSuccess: ({ data }) => ({
     type: Types.GET_VALIDATE_SUCCESS,
     payload: { data },
