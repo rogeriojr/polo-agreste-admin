@@ -13,7 +13,7 @@ import {
   TableRow,
   TableFooter,
 } from '@material-ui/core';
-import { toPrice, formatPaymentType } from 'utils/converters';
+import { toPrice, formatPaymentType, formatStoresName } from 'utils/converters';
 
 const OrderView = ({ orderInfo }) => {
   let totalValue = 0;
@@ -66,7 +66,11 @@ const OrderView = ({ orderInfo }) => {
               <b>Frete:</b> Desconhecido <br />
               <b>Rastreamento:</b> Desconhecido <br />
               <b>Destinatário:</b> Desconhecido <br />
-              <b>Observações:</b> Desconhecido <br />
+              <b>Observações:</b> Desconhecido <br /> <br />
+              <b>Lojas:</b> <br />
+              <span style={{ whiteSpace: 'pre' }}>
+                {formatStoresName(orderInfo.stores)}
+              </span>
             </CardContent>
           </Card>
         </Box>
