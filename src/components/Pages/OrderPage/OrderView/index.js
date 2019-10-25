@@ -159,7 +159,9 @@ const OrderView = ({ orderInfo }) => {
               <b>Forma:</b> {formatPaymentType(orderInfo.payment_type)} <br />
               <b>Parcelas:</b> Valor desconhecido <br />
               <b>ID Pedido Wirecard:</b> Valor desconhecido <br />
-              <b>ID Pagamento Wirecard:</b> Valor desconhecido
+              <b>ID Pagamento Wirecard:</b>{' '}
+              {orderInfo.payments.length > 0 &&
+                orderInfo.payments[0].wirecard_id}
             </CardContent>
           </Card>
         </Box>
