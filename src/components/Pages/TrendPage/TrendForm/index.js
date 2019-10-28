@@ -9,6 +9,7 @@ import FormButtons from 'components/form/components/FormButtons';
 import CustomRichText from 'components/form/components/CustomRichText';
 import CustomSelect from 'components/form/components/CustomSelect';
 import { Creators as TrendCreators } from 'store/ducks/trend';
+import { Creators as ProductCreators } from 'store/ducks/product';
 import { useDispatch, useSelector } from 'react-redux';
 import CustomImageField from 'components/form/components/CustomImageField';
 import CustomCurrencyField from 'components/form/components/CustomCurrencyField';
@@ -33,6 +34,7 @@ export const formInitialValues = {
   price_whole: '',
   date_end: '',
   status: 1,
+  products: [],
   images: '',
   images_data: [],
   images_info: [],
@@ -45,6 +47,11 @@ const schema = Yup.object().shape({
   price: Yup.string().required('Campo obrigatório'),
   price_whole: Yup.string(),
   date_end: Yup.string().required('Campo obrigatório'),
+  products: Yup.array().of(
+    Yup.object().shape({
+      id: Yup.number(),
+    }),
+  ),
 });
 
 const TrendForm = ({
@@ -56,6 +63,9 @@ const TrendForm = ({
 }) => {
   const dispatch = useDispatch();
   const { trendImageDeleteLoading, trend } = useSelector(state => state.trend);
+  const { productListLoading, productList } = useSelector(
+    state => state.product,
+  );
 
   const [value, setValue] = React.useState(0);
   const handleChange = (event, newValue) => {
@@ -70,6 +80,16 @@ const TrendForm = ({
       }),
     );
   };
+
+  const getInitialData = () => {
+    dispatch(ProductCreators.getProductListRequest({ perPage: 10000 }));
+  };
+
+  console.log(productList);
+
+  React.useEffect(() => {
+    getInitialData();
+  }, []);
 
   return (
     <Formik
@@ -119,6 +139,19 @@ const TrendForm = ({
                   name="price_whole"
                   label="Preço atacado"
                   component={CustomCurrencyField}
+                />
+              </InputItem>
+            </InputContainer>
+            <InputContainer>
+              <InputItem>
+                <Field
+                  name="products"
+                  label="Produtos"
+                  options={productList}
+                  component={CustomSelect}
+                  placeholder="Produtos"
+                  isMulti
+                  isLoading={productListLoading}
                 />
               </InputItem>
             </InputContainer>
