@@ -212,9 +212,17 @@ export const Creators = {
     search,
     orderByColumn,
     orderByDirection,
+    group_id,
   }) => ({
     type: Types.GET_LIST_REQUEST,
-    payload: { page, perPage, search, orderByColumn, orderByDirection },
+    payload: {
+      page,
+      perPage,
+      search,
+      orderByColumn,
+      orderByDirection,
+      group_id,
+    },
   }),
   getUserListSuccess: ({ data, total }) => ({
     type: Types.GET_LIST_SUCCESS,

@@ -2,39 +2,38 @@ import React from 'react';
 import PageBase from 'components/PageBase';
 import DefaultTable from 'components/Tables/DefaultTable';
 import { useDispatch, useSelector } from 'react-redux';
-import { Creators as ProductCreators } from 'store/ducks/product';
+import { Creators as UserCreators } from 'store/ducks/user';
 import { Paper } from '@material-ui/core';
 import HeaderComponent from 'components/HeaderComponent';
 import ClientTableHeader from 'components/Pages/ClientPage/ClientTableHeader';
 import ClientActions from 'components/Pages/ClientPage/ClientActions';
 
-import ProductFooter from 'components/Pages/ProductPage/ProductFooter';
 import AlertDialog from 'components/AlertDialog';
 
 const columns = ({ onDeleteRequest }) => [
   {
     title: 'Nome',
-    field: 'orderId',
-    sorting: false,
-  },
-  {
-    title: 'Perfil',
     field: 'name',
     sorting: false,
   },
   {
+    title: 'Perfil',
+    field: 'profile',
+    sorting: false,
+  },
+  {
     title: 'E-mail',
-    field: 'type',
+    field: 'email',
     sorting: false,
   },
   {
     title: 'CPF/CNPJ',
-    field: 'create_at',
+    field: 'cpf',
     sorting: false,
   },
   {
     title: 'Telefone',
-    field: 'update_at',
+    field: 'cell_phone',
     sorting: false,
   },
   {
@@ -59,6 +58,7 @@ const ClientListPage = () => {
     orderByDirection: '',
     page: 1,
     perPage: 10,
+    group_id: 5,
   });
 
   const [deleteState, setDeleteState] = React.useState({
@@ -66,12 +66,12 @@ const ClientListPage = () => {
     item: {},
   });
 
-  const { productListTotal, productDeleteLoading } = useSelector(
-    state => state.product,
+  const { userList, userListTotal, userDeleteLoading } = useSelector(
+    state => state.user,
   );
 
   React.useEffect(() => {
-    dispatch(ProductCreators.getProductListRequest(localState));
+    dispatch(UserCreators.getUserListRequest(localState));
   }, []);
 
   const getFunction = data => {
@@ -79,7 +79,7 @@ const ClientListPage = () => {
   };
 
   React.useEffect(() => {
-    dispatch(ProductCreators.getProductListRequest(localState));
+    dispatch(UserCreators.getUserListRequest(localState));
   }, [localState]);
 
   const handleAlertDialogClose = () => {
@@ -91,14 +91,14 @@ const ClientListPage = () => {
   };
 
   const onDeleteConfirm = () => {
-    dispatch(ProductCreators.getProductDeleteRequest(deleteState.item.id));
+    dispatch(UserCreators.getUserDeleteRequest(deleteState.item.id));
   };
 
   React.useEffect(() => {
-    if (productDeleteLoading === false && deleteState.open) {
+    if (userDeleteLoading === false && deleteState.open) {
       handleAlertDialogClose();
     }
-  }, [productDeleteLoading]);
+  }, [userDeleteLoading]);
 
   return (
     <PageBase>
@@ -112,33 +112,16 @@ const ClientListPage = () => {
         <DefaultTable
           getFunction={getFunction}
           columns={columns({ onDeleteRequest })}
-          data={[
-            {
-              orderId: 'murillo',
-              name: 'Consumidor',
-              type: 'exemplo@email.com',
-              create_at: '123.456.789-01324',
-              update_at: '(01) 3123-4567',
-            },
-            {
-              orderId: 'ana',
-              name: 'cliente Teste',
-              type: 'Descrição@status',
-              create_at: '12424324',
-              update_at: '28/08/2019',
-              actions: 1,
-            },
-          ]}
-          total={productListTotal}
+          data={userList}
+          total={userListTotal}
           isLoading={false}
           page={localState.page}
           perPage={localState.perPage}
-          footer={<ProductFooter />}
         />
       </Paper>
       <AlertDialog
         isOpen={deleteState.open}
-        isLoading={productDeleteLoading}
+        isLoading={userDeleteLoading}
         handleClose={handleAlertDialogClose}
         onConfirm={onDeleteConfirm}
         title="Excluir registro de cliente?"

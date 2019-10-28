@@ -44,7 +44,7 @@ const OrderTableHeader = ({ getFunction, initialValues }) => {
               />
             </HeaderBoxItem>
             */}
-            <HeaderBoxItem style={{paddingLeft: 6, paddingRight: 6}}>
+            <HeaderBoxItem style={{ paddingLeft: 6, paddingRight: 6 }}>
               <Field name="dateStartEnd" component={CustomDateRange} />
             </HeaderBoxItem>
             <HeaderBoxItem style={{ paddingLeft: 6, paddingRight: 6 }}>

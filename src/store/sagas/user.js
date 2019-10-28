@@ -133,13 +133,14 @@ function* getUserDelete({ payload }) {
 
 function* getUserList({ payload }) {
   try {
-    const { page, perPage, search, orderByColumn, orderByDirection } = payload;
+    const { page, perPage, search, orderByColumn, orderByDirection, group_id } = payload;
     const request = call(api.get, '/v1/admin/users', {
       page,
       search,
       per_page: perPage,
       order: orderByColumn,
       order_by: orderByDirection,
+      group_id,
     });
 
     const response = yield call(callApi, request);

@@ -240,6 +240,7 @@ const Menu = [
         url: '/client',
         component: ClientListPage,
       },
+      /*
       {
         id: 'client-profile-list',
         text: 'Listar perfis de clientes',
@@ -252,6 +253,7 @@ const Menu = [
         url: '/client/profiles/new',
         component: ClientProfileInsertPage,
       },
+      */
       {
         id: 'newsletter',
         text: 'Newsletter',
