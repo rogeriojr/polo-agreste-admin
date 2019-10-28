@@ -2,16 +2,16 @@ import React from 'react';
 import PageBase from 'components/PageBase';
 import DefaultTable from 'components/Tables/DefaultTable';
 import { useDispatch, useSelector } from 'react-redux';
-import { Creators as TrendCreators } from 'store/ducks/trend';
+import { Creators as KitCreators } from 'store/ducks/kit';
 import { Paper } from '@material-ui/core';
 import HeaderComponent from 'components/HeaderComponent';
-import TrendTableHeader from 'components/Pages/TrendPage/TrendTableHeader';
-import TrendActions from 'components/Pages/TrendPage/TrendActions';
+import KitTableHeader from 'components/Pages/KitPage/KitTableHeader';
+import KitActions from 'components/Pages/KitPage/KitActions';
 import { toPrice } from 'utils/converters';
-import TrendStatus from 'components/Pages/TrendPage/TrendStatus';
-import TrendFooter from 'components/Pages/TrendPage/TrendFooter';
+import KitStatus from 'components/Pages/KitPage/KitStatus';
+import KitFooter from 'components/Pages/KitPage/KitFooter';
 import AlertDialog from 'components/AlertDialog';
-import TrendImage from 'components/Pages/TrendPage/TrendImage';
+import KitImage from 'components/Pages/KitPage/KitImage';
 
 const columns = ({ onDeleteRequest }) => [
   {
@@ -23,7 +23,7 @@ const columns = ({ onDeleteRequest }) => [
     title: 'Imagem',
     field: 'images',
     sorting: false,
-    render: rowData => <TrendImage rowData={rowData} />,
+    render: rowData => <KitImage rowData={rowData} />,
   },
   {
     title: 'Nome',
@@ -33,17 +33,17 @@ const columns = ({ onDeleteRequest }) => [
   {
     title: 'Status',
     sorting: false,
-    render: rowData => <TrendStatus rowData={rowData} />,
+    render: rowData => <KitStatus rowData={rowData} />,
   },
   {
     title: 'Ações',
     render: rowData => (
-      <TrendActions rowData={rowData} onDeleteRequest={onDeleteRequest} />
+      <KitActions rowData={rowData} onDeleteRequest={onDeleteRequest} />
     ),
   },
 ];
 
-const TrendListPage = () => {
+const KitListPage = () => {
   const dispatch = useDispatch();
 
   const [localState, setLocalState] = React.useState({
@@ -60,14 +60,14 @@ const TrendListPage = () => {
   });
 
   const {
-    trendList,
-    trendListLoading,
-    trendListTotal,
-    trendDeleteLoading,
-  } = useSelector(state => state.trend);
+    kitList,
+    kitListLoading,
+    kitListTotal,
+    kitDeleteLoading,
+  } = useSelector(state => state.kit);
 
   React.useEffect(() => {
-    dispatch(TrendCreators.getTrendListRequest(localState));
+    dispatch(KitCreators.getKitListRequest(localState));
   }, []);
 
   const getFunction = data => {
@@ -75,7 +75,7 @@ const TrendListPage = () => {
   };
 
   React.useEffect(() => {
-    dispatch(TrendCreators.getTrendListRequest(localState));
+    dispatch(KitCreators.getKitListRequest(localState));
   }, [localState]);
 
   const handleAlertDialogClose = () => {
@@ -87,19 +87,19 @@ const TrendListPage = () => {
   };
 
   const onDeleteConfirm = () => {
-    dispatch(TrendCreators.getTrendDeleteRequest(deleteState.item.id));
+    dispatch(KitCreators.getKitDeleteRequest(deleteState.item.id));
   };
 
   React.useEffect(() => {
-    if (trendDeleteLoading === false && deleteState.open) {
+    if (kitDeleteLoading === false && deleteState.open) {
       handleAlertDialogClose();
     }
-  }, [trendDeleteLoading]);
+  }, [kitDeleteLoading]);
 
   return (
     <PageBase>
-      <HeaderComponent title="Listar tendência">
-        <TrendTableHeader
+      <HeaderComponent title="Listar Kit">
+        <KitTableHeader
           getFunction={getFunction}
           initialValues={{ search: localState.search }}
         />
@@ -108,17 +108,17 @@ const TrendListPage = () => {
         <DefaultTable
           getFunction={getFunction}
           columns={columns({ onDeleteRequest })}
-          data={trendList}
-          total={trendListTotal}
-          isLoading={trendListLoading}
+          data={kitList}
+          total={kitListTotal}
+          isLoading={kitListLoading}
           page={localState.page}
           perPage={localState.perPage}
-          footer={<TrendFooter />}
+          footer={<KitFooter />}
         />
       </Paper>
       <AlertDialog
         isOpen={deleteState.open}
-        isLoading={trendDeleteLoading}
+        isLoading={kitDeleteLoading}
         handleClose={handleAlertDialogClose}
         onConfirm={onDeleteConfirm}
         title="Excluir registro?"
@@ -128,4 +128,4 @@ const TrendListPage = () => {
   );
 };
 
-export default TrendListPage;
+export default KitListPage;

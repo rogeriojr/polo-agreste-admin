@@ -16,6 +16,7 @@ import bankSaga from './bank';
 import bannerSaga from './banner';
 import addressSaga from './address';
 import trendSaga from './trend';
+import kitSaga from './kit';
 
 export default function* rootSaga() {
   yield all([
@@ -36,5 +37,6 @@ export default function* rootSaga() {
     fork(bannerSaga),
     fork(addressSaga),
     fork(trendSaga),
+    fork(kitSaga),
   ]);
 }

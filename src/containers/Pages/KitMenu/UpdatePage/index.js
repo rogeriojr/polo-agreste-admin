@@ -1,26 +1,26 @@
 import React from 'react';
 import PageBase from 'components/PageBase';
 import { useDispatch, useSelector } from 'react-redux';
-import { Creators as TrendCreators } from 'store/ducks/trend';
+import { Creators as KitCreators } from 'store/ducks/kit';
 import HeaderComponent from 'components/HeaderComponent';
-import TrendForm from 'components/Pages/TrendPage/TrendForm';
+import KitForm from 'components/Pages/KitPage/KitForm';
 import { withRouter } from 'react-router-dom';
 import RichTextEditor from 'react-rte';
 import PropTypes from 'prop-types';
 import { push } from 'connected-react-router';
 
-const TrendUpdatePage = ({ match }) => {
+const KitUpdatePage = ({ match }) => {
   const dispatch = useDispatch();
 
   const [localState, setLocalState] = React.useState(null);
 
-  const { trend, trendLoading, trendUpdateLoading } = useSelector(
-    state => state.trend,
+  const { kit, kitLoading, kitUpdateLoading } = useSelector(
+    state => state.kit,
   );
 
   const getInitialData = () => {
     const { params } = match;
-    dispatch(TrendCreators.getTrendRequest({ id: params.id }));
+    dispatch(KitCreators.getKitRequest({ id: params.id }));
     setLocalState(null);
   };
 
@@ -32,35 +32,35 @@ const TrendUpdatePage = ({ match }) => {
     
     const { params } = match;
     if (
-      Object.keys(trend).length > 0 &&
-      !trendLoading &&
-      trend.id === Number(params.id)
+      Object.keys(kit).length > 0 &&
+      !kitLoading &&
+      kit.id === Number(params.id)
     ) {
-      console.log(trend.images);
+      console.log(kit.images);
       setLocalState({
-        ...trend,
-        images_info: trend.images,
+        ...kit,
+        images_info: kit.images,
         images: '',
         images_data: [],
       });
     }
-  }, [trend]);
+  }, [kit]);
 
   const onSubmit = data => {
-    dispatch(TrendCreators.getTrendUpdateRequest(data));
+    dispatch(KitCreators.getKitUpdateRequest(data));
   };
 
   const handleBack = () => {
-    dispatch(push(`/trend`));
+    dispatch(push(`/kit`));
   };
 
   return (
     <PageBase>
-      <HeaderComponent title="Atualizar tendência" />
-      {localState && !trendLoading && (
-        <TrendForm
+      <HeaderComponent title="Atualizar kit" />
+      {localState && !kitLoading && (
+        <KitForm
           initialValues={localState}
-          isLoading={trendUpdateLoading}
+          isLoading={kitUpdateLoading}
           onSubmit={onSubmit}
           handleBack={handleBack}
         />
@@ -69,8 +69,8 @@ const TrendUpdatePage = ({ match }) => {
   );
 };
 
-TrendUpdatePage.propTypes = {
+KitUpdatePage.propTypes = {
   match: PropTypes.oneOfType([PropTypes.object]).isRequired,
 };
 
-export default withRouter(TrendUpdatePage);
+export default withRouter(KitUpdatePage);

@@ -8,7 +8,7 @@ import CustomTextField from 'components/form/components/CustomTextField';
 import FormButtons from 'components/form/components/FormButtons';
 import CustomRichText from 'components/form/components/CustomRichText';
 import CustomSelect from 'components/form/components/CustomSelect';
-import { Creators as TrendCreators } from 'store/ducks/trend';
+import { Creators as KitCreators } from 'store/ducks/kit';
 import { Creators as ProductCreators } from 'store/ducks/product';
 import { useDispatch, useSelector } from 'react-redux';
 import CustomImageField from 'components/form/components/CustomImageField';
@@ -30,6 +30,9 @@ TabContainer.propTypes = {
 export const formInitialValues = {
   id: '',
   name: '',
+  price: '',
+  price_whole: '',
+  date_end: '',
   status: 1,
   products: [],
   images: '',
@@ -41,6 +44,9 @@ const schema = Yup.object().shape({
   id: Yup.number(),
   name: Yup.string().required('Este campo é obrigatório'),
   status: Yup.number().required('Este campo é obrigatório'),
+  price: Yup.string().required('Campo obrigatório'),
+  price_whole: Yup.string(),
+  date_end: Yup.string().required('Campo obrigatório'),
   products: Yup.array().of(
     Yup.object().shape({
       id: Yup.number(),
@@ -48,7 +54,7 @@ const schema = Yup.object().shape({
   ),
 });
 
-const TrendForm = ({
+const KitForm = ({
   onSubmit,
   initialValues = formInitialValues,
   submitText,
@@ -56,7 +62,7 @@ const TrendForm = ({
   isLoading,
 }) => {
   const dispatch = useDispatch();
-  const { trendImageDeleteLoading, trend } = useSelector(state => state.trend);
+  const { kitImageDeleteLoading, kit } = useSelector(state => state.kit);
   const { productListLoading, productList } = useSelector(
     state => state.product,
   );
@@ -68,9 +74,9 @@ const TrendForm = ({
 
   const onDeleteImageRequest = image => {
     dispatch(
-      TrendCreators.getImageTrendDeleteRequest({
+      KitCreators.getImageKitDeleteRequest({
         id: image.id,
-        id_trend: trend.id,
+        id_kit: kit.id,
       }),
     );
   };
@@ -78,6 +84,8 @@ const TrendForm = ({
   const getInitialData = () => {
     dispatch(ProductCreators.getProductListRequest({ perPage: 10000 }));
   };
+
+  console.log(productList);
 
   React.useEffect(() => {
     getInitialData();
@@ -94,8 +102,15 @@ const TrendForm = ({
         <Form>
           <Card style={{ padding: 20 }}>
             <InputContainer>
-              <InputItem style={{ flexGrow: 2 }}>
+              <InputItem>
                 <Field name="name" label="Nome" component={CustomTextField} />
+              </InputItem>
+              <InputItem>
+                <FastField
+                  name="date_end"
+                  label="Data de finalização"
+                  component={CustomInputDate}
+                />
               </InputItem>
               <InputItem>
                 <Field
@@ -108,6 +123,22 @@ const TrendForm = ({
                   component={CustomSelect}
                   placeholder="Status"
                   isLoading={false}
+                />
+              </InputItem>
+            </InputContainer>
+            <InputContainer>
+              <InputItem>
+                <FastField
+                  name="price"
+                  label="Preço varejo"
+                  component={CustomCurrencyField}
+                />
+              </InputItem>
+              <InputItem>
+                <FastField
+                  name="price_whole"
+                  label="Preço atacado"
+                  component={CustomCurrencyField}
                 />
               </InputItem>
             </InputContainer>
@@ -131,7 +162,7 @@ const TrendForm = ({
                   label="Galeria"
                   component={CustomImageField}
                   images={values.images_info}
-                  deleteLoading={trendImageDeleteLoading}
+                  deleteLoading={kitImageDeleteLoading}
                   onDeleteRequest={onDeleteImageRequest}
                   isMulti
                 />
@@ -149,7 +180,7 @@ const TrendForm = ({
   );
 };
 
-TrendForm.propTypes = {
+KitForm.propTypes = {
   onSubmit: PropTypes.func,
   initialValues: PropTypes.oneOfType([PropTypes.object]),
   submitText: PropTypes.string,
@@ -157,11 +188,11 @@ TrendForm.propTypes = {
   isLoading: PropTypes.bool.isRequired,
 };
 
-TrendForm.defaultProps = {
+KitForm.defaultProps = {
   initialValues: formInitialValues,
   submitText: 'Salvar',
   handleBack: false,
   onSubmit: () => {},
 };
 
-export default TrendForm;
+export default KitForm;

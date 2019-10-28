@@ -34,21 +34,10 @@ function* getTrendImagesUpload(payload) {
 
 function* getTrendInsert({ payload }) {
   try {
-    const {
-      name,
-      price,
-      price_whole,
-      date_end,
-      status,
-      products,
-      images_data,
-    } = payload;
+    const { name, status, products, images_data } = payload;
     const response = yield call(api.post, '/v1/admin/trends', {
       name,
-      price,
-      price_whole,
       status,
-      date_end,
       products,
     });
     const { id } = response.data.data;
@@ -65,22 +54,10 @@ function* getTrendInsert({ payload }) {
 
 function* getTrendUpdate({ payload }) {
   try {
-    const {
-      id,
-      name,
-      price,
-      price_whole,
-      date_end,
-      status,
-      products,
-      images_data,
-    } = payload;
+    const { id, name, status, products, images_data } = payload;
     /* const response =  */ yield call(api.put, `/v1/admin/trends/${id}`, {
       name,
-      price,
-      price_whole,
       status,
-      date_end,
       products,
     });
     yield getTrendImagesUpload({ id, images_data });

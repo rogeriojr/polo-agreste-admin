@@ -9,7 +9,7 @@ const StyledImg = styled('img')`
   }
 `;
 
-const TrendImage = ({ rowData }) => (
+const KitImage = ({ rowData }) => (
   <div>
     {rowData.images.length > 0 && (
       <StyledImg src={rowData.images[0].sizes.small} />
@@ -17,8 +17,8 @@ const TrendImage = ({ rowData }) => (
   </div>
 );
 
-TrendImage.propTypes = {
+KitImage.propTypes = {
   rowData: PropTypes.oneOfType([PropTypes.object]).isRequired,
 };
 
-export default TrendImage;
+export default KitImage;

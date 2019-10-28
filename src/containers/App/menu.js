@@ -68,6 +68,11 @@ import TrendListPage from 'containers/Pages/TrendMenu/ListPage/Loadable';
 import TrendInsertPage from 'containers/Pages/TrendMenu/InsertPage/Loadable';
 import TrendUpdatePage from 'containers/Pages/TrendMenu/UpdatePage/Loadable';
 
+// Menu Kit
+import KitListPage from 'containers/Pages/KitMenu/ListPage/Loadable';
+import KitInsertPage from 'containers/Pages/KitMenu/InsertPage/Loadable';
+import KitUpdatePage from 'containers/Pages/KitMenu/UpdatePage/Loadable';
+
 // Páginas gerais
 import NotFoundPage from 'containers/NotFoundPage/Loadable';
 
@@ -405,6 +410,32 @@ const Menu = [
         text: 'Atualizar tendência',
         url: '/trend/update/:id',
         component: TrendUpdatePage,
+        showInMenu: false,
+      },
+    ],
+  },
+  {
+    id: 'kit',
+    text: 'Kits',
+    icon: <Icon>card_giftcard</Icon>,
+    children: [
+      {
+        id: 'kit-list',
+        text: 'Listar kit',
+        url: '/kit',
+        component: KitListPage,
+      },
+      {
+        id: 'kit-new',
+        text: 'Cadastrar kit',
+        url: '/kit/new',
+        component: KitInsertPage,
+      },
+      {
+        id: 'kit-update',
+        text: 'Atualizar kit',
+        url: '/kit/update/:id',
+        component: KitUpdatePage,
         showInMenu: false,
       },
     ],
