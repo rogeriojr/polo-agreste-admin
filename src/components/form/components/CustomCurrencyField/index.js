@@ -28,7 +28,11 @@ function NumberFormatCustom(props) {
       {...other}
       getInputRef={inputRef}
       onValueChange={({ floatValue }) => {
-        onChange(floatValue);
+        if (typeof floatValue === 'undefined') {
+          onChange('');
+        } else {
+          onChange(floatValue);
+        }
       }}
       thousandSeparator="."
       decimalSeparator=","

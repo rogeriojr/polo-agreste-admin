@@ -23,6 +23,7 @@ import productSizeReducer from 'store/ducks/productSize';
 import bankReducer from 'store/ducks/bank';
 import bannerReducer from 'store/ducks/banner';
 import addressReducer from 'store/ducks/address';
+import trendReducer from 'store/ducks/trend';
 
 /**
  * Merges the main reducer with the router state and dynamically injected reducers
@@ -48,4 +49,5 @@ export default history =>
     bank: bankReducer,
     banner: bannerReducer,
     address: addressReducer,
+    trend: trendReducer,
   });

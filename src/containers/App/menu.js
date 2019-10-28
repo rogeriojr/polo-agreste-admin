@@ -63,6 +63,11 @@ import BannerListPage from 'containers/Pages/BannerMenu/ListPage/Loadable';
 import BannerInsertPage from 'containers/Pages/BannerMenu/InsertPage/Loadable';
 import BannerUpdatePage from 'containers/Pages/BannerMenu/UpdatePage/Loadable';
 
+// Menu Trend
+import TrendListPage from 'containers/Pages/TrendMenu/ListPage/Loadable';
+import TrendInsertPage from 'containers/Pages/TrendMenu/InsertPage/Loadable';
+import TrendUpdatePage from 'containers/Pages/TrendMenu/UpdatePage/Loadable';
+
 // Páginas gerais
 import NotFoundPage from 'containers/NotFoundPage/Loadable';
 
@@ -374,6 +379,32 @@ const Menu = [
         text: 'Atualizar banner',
         url: '/banner/update/:id',
         component: BannerUpdatePage,
+        showInMenu: false,
+      },
+    ],
+  },
+  {
+    id: 'trend',
+    text: 'Tendências',
+    icon: <Icon>trending_up</Icon>,
+    children: [
+      {
+        id: 'trend-list',
+        text: 'Listar tendência',
+        url: '/trend',
+        component: TrendListPage,
+      },
+      {
+        id: 'trend-new',
+        text: 'Cadastrar tendência',
+        url: '/trend/new',
+        component: TrendInsertPage,
+      },
+      {
+        id: 'trend-update',
+        text: 'Atualizar tendência',
+        url: '/trend/update/:id',
+        component: TrendUpdatePage,
         showInMenu: false,
       },
     ],

@@ -215,6 +215,27 @@ const CustomImageField = ({
   }, []);
 
   React.useEffect(() => {
+    if (isMulti) {
+      const imagesInfo = images.map(image => {
+        if (image.type) {
+          return image;
+        }
+        return {
+          id: image.id,
+          type: 'remote',
+          url: image.sizes.medium,
+        };
+      });
+      if (images.length > 0) {
+        setLocalState({
+          ...localState,
+          images: imagesInfo,
+        });
+      }
+    }
+  }, [values[`${field.name}_data`]]);
+
+  React.useEffect(() => {
     if (deleteLoading === false && deleteState.open) {
       const image = deleteState.item;
       deleteImageOnList(image);
