@@ -31,11 +31,10 @@ const ClientActions = ({ rowData, onDeleteRequest }) => {
         open={Boolean(localState.anchorEl)}
       >
         <ActionMenuItem>Visualizar</ActionMenuItem>
-        <ActionMenuItem>
-          <Link to={`/client/update/${rowData.id}`}>Editar</Link>
-        </ActionMenuItem>
+        {/*
         <ActionMenuItem>Desativar Usuário</ActionMenuItem>
         <ActionMenuItem onClick={onDelete}>Remover Usuário</ActionMenuItem>
+        */}
       </ActionMenu>
     </>
   );
