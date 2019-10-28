@@ -75,9 +75,7 @@ function* getTrendDelete({ payload }) {
     /* const response =  */ yield call(api.delete, `/v1/admin/trends/${id}`);
     yield put(Creators.getTrendDeleteSuccess());
     // Remove a categoria deletada da lista
-    const { trendList, trendListTotal } = yield select(
-      state => state.trend,
-    );
+    const { trendList, trendListTotal } = yield select(state => state.trend);
 
     yield put(
       Creators.getTrendListSuccess({
