@@ -48,10 +48,10 @@ export default (state = initialState, action) => {
 
 export const Creators = {
   // Busca uma categoria
-  getReportOrderRequest: ({ date_start, date_end }) => {
+  getReportOrderRequest: ({ dateStart, dateEnd }) => {
     return {
       type: Types.GET_ORDER_REQUEST,
-      payload: { date_start, date_end },
+      payload: { dateStart, dateEnd },
     };
   },
   getReportOrderSuccess: ({ data }) => ({

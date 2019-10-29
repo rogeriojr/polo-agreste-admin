@@ -6,11 +6,15 @@ import { callApi } from 'store/sagas/auth';
 
 function* getReportOrder({ payload }) {
   try {
-    const { date_start, date_end } = payload;
-    const response = yield call(api.get, '/v1/admin/reports/orders', {
-      date_start,
-      date_end,
-    });
+    const { dateStart, dateEnd } = payload;
+    let getters = {};
+    if (dateStart && dateEnd) {
+      getters = {
+        date_start: dateStart,
+        date_end: dateEnd,
+      };
+    }
+    const response = yield call(api.get, '/v1/admin/reports/orders', getters);
     yield put(Creators.getReportOrderSuccess(response.data));
   } catch (err) {
     yield put(Creators.getReportOrderFailure('Erro ao buscar na API'));
