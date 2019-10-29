@@ -30,7 +30,7 @@ const CategoryTableHeader = ({ getFunction, initialValues }) => {
               />
             </HeaderBoxItem>
             <HeaderBoxItem style={{ paddingLeft: 6, paddingRight: 0 }}>
-              <Link to="/category/new">
+              <Link to="/catalog/categories/new">
                 <HeaderButton icon="add">Adicionar</HeaderButton>
               </Link>
             </HeaderBoxItem>

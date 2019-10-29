@@ -13,7 +13,7 @@ const ProductNewPage = () => {
   };
 
   const handleBack = () => {
-    dispatch(push(`/product`));
+    dispatch(push(`/catalog/product`));
   };
 
   const { productInsertLoading } = useSelector(state => state.product);

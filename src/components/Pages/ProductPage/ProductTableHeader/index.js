@@ -39,7 +39,7 @@ const ProductTableHeader = ({ getFunction, initialValues }) => {
             </HeaderBoxItem>
             */}
             <HeaderBoxItem style={{ paddingLeft: 6, paddingRight: '12px' }}>
-              <Link to="/product/new">
+              <Link to="/catalog/products/new">
                 <HeaderFab icon="add" />
               </Link>
             </HeaderBoxItem>

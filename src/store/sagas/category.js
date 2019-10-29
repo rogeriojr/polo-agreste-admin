@@ -52,7 +52,7 @@ function* getCategoryInsert({ payload }) {
     yield put(
       Notifications.success({ title: 'Cadastro concluido com sucesso' }),
     );
-    yield put(push(`/category/update/${id}`));
+    yield put(push(`/catalog/categories/update/${id}`));
   } catch (err) {
     yield put(Creators.getCategoryInsertFailure('Erro ao buscar na API'));
   }

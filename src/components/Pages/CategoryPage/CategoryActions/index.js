@@ -31,7 +31,7 @@ const CategoryActions = ({ rowData, onDeleteRequest }) => {
         open={Boolean(localState.anchorEl)}
       >
         <ActionMenuItem>
-          <Link to={`/category/update/${rowData.id}`}>Editar</Link>
+          <Link to={`/catalog/categories/update/${rowData.id}`}>Editar</Link>
         </ActionMenuItem>
         <ActionMenuItem>Ordernar produtos</ActionMenuItem>
         <ActionMenuItem>

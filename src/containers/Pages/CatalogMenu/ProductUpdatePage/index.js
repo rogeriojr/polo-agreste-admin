@@ -59,7 +59,7 @@ const ProductUpdatePage = ({ match }) => {
   };
 
   const handleBack = () => {
-    dispatch(push(`/product`));
+    dispatch(push(`/catalog/products`));
   };
 
   return (

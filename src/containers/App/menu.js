@@ -9,17 +9,20 @@ import DashboardPage from 'containers/Pages/DashboardMenu/HomePage/Loadable';
 import OrderListPage from 'containers/Pages/OrderMenu/ListPage/Loadable';
 import OrderViewPage from 'containers/Pages/OrderMenu/ViewPage/Loadable';
 
+// Menu Cash
+import CashExpressPage from 'containers/Pages/CashExpressMenu/Loadable';
+
 // Menu Produtos
-import ProductListPage from 'containers/Pages/ProductMenu/ListPage/Loadable';
-import ProductInsertPage from 'containers/Pages/ProductMenu/InsertPage/Loadable';
-import ProductUpdatePage from 'containers/Pages/ProductMenu/UpdatePage';
-import ProductImportPage from 'containers/Pages/ProductMenu/ImportPage/Loadable';
-import ColorListPage from 'containers/Pages/ProductMenu/ColorListPage/Loadable';
-import ColorInsertPage from 'containers/Pages/ProductMenu/ColorInsertPage/Loadable';
-import ColorUpdatePage from 'containers/Pages/ProductMenu/ColorUpdatePage/Loadable';
-import SizeListPage from 'containers/Pages/ProductMenu/SizeListPage/Loadable';
-import SizeInsertPage from 'containers/Pages/ProductMenu/SizeInsertPage/Loadable';
-import SizeUpdatePage from 'containers/Pages/ProductMenu/SizeUpdatePage/Loadable';
+import CatalogProductListPage from 'containers/Pages/CatalogMenu/ProductListPage/Loadable';
+import CatalogProductInsertPage from 'containers/Pages/CatalogMenu/ProductInsertPage/Loadable';
+import CatalogProductUpdatePage from 'containers/Pages/CatalogMenu/ProductUpdatePage/Loadable';
+import CatalogProductImportPage from 'containers/Pages/CatalogMenu/StockPage/Loadable';
+import CatalogColorListPage from 'containers/Pages/CatalogMenu/ColorListPage/Loadable';
+import CatalogColorInsertPage from 'containers/Pages/CatalogMenu/ColorInsertPage/Loadable';
+import CatalogColorUpdatePage from 'containers/Pages/CatalogMenu/ColorUpdatePage/Loadable';
+import CatalogSizeListPage from 'containers/Pages/CatalogMenu/SizeListPage/Loadable';
+import CatalogSizeInsertPage from 'containers/Pages/CatalogMenu/SizeInsertPage/Loadable';
+import CatalogSizeUpdatePage from 'containers/Pages/CatalogMenu/SizeUpdatePage/Loadable';
 
 // Menu Categorias
 import CategoryListPage from 'containers/Pages/CategoryMenu/ListPage/Loadable';
@@ -89,116 +92,139 @@ const Menu = [
     id: 'order',
     text: 'Pedidos',
     icon: <Icon>storage</Icon>,
+    isDynamic: true,
     children: [
       {
         id: 'order-list',
         text: 'Listar Pedidos',
-        url: '/order',
+        url: '/orders',
         component: OrderListPage,
       },
       {
         id: 'order-view',
         text: 'Visualizar Pedido',
-        url: '/order/view/:id',
+        url: '/orders/view/:id',
         component: OrderViewPage,
         showInMenu: false,
       },
     ],
   },
   {
+    id: 'cash-express',
+    text: 'Cash Express',
+    icon: <Icon>attach_money</Icon>,
+    url: '/cash-express',
+    component: CashExpressPage,
+  },
+  {
     id: 'catalog',
-    text: 'Produtos',
+    text: 'Catálogo',
     icon: <Icon>style</Icon>,
     children: [
       {
-        id: 'product-list',
-        text: 'Listar Produtos',
-        url: '/product',
-        component: ProductListPage,
+        id: 'catalog-product-list',
+        text: 'Produtos',
+        url: '/catalog/products',
+        component: CatalogProductListPage,
       },
       {
-        id: 'product-new',
+        id: 'catalog-new',
         text: 'Cadastrar Produto',
-        url: '/product/new',
-        component: ProductInsertPage,
+        url: '/catalog/products/new',
+        component: CatalogProductInsertPage,
+        showInMenu: false,
       },
       {
-        id: 'product-update',
+        id: 'catalog-update',
         text: 'Atualizar Produto',
-        url: '/product/update/:id',
-        component: ProductUpdatePage,
+        url: '/catalog/catalog/products/update/:id',
+        component: CatalogProductUpdatePage,
         showInMenu: false,
       },
       {
-        id: 'stock-import',
+        id: 'catalog-stock',
         text: 'Importar Produtos',
-        url: '/stock-import',
-        component: ProductImportPage,
+        url: '/catalog/stock',
+        component: CatalogProductImportPage,
       },
       {
-        id: 'color-list',
-        text: 'Listar Cor',
-        url: '/color',
-        component: ColorListPage,
+        id: 'catalog-kit-list',
+        text: 'Kits',
+        url: '/catalog/kits',
+        component: KitListPage,
       },
       {
-        id: 'color-new',
-        text: 'Cadastrar Cor',
-        url: '/color/new',
-        component: ColorInsertPage,
+        id: 'catalog-kit-new',
+        text: 'Cadastrar kit',
+        url: '/catalog/kits/new',
+        component: KitInsertPage,
         showInMenu: false,
       },
       {
-        id: 'color-update',
-        text: 'Atualizar Cor',
-        url: '/color/update/:id',
-        component: ColorUpdatePage,
+        id: 'catalog-kit-update',
+        text: 'Atualizar kit',
+        url: '/catalog/kits/update/:id',
+        component: KitUpdatePage,
         showInMenu: false,
       },
       {
-        id: 'size-list',
-        text: 'Listar Tamanho',
-        url: '/size',
-        component: SizeListPage,
-      },
-      {
-        id: 'size-new',
-        text: 'Cadastrar Tamanho',
-        url: '/size/new',
-        component: SizeInsertPage,
-        showInMenu: false,
-      },
-      {
-        id: 'size-update',
-        text: 'Atualizar Tamanho',
-        url: '/size/update/:id',
-        component: SizeUpdatePage,
-        showInMenu: false,
-      },
-    ],
-  },
-  {
-    id: 'category',
-    text: 'Categorias',
-    icon: <Icon>category</Icon>,
-    children: [
-      {
-        id: 'category-list',
-        text: 'Listar Categorias',
-        url: '/category',
+        id: 'catalog-category-list',
+        text: 'Categorias',
+        url: '/catalog/categories',
         component: CategoryListPage,
       },
       {
-        id: 'category-new',
+        id: 'catalog-category-new',
         text: 'Cadastrar Categoria',
-        url: '/category/new',
+        url: '/catalog/categories/new',
         component: CategoryInsertPage,
+        showInMenu: false,
       },
       {
-        id: 'category-update',
+        id: 'catalog-category-update',
         text: 'Atualizar Categoria',
-        url: '/category/update/:id',
+        url: '/catalog/categories/update/:id',
         component: CategoryUpdatePage,
+        showInMenu: false,
+      },
+      {
+        id: 'catalog-color-list',
+        text: 'Listar Cor',
+        url: '/catalog/colors',
+        component: CatalogColorListPage,
+      },
+      {
+        id: 'catalog-color-new',
+        text: 'Cadastrar Cor',
+        url: '/catalog/colors/new',
+        component: CatalogColorInsertPage,
+        showInMenu: false,
+      },
+      {
+        id: 'catalog-color-update',
+        text: 'Atualizar Cor',
+        url: '/catalog/colors/update/:id',
+        component: CatalogColorUpdatePage,
+        showInMenu: false,
+      },
+      {
+        id: 'catalog-size-list',
+        text: 'Tamanhos',
+        url: '/catalog/sizes',
+        component: CatalogSizeListPage,
+      },
+      {
+        id: 'catalog-size-new',
+        text: 'Cadastrar Tamanho',
+        url: '/catalog/sizes/new',
+        component: CatalogSizeInsertPage,
+        showInMenu: false,
+      },
+      {
+        id: 'catalog-size-update',
+        text: 'Atualizar Tamanho',
+        url: '/catalog/sizes/update/:id',
+        component: CatalogSizeUpdatePage,
         showInMenu: false,
       },
     ],
@@ -412,32 +438,6 @@ const Menu = [
         text: 'Atualizar tendência',
         url: '/trend/update/:id',
         component: TrendUpdatePage,
-        showInMenu: false,
-      },
-    ],
-  },
-  {
-    id: 'kit',
-    text: 'Kits',
-    icon: <Icon>card_giftcard</Icon>,
-    children: [
-      {
-        id: 'kit-list',
-        text: 'Listar kit',
-        url: '/kit',
-        component: KitListPage,
-      },
-      {
-        id: 'kit-new',
-        text: 'Cadastrar kit',
-        url: '/kit/new',
-        component: KitInsertPage,
-      },
-      {
-        id: 'kit-update',
-        text: 'Atualizar kit',
-        url: '/kit/update/:id',
-        component: KitUpdatePage,
         showInMenu: false,
       },
     ],

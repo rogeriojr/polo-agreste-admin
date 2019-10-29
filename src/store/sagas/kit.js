@@ -57,7 +57,7 @@ function* getKitInsert({ payload }) {
     yield put(
       Notifications.success({ title: 'Cadastro concluido com sucesso' }),
     );
-    yield put(push(`/kit/update/${id}`));
+    yield put(push(`/catalog/kits/update/${id}`));
   } catch (err) {
     yield put(Creators.getKitInsertFailure('Erro ao buscar na API'));
   }

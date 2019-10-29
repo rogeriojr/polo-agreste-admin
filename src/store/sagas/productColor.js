@@ -31,7 +31,7 @@ function* getProductColorInsert({ payload }) {
     yield put(
       Notifications.success({ title: 'Cadastro concluido com sucesso' }),
     );
-    yield put(push(`/color/update/${id}`));
+    yield put(push(`/catalog/colors/update/${id}`));
   } catch (err) {
     yield put(Creators.getProductColorInsertFailure('Erro ao buscar na API'));
   }

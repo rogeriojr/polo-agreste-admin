@@ -30,7 +30,7 @@ function* getProductSizeInsert({ payload }) {
     yield put(
       Notifications.success({ title: 'Cadastro concluido com sucesso' }),
     );
-    yield put(push(`/size/update/${id}`));
+    yield put(push(`/catalog/sizes/update/${id}`));
   } catch (err) {
     yield put(Creators.getProductSizeInsertFailure('Erro ao buscar na API'));
   }

@@ -31,7 +31,7 @@ const SizeActions = ({ rowData, onDeleteRequest }) => {
         open={Boolean(localState.anchorEl)}
       >
         <ActionMenuItem>
-          <Link to={`/size/update/${rowData.id}`}>Editar</Link>
+          <Link to={`/catalog/sizes/update/${rowData.id}`}>Editar</Link>
         </ActionMenuItem>
         <ActionMenuItem onClick={onDelete}>Remover</ActionMenuItem>
       </ActionMenu>

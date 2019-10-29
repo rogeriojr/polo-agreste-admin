@@ -31,7 +31,7 @@ const ColorActions = ({ rowData, onDeleteRequest }) => {
         open={Boolean(localState.anchorEl)}
       >
         <ActionMenuItem>
-          <Link to={`/color/update/${rowData.id}`}>Editar</Link>
+          <Link to={`/catalog/colors/update/${rowData.id}`}>Editar</Link>
         </ActionMenuItem>
         <ActionMenuItem onClick={onDelete}>Remover</ActionMenuItem>
       </ActionMenu>

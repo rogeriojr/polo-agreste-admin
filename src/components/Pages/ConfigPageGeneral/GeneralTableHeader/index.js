@@ -36,7 +36,7 @@ const ProductTableHeader = ({ getFunction, initialValues }) => {
             </Box>
             */}
             <Box style={{ padding: '0 6px', paddingRight: '12px' }}>
-              <Link to="/product/new">
+              <Link to="/catalog/products/new">
                 <HeaderFab icon="add" />
               </Link>
             </Box>
