@@ -13,6 +13,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Creators as GroupCreators } from 'store/ducks/group';
 import { Creators as CityCreators } from 'store/ducks/city';
 import { Creators as StoreCreators } from 'store/ducks/stores';
+import { Creators as AddressCreators } from 'store/ducks/address';
 import CustomMaskField from 'components/form/components/CustomMaskField';
 import CustomInputDate from 'components/form/components/CustomInputDate';
 import validators from 'utils/validators';
@@ -111,10 +112,15 @@ const UserForm = ({
   const { groupList, groupListLoading } = useSelector(state => state.group);
   const { cityList, cityListLoading } = useSelector(state => state.city);
   const { storeList, storeListLoading } = useSelector(state => state.store);
+  const { addressValidate, addressValidateLoading } = useSelector(
+    state => state.address,
+  );
+
+  const [formikForm, setFormikForm] = React.useState({});
 
   const getInitialData = () => {
     dispatch(GroupCreators.getGroupListRequest({ perPage: 1000 }));
-    dispatch(CityCreators.getCityListRequest({ perPage: 1000 }));
+    dispatch(CityCreators.getCityListRequest({ perPage: 10000 }));
     dispatch(StoreCreators.getStoreListRequest({ perPage: 1000 }));
   };
 
@@ -126,6 +132,37 @@ const UserForm = ({
     setValue(newValue);
   };
 
+  React.useEffect(() => {
+    if (
+      addressValidateLoading === false &&
+      formikForm.setFieldValue &&
+      addressValidate
+    ) {
+      formikForm.setFieldValue('address.street', addressValidate.street);
+      formikForm.setFieldValue('address.district', addressValidate.district);
+      formikForm.setFieldValue('address.city.id', addressValidate.city.id);
+    } else if (
+      addressValidateLoading === false &&
+      formikForm.setFieldValue &&
+      typeof addressValidate === 'undefined'
+    ) {
+      formikForm.setFieldValue('address.street', '');
+      formikForm.setFieldValue('address.district', '');
+      formikForm.setFieldValue('address.city.id', '');
+    }
+  }, [addressValidate]);
+
+  const onCepChange = form => event => {
+    const fieldValue = event.target.value;
+    setFormikForm(form);
+
+    if (fieldValue.indexOf('_') < 0 && fieldValue.length === 9) {
+      dispatch(
+        AddressCreators.getAddressValidateRequest({ code_post: fieldValue }),
+      );
+    }
+  };
+
   return (
     <Formik
       initialValues={initialValues}
@@ -133,7 +170,7 @@ const UserForm = ({
       onSubmit={onSubmit}
       validateOnBlur
       enableReinitialize
-      render={({ values }) => (
+      render={({ values, ...form }) => (
         <Form>
           <Card style={{ marginTop: 20 }}>
             <InputContainer>
@@ -284,6 +321,7 @@ const UserForm = ({
                           label="CEP"
                           component={CustomMaskField}
                           mask="99999-999"
+                          onKeyUp={onCepChange(form)}
                         />
                       </InputItem>
                       <InputItem>
@@ -319,7 +357,7 @@ const UserForm = ({
                           component={CustomTextField}
                         />
                       </InputItem>
-                      <InputItem>
+                      <InputItem style={{ pointerEvents: 'none' }}>
                         <Field
                           name="address.city.id"
                           label="Cidade"
