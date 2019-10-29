@@ -25,6 +25,7 @@ import bannerReducer from 'store/ducks/banner';
 import addressReducer from 'store/ducks/address';
 import trendReducer from 'store/ducks/trend';
 import kitReducer from 'store/ducks/kit';
+import reportReducer from 'store/ducks/report';
 
 /**
  * Merges the main reducer with the router state and dynamically injected reducers
@@ -52,4 +53,5 @@ export default history =>
     address: addressReducer,
     trend: trendReducer,
     kit: kitReducer,
+    report: reportReducer,
   });

@@ -1,60 +1,178 @@
 import React from 'react';
-import HeaderComponent from 'components/HeaderComponent';
 import PageBase from 'components/PageBase';
-import SaleReport from 'components/Pages/SalePage';
-import InputDate from 'components/InputDate';
-import HeaderButton from 'components/HeaderComponent/HeaderButton';
-import HeaderFab from 'components/HeaderComponent/HeaderFab';
-import HeaderBoxContainer from 'components/HeaderComponent/HeaderBoxContainer';
-import HeaderBoxItem from 'components/HeaderComponent/HeaderBoxItem';
-import { Formik, Field, Form } from 'formik';
-import CustomDateRange from 'components/form/components/CustomDateRange';
+import DefaultTable from 'components/Tables/DefaultTable';
+import { useDispatch, useSelector } from 'react-redux';
+import { Creators as OrderCreators } from 'store/ducks/order';
+import report, { Creators as ReportCreators } from 'store/ducks/report';
+import HeaderComponent from 'components/HeaderComponent';
+import OrderTableHeader from 'components/Pages/OrderPage/OrderTableHeader';
+import { Paper } from '@material-ui/core';
+import AlertDialog from 'components/AlertDialog';
+import OrderActions from 'components/Pages/OrderPage/OrderActions';
+import { InputItem, InputContainer } from 'components/form/StyledComponents';
+import CustomSelect from 'components/form/components/CustomSelect';
+import { formatStoresName, formatDate } from 'utils/converters';
+import OrderPaymentType from 'components/Pages/OrderPage/OrderPaymentType';
+import SaleInfo from 'components/Pages/SalePage/SaleInfo';
 
 const SalePage = () => {
-  const [localState, setLocalState] = React.useState({
-    startDate: new Date(),
-    endDate: new Date(),
+  const [storesState, setStoresState] = React.useState({
+    list: [
+      { name: 'Aprovado/Pago', id: 0 },
+      { name: 'Não autorizado/Não pago', id: 1 },
+    ],
+    selectedStore: 1,
+    isLoading: false,
   });
 
-  const changeStartDate = startDate => {
-    setLocalState(oldState => ({
-      ...oldState,
-      startDate,
-    }));
+  const onChange = newValue => {
+    setStoresState(oldState => ({ ...oldState, selectedStore: newValue }));
   };
 
-  const changeEndDate = endDate => {
-    setLocalState(oldState => ({
-      ...oldState,
-      endDate,
-    }));
+  const replaceSelect = {
+    setFieldValue: (event, newValue) => {
+      onChange(newValue);
+    },
+  };
+
+  const { list, isLoading, selectedStore } = storesState;
+
+  const columns = ({ onDeleteRequest }) => [
+    { title: 'Pedido', field: 'id', type: 'numeric' },
+    {
+      title: 'Loja',
+      field: 'stores',
+      render: rowData => (
+        <span style={{ whiteSpace: 'pre' }}>
+          {formatStoresName(rowData.stores)}
+        </span>
+      ),
+    },
+    { title: 'Cliente', field: 'user.name' },
+    { title: 'CPF/CNPJ', field: 'user.cpf' },
+    {
+      title: 'Status',
+      field: 'status',
+    },
+    {
+      title: 'Pagamento',
+      field: 'payment_type',
+      render: rowData => <OrderPaymentType rowData={rowData} />,
+    },
+    {
+      title: 'Realizado',
+      field: 'created_at',
+      render: rowData => <span>{formatDate(rowData.created_at)}</span>,
+    },
+    {
+      title: 'Atualizado',
+      field: 'updated_at',
+      render: rowData => <span>{formatDate(rowData.updated_at)}</span>,
+    },
+    {
+      title: 'Ações',
+      field: 'actions',
+      render: rowData => (
+        <OrderActions rowData={rowData} onDeleteRequest={onDeleteRequest} />
+      ),
+    },
+  ];
+
+  const dispatch = useDispatch();
+  const [deleteState, setDeleteState] = React.useState({
+    open: false,
+    item: {},
+  });
+
+  const [localState, setLocalState] = React.useState({
+    search: '',
+    orderByColumn: '',
+    orderByDirection: '',
+    page: 1,
+    perPage: 10,
+    dateStart: '',
+    dateEnd: '',
+  });
+
+  const {
+    orderList,
+    orderListLoading,
+    orderListTotal,
+    orderDeleteLoading,
+  } = useSelector(state => state.order);
+
+  const { reportOrder, reportOrderLoading } = useSelector(
+    state => state.report,
+  );
+
+  React.useEffect(() => {
+    dispatch(OrderCreators.getOrderListRequest(localState));
+    dispatch(ReportCreators.getReportOrderRequest(localState));
+  }, []);
+
+  const handleAlertDialogClose = () => {
+    setDeleteState({ open: false, item: {} });
+  };
+
+  React.useEffect(() => {
+    if (orderDeleteLoading === false && deleteState.open) {
+      handleAlertDialogClose();
+    }
+  }, [orderDeleteLoading]);
+
+  const getFunction = data => {
+    setLocalState(oldLocalState => ({ ...oldLocalState, ...data }));
+  };
+
+  React.useEffect(() => {
+    dispatch(OrderCreators.getOrderListRequest(localState));
+    dispatch(ReportCreators.getReportOrderRequest(localState));
+  }, [localState]);
+
+  const onDeleteRequest = item => {
+    setDeleteState({ open: true, item });
+  };
+
+  const onDeleteConfirm = () => {
+    dispatch(OrderCreators.getOrderDeleteRequest(deleteState.item.id));
+    dispatch(ReportCreators.getReportOrderRequest(localState));
   };
 
   return (
     <PageBase>
-      <Formik
-        render={() => (
-          <Form>
-            <HeaderComponent title="Relatório de Vendas">
-              <HeaderBoxContainer style={{ paddingLeft: 12 }}>
-                <HeaderBoxItem style={{ paddingTop: 12, paddingRight: 6 }}>
-                  Busca
-                </HeaderBoxItem>
-                <HeaderBoxItem style={{ paddingLeft: 6, paddingRight: 6 }}>
-                  <Field name="dateStartEnd" component={CustomDateRange} />
-                </HeaderBoxItem>
-                <HeaderBoxItem style={{ paddingLeft: 6, paddingRight: 6 }}>
-                  <HeaderFab icon="search" />
-                </HeaderBoxItem>
-                <HeaderBoxItem style={{ paddingLeft: 6 }}>
-                  <HeaderButton icon="search">Busca Avançada</HeaderButton>
-                </HeaderBoxItem>
-              </HeaderBoxContainer>
-            </HeaderComponent>
-          </Form>
-        )}
+      <HeaderComponent title="Relatório de Vendas">
+        <OrderTableHeader
+          getFunction={getFunction}
+          initialValues={{
+            search: localState.search,
+            dateStart: null,
+            dateEnd: null,
+          }}
+        />
+      </HeaderComponent>
+      <SaleInfo
+        reportOrder={reportOrder}
+        reportOrderLoading={reportOrderLoading}
       />
-      <SaleReport />
+      <Paper>
+        <DefaultTable
+          getFunction={getFunction}
+          columns={columns({ onDeleteRequest })}
+          data={orderList}
+          total={orderListTotal}
+          isLoading={orderListLoading}
+          page={localState.page}
+          perPage={localState.perPage}
+        />
+      </Paper>
+      <AlertDialog
+        isOpen={deleteState.open}
+        isLoading={orderListLoading}
+        handleClose={handleAlertDialogClose}
+        onConfirm={onDeleteConfirm}
+        title="Excluir registro?"
+        description={`Remover pedido: ${deleteState.item.name}`}
+      />
     </PageBase>
   );
 };
