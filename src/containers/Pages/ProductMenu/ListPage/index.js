@@ -31,9 +31,14 @@ const columns = ({ onDeleteRequest }) => [
     sorting: false,
   },
   {
-    title: 'Tipo',
+    title: 'Dimensões',
     field: 'type',
     sorting: false,
+    render: rowData => (
+      <span>
+        {rowData.width}x{rowData.height}x{rowData.length} cm
+      </span>
+    ),
   },
   {
     title: 'Preço',
