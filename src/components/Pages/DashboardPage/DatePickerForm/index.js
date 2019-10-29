@@ -5,8 +5,8 @@ import { Typography } from '@material-ui/core';
 import * as Yup from 'yup';
 import { Formik, Form, Field } from 'formik';
 import { InputContainer, InputItem } from 'components/form/StyledComponents';
-import CustomInputDate from 'components/form/components/CustomInputDate';
 import PropTypes from 'prop-types';
+import CustomDateRange from 'components/form/components/CustomDateRange';
 
 const formInitialValues = {
   startDate: '',
@@ -34,20 +34,7 @@ const DatePickerForm = ({ onSubmit, initialValues }) => {
               Busca
             </Typography>
             <InputItem>
-              <Field
-                name="startDate"
-                label="Data inicial"
-                style={{ margin: '0 0 0 16px' }}
-                component={CustomInputDate}
-              />
-            </InputItem>
-            <InputItem>
-              <Field
-                name="endDate"
-                label="Data Final"
-                style={{ margin: '0 16px' }}
-                component={CustomInputDate}
-              />
+              <Field name="dateStartEnd" component={CustomDateRange} />
             </InputItem>
             <Fab size="small" className="fab-custom" type="submit">
               <SearchIcon />
