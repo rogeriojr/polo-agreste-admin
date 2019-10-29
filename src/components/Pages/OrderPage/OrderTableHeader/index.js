@@ -54,13 +54,13 @@ const OrderTableHeader = ({ getFunction, initialValues }) => {
                 placeholder="Informe uma palavra-chave"
               />
             </HeaderBoxItem>
-            <HeaderBoxItem style={{ paddingLeft: 6, paddingRight: 6 }}>
+            <HeaderBoxItem style={{ paddingLeft: 6, paddingRight: 0 }}>
               <HeaderFab icon="search" type="submit" />
             </HeaderBoxItem>
+            {/*
             <HeaderBoxItem style={{ paddingLeft: 6, paddingRight: 0 }}>
               <HeaderButton icon="search">Busca Avançada</HeaderButton>
             </HeaderBoxItem>
-            {/*
             <HeaderBoxItem style={{ paddingLeft: 6 }}>
               <HeaderButton icon="get_app">Exportar</HeaderButton>
             </HeaderBoxItem>
