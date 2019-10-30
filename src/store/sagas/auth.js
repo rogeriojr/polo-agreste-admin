@@ -1,5 +1,6 @@
 import { call, put, all, takeLatest, select, take } from 'redux-saga/effects';
 import { Creators as AuthCreators, Types as AuthTypes } from 'store/ducks/auth';
+import { Creators as AppCreators } from 'store/ducks/app';
 import { Creators as AuthErrorCreators, Types as AuthErrorTypes } from 'store/ducks/authError';
 import { push } from 'connected-react-router';
 import { REHYDRATE } from 'redux-persist';
@@ -38,6 +39,7 @@ function* getLogin({ payload: { email, password, rememberMe } }) {
     yield put(AuthCreators.getAuthSuccess(dataSaved));
     // yield put(LoginCreators.getLoginSuccess());
     yield put(push('/'));
+    yield put(AppCreators.getMenuRequest());
   } catch (err) {
     if (err.status === 401) {
       yield put(AuthCreators.getAuthFailure());

@@ -20,6 +20,9 @@ export const Types = {
   SHOW_HIDE_HEADER_TABS: 'app/SHOW_HIDE_HEADER_TABS',
 
   SHOW_SEARCH: 'app/SHOW_SEARCH',
+
+  GET_MENU_REQUEST: 'app/GET_MENU_REQUEST',
+  GET_MENU_SUCCESS: 'app/GET_MENU_SUCCESS',
 };
 
 const selectedMenuItem = Menu[0];
@@ -28,7 +31,9 @@ openedViews.push(selectedMenuItem);
 
 // The initial state of the App
 const initialState = fromJS({
-  menu: Menu,
+  menu: [],
+  menuLoading: true,
+  jwtIdentity: {},
   selectedMenuItem,
   openViews: openedViews,
   selectedOpenedMenuItem: selectedMenuItem,
@@ -103,6 +108,15 @@ export default function appReducer(state = initialState, action) {
       const { value } = action;
       return state.set('showSearch', value);
     }
+    case Types.GET_MENU_REQUEST: {
+      return state.set('menuLoading', true);
+    }
+    case Types.GET_MENU_SUCCESS: {
+      return state
+        .set('menu', fromJS(action.menu))
+        .set('jwtIdentity', action.jwtIdentity)
+        .set('menuLoading', false);
+    }
     default:
       return state;
   }
@@ -163,5 +177,15 @@ export const Creators = {
   showHideSearch: value => ({
     type: Types.SHOW_SEARCH,
     value,
+  }),
+
+  getMenuRequest: () => ({
+    type: Types.GET_MENU_REQUEST,
+  }),
+
+  getMenuSuccess: ({ menu, jwtIdentity }) => ({
+    type: Types.GET_MENU_SUCCESS,
+    menu,
+    jwtIdentity,
   }),
 };

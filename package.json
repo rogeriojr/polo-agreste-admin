@@ -9,6 +9,7 @@
     "@material-ui/pickers": "^3.2.0",
     "@types/jest": "^24.0.15",
     "apisauce": "^1.0.3",
+    "base64url": "^3.0.1",
     "classnames": "^2.2.6",
     "connected-react-router": "^6.5.2",
     "formik": "1.5.8",

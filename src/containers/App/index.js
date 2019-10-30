@@ -41,6 +41,8 @@ class App extends React.PureComponent {
     window.addEventListener('resize', updateMenuDimensions);
     updateMenuDimensions();
     this.setInicialSelectedMenuItem();
+    const { dispatch } = this.props;
+    dispatch(AppCreators.getMenuRequest());
   }
 
   componentWillReceiveProps(nextProps) {
