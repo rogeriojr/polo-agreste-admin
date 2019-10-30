@@ -34,7 +34,7 @@ const StoreTableHeader = ({ getFunction, initialValues }) => {
               <HeaderButton icon="search">Busca Avançada</HeaderButton>
             </HeaderBoxItem>
             <HeaderBoxItem style={{ paddingLeft: 6 }}>
-              <Link to="/store/new">
+              <Link to="/stores/new">
                 <HeaderFab icon="add" />
               </Link>
             </HeaderBoxItem>

@@ -71,7 +71,7 @@ function* getStoreInsert({ payload }) {
     yield put(
       Notifications.success({ title: 'Cadastro concluido com sucesso' }),
     );
-    yield put(push(`/store/update/${id}`));
+    yield put(push(`/stores/update/${id}`));
   } catch (err) {
     yield put(Creators.getStoreInsertFailure('Erro ao buscar na API'));
   }

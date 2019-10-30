@@ -30,7 +30,7 @@ const PageTableHeader = ({ getFunction, initialValues }) => {
               />
             </HeaderBoxItem>
             <HeaderBoxItem style={{ paddingLeft: 6 }}>
-              <Link to="/page/new">
+              <Link to="/pages/new">
                 <HeaderButton icon="add">Adicionar</HeaderButton>
               </Link>
             </HeaderBoxItem>

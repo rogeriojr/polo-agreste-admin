@@ -31,7 +31,7 @@ const UserActions = ({ rowData, onDeleteRequest }) => {
         open={Boolean(localState.anchorEl)}
       >
         <ActionMenuItem>
-          <Link to={`/user/update/${rowData.id}`}>Editar</Link>
+          <Link to={`/users/update/${rowData.id}`}>Editar</Link>
         </ActionMenuItem>
         <ActionMenuItem onClick={onDelete}>Remover</ActionMenuItem>
       </ActionMenu>

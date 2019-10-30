@@ -12,7 +12,7 @@ const StoreNewPage = () => {
   };
 
   const handleBack = () => {
-    dispatch(push(`/store`));
+    dispatch(push(`/stores`));
   };
 
   const { storeInsertLoading } = useSelector(state => state.store);

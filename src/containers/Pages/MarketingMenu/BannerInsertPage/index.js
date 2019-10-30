@@ -1,33 +1,33 @@
 import React from 'react';
 import PageBase from 'components/PageBase';
-import KitForm from 'components/Pages/KitPage/KitForm';
+import BannerForm from 'components/Pages/BannerPage/BannerForm';
 import { useDispatch, useSelector } from 'react-redux';
-import { Creators } from 'store/ducks/kit';
+import { Creators } from 'store/ducks/banner';
 import HeaderComponent from 'components/HeaderComponent';
 import { push } from 'connected-react-router';
 
-const KitNewPage = () => {
+const BannerNewPage = () => {
   const dispatch = useDispatch();
   const onSubmit = data => {
-    dispatch(Creators.getKitInsertRequest(data));
+    dispatch(Creators.getBannerInsertRequest(data));
   };
 
   const handleBack = () => {
-    dispatch(push(`/kit`));
+    dispatch(push(`/marketing/banners`));
   };
 
-  const { kitInsertLoading } = useSelector(state => state.kit);
+  const { bannerInsertLoading } = useSelector(state => state.banner);
 
   return (
     <PageBase>
-      <HeaderComponent title="Cadastrar kit" />
-      <KitForm
+      <HeaderComponent title="Cadastrar banner" />
+      <BannerForm
         onSubmit={onSubmit}
         handleBack={handleBack}
-        isLoading={kitInsertLoading}
+        isLoading={bannerInsertLoading}
       />
     </PageBase>
   );
 };
 
-export default KitNewPage;
+export default BannerNewPage;

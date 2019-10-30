@@ -1,33 +1,33 @@
 import React from 'react';
 import PageBase from 'components/PageBase';
-import TrendForm from 'components/Pages/TrendPage/TrendForm';
+import KitForm from 'components/Pages/KitPage/KitForm';
 import { useDispatch, useSelector } from 'react-redux';
-import { Creators } from 'store/ducks/trend';
+import { Creators } from 'store/ducks/kit';
 import HeaderComponent from 'components/HeaderComponent';
 import { push } from 'connected-react-router';
 
-const TrendNewPage = () => {
+const KitNewPage = () => {
   const dispatch = useDispatch();
   const onSubmit = data => {
-    dispatch(Creators.getTrendInsertRequest(data));
+    dispatch(Creators.getKitInsertRequest(data));
   };
 
   const handleBack = () => {
-    dispatch(push(`/trend`));
+    dispatch(push(`/catalog/kits`));
   };
 
-  const { trendInsertLoading } = useSelector(state => state.trend);
+  const { kitInsertLoading } = useSelector(state => state.kit);
 
   return (
     <PageBase>
-      <HeaderComponent title="Cadastrar tendência" />
-      <TrendForm
+      <HeaderComponent title="Cadastrar kit" />
+      <KitForm
         onSubmit={onSubmit}
         handleBack={handleBack}
-        isLoading={trendInsertLoading}
+        isLoading={kitInsertLoading}
       />
     </PageBase>
   );
 };
 
-export default TrendNewPage;
+export default KitNewPage;

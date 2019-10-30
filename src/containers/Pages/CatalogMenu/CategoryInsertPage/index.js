@@ -12,7 +12,7 @@ const CategoryNewPage = () => {
   };
 
   const handleBack = () => {
-    dispatch(push(`/category`));
+    dispatch(push(`/catalog/categories`));
   };
 
   const { categoryInsertLoading } = useSelector(state => state.category);

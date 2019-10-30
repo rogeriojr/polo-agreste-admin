@@ -23,11 +23,12 @@ import CatalogColorUpdatePage from 'containers/Pages/CatalogMenu/ColorUpdatePage
 import CatalogSizeListPage from 'containers/Pages/CatalogMenu/SizeListPage/Loadable';
 import CatalogSizeInsertPage from 'containers/Pages/CatalogMenu/SizeInsertPage/Loadable';
 import CatalogSizeUpdatePage from 'containers/Pages/CatalogMenu/SizeUpdatePage/Loadable';
-
-// Menu Categorias
-import CategoryListPage from 'containers/Pages/CategoryMenu/ListPage/Loadable';
-import CategoryInsertPage from 'containers/Pages/CategoryMenu/InsertPage/Loadable';
-import CategoryUpdatePage from 'containers/Pages/CategoryMenu/UpdatePage/Loadable';
+import CatalogKitListPage from 'containers/Pages/CatalogMenu/KitListPage/Loadable';
+import CatalogKitInsertPage from 'containers/Pages/CatalogMenu/KitInsertPage/Loadable';
+import CatalogKitUpdatePage from 'containers/Pages/CatalogMenu/KitUpdatePage/Loadable';
+import CatalogCategoryListPage from 'containers/Pages/CatalogMenu/CategoryListPage/Loadable';
+import CatalogCategoryInsertPage from 'containers/Pages/CatalogMenu/CategoryInsertPage/Loadable';
+import CatalogCategoryUpdatePage from 'containers/Pages/CatalogMenu/CategoryUpdatePage/Loadable';
 
 // Menu configurações de Loja
 
@@ -48,33 +49,29 @@ import SalePage from 'containers/Pages/ReportMenu/SalePage/Loadable';
 import SaleByCategoryPage from 'containers/Pages/ReportMenu/SaleByCategoryPage/Loadable';
 import ProductAndStockPage from 'containers/Pages/ReportMenu/ProductAndStockPage/Loadable';
 
+// Menu Marketing
+
+import BannerListPage from 'containers/Pages/MarketingMenu/BannerListPage/Loadable';
+import BannerInsertPage from 'containers/Pages/MarketingMenu/BannerInsertPage/Loadable';
+import BannerUpdatePage from 'containers/Pages/MarketingMenu/BannerUpdatePage/Loadable';
+import TrendListPage from 'containers/Pages/MarketingMenu/TrendListPage/Loadable';
+import TrendInsertPage from 'containers/Pages/MarketingMenu/TrendInsertPage/Loadable';
+import TrendUpdatePage from 'containers/Pages/MarketingMenu/TrendUpdatePage/Loadable';
+
+// Menu usuários
+import UserListPage from 'containers/Pages/UserMenu/ListPage/Loadable';
+import UserNewPage from 'containers/Pages/UserMenu/InsertPage/Loadable';
+import UserUpdatePage from 'containers/Pages/UserMenu/UpdatePage/Loadable';
+
 // Menu Configurações
 import SettingsGeneralConfigPage from 'containers/Pages/SettingMenu/GeneralConfigPage/Loadable';
 import ProfileAccessListPage from 'containers/Pages/SettingMenu/ProfileAccessListPage/Loadable';
 import ProfileAccessInsertPage from 'containers/Pages/SettingMenu/ProfileAccessInsertPage/Loadable';
-import UserListPage from 'containers/Pages/SettingMenu/UserListPage/Loadable';
-import UserNewPage from 'containers/Pages/SettingMenu/UserInsertPage/Loadable';
-import UserUpdatePage from 'containers/Pages/SettingMenu/UserUpdatePage/Loadable';
 
 // Menu Página
 import PageListPage from 'containers/Pages/PageMenu/ListPage/Loadable';
 import PageInsertPage from 'containers/Pages/PageMenu/InsertPage/Loadable';
 import PageUpdatePage from 'containers/Pages/PageMenu/UpdatePage/Loadable';
-
-// Menu Banner
-import BannerListPage from 'containers/Pages/BannerMenu/ListPage/Loadable';
-import BannerInsertPage from 'containers/Pages/BannerMenu/InsertPage/Loadable';
-import BannerUpdatePage from 'containers/Pages/BannerMenu/UpdatePage/Loadable';
-
-// Menu Trend
-import TrendListPage from 'containers/Pages/TrendMenu/ListPage/Loadable';
-import TrendInsertPage from 'containers/Pages/TrendMenu/InsertPage/Loadable';
-import TrendUpdatePage from 'containers/Pages/TrendMenu/UpdatePage/Loadable';
-
-// Menu Kit
-import KitListPage from 'containers/Pages/KitMenu/ListPage/Loadable';
-import KitInsertPage from 'containers/Pages/KitMenu/InsertPage/Loadable';
-import KitUpdatePage from 'containers/Pages/KitMenu/UpdatePage/Loadable';
 
 // Páginas gerais
 import NotFoundPage from 'containers/NotFoundPage/Loadable';
@@ -143,7 +140,7 @@ const Menu = [
       },
       {
         id: 'catalog-stock',
-        text: 'Importar Produtos',
+        text: 'Estoque',
         url: '/catalog/stock',
         component: CatalogProductImportPage,
       },
@@ -151,45 +148,45 @@ const Menu = [
         id: 'catalog-kit-list',
         text: 'Kits',
         url: '/catalog/kits',
-        component: KitListPage,
+        component: CatalogKitListPage,
       },
       {
         id: 'catalog-kit-new',
         text: 'Cadastrar kit',
         url: '/catalog/kits/new',
-        component: KitInsertPage,
+        component: CatalogKitInsertPage,
         showInMenu: false,
       },
       {
         id: 'catalog-kit-update',
         text: 'Atualizar kit',
         url: '/catalog/kits/update/:id',
-        component: KitUpdatePage,
+        component: CatalogKitUpdatePage,
         showInMenu: false,
       },
       {
         id: 'catalog-category-list',
         text: 'Categorias',
         url: '/catalog/categories',
-        component: CategoryListPage,
+        component: CatalogCategoryListPage,
       },
       {
         id: 'catalog-category-new',
         text: 'Cadastrar Categoria',
         url: '/catalog/categories/new',
-        component: CategoryInsertPage,
+        component: CatalogCategoryInsertPage,
         showInMenu: false,
       },
       {
         id: 'catalog-category-update',
         text: 'Atualizar Categoria',
         url: '/catalog/categories/update/:id',
-        component: CategoryUpdatePage,
+        component: CatalogCategoryUpdatePage,
         showInMenu: false,
       },
       {
         id: 'catalog-color-list',
-        text: 'Listar Cor',
+        text: 'Cores',
         url: '/catalog/colors',
         component: CatalogColorListPage,
       },
@@ -237,19 +234,19 @@ const Menu = [
       {
         id: 'store-list',
         text: 'Listar Lojas',
-        url: '/store',
+        url: '/stores',
         component: StoreListPage,
       },
       {
         id: 'store-new',
         text: 'Cadastrar Loja',
-        url: '/store/new',
+        url: '/stores/new',
         component: StoreInsertPage,
       },
       {
         id: 'store-update',
         text: 'Atualizar Loja',
-        url: '/store/update/:id',
+        url: '/stores/update/:id',
         component: StoreUpdatePage,
         showInMenu: false,
       },
@@ -263,7 +260,7 @@ const Menu = [
       {
         id: 'client-list',
         text: 'Listar cliente',
-        url: '/client',
+        url: '/clients',
         component: ClientListPage,
       },
       /*
@@ -283,7 +280,7 @@ const Menu = [
       {
         id: 'newsletter',
         text: 'Newsletter',
-        url: '/newsletter',
+        url: '/clients/newsletter',
         component: NewsletterPage,
       },
       {
@@ -303,20 +300,119 @@ const Menu = [
       {
         id: 'sale',
         text: 'Vendas',
-        url: '/sale',
+        url: '/reports/sale',
         component: SalePage,
       },
       {
         id: 'sale-category',
         text: 'Vendas por categoria',
-        url: '/sale/category',
+        url: '/reports/category',
         component: SaleByCategoryPage,
       },
       {
         id: 'product-and-stock',
         text: 'Produto e estoque',
-        url: '/product-and-stock',
+        url: '/reports/stock',
         component: ProductAndStockPage,
+      },
+    ],
+  },
+  {
+    id: 'marketing',
+    text: 'Marketing',
+    icon: <Icon>trending_up</Icon>,
+    children: [
+      {
+        id: 'marketing-banner-list',
+        text: 'Banners',
+        url: '/marketing/banners',
+        component: BannerListPage,
+      },
+      {
+        id: 'marketing-banner-new',
+        text: 'Cadastrar banner',
+        url: '/marketing/banners/new',
+        component: BannerInsertPage,
+        showInMenu: false,
+      },
+      {
+        id: 'marketing-banner-update',
+        text: 'Atualizar banner',
+        url: '/marketing/banners/update/:id',
+        component: BannerUpdatePage,
+        showInMenu: false,
+      },
+      {
+        id: 'marketing-trend-list',
+        text: 'Tendências',
+        url: '/marketing/trends',
+        component: TrendListPage,
+      },
+      {
+        id: 'marketing-trend-new',
+        text: 'Cadastrar tendência',
+        url: '/marketing/trends/new',
+        component: TrendInsertPage,
+        showInMenu: false,
+      },
+      {
+        id: 'marketing-trend-update',
+        text: 'Atualizar tendência',
+        url: '/marketing/trends/update/:id',
+        component: TrendUpdatePage,
+        showInMenu: false,
+      },
+    ],
+  },
+  {
+    id: 'page',
+    text: 'Página',
+    icon: <Icon>palette</Icon>,
+    children: [
+      {
+        id: 'page-list',
+        text: 'Listar página',
+        url: '/pages',
+        component: PageListPage,
+      },
+      {
+        id: 'page-new',
+        text: 'Cadastrar página',
+        url: '/pages/new',
+        component: PageInsertPage,
+      },
+      {
+        id: 'page-update',
+        text: 'Atualizar página',
+        url: '/pages/update/:id',
+        component: PageUpdatePage,
+        showInMenu: false,
+      },
+    ],
+  },
+  {
+    id: 'user',
+    text: 'Usuários',
+    icon: <Icon>people_alt</Icon>,
+    children: [
+      {
+        id: 'user-list',
+        text: 'Listar Usuário',
+        url: '/users',
+        component: UserListPage,
+      },
+      {
+        id: 'user-new',
+        text: 'Cadastrar Usuário',
+        url: '/users/new',
+        component: UserNewPage,
+      },
+      {
+        id: 'user-update',
+        text: 'Atualizar Usuário',
+        url: '/users/update/:id',
+        component: UserUpdatePage,
+        showInMenu: false,
       },
     ],
   },
@@ -328,7 +424,7 @@ const Menu = [
       {
         id: 'general-config',
         text: 'Configurações gerais',
-        url: '/general-config',
+        url: '/config',
         component: SettingsGeneralConfigPage,
       },
       {
@@ -342,103 +438,6 @@ const Menu = [
         text: 'Cadastrar perfil de acesso',
         url: '/profile-access/new',
         component: ProfileAccessInsertPage,
-      },
-      {
-        id: 'user-list',
-        text: 'Listar Usuário',
-        url: '/user',
-        component: UserListPage,
-      },
-      {
-        id: 'user-new',
-        text: 'Cadastrar Usuário',
-        url: '/user/new',
-        component: UserNewPage,
-      },
-      {
-        id: 'user-update',
-        text: 'Atualizar Usuário',
-        url: '/user/update/:id',
-        component: UserUpdatePage,
-        showInMenu: false,
-      },
-    ],
-  },
-  {
-    id: 'page',
-    text: 'Página',
-    icon: <Icon>palette</Icon>,
-    children: [
-      {
-        id: 'page-list',
-        text: 'Listar página',
-        url: '/page',
-        component: PageListPage,
-      },
-      {
-        id: 'page-new',
-        text: 'Cadastrar página',
-        url: '/page/new',
-        component: PageInsertPage,
-      },
-      {
-        id: 'page-update',
-        text: 'Atualizar página',
-        url: '/page/update/:id',
-        component: PageUpdatePage,
-        showInMenu: false,
-      },
-    ],
-  },
-  {
-    id: 'banner',
-    text: 'Banner',
-    icon: <Icon>image</Icon>,
-    children: [
-      {
-        id: 'banner-list',
-        text: 'Listar banner',
-        url: '/banner',
-        component: BannerListPage,
-      },
-      {
-        id: 'banner-new',
-        text: 'Cadastrar banner',
-        url: '/banner/new',
-        component: BannerInsertPage,
-      },
-      {
-        id: 'banner-update',
-        text: 'Atualizar banner',
-        url: '/banner/update/:id',
-        component: BannerUpdatePage,
-        showInMenu: false,
-      },
-    ],
-  },
-  {
-    id: 'trend',
-    text: 'Tendências',
-    icon: <Icon>trending_up</Icon>,
-    children: [
-      {
-        id: 'trend-list',
-        text: 'Listar tendência',
-        url: '/trend',
-        component: TrendListPage,
-      },
-      {
-        id: 'trend-new',
-        text: 'Cadastrar tendência',
-        url: '/trend/new',
-        component: TrendInsertPage,
-      },
-      {
-        id: 'trend-update',
-        text: 'Atualizar tendência',
-        url: '/trend/update/:id',
-        component: TrendUpdatePage,
-        showInMenu: false,
       },
     ],
   },

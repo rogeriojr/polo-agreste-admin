@@ -1,33 +1,33 @@
 import React from 'react';
 import PageBase from 'components/PageBase';
-import BannerForm from 'components/Pages/BannerPage/BannerForm';
+import TrendForm from 'components/Pages/TrendPage/TrendForm';
 import { useDispatch, useSelector } from 'react-redux';
-import { Creators } from 'store/ducks/banner';
+import { Creators } from 'store/ducks/trend';
 import HeaderComponent from 'components/HeaderComponent';
 import { push } from 'connected-react-router';
 
-const BannerNewPage = () => {
+const TrendNewPage = () => {
   const dispatch = useDispatch();
   const onSubmit = data => {
-    dispatch(Creators.getBannerInsertRequest(data));
+    dispatch(Creators.getTrendInsertRequest(data));
   };
 
   const handleBack = () => {
-    dispatch(push(`/banner`));
+    dispatch(push(`/marketing/trends`));
   };
 
-  const { bannerInsertLoading } = useSelector(state => state.banner);
+  const { trendInsertLoading } = useSelector(state => state.trend);
 
   return (
     <PageBase>
-      <HeaderComponent title="Cadastrar banner" />
-      <BannerForm
+      <HeaderComponent title="Cadastrar tendência" />
+      <TrendForm
         onSubmit={onSubmit}
         handleBack={handleBack}
-        isLoading={bannerInsertLoading}
+        isLoading={trendInsertLoading}
       />
     </PageBase>
   );
 };
 
-export default BannerNewPage;
+export default TrendNewPage;

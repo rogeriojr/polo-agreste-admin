@@ -53,7 +53,7 @@ const CategoryUpdatePage = ({ match }) => {
   };
 
   const handleBack = () => {
-    dispatch(push(`/category`));
+    dispatch(push(`/catalog/categories`));
   };
 
   return (

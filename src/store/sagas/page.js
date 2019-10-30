@@ -28,7 +28,7 @@ function* getPageInsert({ payload }) {
     yield put(
       Notifications.success({ title: 'Cadastro concluido com sucesso' }),
     );
-    yield put(push(`/page/update/${response.data.data.id}`));
+    yield put(push(`/pages/update/${response.data.data.id}`));
   } catch (err) {
     yield put(Creators.getPageInsertFailure('Erro ao buscar na API'));
   }

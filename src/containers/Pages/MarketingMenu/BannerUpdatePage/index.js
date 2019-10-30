@@ -51,7 +51,7 @@ const BannerUpdatePage = ({ match }) => {
   };
 
   const handleBack = () => {
-    dispatch(push(`/banner`));
+    dispatch(push(`/marketing/banners`));
   };
 
   return (

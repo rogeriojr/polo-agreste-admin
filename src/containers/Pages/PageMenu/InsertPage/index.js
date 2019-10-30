@@ -12,7 +12,7 @@ const PageNewPage = () => {
   };
 
   const handleBack = () => {
-    dispatch(push(`/page`));
+    dispatch(push(`/pages`));
   };
 
   return (

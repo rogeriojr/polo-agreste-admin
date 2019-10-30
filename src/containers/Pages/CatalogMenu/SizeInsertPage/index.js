@@ -12,7 +12,7 @@ const SizeNewPage = () => {
   };
 
   const handleBack = () => {
-    dispatch(push(`/size`));
+    dispatch(push(`/catalog/sizes`));
   };
 
   return (

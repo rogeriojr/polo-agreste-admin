@@ -49,7 +49,7 @@ const PageUpdatePage = ({ match }) => {
   };
 
   const handleBack = () => {
-    dispatch(push(`/page`));
+    dispatch(push(`/pages`));
   };
 
   return (

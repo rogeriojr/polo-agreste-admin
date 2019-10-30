@@ -12,7 +12,7 @@ const UserListPage = () => {
   };
 
   const handleBack = () => {
-    dispatch(push(`/user`));
+    dispatch(push(`/users`));
   };
 
   const { userInsertLoading } = useSelector(state => state.user);

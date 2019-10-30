@@ -30,7 +30,7 @@ const BannerTableHeader = ({ getFunction, initialValues }) => {
               />
             </HeaderBoxItem>
             <HeaderBoxItem style={{ paddingLeft: 6 }}>
-              <Link to="/banner/new">
+              <Link to="/marketing/banners/new">
                 <HeaderButton icon="add">Adicionar</HeaderButton>
               </Link>
             </HeaderBoxItem>

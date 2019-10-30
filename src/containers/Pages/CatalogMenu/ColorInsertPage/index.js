@@ -12,7 +12,7 @@ const ColorNewPage = () => {
   };
 
   const handleBack = () => {
-    dispatch(push(`/color`));
+    dispatch(push(`/catalog/colors`));
   };
 
   return (

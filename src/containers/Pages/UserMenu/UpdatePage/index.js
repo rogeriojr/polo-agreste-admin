@@ -1,26 +1,26 @@
 import React from 'react';
 import PageBase from 'components/PageBase';
 import { useDispatch, useSelector } from 'react-redux';
-import { Creators as KitCreators } from 'store/ducks/kit';
+import { Creators as UserCreators } from 'store/ducks/user';
 import HeaderComponent from 'components/HeaderComponent';
-import KitForm from 'components/Pages/KitPage/KitForm';
+import UserForm from 'components/Pages/UserPage/UserForm';
 import { withRouter } from 'react-router-dom';
 import RichTextEditor from 'react-rte';
 import PropTypes from 'prop-types';
 import { push } from 'connected-react-router';
 
-const KitUpdatePage = ({ match }) => {
+const UserUpdatePage = ({ match }) => {
   const dispatch = useDispatch();
 
   const [localState, setLocalState] = React.useState(null);
 
-  const { kit, kitLoading, kitUpdateLoading } = useSelector(
-    state => state.kit,
+  const { user, userLoading, userUpdateLoading } = useSelector(
+    state => state.user,
   );
 
   const getInitialData = () => {
     const { params } = match;
-    dispatch(KitCreators.getKitRequest({ id: params.id }));
+    dispatch(UserCreators.getUserRequest({ id: params.id }));
     setLocalState(null);
   };
 
@@ -29,48 +29,46 @@ const KitUpdatePage = ({ match }) => {
   }, []);
 
   React.useEffect(() => {
-    
     const { params } = match;
     if (
-      Object.keys(kit).length > 0 &&
-      !kitLoading &&
-      kit.id === Number(params.id)
+      Object.keys(user).length > 0 &&
+      !userLoading &&
+      user.id === Number(params.id)
     ) {
-      console.log(kit.images);
       setLocalState({
-        ...kit,
-        images_info: kit.images,
-        images: '',
-        images_data: [],
+        ...user,
+        password: '',
+        image_info: user.image,
+        image: '',
       });
     }
-  }, [kit]);
+  }, [user]);
 
   const onSubmit = data => {
-    dispatch(KitCreators.getKitUpdateRequest(data));
+    dispatch(UserCreators.getUserUpdateRequest(data));
   };
 
   const handleBack = () => {
-    dispatch(push(`/kit`));
+    dispatch(push(`/users`));
   };
 
   return (
     <PageBase>
-      <HeaderComponent title="Atualizar kit" />
-      {localState && !kitLoading && (
-        <KitForm
+      <HeaderComponent title="Atualizar usuário" />
+      {localState && (
+        <UserForm
           initialValues={localState}
-          isLoading={kitUpdateLoading}
           onSubmit={onSubmit}
           handleBack={handleBack}
+          isLoading={userUpdateLoading}
         />
       )}
     </PageBase>
   );
 };
 
-KitUpdatePage.propTypes = {
+UserUpdatePage.propTypes = {
   match: PropTypes.oneOfType([PropTypes.object]).isRequired,
 };
 
-export default withRouter(KitUpdatePage);
+export default withRouter(UserUpdatePage);

@@ -1,26 +1,26 @@
 import React from 'react';
 import PageBase from 'components/PageBase';
 import { useDispatch, useSelector } from 'react-redux';
-import { Creators as UserCreators } from 'store/ducks/user';
+import { Creators as TrendCreators } from 'store/ducks/trend';
 import HeaderComponent from 'components/HeaderComponent';
-import UserForm from 'components/Pages/UserPage/UserForm';
+import TrendForm from 'components/Pages/TrendPage/TrendForm';
 import { withRouter } from 'react-router-dom';
 import RichTextEditor from 'react-rte';
 import PropTypes from 'prop-types';
 import { push } from 'connected-react-router';
 
-const UserUpdatePage = ({ match }) => {
+const TrendUpdatePage = ({ match }) => {
   const dispatch = useDispatch();
 
   const [localState, setLocalState] = React.useState(null);
 
-  const { user, userLoading, userUpdateLoading } = useSelector(
-    state => state.user,
+  const { trend, trendLoading, trendUpdateLoading } = useSelector(
+    state => state.trend,
   );
 
   const getInitialData = () => {
     const { params } = match;
-    dispatch(UserCreators.getUserRequest({ id: params.id }));
+    dispatch(TrendCreators.getTrendRequest({ id: params.id }));
     setLocalState(null);
   };
 
@@ -29,46 +29,48 @@ const UserUpdatePage = ({ match }) => {
   }, []);
 
   React.useEffect(() => {
+    
     const { params } = match;
     if (
-      Object.keys(user).length > 0 &&
-      !userLoading &&
-      user.id === Number(params.id)
+      Object.keys(trend).length > 0 &&
+      !trendLoading &&
+      trend.id === Number(params.id)
     ) {
+      console.log(trend.images);
       setLocalState({
-        ...user,
-        password: '',
-        image_info: user.image,
-        image: '',
+        ...trend,
+        images_info: trend.images,
+        images: '',
+        images_data: [],
       });
     }
-  }, [user]);
+  }, [trend]);
 
   const onSubmit = data => {
-    dispatch(UserCreators.getUserUpdateRequest(data));
+    dispatch(TrendCreators.getTrendUpdateRequest(data));
   };
 
   const handleBack = () => {
-    dispatch(push(`/user`));
+    dispatch(push(`/marketing/trends`));
   };
 
   return (
     <PageBase>
-      <HeaderComponent title="Atualizar usuário" />
-      {localState && (
-        <UserForm
+      <HeaderComponent title="Atualizar tendência" />
+      {localState && !trendLoading && (
+        <TrendForm
           initialValues={localState}
+          isLoading={trendUpdateLoading}
           onSubmit={onSubmit}
           handleBack={handleBack}
-          isLoading={userUpdateLoading}
         />
       )}
     </PageBase>
   );
 };
 
-UserUpdatePage.propTypes = {
+TrendUpdatePage.propTypes = {
   match: PropTypes.oneOfType([PropTypes.object]).isRequired,
 };
 
-export default withRouter(UserUpdatePage);
+export default withRouter(TrendUpdatePage);

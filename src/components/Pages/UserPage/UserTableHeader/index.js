@@ -30,7 +30,7 @@ const UserTableHeader = ({ getFunction, initialValues }) => {
               />
             </HeaderBoxItem>
             <HeaderBoxItem style={{ paddingLeft: 6 }}>
-              <Link to="/user/new">
+              <Link to="/users/new">
                 <HeaderButton icon="add">Adicionar</HeaderButton>
               </Link>
             </HeaderBoxItem>

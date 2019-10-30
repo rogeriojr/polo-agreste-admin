@@ -67,7 +67,7 @@ function* getUserInsert({ payload }) {
     yield put(
       Notifications.success({ title: 'Cadastro concluido com sucesso' }),
     );
-    yield put(push(`/user/update/${id}`));
+    yield put(push(`/users/update/${id}`));
   } catch (err) {
     yield put(Creators.getUserInsertFailure('Erro ao buscar na API'));
   }

@@ -53,7 +53,7 @@ const StoreUpdatePage = ({ match }) => {
   };
 
   const handleBack = () => {
-    dispatch(push(`/store`));
+    dispatch(push(`/stores`));
   };
 
   return (

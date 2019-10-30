@@ -32,7 +32,7 @@ const StoreActions = ({ rowData, onDeleteRequest }) => {
       >
         <ActionMenuItem>Acessar Vitrine</ActionMenuItem>
         <ActionMenuItem>
-          <Link to={`/store/update/${rowData.id}`}>Editar</Link>
+          <Link to={`/stores/update/${rowData.id}`}>Editar</Link>
         </ActionMenuItem>
         <ActionMenuItem>Bloquear</ActionMenuItem>
         <ActionMenuItem onClick={onDelete}>Remover</ActionMenuItem>
