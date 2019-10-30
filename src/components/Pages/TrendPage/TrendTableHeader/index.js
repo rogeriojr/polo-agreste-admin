@@ -30,7 +30,7 @@ const TrendTableHeader = ({ getFunction, initialValues }) => {
               />
             </HeaderBoxItem>
             <HeaderBoxItem style={{ paddingLeft: 6 }}>
-              <Link to="/trend/new">
+              <Link to="/marketing/trends/new">
                 <HeaderButton icon="add">Adicionar</HeaderButton>
               </Link>
             </HeaderBoxItem>

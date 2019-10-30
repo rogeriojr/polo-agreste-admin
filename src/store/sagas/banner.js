@@ -60,7 +60,7 @@ function* getBannerInsert({ payload }) {
     yield put(
       Notifications.success({ title: 'Cadastro concluido com sucesso' }),
     );
-    yield put(push(`/banner/update/${id}`));
+    yield put(push(`/marketing/banners/update/${id}`));
   } catch (err) {
     yield put(Creators.getBannerInsertFailure('Erro ao buscar na API'));
   }

@@ -46,7 +46,7 @@ function* getTrendInsert({ payload }) {
     yield put(
       Notifications.success({ title: 'Cadastro concluido com sucesso' }),
     );
-    yield put(push(`/trend/update/${id}`));
+    yield put(push(`/marketing/trends/update/${id}`));
   } catch (err) {
     yield put(Creators.getTrendInsertFailure('Erro ao buscar na API'));
   }
