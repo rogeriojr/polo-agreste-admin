@@ -11,7 +11,7 @@ import AlertDialog from 'components/AlertDialog';
 import OrderActions from 'components/Pages/OrderPage/OrderActions';
 import { InputItem, InputContainer } from 'components/form/StyledComponents';
 import CustomSelect from 'components/form/components/CustomSelect';
-import { formatStoresName, formatDate } from 'utils/converters';
+import { formatStoresName, formatDate, formatStatus } from 'utils/converters';
 import OrderPaymentType from 'components/Pages/OrderPage/OrderPaymentType';
 import SaleInfo from 'components/Pages/SalePage/SaleInfo';
 
@@ -53,6 +53,7 @@ const SalePage = () => {
     {
       title: 'Status',
       field: 'status',
+      render: rowData => <span>{formatStatus(rowData.status)}</span>,
     },
     {
       title: 'Pagamento',

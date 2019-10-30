@@ -56,7 +56,27 @@ const formatStoresName = stores => {
 const formatDate = date => {
   moment.locale('pt-br');
   return moment(date).format('DD/MM/YYYY HH:mm');
-}
+};
+
+const formatStatus = status => {
+  const validStatus = {
+    0: 'Aguardando Pagamento',
+    1: 'Pagamento Autorizado',
+    2: 'Faturado Parcialmente',
+    3: 'Faturado',
+    4: 'Em Separação',
+    5: 'Aguardando Envio',
+    6: 'Enviado',
+    7: 'Entregue / Concluído',
+    8: 'Entregue Parcialmente',
+    9: 'Aguardando Retirada',
+    10: 'Devolvido',
+    11: 'Devolvido Parcialmente',
+    98: 'Não autorizado / Pagamento Recusado',
+    99: 'Cancelado',
+  };
+  return validStatus[status];
+};
 
 export {
   toMutable,
@@ -66,4 +86,5 @@ export {
   formatPaymentType,
   formatStoresName,
   formatDate,
+  formatStatus,
 };

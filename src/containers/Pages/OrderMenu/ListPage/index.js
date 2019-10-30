@@ -10,7 +10,7 @@ import AlertDialog from 'components/AlertDialog';
 import OrderActions from 'components/Pages/OrderPage/OrderActions';
 import { InputItem, InputContainer } from 'components/form/StyledComponents';
 import CustomSelect from 'components/form/components/CustomSelect';
-import { formatPaymentType, formatStoresName, formatDate } from 'utils/converters';
+import { formatPaymentType, formatStoresName, formatDate, formatStatus } from 'utils/converters';
 import OrderPaymentType from 'components/Pages/OrderPage/OrderPaymentType';
 
 const OrderListPage = () => {
@@ -51,6 +51,8 @@ const OrderListPage = () => {
     {
       title: 'Status',
       field: 'status',
+      render: rowData => <span>{formatStatus(rowData.status)}</span>,
+      /*
       render: rowData => (
         <InputContainer>
           <InputItem>
@@ -67,6 +69,7 @@ const OrderListPage = () => {
           </InputItem>
         </InputContainer>
       ),
+      */
     },
     {
       title: 'Pagamento',
