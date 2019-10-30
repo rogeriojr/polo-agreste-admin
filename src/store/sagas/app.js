@@ -76,21 +76,23 @@ const getAuth = state => state.auth;
 function* getMenu() {
   const auth = yield select(getAuth);
   const { access_token } = auth.data;
-  const jwtIdentity = getJwtIdentity(access_token);
-  if (jwtIdentity.user_id === 1 || jwtIdentity.user_id === 2) {
-    yield put(
-      AppCreators.getMenuSuccess({
-        menu: Menu,
-        jwtIdentity,
-      }),
-    );
-  } else {
-    yield put(
-      AppCreators.getMenuSuccess({
-        menu: ShopMenu,
-        jwtIdentity,
-      }),
-    );
+  if (access_token) {
+    const jwtIdentity = getJwtIdentity(access_token);
+    if (jwtIdentity.user_id === 1 || jwtIdentity.user_id === 2) {
+      yield put(
+        AppCreators.getMenuSuccess({
+          menu: Menu,
+          jwtIdentity,
+        }),
+      );
+    } else {
+      yield put(
+        AppCreators.getMenuSuccess({
+          menu: ShopMenu,
+          jwtIdentity,
+        }),
+      );
+    }
   }
 }
 

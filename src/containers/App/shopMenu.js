@@ -36,6 +36,7 @@ import CatalogCategoryUpdatePage from 'containers/Pages/CatalogMenu/CategoryUpda
 import StoreListPage from 'containers/Pages/StoreMenu/ListPage/Loadable';
 import StoreInsertPage from 'containers/Pages/StoreMenu/InsertPage/Loadable';
 import StoreUpdatePage from 'containers/Pages/StoreMenu/UpdatePage';
+import MyStorePage from 'containers/Pages/StoreMenu/MyStorePage';
 
 // Menu Clientes
 import ClientListPage from 'containers/Pages/ClientMenu/ListPage/Loadable';
@@ -228,29 +229,10 @@ const Menu = [
   },
   {
     id: 'store-config',
-    text: 'Lojas',
+    text: 'Minha loja',
     icon: <Icon>store_mall_directory</Icon>,
-    children: [
-      {
-        id: 'store-list',
-        text: 'Listar Lojas',
-        url: '/stores',
-        component: StoreListPage,
-      },
-      {
-        id: 'store-new',
-        text: 'Cadastrar Loja',
-        url: '/stores/new',
-        component: StoreInsertPage,
-      },
-      {
-        id: 'store-update',
-        text: 'Atualizar Loja',
-        url: '/stores/update/:id',
-        component: StoreUpdatePage,
-        showInMenu: false,
-      },
-    ],
+    url: '/stores',
+    component: MyStorePage,
   },
   {
     id: 'client',
@@ -314,105 +296,6 @@ const Menu = [
         text: 'Produto e estoque',
         url: '/reports/stock',
         component: ProductAndStockPage,
-      },
-    ],
-  },
-  {
-    id: 'marketing',
-    text: 'Marketing',
-    icon: <Icon>trending_up</Icon>,
-    children: [
-      {
-        id: 'marketing-banner-list',
-        text: 'Banners',
-        url: '/marketing/banners',
-        component: BannerListPage,
-      },
-      {
-        id: 'marketing-banner-new',
-        text: 'Cadastrar banner',
-        url: '/marketing/banners/new',
-        component: BannerInsertPage,
-        showInMenu: false,
-      },
-      {
-        id: 'marketing-banner-update',
-        text: 'Atualizar banner',
-        url: '/marketing/banners/update/:id',
-        component: BannerUpdatePage,
-        showInMenu: false,
-      },
-      {
-        id: 'marketing-trend-list',
-        text: 'Tendências',
-        url: '/marketing/trends',
-        component: TrendListPage,
-      },
-      {
-        id: 'marketing-trend-new',
-        text: 'Cadastrar tendência',
-        url: '/marketing/trends/new',
-        component: TrendInsertPage,
-        showInMenu: false,
-      },
-      {
-        id: 'marketing-trend-update',
-        text: 'Atualizar tendência',
-        url: '/marketing/trends/update/:id',
-        component: TrendUpdatePage,
-        showInMenu: false,
-      },
-    ],
-  },
-  {
-    id: 'page',
-    text: 'Página',
-    icon: <Icon>palette</Icon>,
-    children: [
-      {
-        id: 'page-list',
-        text: 'Listar página',
-        url: '/pages',
-        component: PageListPage,
-      },
-      {
-        id: 'page-new',
-        text: 'Cadastrar página',
-        url: '/pages/new',
-        component: PageInsertPage,
-      },
-      {
-        id: 'page-update',
-        text: 'Atualizar página',
-        url: '/pages/update/:id',
-        component: PageUpdatePage,
-        showInMenu: false,
-      },
-    ],
-  },
-  {
-    id: 'user',
-    text: 'Usuários',
-    icon: <Icon>people_alt</Icon>,
-    children: [
-      {
-        id: 'user-list',
-        text: 'Listar Usuário',
-        url: '/users',
-        component: UserListPage,
-      },
-      {
-        id: 'user-new',
-        text: 'Cadastrar Usuário',
-        url: '/users/new',
-        component: UserNewPage,
-      },
-      {
-        id: 'user-update',
-        text: 'Atualizar Usuário',
-        url: '/users/update/:id',
-        component: UserUpdatePage,
-        showInMenu: false,
       },
     ],
   },
