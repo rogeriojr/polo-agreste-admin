@@ -88,7 +88,7 @@ function* getProductInsert({ payload }) {
     yield put(
       Notifications.success({ title: 'Cadastro concluido com sucesso' }),
     );
-    yield put(push(`/product/update/${id}`));
+    yield put(push(`/catalog/products/update/${id}`));
   } catch (err) {
     yield put(Creators.getProductInsertFailure('Erro ao buscar na API'));
   }
