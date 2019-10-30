@@ -134,7 +134,7 @@ const Menu = [
       {
         id: 'catalog-update',
         text: 'Atualizar Produto',
-        url: '/catalog/catalog/products/update/:id',
+        url: '/catalog/products/update/:id',
         component: CatalogProductUpdatePage,
         showInMenu: false,
       },
