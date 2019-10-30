@@ -31,7 +31,7 @@ const OrderActions = ({ rowData, onDeleteRequest }) => {
         open={Boolean(localState.anchorEl)}
       >
         <ActionMenuItem>
-          <Link to={`/order/view/${rowData.id}`}>Visualizar</Link>
+          <Link to={`/orders/view/${rowData.id}`}>Visualizar</Link>
         </ActionMenuItem>
         <ActionMenuItem onClick={()=>{}}>Gerar Etiqueta</ActionMenuItem>
         <ActionMenuItem onClick={()=>{}}>Imprimir</ActionMenuItem>
