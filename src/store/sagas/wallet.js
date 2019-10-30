@@ -1,0 +1,19 @@
+import { call, takeLatest, all, put, select } from 'redux-saga/effects';
+import api from 'services/api';
+
+import { Types, Creators } from 'store/ducks/wallet';
+import { callApi } from 'store/sagas/auth';
+
+function* getWallet() {
+  try {
+    const response = yield call(api.get, '/v1/admin/wallets', {});
+    yield put(Creators.getWalletSuccess(response.data));
+  } catch (err) {
+    yield put(Creators.getWalletFailure('Erro ao buscar na API'));
+  }
+}
+
+// Individual exports for testing
+export default function* walletSaga() {
+  yield all([takeLatest(Types.GET_WALLET_REQUEST, getWallet)]);
+}

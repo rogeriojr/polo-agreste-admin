@@ -70,13 +70,6 @@ const SalePage = () => {
       field: 'updated_at',
       render: rowData => <span>{formatDate(rowData.updated_at)}</span>,
     },
-    {
-      title: 'Ações',
-      field: 'actions',
-      render: rowData => (
-        <OrderActions rowData={rowData} onDeleteRequest={onDeleteRequest} />
-      ),
-    },
   ];
 
   const dispatch = useDispatch();
