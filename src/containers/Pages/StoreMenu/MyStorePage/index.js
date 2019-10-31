@@ -55,10 +55,6 @@ const StoreUpdatePage = ({ match }) => {
     dispatch(StoreCreators.getStoreUpdateRequest(data));
   };
 
-  const handleBack = () => {
-    dispatch(push(`/stores`));
-  };
-
   return (
     <PageBase>
       <HeaderComponent title="Minha loja" />
@@ -67,7 +63,6 @@ const StoreUpdatePage = ({ match }) => {
           <StoreForm
             initialValues={localState}
             onSubmit={onSubmit}
-            handleBack={handleBack}
             isLoading={storeUpdateLoading}
           />
         )}
