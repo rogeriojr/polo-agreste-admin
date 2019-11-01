@@ -78,7 +78,7 @@ function* getMenu() {
   const { access_token } = auth.data;
   if (access_token) {
     const jwtIdentity = getJwtIdentity(access_token);
-    if (jwtIdentity.user_id === 1 || jwtIdentity.user_id === 2) {
+    if (jwtIdentity.group_id === 1 || jwtIdentity.group_id === 2) {
       yield put(
         AppCreators.getMenuSuccess({
           menu: Menu,
