@@ -246,23 +246,4 @@ Menu.map(item => {
   return item;
 });
 
-// Routes
-const getRoute = item => (
-  <Route key={item.id} exact path={item.url} component={item.component} />
-);
-
-const Routes = (location, dynamicMenu) => {
-  const menu = dynamicMenu || Menu;
-  return (
-    <Switch key={location.key} location={location}>
-      {menu.map(item =>
-        !item.children
-          ? getRoute(item)
-          : item.children.map(child => getRoute(child)),
-      )}
-      <Route component={NotFoundPage} />
-    </Switch>
-  );
-};
-
-export { Menu, Routes };
+export { Menu };
