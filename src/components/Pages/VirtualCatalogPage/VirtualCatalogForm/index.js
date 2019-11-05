@@ -13,6 +13,7 @@ import CustomRichText from 'components/form/components/CustomRichText';
 import { useDispatch, useSelector } from 'react-redux';
 import { Creators as CategoryCreators } from 'store/ducks/category';
 import { Creators as ProductCreators } from 'store/ducks/product';
+import { Creators as StoreCreators } from 'store/ducks/stores';
 import VirtualCatalogPreview from 'components/Pages/VirtualCatalogPage/VirtualCatalogForm/VirtualCatalogPreview';
 
 const TabContainer = ({ children }) => {
@@ -32,6 +33,7 @@ export const formInitialValues = {
   name: '',
   categories: [],
   products: [],
+  store: {},
   image: '',
   image_data: '',
   image_info: '',
@@ -40,6 +42,9 @@ export const formInitialValues = {
 const schema = Yup.object().shape({
   id: Yup.number(),
   name: Yup.string().required('Este campo é obrigatório'),
+  store: Yup.object().shape({
+    id: Yup.number().required('Este campo é obrigatório'),
+  }),
   categories: Yup.array().of(
     Yup.object().shape({
       id: Yup.number(),
@@ -69,9 +74,20 @@ const VirtualCatalogForm = ({
     state => state.product,
   );
 
+  const { storeList, storeListLoading } = useSelector(state => state.store);
+  
+  const stateApp = useSelector(state => state.app);
+  const jwtIdentity = stateApp.get('jwtIdentity');
+  
   const getInitialData = () => {
     dispatch(CategoryCreators.getCategoryListRequest({ perPage: 1000 }));
     dispatch(ProductCreators.getProductListRequest({ perPage: 99999 }));
+    dispatch(StoreCreators.getStoreListRequest({ perPage: 1000 }));
+
+    if (jwtIdentity.group_id !== 1 && jwtIdentity.group_id !== 2) {
+      // eslint-disable-next-line no-param-reassign
+      initialValues.store.id = jwtIdentity.store_id;
+    }
   };
 
   React.useEffect(() => {
@@ -93,9 +109,21 @@ const VirtualCatalogForm = ({
         <Form>
           <Card style={{ padding: 20 }}>
             <InputContainer>
-              <InputItem flexGrow={4}>
+              <InputItem>
                 <Field name="name" label="Nome" component={CustomTextField} />
               </InputItem>
+              {(jwtIdentity.group_id === 1 || jwtIdentity.group_id === 2) && (
+                <InputItem>
+                  <Field
+                    name="store.id"
+                    label="Loja"
+                    options={storeList}
+                    component={CustomSelect}
+                    placeholder="Loja"
+                    isLoading={storeListLoading}
+                  />
+                </InputItem>
+              )}
             </InputContainer>
             <InputContainer>
               <InputItem>

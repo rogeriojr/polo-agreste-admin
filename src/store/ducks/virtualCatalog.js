@@ -177,10 +177,11 @@ export const Creators = {
     name,
     categories,
     products,
+    store,
     image_data,
   }) => ({
     type: Types.GET_INSERT_REQUEST,
-    payload: { name, categories, products, image_data },
+    payload: { name, categories, products, store, image_data },
   }),
   getVirtualCatalogInsertSuccess: () => ({
     type: Types.GET_INSERT_SUCCESS,
@@ -215,6 +216,7 @@ export const Creators = {
     name,
     categories,
     products,
+    store,
     image_data,
   }) => ({
     type: Types.GET_UPDATE_REQUEST,
@@ -223,6 +225,7 @@ export const Creators = {
       name,
       categories,
       products,
+      store,
       image_data,
     },
   }),

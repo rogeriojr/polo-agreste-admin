@@ -12,6 +12,11 @@ import OrderViewPage from 'containers/Pages/OrderMenu/ViewPage/Loadable';
 // Menu Cash
 import CashExpressPage from 'containers/Pages/CashExpressMenu/Loadable';
 
+// Menu Catalogo Virtual
+import VirtualCatalogListPage from 'containers/Pages/VirtualCatalogMenu/ListPage/Loadable';
+import VirtualCatalogInsertPage from 'containers/Pages/VirtualCatalogMenu/InsertPage/Loadable';
+import VirtualCatalogUpdatePage from 'containers/Pages/VirtualCatalogMenu/UpdatePage/Loadable';
+
 // Menu Produtos
 import CatalogProductListPage from 'containers/Pages/CatalogMenu/ProductListPage/Loadable';
 import CatalogProductInsertPage from 'containers/Pages/CatalogMenu/ProductInsertPage/Loadable';
@@ -113,6 +118,34 @@ const Menu = [
     icon: <Icon>attach_money</Icon>,
     url: '/cash-express',
     component: CashExpressPage,
+  },
+  {
+    id: 'virtual-catalog',
+    text: 'Catalógo Virtual',
+    icon: <Icon>list</Icon>,
+    isDynamic: true,
+    children: [
+      {
+        id: 'virtual-catalog-list',
+        text: 'Catálogos Virtuais',
+        url: '/virtual/catalogs',
+        component: VirtualCatalogListPage,
+      },
+      {
+        id: 'virtual-catalog-new',
+        text: 'Cadastrar Catálogo Virtual',
+        url: '/virtual/catalogs/new',
+        component: VirtualCatalogInsertPage,
+        showInMenu: false,
+      },
+      {
+        id: 'virtual-catalog-update',
+        text: 'Editar Catalógo Virtual',
+        url: '/virtual/catalogs/update/:id',
+        component: VirtualCatalogUpdatePage,
+        showInMenu: false,
+      },
+    ],
   },
   {
     id: 'catalog',

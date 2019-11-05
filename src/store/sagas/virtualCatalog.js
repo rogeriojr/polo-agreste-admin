@@ -35,11 +35,12 @@ function* getVirtualCatalogImageUpload(payload) {
 
 function* getVirtualCatalogInsert({ payload }) {
   try {
-    const { name, categories, products, image_data } = payload;
+    const { name, categories, products, store, image_data } = payload;
     const response = yield call(api.post, '/v1/admin/virtual/catalogs', {
       name,
       categories,
       products,
+      store,
     });
     const { id } = response.data.data;
     if (typeof image_data === 'object' && image_data instanceof File) {
@@ -60,11 +61,12 @@ function* getVirtualCatalogInsert({ payload }) {
 
 function* getVirtualCatalogUpdate({ payload }) {
   try {
-    const { id, name, categories, products, image_data } = payload;
+    const { id, name, categories, products, store, image_data } = payload;
     const response = yield call(api.put, `/v1/admin/virtual/catalogs/${id}`, {
       name,
       categories,
       products,
+      store,
     });
     if (typeof image_data === 'object' && image_data instanceof File) {
       const imageUpload = yield getVirtualCatalogImageUpload({

@@ -10,33 +10,71 @@ import VirtualCatalogActions from 'components/Pages/VirtualCatalogPage/VirtualCa
 import AlertDialog from 'components/AlertDialog';
 import VirtualCatalogImage from 'components/Pages/VirtualCatalogPage/VirtualCatalogImage';
 
-const columns = ({ onDeleteRequest }) => [
-  {
-    title: 'Referência',
-    field: 'id',
-    sorting: false,
-  },
-  {
-    title: 'Capa',
-    field: 'image',
-    sorting: false,
-    render: rowData => <VirtualCatalogImage rowData={rowData} />,
-  },
-  {
-    title: 'Nome',
-    field: 'name',
-    sorting: false,
-  },
-  {
-    title: 'Ações',
-    render: rowData => (
-      <VirtualCatalogActions
-        rowData={rowData}
-        onDeleteRequest={onDeleteRequest}
-      />
-    ),
-  },
-];
+const columns = ({ onDeleteRequest, groupId }) => {
+  if (groupId === 1 || groupId === 2) {
+    return [
+      {
+        title: 'Referência',
+        field: 'id',
+        sorting: false,
+      },
+      {
+        title: 'Capa',
+        field: 'image',
+        sorting: false,
+        render: rowData => <VirtualCatalogImage rowData={rowData} />,
+      },
+      {
+        title: 'Nome',
+        field: 'name',
+        sorting: false,
+      },
+      {
+        title: 'Loja',
+        field: 'store.name',
+        sorting: false,
+      },
+      {
+        title: 'Ações',
+        render: rowData => (
+          <VirtualCatalogActions
+            rowData={rowData}
+            onDeleteRequest={onDeleteRequest}
+          />
+        ),
+      },
+    ];
+  }
+
+  return [
+    {
+      title: 'Referência',
+      field: 'id',
+      sorting: false,
+    },
+    {
+      title: 'Capa',
+      field: 'image',
+      sorting: false,
+      render: rowData => <VirtualCatalogImage rowData={rowData} />,
+    },
+    {
+      title: 'Nome',
+      field: 'name',
+      sorting: false,
+    },
+    {
+      title: 'Ações',
+      render: rowData => (
+        <VirtualCatalogActions
+          rowData={rowData}
+          onDeleteRequest={onDeleteRequest}
+        />
+      ),
+    },
+  ];
+
+};
 
 const VirtualCatalogListPage = () => {
   const dispatch = useDispatch();
@@ -59,6 +97,11 @@ const VirtualCatalogListPage = () => {
     virtualCatalogListTotal,
     virtualCatalogDeleteLoading,
   } = useSelector(state => state.virtualCatalog);
+
+  const stateApp = useSelector(state => state.app);
+  const jwtIdentity = stateApp.get('jwtIdentity');
+
+  const groupId = jwtIdentity.group_id;
 
   React.useEffect(() => {
     dispatch(VirtualCatalogCreators.getVirtualCatalogListRequest(localState));
@@ -105,7 +148,7 @@ const VirtualCatalogListPage = () => {
       <Paper>
         <DefaultTable
           getFunction={getFunction}
-          columns={columns({ onDeleteRequest })}
+          columns={columns({ onDeleteRequest, groupId })}
           data={virtualCatalogList}
           total={virtualCatalogListTotal}
           isLoading={virtualCatalogListLoading}
