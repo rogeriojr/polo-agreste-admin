@@ -15,6 +15,7 @@ import { Creators as CategoryCreators } from 'store/ducks/category';
 import { Creators as ProductCreators } from 'store/ducks/product';
 import { Creators as StoreCreators } from 'store/ducks/stores';
 import VirtualCatalogPreview from 'components/Pages/VirtualCatalogPage/VirtualCatalogForm/VirtualCatalogPreview';
+import CustomSearchSelect from 'components/form/components/CustomSearchSelect';
 
 const TabContainer = ({ children }) => {
   return (
@@ -81,7 +82,7 @@ const VirtualCatalogForm = ({
   
   const getInitialData = () => {
     dispatch(CategoryCreators.getCategoryListRequest({ perPage: 1000 }));
-    dispatch(ProductCreators.getProductListRequest({ perPage: 99999 }));
+    dispatch(ProductCreators.getProductListRequest({ perPage: 50 }));
     dispatch(StoreCreators.getStoreListRequest({ perPage: 1000 }));
 
     if (jwtIdentity.group_id !== 1 && jwtIdentity.group_id !== 2) {
@@ -89,6 +90,12 @@ const VirtualCatalogForm = ({
       initialValues.store.id = jwtIdentity.store_id;
     }
   };
+
+  const searchProduct = searchInfo => {
+    dispatch(
+      ProductCreators.getProductListRequest({ perPage: 50, ...searchInfo }),
+    );
+  }
 
   React.useEffect(() => {
     getInitialData();
@@ -158,9 +165,10 @@ const VirtualCatalogForm = ({
                   name="products"
                   label="Produtos"
                   options={productList}
-                  component={CustomSelect}
+                  component={CustomSearchSelect}
                   placeholder="Produtos"
                   isMulti
+                  search={searchProduct}
                   isLoading={productListLoading}
                 />
               </InputItem>

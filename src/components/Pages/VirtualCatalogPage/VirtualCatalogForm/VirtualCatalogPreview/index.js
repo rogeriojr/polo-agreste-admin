@@ -17,21 +17,13 @@ const StyledGridImg = styled.img`
 const VirtualCatalogPreview = ({ form: { values }, items, isLoading }) => {
   const { products } = values;
 
-  const getProductById = id => {
-    const productsFiltered = items.filter(product => {
-      return product.id === id;
-    });
-    return productsFiltered[0];
-  };
-
   return (
     <>
       {!isLoading && items.length > 0 && products.length > 0 && (
         <>
           <Typography variant="h6" style={{ marginTop: -20, marginBottom: 30 }}>Pré-Visualização</Typography>
           <Grid container spacing={1} style={{ marginBottom: 10 }}>
-            {products.map(productInfo => {
-              const product = getProductById(productInfo.id);
+            {products.map(product => {
               return (
                 <Grid
                   item
