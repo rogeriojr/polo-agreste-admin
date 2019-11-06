@@ -71,7 +71,7 @@ const OrderView = ({ orderInfo }) => {
               <span style={{ color: '#ce4899', fontWeight: '500' }}>Bairro:</span> {orderInfo.address.district} <br />
               <span style={{ color: '#ce4899', fontWeight: '500' }}>Cidade:</span> {orderInfo.address.city.name} <br />
               <span style={{ color: '#ce4899', fontWeight: '500' }}>CEP:</span> {orderInfo.address.code_post} <br />
-              <span style={{ color: '#ce4899', fontWeight: '500' }}>Frete:</span> Desconhecido <br />
+              <span style={{ color: '#ce4899', fontWeight: '500' }}>Frete:</span> R$ {toPrice(orderInfo.stores[0].delivery_price)}<br />
               <span style={{ color: '#ce4899', fontWeight: '500' }}>Rastreamento:</span> Desconhecido <br />
               <span style={{ color: '#ce4899', fontWeight: '500' }}>Destinatário:</span> Desconhecido <br />
               <span style={{ color: '#ce4899', fontWeight: '500' }}>Observações:</span> Desconhecido <br /> <br />
