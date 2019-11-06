@@ -118,7 +118,7 @@ const OrderView = ({ orderInfo }) => {
                     <TableCell>{orderItem.product.id}</TableCell>
                     <TableCell><StyledImg src={orderItem.product.images[0].sizes.small}/></TableCell>
                     <TableCell>{orderItem.product.name}</TableCell>
-                    <TableCell>R$ {toPrice(orderItem.product.variations[0].price)}</TableCell>
+                    <TableCell>R$ {toPrice(orderItem.price)}</TableCell>
                     <TableCell>R$ 00,00</TableCell>
                     <TableCell>R$ {toPrice(orderItem.price)}</TableCell>
                     <TableCell>{orderItem.quantity}</TableCell>
