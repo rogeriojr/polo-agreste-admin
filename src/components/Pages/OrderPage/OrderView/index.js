@@ -37,22 +37,22 @@ const OrderView = ({ orderInfo }) => {
         <Box flexGrow={1} p={1}>
           <Card style={{ height: '100%' }}>
             <CardHeader title="Dados do cliente" />
-            <CardContent>
-              <b>Cliente:</b> {orderInfo.user.name} <br />
-              <b>Email:</b> Valor desconhecido <br />
-              <b>Telefone principal:</b> {orderInfo.user.cell_phone}<br />
-              <b>CPF:</b> {orderInfo.user.cpf} <br />
-              <b>Data de nascimento:</b> Valor desconhecido <br />
-              <b>Perfil de cliente:</b> Valor desconhecido <br />
+            <CardContent style={{ lineHeight: 2.0, color: '#4e3e51' }}>
+              <span style={{ color: '#ce4899', fontWeight: '500' }}>Cliente:</span> {orderInfo.user.name} <br />
+              <span style={{ color: '#ce4899', fontWeight: '500' }}>Email:</span> Valor desconhecido <br />
+              <span style={{ color: '#ce4899', fontWeight: '500' }}>Telefone principal:</span> {orderInfo.user.cell_phone}<br />
+              <span style={{ color: '#ce4899', fontWeight: '500' }}>CPF:</span> {orderInfo.user.cpf} <br />
+              <span style={{ color: '#ce4899', fontWeight: '500' }}>Data de nascimento:</span> Valor desconhecido <br />
+              <span style={{ color: '#ce4899', fontWeight: '500' }}>Perfil de cliente:</span> Valor desconhecido <br />
             </CardContent>
           </Card>
         </Box>
         <Box flexGrow={1} p={1}>
           <Card style={{ height: '100%' }}>
             <CardHeader title="Dados da entrega" />
-            <CardContent>
-              <b>Centro de distribuição:</b> Desconhecido <br />
-              <b>Endereço:</b> {orderInfo.address.street}
+            <CardContent style={{ lineHeight: 2.0, color: '#4e3e51' }}>
+              <span style={{ color: '#ce4899', fontWeight: '500' }}>Centro de distribuição:</span> Desconhecido <br />
+              <span style={{ color: '#ce4899', fontWeight: '500' }}>Endereço:</span> {orderInfo.address.street}
               {orderInfo.address.number && (
                 <>, Nº {orderInfo.address.number} </>
               )}
@@ -60,17 +60,31 @@ const OrderView = ({ orderInfo }) => {
                 <>, {orderInfo.address.complement}</>
               )}
               <br />
-              <b>Bairro:</b> {orderInfo.address.district} <br />
-              <b>Cidade:</b> {orderInfo.address.city.name} <br />
-              <b>CEP:</b> {orderInfo.address.code_post} <br />
-              <b>Frete:</b> Desconhecido <br />
-              <b>Rastreamento:</b> Desconhecido <br />
-              <b>Destinatário:</b> Desconhecido <br />
-              <b>Observações:</b> Desconhecido <br /> <br />
-              <b>Lojas:</b> <br />
+              <span style={{ color: '#ce4899', fontWeight: '500' }}>Bairro:</span> {orderInfo.address.district} <br />
+              <span style={{ color: '#ce4899', fontWeight: '500' }}>Cidade:</span> {orderInfo.address.city.name} <br />
+              <span style={{ color: '#ce4899', fontWeight: '500' }}>CEP:</span> {orderInfo.address.code_post} <br />
+              <span style={{ color: '#ce4899', fontWeight: '500' }}>Frete:</span> Desconhecido <br />
+              <span style={{ color: '#ce4899', fontWeight: '500' }}>Rastreamento:</span> Desconhecido <br />
+              <span style={{ color: '#ce4899', fontWeight: '500' }}>Destinatário:</span> Desconhecido <br />
+              <span style={{ color: '#ce4899', fontWeight: '500' }}>Observações:</span> Desconhecido <br /> <br />
+              <span style={{ color: '#ce4899', fontWeight: '500' }}>Lojas:</span> <br />
               <span style={{ whiteSpace: 'pre' }}>
                 {formatStoresName(orderInfo.stores)}
               </span>
+            </CardContent>
+          </Card>
+        </Box>
+        <Box flexGrow={1} p={1}>
+          <Card style={{ height: '100%' }}>
+            <CardHeader title="Dados do Pagamento" />
+            <CardContent style={{ lineHeight: 2.0, color: '#4e3e51' }}>
+              <span style={{ color: '#ce4899', fontWeight: '500' }}>Valor:</span> R$ {toPrice(orderInfo.price)} <br />
+              <span style={{ color: '#ce4899', fontWeight: '500' }}>Forma:</span> {formatPaymentType(orderInfo.payment_type)} <br />
+              <span style={{ color: '#ce4899', fontWeight: '500' }}>Parcelas:</span> Valor desconhecido <br />
+              <span style={{ color: '#ce4899', fontWeight: '500' }}>ID Pedido Wirecard:</span> Valor desconhecido <br />
+              <span style={{ color: '#ce4899', fontWeight: '500' }}>ID Pagamento Wirecard:</span>{' '}
+              {orderInfo.payments.length > 0 &&
+                orderInfo.payments[0].wirecard_id}
             </CardContent>
           </Card>
         </Box>
@@ -82,7 +96,8 @@ const OrderView = ({ orderInfo }) => {
             <Table>
               <TableHead>
                 <TableRow>
-                  <TableCell>REF.</TableCell>
+                  <TableCell>COD.</TableCell>
+                  <TableCell>IMAGEM</TableCell>
                   <TableCell>PRODUTO</TableCell>
                   <TableCell>PREÇO ORIGINAL</TableCell>
                   <TableCell>ACRÉSCIMOS</TableCell>
@@ -97,13 +112,14 @@ const OrderView = ({ orderInfo }) => {
                   // eslint-disable-next-line react/no-array-index-key
                   <TableRow key={i}>
                     <TableCell>Não def.</TableCell>
+                    <TableCell>imagem</TableCell>
                     <TableCell>{orderItem.product.name}</TableCell>
                     <TableCell>Não def.</TableCell>
                     <TableCell>Não def.</TableCell>
                     <TableCell>Não def.</TableCell>
                     <TableCell>R$ {toPrice(orderItem.price)}</TableCell>
                     <TableCell>{orderItem.quantity}</TableCell>
-                    <TableCell align="right">
+                    <TableCell align="left">
                       R${` `}
                       {toPrice(
                         Number(orderItem.price) * Number(orderItem.quantity),
@@ -114,25 +130,25 @@ const OrderView = ({ orderInfo }) => {
               </TableBody>
               <TableFooter>
                 <TableRow>
-                  <TableCell colSpan={6}>
+                  <TableCell colSpan={7}>
                     <b>Subtotal</b>
                   </TableCell>
                   <TableCell>{totalQuantity}</TableCell>
-                  <TableCell align="right">R$ {toPrice(totalValue)}</TableCell>
+                  <TableCell align="left">R$ {toPrice(totalValue)}</TableCell>
                 </TableRow>
                 <TableRow>
-                  <TableCell colSpan={6}>&nbsp;</TableCell>
+                  <TableCell colSpan={7}>&nbsp;</TableCell>
                   <TableCell>
                     <b>Frete</b>
                   </TableCell>
-                  <TableCell align="right">R$ XX,XX</TableCell>
+                  <TableCell align="left">R$ XX,XX</TableCell>
                 </TableRow>
                 <TableRow>
-                  <TableCell colSpan={6}>&nbsp;</TableCell>
+                  <TableCell colSpan={7}>&nbsp;</TableCell>
                   <TableCell>
                     <b>Total</b>
                   </TableCell>
-                  <TableCell align="right">
+                  <TableCell align="left">
                     R$ {toPrice(orderInfo.price)}
                   </TableCell>
                 </TableRow>
@@ -153,23 +169,28 @@ const OrderView = ({ orderInfo }) => {
       >
         <Box flexGrow={1} p={1}>
           <Card style={{ height: '100%' }}>
-            <CardHeader title="Forma de Pagamento" />
-            <CardContent>
-              <b>Valor:</b> R$ {toPrice(orderInfo.price)} <br />
-              <b>Forma:</b> {formatPaymentType(orderInfo.payment_type)} <br />
-              <b>Parcelas:</b> Valor desconhecido <br />
-              <b>ID Pedido Wirecard:</b> Valor desconhecido <br />
-              <b>ID Pagamento Wirecard:</b>{' '}
-              {orderInfo.payments.length > 0 &&
-                orderInfo.payments[0].wirecard_id}
+            <CardHeader title="Notas fiscais" />
+            <CardContent style={{ textAlign: 'center', color: '#4e3e51' }}>
+              Nenhuma nota fiscal cadastrada
             </CardContent>
           </Card>
         </Box>
+      </Box>
+      <Box
+        display="flex"
+        flexDirection="row"
+        justifyContent="center"
+        flexWrap="wrap"
+        alignItems="stretch"
+        marginLeft={-1}
+        marginRight={-1}
+        paddingTop={1}
+      >
         <Box flexGrow={1} p={1}>
           <Card style={{ height: '100%' }}>
-            <CardHeader title="Notas fiscais" />
-            <CardContent style={{ textAlign: 'center' }}>
-              Nenhuma nota fiscal cadastrada
+            <CardHeader title="Histórico" />
+            <CardContent style={{ textAlign: 'center', color: '#4e3e51' }}>
+              Nenhum pedido no histórico
             </CardContent>
           </Card>
         </Box>
