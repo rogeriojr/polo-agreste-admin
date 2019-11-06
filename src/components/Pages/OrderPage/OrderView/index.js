@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import HeaderComponent from 'components/HeaderComponent';
+import styled from 'styled-components';
 import {
   Card,
   CardHeader,
@@ -14,6 +15,13 @@ import {
   TableFooter,
 } from '@material-ui/core';
 import { toPrice, formatPaymentType, formatStoresName } from 'utils/converters';
+
+const StyledImg = styled('img')`
+  && {
+    max-height: 60px;
+    max-width: 60px;
+  }
+`;
 
 const OrderView = ({ orderInfo }) => {
   let totalValue = 0;
@@ -81,11 +89,8 @@ const OrderView = ({ orderInfo }) => {
               <span style={{ color: '#ce4899', fontWeight: '500' }}>Valor:</span> R$ {toPrice(orderInfo.price)} <br />
               <span style={{ color: '#ce4899', fontWeight: '500' }}>Forma:</span> {formatPaymentType(orderInfo.payment_type)} <br />
               <span style={{ color: '#ce4899', fontWeight: '500' }}>Parcelas:</span> Valor desconhecido <br />
-              <span style={{ color: '#ce4899', fontWeight: '500' }}>ID Pedido Wirecard:</span> Valor desconhecido <br />
-              <span style={{ color: '#ce4899', fontWeight: '500' }}>ID Pagamento Wirecard:</span>{' '}
-              {orderInfo.payments.length > 0 &&
-                orderInfo.payments[0].wirecard_id}
             </CardContent>
+            {console.tron.log(orderInfo)}
           </Card>
         </Box>
       </Box>
@@ -100,7 +105,6 @@ const OrderView = ({ orderInfo }) => {
                   <TableCell>IMAGEM</TableCell>
                   <TableCell>PRODUTO</TableCell>
                   <TableCell>PREÇO ORIGINAL</TableCell>
-                  <TableCell>ACRÉSCIMOS</TableCell>
                   <TableCell>DESCONTOS</TableCell>
                   <TableCell>PREÇO DE VENDA</TableCell>
                   <TableCell>QTD</TableCell>
@@ -111,12 +115,11 @@ const OrderView = ({ orderInfo }) => {
                 {orderInfo.products.map((orderItem, i) => (
                   // eslint-disable-next-line react/no-array-index-key
                   <TableRow key={i}>
-                    <TableCell>Não def.</TableCell>
-                    <TableCell>imagem</TableCell>
+                    <TableCell>{orderItem.product.id}</TableCell>
+                    <TableCell><StyledImg src={orderItem.product.images[0].sizes.small}/></TableCell>
                     <TableCell>{orderItem.product.name}</TableCell>
-                    <TableCell>Não def.</TableCell>
-                    <TableCell>Não def.</TableCell>
-                    <TableCell>Não def.</TableCell>
+                    <TableCell>R$ {toPrice(orderItem.product.variations[0].price)}</TableCell>
+                    <TableCell>R$ 00,00</TableCell>
                     <TableCell>R$ {toPrice(orderItem.price)}</TableCell>
                     <TableCell>{orderItem.quantity}</TableCell>
                     <TableCell align="left">
@@ -130,21 +133,21 @@ const OrderView = ({ orderInfo }) => {
               </TableBody>
               <TableFooter>
                 <TableRow>
-                  <TableCell colSpan={7}>
+                  <TableCell colSpan={6}>
                     <b>Subtotal</b>
                   </TableCell>
                   <TableCell>{totalQuantity}</TableCell>
                   <TableCell align="left">R$ {toPrice(totalValue)}</TableCell>
                 </TableRow>
                 <TableRow>
-                  <TableCell colSpan={7}>&nbsp;</TableCell>
+                  <TableCell colSpan={6}>&nbsp;</TableCell>
                   <TableCell>
                     <b>Frete</b>
                   </TableCell>
                   <TableCell align="left">R$ XX,XX</TableCell>
                 </TableRow>
                 <TableRow>
-                  <TableCell colSpan={7}>&nbsp;</TableCell>
+                  <TableCell colSpan={6}>&nbsp;</TableCell>
                   <TableCell>
                     <b>Total</b>
                   </TableCell>
