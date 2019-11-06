@@ -10,7 +10,8 @@ import AlertDialog from 'components/AlertDialog';
 import OrderActions from 'components/Pages/OrderPage/OrderActions';
 import { InputItem, InputContainer } from 'components/form/StyledComponents';
 import CustomSelect from 'components/form/components/CustomSelect';
-import { formatPaymentType, formatStoresName, formatDate, formatStatus } from 'utils/converters';
+import { formatPaymentType, formatStoresName, formatDate, formatStatus, toPrice } from 'utils/converters';
+import { Link } from 'react-router-dom';
 import OrderPaymentType from 'components/Pages/OrderPage/OrderPaymentType';
 
 const OrderListPage = () => {
@@ -36,7 +37,17 @@ const OrderListPage = () => {
   const { list, isLoading, selectedStore } = storesState;
 
   const columns = ({ onDeleteRequest }) => [
-    { title: 'Pedido', field: 'id', type: 'numeric' },
+    {
+      title: 'Pedido',
+      field: 'id',
+      render: rowData => (
+        <span>
+          <Link style={{ color: '#000' }} to={`/orders/view/${rowData.id}`}>
+            {rowData.id}
+          </Link>
+        </span>
+      ),
+    },
     {
       title: 'Loja',
       field: 'stores',
@@ -75,6 +86,11 @@ const OrderListPage = () => {
       title: 'Pagamento',
       field: 'payment_type',
       render: rowData => <OrderPaymentType rowData={rowData} />,
+    },
+    {
+      title: 'Preço',
+      field: 'payment_type',
+      render: rowData => <span>R$ {toPrice(rowData.price)}</span>,
     },
     {
       title: 'Realizado',
