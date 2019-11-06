@@ -144,6 +144,7 @@ function* getUserList({ payload }) {
     });
 
     const response = yield call(callApi, request);
+    if(response.status !== 200 && response.status != 201 ) throw response;
     yield put(Creators.getUserListSuccess(response.data));
   } catch (err) {
     yield put(Creators.getUserListFailure('Erro ao buscar na API'));
