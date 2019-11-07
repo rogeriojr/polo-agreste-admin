@@ -38,7 +38,7 @@ const PageUpdatePage = ({ match }) => {
         ...page,
         description: RichTextEditor.createValueFromString(
           page.description,
-          'markdown',
+          'html',
         ),
       });
     }
