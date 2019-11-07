@@ -22,7 +22,7 @@ function* getPageInsert({ payload }) {
     const { name, description } = payload;
     const response = yield call(api.post, '/v1/admin/pages', {
       name,
-      description: description.toString('markdown'),
+      description: description.toString('html'),
     });
     yield put(Creators.getPageInsertSuccess());
     yield put(
@@ -39,7 +39,7 @@ function* getPageUpdate({ payload }) {
     const { id, name, description } = payload;
     const response = yield call(api.put, `/v1/admin/pages/${id}`, {
       name,
-      description: description.toString('markdown'),
+      description: description.toString('html'),
     });
     yield put(Creators.getPageUpdateSuccess());
     yield put(Notifications.success({ title: 'Edição concluida com sucesso' }));
