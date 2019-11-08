@@ -9,7 +9,6 @@ import AlertDialog from 'components/AlertDialog';
 const StyledInput = styled.input`
   && {
     opacity: 0;
-    width: 100%;
     display: block;
     height: 36px;
   }

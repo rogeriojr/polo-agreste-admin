@@ -282,20 +282,18 @@ const UserForm = ({
                         />
                       </InputItem>
                     </InputContainer>
-                    <InputContainer>
-                      <InputItem>
-                        <FastField
-                          name="image"
-                          label="Foto de perfil"
-                          component={CustomImageField}
-                          previewUrl={
-                            values.image_info && values.image_info.small
-                              ? values.image_info.small
-                              : ''
-                          }
-                        />
-                      </InputItem>
-                    </InputContainer>
+                    <InputItem>
+                      <FastField
+                        name="image"
+                        label="Foto de perfil"
+                        component={CustomImageField}
+                        previewUrl={
+                          values.image_info && values.image_info.small
+                            ? values.image_info.small
+                            : ''
+                        }
+                      />
+                    </InputItem>
                   </TabContainer>
                 )}
                 {/*
@@ -396,7 +394,7 @@ UserForm.defaultProps = {
   initialValues: formInitialValues,
   submitText: 'Salvar',
   handleBack: false,
-  onSubmit: () => {},
+  onSubmit: () => { },
 };
 
 export default UserForm;
