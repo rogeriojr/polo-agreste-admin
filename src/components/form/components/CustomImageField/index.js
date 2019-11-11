@@ -5,6 +5,7 @@ import styled from 'styled-components';
 import { ErrorMessage } from 'formik';
 import CustomButton from 'components/form/components/CustomButton';
 import AlertDialog from 'components/AlertDialog';
+import CardDnD from 'components/form/components/CustomImageField/DragAndDrop';
 
 const StyledInput = styled.input`
   && {

@@ -10,6 +10,11 @@ export const Types = {
   GET_SUCCESS: 'order/GET_SUCCESS',
   GET_FAILURE: 'order/GET_FAILURE',
 
+  // atualiza status do pedido
+  GET_UPDATE_STATUS_REQUEST: 'order/GET_UPDATE_STATUS_REQUEST',
+  GET_UPDATE_STATUS_SUCCESS: 'order/GET_UPDATE_STATUS_SUCCESS',
+  GET_UPDATE_STATUS_FAILURE: 'order/GET_UPDATE_STATUS_FAILURE',
+
   // Obtem catergorias
   GET_LIST_REQUEST: 'order/GET_LIST_REQUEST',
   GET_LIST_SUCCESS: 'order/GET_LIST_SUCCESS',
@@ -70,6 +75,31 @@ export default (state = initialState, action) => {
         orderError: null,
       };
     case Types.GET_FAILURE:
+      return {
+        ...state,
+        orderLoading: false,
+        orderError: action.payload,
+      };
+    case Types.GET_FAILURE:
+      return {
+        ...state,
+        orderLoading: false,
+        orderError: action.payload,
+      };
+    case Types.GET_UPDATE_STATUS_REQUEST:
+      return {
+        ...state,
+        orderLoading: false,
+        orderError: action.payload,
+      };
+    case Types.GET_UPDATE_STATUS_SUCCESS:
+      return {
+        ...state,
+        order: action.payload.data,
+        orderLoading: false,
+        orderError: null,
+      };
+    case Types.GET_UPDATE_STATUS_FAILURE:
       return {
         ...state,
         orderLoading: false,
@@ -167,6 +197,19 @@ export const Creators = {
     type: Types.GET_FAILURE,
     payload: error,
   }),
+  getUpdateStatusRequest: ({ id, status }) => ({
+    type: Types.GET_UPDATE_STATUS_REQUEST,
+    payload: { id, status },
+  }),
+  getUpdateStatusSuccess: ({ data }) => ({
+    type: Types.GET_UPDATE_STATUS_SUCCESS,
+    payload: { data },
+  }),
+  getUpdateStatusFailure: error => ({
+    type: Types.GET_UPDATE_STATUS_FAILURE,
+    payload: error,
+  }),
+
   // Insere uma pedido
   getOrderInsertRequest: ({
     order_father,

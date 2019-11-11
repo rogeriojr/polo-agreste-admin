@@ -15,6 +15,9 @@ import {
   TableFooter,
 } from '@material-ui/core';
 import { toPrice, formatPaymentType, formatStoresName } from 'utils/converters';
+import StatusOrderForm from 'components/Pages/OrderPage/OrderView/StatusOrderForm';
+import { useDispatch } from 'react-redux';
+import { Creators as OrderCreators } from 'store/ducks/order';
 
 const StyledImg = styled('img')`
   && {
@@ -24,12 +27,21 @@ const StyledImg = styled('img')`
 `;
 
 const OrderView = ({ orderInfo }) => {
+
+  const dispatch = useDispatch();
+
   let totalValue = 0;
   let totalQuantity = 0;
   orderInfo.products.forEach(orderItem => {
     totalValue += Number(orderItem.price) * Number(orderItem.quantity);
     totalQuantity += Number(orderItem.quantity);
   });
+
+  const onSubmit = form => {
+    dispatch(OrderCreators.getUpdateStatusRequest({ id: orderInfo.id, status: form.status }));
+  }
+
+
   return (
     <div>
       <HeaderComponent title={`Pedido ${orderInfo.id}`} />
@@ -90,7 +102,7 @@ const OrderView = ({ orderInfo }) => {
               <span style={{ color: '#ce4899', fontWeight: '500' }}>Forma:</span> {formatPaymentType(orderInfo.payment_type)} <br />
               <span style={{ color: '#ce4899', fontWeight: '500' }}>Parcelas:</span> Valor desconhecido <br />
             </CardContent>
-            {console.tron.log(orderInfo)}
+            <StatusOrderForm initialValues={{ status: orderInfo.status }} onSubmit={onSubmit} />
           </Card>
         </Box>
       </Box>

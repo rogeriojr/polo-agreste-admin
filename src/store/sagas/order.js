@@ -101,9 +101,30 @@ function* getOrderList({ payload }) {
   }
 }
 
+function* getStatusUpdate({ payload }) {
+  try {
+    const { id, status } = payload;
+    const request = yield call(api.put, `/v1/admin/orders/${id}`, {
+      status,
+    });
+    const response = yield call(callApi, request);
+    if(response.status !=200) throw response;
+    yield put(Creators.getUpdateStatusSuccess(response.data));
+    yield put(
+      Notifications.success({ title: 'Status Alterado com sucesso' }),
+    );
+  } catch (err) {
+    yield put(
+    Notifications.error({ title: err.data.msg })
+    );
+    yield put(Creators.getUpdateStatusFailure('Erro ao buscar na API'));
+  }
+}
+
 // Individual exports for testing
 export default function* orderListSaga() {
   yield all([
+    takeLatest(Types.GET_UPDATE_STATUS_REQUEST, getStatusUpdate),
     takeLatest(Types.GET_REQUEST, getOrder),
     takeLatest(Types.GET_INSERT_REQUEST, getOrderInsert),
     takeLatest(Types.GET_UPDATE_REQUEST, getOrderUpdate),
