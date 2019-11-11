@@ -9,6 +9,7 @@ import AlertDialog from 'components/AlertDialog';
 const StyledInput = styled.input`
   && {
     opacity: 0;
+    max-width: 150px;
     display: block;
     height: 36px;
   }
@@ -59,29 +60,6 @@ const StyledFab = styled(Fab)`
     }
     position: absolute;
     right: 10px;
-    top: 10px;
-  }
-`;
-
-const StyledFab2 = styled(Fab)`
-  && {
-    
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
-    background: #ce4899;
-    color: ${props => props.isIndex ? '#fcdc5d' : 'white'};
-    width: 32px;
-    height: 32px;
-    margin: 0 2px;
-    min-height: 0;
-    &:hover {
-      background: #b53f86;
-      box-shadow: 0 1px 6px rgba(0, 0, 0, 0.4);
-    }
-    &:active {
-      box-shadow: 0 1px 6px rgba(0, 0, 0, 0.4);
-    }
-    position: absolute;
-    right: 50px;
     top: 10px;
   }
 `;
@@ -291,7 +269,7 @@ const CustomImageField = ({
       )}
       {localState.images.length > 0 && (
         <Grid container spacing={1} style={{ marginBottom: 10 }}>
-          {localState.images.map((image, index) => (
+          {localState.images.map(image => (
             <Grid
               item
               xs={6}
@@ -306,17 +284,6 @@ const CustomImageField = ({
               >
                 <StyledIcon>delete</StyledIcon>
               </StyledFab>
-              <StyledFab2
-                onClick={() => {
-                  setFieldValue('featured', image.id);
-                }}
-
-              >
-                {(values.featured == image.id)
-                  ? <StyledIcon>star</StyledIcon>
-                  : <StyledIcon>star_border</StyledIcon>
-                }
-              </StyledFab2>
               <StyledGridImg src={image.url} alt="" />
             </Grid>
           ))}
@@ -372,7 +339,7 @@ CustomImageField.propTypes = {
 CustomImageField.defaultProps = {
   previewUrl: '',
   isMulti: false,
-  onDeleteRequest: () => { },
+  onDeleteRequest: () => {},
   deleteLoading: false,
   images: [],
 };
