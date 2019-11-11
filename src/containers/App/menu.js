@@ -460,18 +460,18 @@ const Menu = [
         url: '/config',
         component: SettingsGeneralConfigPage,
       },
-      {
-        id: 'profile-access-list',
-        text: 'Listar perfil de acesso',
-        url: '/profile-access',
-        component: ProfileAccessListPage,
-      },
-      {
-        id: 'profile-access-new',
-        text: 'Cadastrar perfil de acesso',
-        url: '/profile-access/new',
-        component: ProfileAccessInsertPage,
-      },
+      // {
+      //   id: 'profile-access-list',
+      //   text: 'Listar perfil de acesso',
+      //   url: '/profile-access',
+      //   component: ProfileAccessListPage,
+      // },
+      // {
+      //   id: 'profile-access-new',
+      //   text: 'Cadastrar perfil de acesso',
+      //   url: '/profile-access/new',
+      //   component: ProfileAccessInsertPage,
+      // },
     ],
   },
 ];
