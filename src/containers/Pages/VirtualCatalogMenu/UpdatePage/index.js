@@ -2,11 +2,9 @@ import React from 'react';
 import PageBase from 'components/PageBase';
 import { useDispatch, useSelector } from 'react-redux';
 import { Creators as VirtualCatalogCreators } from 'store/ducks/virtualCatalog';
-import { Paper } from '@material-ui/core';
 import HeaderComponent from 'components/HeaderComponent';
 import VirtualCatalogForm from 'components/Pages/VirtualCatalogPage/VirtualCatalogForm';
 import { withRouter } from 'react-router-dom';
-import RichTextEditor from 'react-rte';
 import PropTypes from 'prop-types';
 import { push } from 'connected-react-router';
 
@@ -58,7 +56,7 @@ const VirtualCatalogUpdatePage = ({ match }) => {
 
   return (
     <PageBase>
-      <HeaderComponent title="Atualizar Catálogo VIrtual" />
+      <HeaderComponent title="Atualizar Catálogo Virtual" />
       {localState && (
         <VirtualCatalogForm
           initialValues={localState}

@@ -18,7 +18,7 @@ const InputContainer = styled.div`
 
 const InputItem = styled.div`
   flex-grow: ${props => props.flexGrow || 1};
-  margin: 0 10px;
+  margin: 3px 10px;
   min-width: 150px;
   flex: 1;
   align-content: stretch;

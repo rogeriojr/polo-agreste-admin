@@ -71,8 +71,8 @@ import UserUpdatePage from 'containers/Pages/UserMenu/UpdatePage/Loadable';
 
 // Menu Configurações
 import SettingsGeneralConfigPage from 'containers/Pages/SettingMenu/GeneralConfigPage/Loadable';
-import ProfileAccessListPage from 'containers/Pages/SettingMenu/ProfileAccessListPage/Loadable';
-import ProfileAccessInsertPage from 'containers/Pages/SettingMenu/ProfileAccessInsertPage/Loadable';
+// import ProfileAccessListPage from 'containers/Pages/SettingMenu/ProfileAccessListPage/Loadable';
+// import ProfileAccessInsertPage from 'containers/Pages/SettingMenu/ProfileAccessInsertPage/Loadable';
 
 // Menu Página
 import PageListPage from 'containers/Pages/PageMenu/ListPage/Loadable';

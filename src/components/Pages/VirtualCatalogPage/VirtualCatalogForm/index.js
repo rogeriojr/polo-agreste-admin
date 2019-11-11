@@ -16,6 +16,7 @@ import { Creators as ProductCreators } from 'store/ducks/product';
 import { Creators as StoreCreators } from 'store/ducks/stores';
 import VirtualCatalogPreview from 'components/Pages/VirtualCatalogPage/VirtualCatalogForm/VirtualCatalogPreview';
 import CustomSearchSelect from 'components/form/components/CustomSearchSelect';
+import ProductSelect from 'components/form/components/CustomSearchSelect/ProductSelect';
 
 const TabContainer = ({ children }) => {
   return (
@@ -165,7 +166,7 @@ const VirtualCatalogForm = ({
                   name="products"
                   label="Produtos"
                   options={productList}
-                  component={CustomSearchSelect}
+                  component={ProductSelect}
                   placeholder="Produtos"
                   isMulti
                   search={searchProduct}
