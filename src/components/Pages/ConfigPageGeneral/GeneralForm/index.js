@@ -2,13 +2,12 @@ import React from 'react';
 import { Formik, FastField, Form, Field } from 'formik';
 import * as Yup from 'yup';
 import PropTypes from 'prop-types';
-import { Card, Typography, Input, Icon } from '@material-ui/core';
+import { Card, Typography, Icon } from '@material-ui/core';
 import { Tab, Tabs } from 'components/Layout/Tabs';
 import { InputContainer, InputItem } from 'components/form/StyledComponents';
 import CustomTextField from 'components/form/components/CustomTextField';
 import CustomSelect from 'components/form/components/CustomSelect';
 import FormButtons from 'components/form/components/FormButtons';
-import CustomRichText from 'components/form/components/CustomRichText';
 import { useDispatch, useSelector } from 'react-redux';
 import { Creators as CityCreators } from 'store/ducks/city';
 import { Creators as BankCreators } from 'store/ducks/bank';
@@ -16,9 +15,8 @@ import { Creators as AddressCreators } from 'store/ducks/address';
 import CustomMaskField from 'components/form/components/CustomMaskField';
 import { validateBr } from 'js-brasil';
 import validators from 'utils/validators';
-import CustomInputDate from 'components/form/components/CustomInputDate';
 import CustomImageField from 'components/form/components/CustomImageField';
-import { formatCityName, formatBankName } from 'utils/converters';
+import { formatCityName } from 'utils/converters';
 
 const TabContainer = ({ children }) => {
   return (
@@ -190,7 +188,6 @@ const ShoppingForm = ({
   const [formikForm, setFormikForm] = React.useState({});
 
   const { cityList, cityListLoading } = useSelector(state => state.city);
-  const { bankList, bankListLoading } = useSelector(state => state.bank);
   const { addressValidate, addressValidateLoading } = useSelector(
     state => state.address,
   );
@@ -264,12 +261,6 @@ const ShoppingForm = ({
           <Card style={{ marginTop: 20 }}>
             <Tabs value={value} onChange={handleChange}>
               <Tab label="SHOPPING" icon={<Icon>store_mall_directory</Icon>} />
-              <Tab label="RESPONSÁVEL" icon={<Icon>person</Icon>} />
-              <Tab
-                label="INFORMAÇÕES BANCÁRIAS"
-                icon={<Icon>attach_money</Icon>}
-              />
-              <Tab label="QUEM SOMOS " icon={<Icon>text_format</Icon>} />
             </Tabs>
             {value === 0 && (
               <TabContainer>
@@ -427,222 +418,6 @@ const ShoppingForm = ({
                 </InputContainer>
               </TabContainer>
             )}
-            {value === 1 && (
-              <TabContainer>
-                <Typography variant="h6">Dados Pessoais</Typography>
-                <InputContainer>
-                  <InputItem>
-                    <FastField
-                      name="manager.name"
-                      label="Nome completo"
-                      component={CustomTextField}
-                    />
-                  </InputItem>
-                  <InputItem>
-                    <FastField
-                      name="manager.cpf"
-                      label="CPF"
-                      mask="999.999.999-99"
-                      component={CustomMaskField}
-                    />
-                  </InputItem>
-                  {<div>{values.cpf}</div>}
-                </InputContainer>
-                <InputContainer>
-                  <InputItem>
-                    <Field
-                      name="manager.birth_date"
-                      label="Data de nascimento"
-                      component={CustomInputDate}
-                    />
-                  </InputItem>
-                  <InputItem>
-                    <FastField
-                      name="manager.cell_phone"
-                      label="Telefone"
-                      mask="(99) 99999-9999"
-                      component={CustomMaskField}
-                    />
-                  </InputItem>
-                </InputContainer>
-                <InputContainer>
-                  <InputItem>
-                    <FastField
-                      name="manager.email"
-                      label="E-mail"
-                      component={CustomTextField}
-                    />
-                  </InputItem>
-                </InputContainer>
-                <Typography variant="h6">Endereço</Typography>
-                <InputContainer>
-                  <InputItem>
-                    <FastField
-                      name="manager.code_post"
-                      label="CEP"
-                      component={CustomMaskField}
-                      onKeyUp={onCepChange(form, cepTypes.MANAGER)}
-                      mask="99999-999"
-                    />
-                  </InputItem>
-                  <InputItem>
-                    <FastField
-                      name="manager.street"
-                      label="Logradouro"
-                      component={CustomTextField}
-                    />
-                  </InputItem>
-                </InputContainer>
-                <InputContainer>
-                  <InputItem>
-                    <FastField
-                      name="manager.number"
-                      label="Número"
-                      type="number"
-                      component={CustomTextField}
-                    />
-                  </InputItem>
-                  <InputItem>
-                    <FastField
-                      name="manager.complement"
-                      label="Complemento"
-                      component={CustomTextField}
-                    />
-                  </InputItem>
-                </InputContainer>
-                <InputContainer>
-                  <InputItem>
-                    <FastField
-                      name="manager.district"
-                      label="Bairro"
-                      component={CustomTextField}
-                    />
-                  </InputItem>
-                  <InputItem style={{ pointerEvents: 'none' }}>
-                    <FastField
-                      name="manager.city.id"
-                      label="Cidade"
-                      options={formatCityName(cityList)}
-                      component={CustomSelect}
-                      placeholder="Cidade"
-                      isLoading={cityListLoading}
-                    />
-                  </InputItem>
-                </InputContainer>
-              </TabContainer>
-            )}
-            {value === 2 && (
-              <TabContainer>
-                <InputContainer>
-                  <InputItem>
-                    <Field
-                      name="bank.bank.id"
-                      label="Banco"
-                      options={formatBankName(bankList)}
-                      component={CustomSelect}
-                      placeholder="Banco"
-                      isLoading={bankListLoading}
-                    />
-                  </InputItem>
-                  <InputItem>
-                    <FastField
-                      name="bank.agency"
-                      label="Número da agência"
-                      type="number"
-                      component={CustomTextField}
-                    />
-                  </InputItem>
-                  <InputItem>
-                    <FastField
-                      name="bank.agency_check"
-                      label="Dígito da agência"
-                      // type="number"
-                      component={CustomTextField}
-                    />
-                  </InputItem>
-                </InputContainer>
-                <InputContainer>
-                  <InputItem>
-                    <FastField
-                      name="bank.account"
-                      label="Número da Conta"
-                      type="number"
-                      component={CustomTextField}
-                    />
-                  </InputItem>
-                  <InputItem>
-                    <FastField
-                      name="bank.account_check"
-                      label="Dígito da Conta"
-                      type="number"
-                      component={CustomTextField}
-                    />
-                  </InputItem>
-                  <InputItem>
-                    <FastField
-                      name="bank.type"
-                      label="Tipo de conta"
-                      options={[
-                        { id: 'Corrente', name: 'Corrente' },
-                        { id: 'Poupança', name: 'Poupança' },
-                      ]}
-                      component={CustomSelect}
-                      placeholder="Tipo de conta"
-                      isLoading={false}
-                    />
-                  </InputItem>
-                </InputContainer>
-                <InputContainer>
-                  <InputItem>
-                    <FastField
-                      name="bank.account_holder"
-                      label="Titular da conta"
-                      component={CustomTextField}
-                    />
-                  </InputItem>
-                </InputContainer>
-                <InputContainer>
-                  <InputItem>
-                    <FastField
-                      name="bank.doc_type"
-                      label="Tipo de conta"
-                      options={[
-                        { id: 'CPF', name: 'CPF' },
-                        { id: 'CNPJ', name: 'CNPJ' },
-                      ]}
-                      placeholder="Tipo de conta"
-                      component={CustomSelect}
-                      isLoading={false}
-                    />
-                  </InputItem>
-                  <InputItem>
-                    <Field
-                      name="bank.doc_number"
-                      label="Número do documento"
-                      component={CustomMaskField}
-                      mask={
-                        values.bank.doc_type === 'CPF'
-                          ? '999.999.999-99'
-                          : '99.999.999/9999-99'
-                      }
-                    />
-                  </InputItem>
-                </InputContainer>
-              </TabContainer>
-            )}
-            {value === 3 && (
-              <TabContainer>
-                <InputContainer>
-                  <InputItem style={{ width: '50%' }}>
-                    <Field
-                      name="description"
-                      label="Descrição"
-                      component={CustomRichText}
-                    />
-                  </InputItem>
-                </InputContainer>
-              </TabContainer>
-            )}
             <FormButtons
               handleBack={handleBack}
               isLoading={isLoading}
@@ -667,7 +442,7 @@ ShoppingForm.defaultProps = {
   initialValues: formInitialValues,
   submitText: 'Salvar',
   handleBack: false,
-  onSubmit: () => {},
+  onSubmit: () => { },
 };
 
 export default ShoppingForm;
