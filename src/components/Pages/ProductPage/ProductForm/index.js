@@ -33,6 +33,7 @@ TabContainer.propTypes = {
 
 export const formInitialValues = {
   id: '',
+  featured: '0',
   code_integration: '',
   code_ncm: '',
   code_ean: '',
@@ -60,6 +61,7 @@ export const formInitialValues = {
 };
 
 const schema = Yup.object().shape({
+  featured: Yup.string(),
   id: Yup.number(),
   code_integration: Yup.string(),
   code_ncm: Yup.string(),

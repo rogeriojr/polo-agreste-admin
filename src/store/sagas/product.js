@@ -19,11 +19,12 @@ function* getProduct({ payload }) {
 
 function* getProductImagesUpload(payload) {
   try {
-    const { id, images_data } = payload;
+    const { id, images_data, featured } = payload;
     yield all(
       images_data.map(image => {
         const data = new FormData();
         data.append('image', image);
+        //data.append('featured', featured);
         return call(api.post, `/v1/admin/products/${id}/images`, data);
       }),
     );
@@ -56,6 +57,7 @@ function* getProductInsert({ payload }) {
       status,
       store,
       categories,
+      featured,
       images_data,
       variations,
     } = payload;
@@ -83,7 +85,7 @@ function* getProductInsert({ payload }) {
       variations,
     });
     const { id } = response.data.data;
-    yield getProductImagesUpload({ id, images_data });
+    yield getProductImagesUpload({ id, featured, images_data });
     yield put(Creators.getProductInsertSuccess());
     yield put(
       Notifications.success({ title: 'Cadastro concluido com sucesso' }),
@@ -118,6 +120,7 @@ function* getProductUpdate({ payload }) {
       status,
       store,
       categories,
+      featured,
       images_data,
       variations,
     } = payload;
@@ -141,6 +144,7 @@ function* getProductUpdate({ payload }) {
       weight,
       status,
       store,
+      featured,
       categories,
       variations,
     });

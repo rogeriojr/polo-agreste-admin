@@ -218,6 +218,7 @@ export const Creators = {
     status,
     store,
     categories,
+    featured,
     images_data,
     variations,
   }) => ({
@@ -243,6 +244,7 @@ export const Creators = {
       status,
       store,
       categories,
+      featured,
       images_data,
       variations,
     },
@@ -297,6 +299,7 @@ export const Creators = {
     status,
     store,
     categories,
+    featured,
     images_data,
     variations,
   }) => ({
@@ -323,6 +326,7 @@ export const Creators = {
       status,
       store,
       categories,
+      featured,
       images_data,
       variations,
     },
