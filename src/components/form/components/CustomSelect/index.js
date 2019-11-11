@@ -58,12 +58,14 @@ const CustomSelect = ({
 
   const getValue = () => {
     if (isMulti) {
-      const selecteds = options.filter(option =>
-        field.value.map(x => x.id).includes(option.id),
-      );
-      setSelectedOption(
-        selecteds.map(item => ({ value: item.id, label: item.name })),
-      );
+//      if (selectedOption.length <= 5) {
+        const selecteds = options.filter(option =>
+            field.value.map(x => x.id).includes(option.id),
+        );
+        setSelectedOption(
+          selecteds.map(item => ({ value: item.id, label: item.name })),
+        );
+//      }
     } else {
       const selected = selectOptions.find(
         option => option.value === field.value,
@@ -87,10 +89,12 @@ const CustomSelect = ({
   return (
     <StyledDiv>
       <StyledSelect
-        styles={{ menuPortal: base => {
-          const { zIndex, ...rest } = base;  // remove zIndex from base by destructuring
-          return { ...rest, zIndex: 9999 };
-        }}}
+        styles={{
+          menuPortal: base => {
+            const { zIndex, ...rest } = base; // remove zIndex from base by destructuring
+            return { ...rest, zIndex: 9999 };
+          },
+        }}
         {...field}
         value={selectedOption}
         onChange={onChange}
@@ -100,7 +104,7 @@ const CustomSelect = ({
         menuPortalTarget={document.querySelector('body')}
         isLoading={isLoading}
       />
-      {selectedOption!=='' && (
+      {selectedOption !== '' && (
         <StyledInputLabel>{placeholder}</StyledInputLabel>
       )}
       <ErrorMessage name={field.name}>
