@@ -48,24 +48,26 @@ const CustomSelect = ({
       form.setFieldValue(field.name, []);
       return;
     }
+    if (option.length <= 5) {
     form.setFieldValue(
       field.name,
       isMulti
         ? option.map(item => ({ id: item.value, name: item.label }))
         : option.value,
     );
+    }
   };
 
   const getValue = () => {
     if (isMulti) {
-      if (selectedOption.length <= 5) {
+
         const selecteds = options.filter(option =>
           field.value.map(x => x.id).includes(option.id),
           );
           setSelectedOption(
             selecteds.map(item => ({ value: item.id, label: item.name })),
             );
-          }
+          
     } else {
       const selected = selectOptions.find(
         option => option.value === field.value,
