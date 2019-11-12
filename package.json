@@ -15,6 +15,7 @@
     "formik": "1.5.8",
     "history": "^4.9.0",
     "hoist-non-react-statics": "^3.3.0",
+    "immutability-helper": "^3.0.1",
     "immutable": "^4.0.0-rc.12",
     "js-brasil": "^1.4.1",
     "loadable-components": "^2.2.3",
@@ -56,7 +57,7 @@
   },
   "scripts": {
     "start": "react-scripts start",
-    "deploy": "yarn build && cross-env NODE_PATH=./src aws s3 sync build/ s3://app.44express.com --profile market_gabriel",
+    "deploy": "yarn build && cross-env NODE_PATH=./src aws s3 sync build/ s3://app.44express.com --profile market_tulio",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",

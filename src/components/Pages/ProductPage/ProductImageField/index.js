@@ -5,6 +5,7 @@ import styled from 'styled-components';
 import { ErrorMessage } from 'formik';
 import CustomButton from 'components/form/components/CustomButton';
 import AlertDialog from 'components/AlertDialog';
+import DragAndDrop from 'components/Pages/ProductPage/DragAndDrop';
 
 const StyledInput = styled.input`
   && {
@@ -29,47 +30,6 @@ const StyledImg = styled.img`
     max-width: 100%;
     max-height: 200px;
     margin-bottom: 10px;
-  }
-`;
-
-const StyledGridImg = styled.img`
-  && {
-    width: 100%;
-    height: 200px;
-    object-fit: cover;
-    border: 1px solid rgba(0, 0, 0, 0.23);
-    border-radius: 4px;
-  }
-`;
-
-const StyledFab = styled(Fab)`
-  && {
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
-    background: #ce4899;
-    color: white;
-    width: 32px;
-    height: 32px;
-    margin: 0 2px;
-    min-height: 0;
-    &:hover {
-      background: #b53f86;
-      box-shadow: 0 1px 6px rgba(0, 0, 0, 0.4);
-    }
-    &:active {
-      box-shadow: 0 1px 6px rgba(0, 0, 0, 0.4);
-    }
-    position: absolute;
-    right: 10px;
-    top: 10px;
-  }
-`;
-
-const StyledIcon = styled(Icon)`
-  && {
-    width: auto;
-    height: auto;
-    font-size: 22px;
-    text-align: center;
   }
 `;
 
@@ -149,6 +109,10 @@ const ProductImageField = ({
   const onDelete = item => {
     setDeleteState({ open: true, item });
   };
+
+  const changeImages = value => {
+    setLocalState({ ...localState, images:value })
+  }
 
   const deleteImageOnList = image => {
     const imagesFiltered = localState.images.filter(imageInfo => {
@@ -268,37 +232,7 @@ const ProductImageField = ({
         <StyledImg src={localState.previewUrl} alt="" />
       )}
       {localState.images.length > 0 && (
-        <Grid container spacing={1} style={{ marginBottom: 10 }}>
-          {localState.images.map(image => (
-            <Grid
-              item
-              xs={6}
-              sm={3}
-              key={image.id}
-              style={{ position: 'relative' }}
-            >
-              <StyledFab
-                onClick={() => {
-                  onDelete(image);
-                }}
-              >
-                <StyledIcon>delete</StyledIcon>
-              </StyledFab>
-              <StyledFab style={{ right:50 }}
-                onClick={() => {
-                  setFieldValue('featured', image.id);
-                }}
-
-              >
-                {(values.featured == image.id)
-                  ? <StyledIcon>star</StyledIcon>
-                  : <StyledIcon>star_border</StyledIcon>
-                }
-              </StyledFab>
-              <StyledGridImg src={image.url} alt="" />
-            </Grid>
-          ))}
-        </Grid>
+        <DragAndDrop featured={values.featured} setFieldValue={setFieldValue} onDelete={onDelete} changeImages={changeImages} images={localState.images} />
       )}
       <div style={{ position: 'relative' }}>
         <StyledInput
