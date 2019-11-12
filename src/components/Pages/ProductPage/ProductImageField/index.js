@@ -73,7 +73,7 @@ const StyledIcon = styled(Icon)`
   }
 `;
 
-const CustomImageField = ({
+const ProductImageField = ({
   field,
   label,
   form: { setFieldValue, values },
@@ -269,7 +269,7 @@ const CustomImageField = ({
       )}
       {localState.images.length > 0 && (
         <Grid container spacing={1} style={{ marginBottom: 10 }}>
-          {localState.images.map((image,  index) => (
+          {localState.images.map(image => (
             <Grid
               item
               xs={6}
@@ -283,6 +283,17 @@ const CustomImageField = ({
                 }}
               >
                 <StyledIcon>delete</StyledIcon>
+              </StyledFab>
+              <StyledFab style={{ right:50 }}
+                onClick={() => {
+                  setFieldValue('featured', image.id);
+                }}
+
+              >
+                {(values.featured == image.id)
+                  ? <StyledIcon>star</StyledIcon>
+                  : <StyledIcon>star_border</StyledIcon>
+                }
               </StyledFab>
               <StyledGridImg src={image.url} alt="" />
             </Grid>
@@ -325,7 +336,7 @@ const CustomImageField = ({
   );
 };
 
-CustomImageField.propTypes = {
+ProductImageField.propTypes = {
   field: PropTypes.oneOfType([PropTypes.object]).isRequired,
   form: PropTypes.oneOfType([PropTypes.object]).isRequired,
   label: PropTypes.string.isRequired,
@@ -336,12 +347,12 @@ CustomImageField.propTypes = {
   images: PropTypes.arrayOf(PropTypes.object),
 };
 
-CustomImageField.defaultProps = {
+ProductImageField.defaultProps = {
   previewUrl: '',
   isMulti: false,
-  onDeleteRequest: () => {},
+  onDeleteRequest: () => { },
   deleteLoading: false,
   images: [],
 };
 
-export default CustomImageField;
+export default ProductImageField;

@@ -18,6 +18,7 @@ import { Creators as ProductSizeCreators } from 'store/ducks/productSize';
 import CustomCurrencyField from 'components/form/components/CustomCurrencyField';
 import CustomImageField from 'components/form/components/CustomImageField';
 import VariationField from 'components/Pages/ProductPage/ProductForm/VariationField';
+import ProductImageField from 'components/Pages/ProductPage/ProductImageField';
 
 const TabContainer = ({ children }) => {
   return (
@@ -333,7 +334,7 @@ const ProductForm = ({
                         <Field
                           name="images"
                           label="Galeria"
-                          component={CustomImageField}
+                          component={ProductImageField}
                           images={values.images_info}
                           deleteLoading={productImageDeleteLoading}
                           onDeleteRequest={onDeleteImageRequest}
