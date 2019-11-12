@@ -124,7 +124,7 @@ function* getProductUpdate({ payload }) {
       images_data,
       variations,
     } = payload;
-    /* const response =  */ yield call(api.put, `/v1/admin/products/${id}`, {
+    const response =  yield call(api.put, `/v1/admin/products/${id}`, {
       code_integration,
       code_ncm,
       code_ean,
@@ -149,10 +149,12 @@ function* getProductUpdate({ payload }) {
       variations,
     });
     yield getProductImagesUpload({ id, images_data });
+    if(response.status != 200) throw response;
     yield put(Creators.getProductUpdateSuccess());
     yield put(Creators.getProductRequest({ id }));
     yield put(Notifications.success({ title: 'Edição concluida com sucesso' }));
   } catch (err) {
+    yield put(Notifications.error({ title: err.data.msg }));
     yield put(Creators.getProductUpdateFailure('Erro ao buscar na API'));
   }
 }

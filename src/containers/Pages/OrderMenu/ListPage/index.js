@@ -13,6 +13,7 @@ import CustomSelect from 'components/form/components/CustomSelect';
 import { formatPaymentType, formatStoresName, formatDate, formatStatus, toPrice } from 'utils/converters';
 import { Link } from 'react-router-dom';
 import OrderPaymentType from 'components/Pages/OrderPage/OrderPaymentType';
+import moment from 'moment';
 
 const OrderListPage = () => {
   const [storesState, setStoresState] = React.useState({
@@ -117,14 +118,18 @@ const OrderListPage = () => {
     item: {},
   });
 
+  const today = moment();
+  const actualDate = moment();
+  const weekdate = today.add(-7, 'day');
+
   const [localState, setLocalState] = React.useState({
     search: '',
     orderByColumn: '',
     orderByDirection: '',
     page: 1,
     perPage: 10,
-    dateStart: '',
-    dateEnd: '',
+    dateStart: weekdate.format('YYYY-MM-DD'),
+    dateEnd: actualDate.format('YYYY-MM-DD'),
   });
 
   const {
@@ -171,8 +176,8 @@ const OrderListPage = () => {
           getFunction={getFunction}
           initialValues={{
             search: localState.search,
-            dateStart: null,
-            dateEnd: null,
+            dateStart: weekdate,
+            dateEnd: actualDate,
           }}
         />
       </HeaderComponent>

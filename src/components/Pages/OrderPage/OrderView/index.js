@@ -156,7 +156,7 @@ const OrderView = ({ orderInfo }) => {
                   <TableCell>
                     <b>Frete</b>
                   </TableCell>
-                  <TableCell align="left">R$ XX,XX</TableCell>
+                  <TableCell align="left">R$ {toPrice(orderInfo.stores.reduce((accumulator, item) => accumulator+item.delivery_price , 0))}</TableCell>
                 </TableRow>
                 <TableRow>
                   <TableCell colSpan={6}>&nbsp;</TableCell>
