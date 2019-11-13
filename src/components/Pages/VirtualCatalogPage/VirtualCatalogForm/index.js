@@ -156,6 +156,7 @@ const VirtualCatalogForm = ({
                   component={CustomSelect}
                   placeholder="Categorias"
                   isMulti
+                  optionLimit={5}
                   isLoading={categoryListLoading}
                 />
               </InputItem>
