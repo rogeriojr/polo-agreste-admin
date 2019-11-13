@@ -100,27 +100,36 @@ const ProductSelect = ({
   };
 
   React.useEffect(() => {
-    const optionsTeste = options.map(item => ({
+    const optionsAdded = joinOptions(options);
+    const optionsTeste = optionsAdded.map(item => ({
+      ...item,
       value: item.id,
       label: (
         <Box display="flex" alignItems="center">
           <Box
             style={{
-              width: 40, height: 70, overflow: 'hidden', marginRight: 10,
+              width: 40,
+              height: 70,
+              overflow: 'hidden',
+              marginRight: 10,
             }}
           >
-            <img alt="" style={{ width: '100%', height: '100%', objectFit: 'cover' }} src={item.images[0].sizes.small} />
+            <img
+              alt=""
+              style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+              src={item.images[0].sizes.small}
+            />
           </Box>
           {item.name}
         </Box>
       ),
-      ...item,
     }));
+    console.log(optionsTeste);
     setSelectOptions(optionsTeste);
   }, [options]);
 
   React.useEffect(() => {
-      getValue();
+    getValue();
   }, [selectOptions, field.value]);
 
   return (
