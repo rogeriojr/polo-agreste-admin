@@ -1,5 +1,5 @@
 import React from 'react';
-import Select from 'react-select';
+import Select, { components } from 'react-select';
 import PropTypes from 'prop-types';
 import { responseToSelect } from 'utils/response';
 import { FormHelperText, InputLabel, Box } from '@material-ui/core';
@@ -32,6 +32,31 @@ const StyledInputLabel = styled(InputLabel)`
     font-size: 12px;
   }
 `;
+
+const ProductOption = props => {
+  const { data } = props;
+  return (
+    <components.Option {...props}>
+      <Box display="flex" alignItems="center">
+        <Box
+          style={{
+            width: 40,
+            height: 70,
+            overflow: 'hidden',
+            marginRight: 10,
+          }}
+        >
+          <img
+            alt=""
+            style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+            src={data.images[0].sizes.small}
+          />
+        </Box>
+        {data.name}
+      </Box>
+    </components.Option>
+  );
+};
 
 const ProductSelect = ({
   placeholder,
@@ -80,7 +105,9 @@ const ProductSelect = ({
   };
 
   const onInputChange = searchText => {
-    search({ search: searchText });
+    if (searchText.length >= 4) {
+      search({ search: searchText });
+    }
   };
 
   const joinOptions = opts => {
@@ -101,31 +128,7 @@ const ProductSelect = ({
 
   React.useEffect(() => {
     const optionsAdded = joinOptions(options);
-    const optionsTeste = optionsAdded.map(item => ({
-      ...item,
-      value: item.id,
-      label: (
-        <Box display="flex" alignItems="center">
-          <Box
-            style={{
-              width: 40,
-              height: 70,
-              overflow: 'hidden',
-              marginRight: 10,
-            }}
-          >
-            <img
-              alt=""
-              style={{ width: '100%', height: '100%', objectFit: 'cover' }}
-              src={item.images[0].sizes.small}
-            />
-          </Box>
-          {item.name}
-        </Box>
-      ),
-    }));
-    console.log(optionsTeste);
-    setSelectOptions(optionsTeste);
+    setSelectOptions(responseToSelect(optionsAdded));
   }, [options]);
 
   React.useEffect(() => {
@@ -150,6 +153,7 @@ const ProductSelect = ({
         menuPortalTarget={document.querySelector('body')}
         isLoading={isLoading}
         onInputChange={onInputChange}
+        components={{ Option: ProductOption }}
       />
       {selectedOption !== '' && (
         <StyledInputLabel>{placeholder}</StyledInputLabel>
