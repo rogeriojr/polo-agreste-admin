@@ -377,6 +377,7 @@ const ProductForm = ({
                           component={CustomSelect}
                           placeholder="Categoria"
                           isMulti
+                          optionLimit={5}
                           isLoading={categoryListLoading}
                         />
                       </InputItem>

@@ -40,6 +40,7 @@ const CustomSelect = ({
   options,
   isMulti,
   isLoading,
+  optionLimit,
 }) => {
   const [selectOptions, setSelectOptions] = React.useState([]);
   const [selectedOption, setSelectedOption] = React.useState(isMulti ? [] : '');
@@ -48,13 +49,13 @@ const CustomSelect = ({
       form.setFieldValue(field.name, []);
       return;
     }
-    if (option.length <= 5) {
-    form.setFieldValue(
-      field.name,
-      isMulti
-        ? option.map(item => ({ id: item.value, name: item.label }))
-        : option.value,
-    );
+    if ((optionLimit && option.length <= optionLimit) || !optionLimit) {
+      form.setFieldValue(
+        field.name,
+        isMulti
+          ? option.map(item => ({ id: item.value, name: item.label }))
+          : option.value,
+      );
     }
   };
 
@@ -123,11 +124,13 @@ CustomSelect.propTypes = {
   placeholder: PropTypes.string.isRequired,
   isLoading: PropTypes.bool,
   isMulti: PropTypes.bool,
+  optionLimit: PropTypes.oneOfType([PropTypes.bool, PropTypes.number]),
 };
 
 CustomSelect.defaultProps = {
   isMulti: false,
   isLoading: true,
+  optionLimit: false,
 };
 
 export default CustomSelect;
