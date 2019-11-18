@@ -76,6 +76,7 @@ const VariationField = ({
         name: null,
       },
       price: '',
+      price_whole: '',
       code_ean: '',
       stock: '',
     },
@@ -106,7 +107,7 @@ const VariationField = ({
             };
           }
 
-          if (curField === 'price') {
+          if (curField === 'price' || curField === 'price_whole') {
             const curFieldInfo = {};
             curFieldInfo[curField] = option;
             return {
@@ -202,6 +203,18 @@ const VariationField = ({
                   fullWidth
                   variant="outlined"
                   label="Preço"
+                  InputProps={{
+                    inputComponent: NumberFormatCustom,
+                  }}
+                />
+              </InputItem>
+              <InputItem>
+                <StyledTextField
+                  value={fieldValue.price_whole}
+                  onChange={onChangeVariation(indexVariation, 'price_whole')}
+                  fullWidth
+                  variant="outlined"
+                  label="Preço Atacado"
                   InputProps={{
                     inputComponent: NumberFormatCustom,
                   }}
