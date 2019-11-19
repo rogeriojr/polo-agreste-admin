@@ -97,6 +97,8 @@ const ProductForm = ({
   submitText,
   handleBack,
   isLoading,
+  stateImages, 
+  setStateImages,
 }) => {
   const dispatch = useDispatch();
   const [value, setValue] = React.useState(0);
@@ -337,6 +339,8 @@ const ProductForm = ({
                           images={values.images_info}
                           deleteLoading={productImageDeleteLoading}
                           onDeleteRequest={onDeleteImageRequest}
+                          localState={stateImages} 
+                          setLocalState={setStateImages}
                           isMulti
                         />
                       </InputItem>

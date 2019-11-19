@@ -12,6 +12,11 @@ const ProductNewPage = () => {
     dispatch(Creators.getProductInsertRequest(data));
   };
 
+  const [stateImages, setStateImages] = React.useState({
+    previewUrl: '',
+    images: [],
+  });
+
   const handleBack = () => {
     dispatch(push(`/catalog/products`));
   };
@@ -22,6 +27,8 @@ const ProductNewPage = () => {
     <PageBase>
       <HeaderComponent title="Cadastrar produto" />
       <ProductForm
+        stateImages={stateImages}
+        setStateImages={setStateImages}
         onSubmit={onSubmit}
         handleBack={handleBack}
         isLoading={productInsertLoading}

@@ -19,6 +19,7 @@ import validators from 'utils/validators';
 import CustomInputDate from 'components/form/components/CustomInputDate';
 import CustomImageField from 'components/form/components/CustomImageField';
 import { formatCityName, formatBankName } from 'utils/converters';
+import ProductImageField from 'components/Pages/ProductPage/ProductImageField';
 
 const TabContainer = ({ children }) => {
   return (
@@ -661,13 +662,15 @@ StoreForm.propTypes = {
   submitText: PropTypes.string,
   handleBack: PropTypes.oneOfType([PropTypes.bool, PropTypes.func]),
   isLoading: PropTypes.bool.isRequired,
+  stateImages: PropTypes.any.isRequired, 
+  setStateImages: PropTypes.func.isRequired,
 };
 
 StoreForm.defaultProps = {
   initialValues: formInitialValues,
   submitText: 'Salvar',
   handleBack: false,
-  onSubmit: () => {},
+  onSubmit: () => { },
 };
 
 export default StoreForm;

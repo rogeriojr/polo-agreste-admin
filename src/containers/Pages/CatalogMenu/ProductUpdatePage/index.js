@@ -14,6 +14,11 @@ const ProductUpdatePage = ({ match }) => {
 
   const [localState, setLocalState] = React.useState(null);
 
+  const [stateImages, setStateImages] = React.useState({
+    previewUrl: '',
+    images: [],
+  });
+
   const { product, productLoading, productUpdateLoading } = useSelector(
     state => state.product,
   );
@@ -55,6 +60,9 @@ const ProductUpdatePage = ({ match }) => {
   }, [product]);
 
   const onSubmit = data => {
+    let newImages = [...stateImages.images];
+    data.order_images = newImages.map(item => item.id);
+    //console.tron.log(data);
     dispatch(ProductCreators.getProductUpdateRequest(data));
   };
 
@@ -67,6 +75,8 @@ const ProductUpdatePage = ({ match }) => {
       <HeaderComponent title="Atualizar produto" />
       {localState && !productLoading && (
         <ProductForm
+          stateImages={stateImages} 
+          setStateImages={setStateImages}
           initialValues={localState}
           isLoading={productUpdateLoading}
           onSubmit={onSubmit}

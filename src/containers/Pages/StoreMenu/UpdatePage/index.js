@@ -25,6 +25,11 @@ const StoreUpdatePage = ({ match }) => {
     setLocalState(null);
   };
 
+  const [stateImages, setStateImages] = React.useState({
+    previewUrl: '',
+    images: [],
+  });
+
   React.useEffect(() => {
     getInitialData();
   }, []);
@@ -66,6 +71,8 @@ const StoreUpdatePage = ({ match }) => {
             onSubmit={onSubmit}
             handleBack={handleBack}
             isLoading={storeUpdateLoading}
+            stateImages={stateImages}
+            setStateImages={setStateImages}
           />
         )}
       </Paper>

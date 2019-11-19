@@ -21,7 +21,7 @@ const StoreUpdatePage = ({ match }) => {
 
   const stateApp = useSelector(state => state.app);
   const jwtIdentity = stateApp.get('jwtIdentity');
-  
+
   const storeId = jwtIdentity.store_id;
 
   const getInitialData = () => {

@@ -126,7 +126,7 @@ const Card = ({ children, id, text, index, image, moveCard, featured, setFieldVa
         }}
 
       >
-        {(featured == image.id)
+        {(featured == image.id || image.featured == 1)
           ? <StyledIcon>star</StyledIcon>
           : <StyledIcon>star_border</StyledIcon>
         }

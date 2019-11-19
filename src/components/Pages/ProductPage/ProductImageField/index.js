@@ -37,22 +37,21 @@ const ProductImageField = ({
   field,
   label,
   form: { setFieldValue, values },
-  previewUrl,
   isMulti,
   images,
   onDeleteRequest,
   deleteLoading,
+  localState,
+  setLocalState,
   ...props
 }) => {
-  const [localState, setLocalState] = React.useState({
-    previewUrl: '',
-    images: [],
-  });
 
   const [deleteState, setDeleteState] = React.useState({
     open: false,
     item: {},
   });
+
+  const { previewUrl } = localState;
 
   const ReadImageFile = file => {
     const reader = new FileReader();
@@ -111,7 +110,7 @@ const ProductImageField = ({
   };
 
   const changeImages = value => {
-    setLocalState({ ...localState, images:value })
+    setLocalState({ ...localState, images: value })
   }
 
   const deleteImageOnList = image => {
