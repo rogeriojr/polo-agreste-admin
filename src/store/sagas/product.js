@@ -60,6 +60,7 @@ function* getProductInsert({ payload }) {
       featured,
       images_data,
       variations,
+      related,
     } = payload;
     const response = yield call(api.post, '/v1/admin/products', {
       code_integration,
@@ -83,6 +84,7 @@ function* getProductInsert({ payload }) {
       store,
       categories,
       variations,
+      related,
     });
     const { id } = response.data.data;
     yield getProductImagesUpload({ id, featured, images_data });
@@ -101,6 +103,7 @@ function* getProductUpdate({ payload }) {
     const {
       id,
       code_integration,
+      genres,
       code_ncm,
       code_ean,
       name,
@@ -123,9 +126,11 @@ function* getProductUpdate({ payload }) {
       featured,
       images_data,
       variations,
+      related,
     } = payload;
     const response =  yield call(api.put, `/v1/admin/products/${id}`, {
       code_integration,
+      genres,
       code_ncm,
       code_ean,
       name,
@@ -147,10 +152,11 @@ function* getProductUpdate({ payload }) {
       featured,
       categories,
       variations,
+      related,
     });
     yield getProductImagesUpload({ id, images_data });
     if(response.status != 200) throw response;
-    yield put(Creators.getProductUpdateSuccess());
+    yield put(Creators.getProductUpdateSuccess(response.data));
     yield put(Creators.getProductRequest({ id }));
     yield put(Notifications.success({ title: 'Edição concluida com sucesso' }));
   } catch (err) {

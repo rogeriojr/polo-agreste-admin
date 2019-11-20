@@ -2,7 +2,7 @@ import React from 'react';
 import { FormControl, FormControlLabel, Checkbox } from '@material-ui/core';
 import PropTypes from 'prop-types';
 
-const CustomCheckboxGroup = props => {
+const CustomObjectCheckboxGroup = props => {
   const {
     children,
     row,
@@ -10,13 +10,12 @@ const CustomCheckboxGroup = props => {
     form: { setFieldValue, handleBlur },
   } = props;
 
-  const handleBoxChange = event => {
-    const target = event.currentTarget;
+  const handleBoxChange = (value_received, checked) => {
     let valueArray = [...value] || [];
-    if (target.checked) {
-      valueArray = [...valueArray, target.value];
+    if (checked) {
+      valueArray = [...valueArray, value_received];
     } else {
-      valueArray = valueArray.filter(item => item !== target.value);
+      valueArray = valueArray.filter(item => item.id !== value_received.id);
     }
     setFieldValue(name, valueArray);
   };
@@ -30,7 +29,7 @@ const CustomCheckboxGroup = props => {
       {React.Children.map(children, child =>
         React.cloneElement(child, {
           field: {
-            checked: value.includes(child.props.value),
+            checked: (typeof value.find(item => item.id == child.props.value.id) != 'undefined'),
             value: child.props.value,
             onChange: handleBoxChange,
             onBlur: handleBoxBlur,
@@ -42,28 +41,33 @@ const CustomCheckboxGroup = props => {
   );
 };
 
-CustomCheckboxGroup.propTypes = {
+CustomObjectCheckboxGroup.propTypes = {
   children: PropTypes.arrayOf(PropTypes.element).isRequired,
   row: PropTypes.bool,
   field: PropTypes.oneOfType([PropTypes.object]).isRequired,
   form: PropTypes.oneOfType([PropTypes.object]).isRequired,
 };
 
-CustomCheckboxGroup.defaultProps = {
+CustomObjectCheckboxGroup.defaultProps = {
   row: false,
 };
 
-const CustomCheckboxGroupItem = props => {
+const CustomObjectCheckboxGroupItem = props => {
   const { value, label, field:{ checked, onChange } } = props;
 
+  const handleChange = event => {
+    const target = event.currentTarget;
+    onChange(value, target.checked);
+  }
+
   return (
-    <FormControlLabel control={<Checkbox style={{ color:'#ce4899' }} />} checked={checked} onChange={onChange} value={value} label={label} />
+    <FormControlLabel control={<Checkbox style={{ color:'#ce4899' }} />} checked={checked} onChange={handleChange} value={value} label={label} />
   );
 };
 
-CustomCheckboxGroupItem.propTypes = {
+CustomObjectCheckboxGroupItem.propTypes = {
   value: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
   label: PropTypes.string.isRequired,
 };
 
-export { CustomCheckboxGroupItem, CustomCheckboxGroup };
+export { CustomObjectCheckboxGroupItem, CustomObjectCheckboxGroup };

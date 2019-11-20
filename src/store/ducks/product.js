@@ -130,6 +130,7 @@ export default (state = initialState, action) => {
     case Types.GET_UPDATE_SUCCESS:
       return {
         ...state,
+        product: action.payload,
         productUpdateLoading: false,
         productUpdateError: null,
       };
@@ -199,6 +200,7 @@ export const Creators = {
   // Insere uma categoria
   getProductInsertRequest: ({
     code_integration,
+    genres,
     code_ncm,
     code_ean,
     name,
@@ -221,10 +223,12 @@ export const Creators = {
     featured,
     images_data,
     variations,
+    related,
   }) => ({
     type: Types.GET_INSERT_REQUEST,
     payload: {
       code_integration,
+      genres,
       code_ncm,
       code_ean,
       name,
@@ -247,6 +251,7 @@ export const Creators = {
       featured,
       images_data,
       variations,
+      related,
     },
   }),
   getProductInsertSuccess: () => ({
@@ -280,6 +285,7 @@ export const Creators = {
   getProductUpdateRequest: ({
     id,
     code_integration,
+    genres,
     code_ncm,
     code_ean,
     name,
@@ -302,11 +308,13 @@ export const Creators = {
     featured,
     images_data,
     variations,
+    related,
   }) => ({
     type: Types.GET_UPDATE_REQUEST,
     payload: {
       id,
       code_integration,
+      genres,
       code_ncm,
       code_ean,
       name,
@@ -329,10 +337,12 @@ export const Creators = {
       featured,
       images_data,
       variations,
+      related,
     },
   }),
-  getProductUpdateSuccess: () => ({
+  getProductUpdateSuccess: ({ data }) => ({
     type: Types.GET_UPDATE_SUCCESS,
+    payload: data,
   }),
   getProductUpdateFailure: error => ({
     type: Types.GET_UPDATE_FAILURE,
