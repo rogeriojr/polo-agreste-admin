@@ -72,7 +72,7 @@ const schema = Yup.object().shape({
   featured: Yup.string(),
   id: Yup.number(),
   code_integration: Yup.string(),
-  genre: Yup.array().of(
+  genres: Yup.array().of(
     Yup.object().shape({
       id: Yup.number(),
     }),
@@ -515,7 +515,7 @@ const ProductForm = ({
                     </>
                   }
                 </Box>
-                {typeof errors['genre'] != 'undefined' &&
+                {typeof errors['categories'] != 'undefined' &&
                   <Box>
                     <Typography style={{ color: 'red' }}>{errors['categories']}</Typography>
                   </Box>

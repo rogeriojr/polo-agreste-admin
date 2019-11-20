@@ -40,14 +40,6 @@ const ProductsRelated = ({ form: { values }, items, isLoading }) => {
           </Grid>
         </>
       )}
-      {values.id && (
-        <a
-          href={`http://api.44express.com/v1/admin/virtual/catalogs/${values.id}/generate`}
-          download
-        >
-          <CustomButton label="Baixar Catálogo" />
-        </a>
-      )}
     </>
   );
 };
