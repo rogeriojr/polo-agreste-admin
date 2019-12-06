@@ -8,6 +8,11 @@ import { DateRangePicker } from 'react-dates';
 import 'react-dates/lib/css/_datepicker.css';
 import moment from 'moment';
 import 'moment/locale/pt-br';
+import Responsive from 'react-responsive';
+
+
+const Mobile = props => <Responsive {...props} maxWidth={767} />;
+const Default = props => <Responsive {...props} minWidth={768} />;
 
 const CustomDateRange = ({
   field,
@@ -62,18 +67,35 @@ const CustomDateRange = ({
 
   return (
     <>
-      <DateRangePicker
-        startDate={convDate(values.dateStart)} // momentPropTypes.momentObj or null,
-        startDateId={localState.startDateId} // PropTypes.string.isRequired,
-        endDate={convDate(values.dateEnd)} // momentPropTypes.momentObj or null,
-        endDateId={localState.endDateId} // PropTypes.string.isRequired,
-        onDatesChange={onDatesChange} // PropTypes.func.isRequired,
-        focusedInput={localState.focusedInput} // PropTypes.oneOf([START_DATE, END_DATE]) or null,
-        onFocusChange={onFocusChange} // PropTypes.func.isRequired,
-        startDatePlaceholderText="Data inicial"
-        endDatePlaceholderText="Data final"
-        isOutsideRange={() => false}
-      />
+      <Mobile>
+        <DateRangePicker
+          startDate={convDate(values.dateStart)} // momentPropTypes.momentObj or null,
+          startDateId={localState.startDateId} // PropTypes.string.isRequired,
+          endDate={convDate(values.dateEnd)} // momentPropTypes.momentObj or null,
+          endDateId={localState.endDateId} // PropTypes.string.isRequired,
+          onDatesChange={onDatesChange} // PropTypes.func.isRequired,
+          focusedInput={localState.focusedInput} // PropTypes.oneOf([START_DATE, END_DATE]) or null,
+          onFocusChange={onFocusChange} // PropTypes.func.isRequired,
+          startDatePlaceholderText="Data inicial"
+          endDatePlaceholderText="Data final"
+          isOutsideRange={() => false}
+          numberOfMonths={1}
+        />
+      </Mobile>
+      <Default>
+        <DateRangePicker
+          startDate={convDate(values.dateStart)} // momentPropTypes.momentObj or null,
+          startDateId={localState.startDateId} // PropTypes.string.isRequired,
+          endDate={convDate(values.dateEnd)} // momentPropTypes.momentObj or null,
+          endDateId={localState.endDateId} // PropTypes.string.isRequired,
+          onDatesChange={onDatesChange} // PropTypes.func.isRequired,
+          focusedInput={localState.focusedInput} // PropTypes.oneOf([START_DATE, END_DATE]) or null,
+          onFocusChange={onFocusChange} // PropTypes.func.isRequired,
+          startDatePlaceholderText="Data inicial"
+          endDatePlaceholderText="Data final"
+          isOutsideRange={() => false}
+        />
+      </Default>
       <ErrorMessage name={field.name}>
         {msg => <FormHelperText error>{msg}</FormHelperText>}
       </ErrorMessage>

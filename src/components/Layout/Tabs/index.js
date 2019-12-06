@@ -3,6 +3,10 @@ import React from 'react';
 import { Tabs as TabsOriginal, Tab as TabOriginal } from '@material-ui/core';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
+import Responsive from 'react-responsive';
+
+const Mobile = props => <Responsive {...props} maxWidth={767} />;
+const Default = props => <Responsive {...props} minWidth={768} />;
 
 const StyledTabs = styled(TabsOriginal)`
   && {
@@ -14,9 +18,23 @@ const StyledTabs = styled(TabsOriginal)`
 
 export const Tabs = ({ value, onChange, children }) => (
   <>
-    <StyledTabs variant="fullWidth" value={value} onChange={onChange}>
-      {children}
-    </StyledTabs>
+    <Mobile>
+      <div style={{ width: 'calc(100vw - 70px)' }}>
+        <StyledTabs
+          variant="scrollable"
+          scrollButtons="auto"
+          value={value}
+          onChange={onChange}
+        >
+          {children}
+        </StyledTabs>
+      </div>
+    </Mobile>
+    <Default>
+      <StyledTabs variant="fullWidth" value={value} onChange={onChange}>
+        {children}
+      </StyledTabs>
+    </Default>
   </>
 );
 
