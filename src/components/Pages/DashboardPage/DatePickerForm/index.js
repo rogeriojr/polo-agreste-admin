@@ -7,6 +7,8 @@ import { Formik, Form, Field } from 'formik';
 import { InputContainer, InputItem } from 'components/form/StyledComponents';
 import PropTypes from 'prop-types';
 import CustomDateRange from 'components/form/components/CustomDateRange';
+import HeaderBoxContainer from 'components/HeaderComponent/HeaderBoxContainer';
+import HeaderBoxItem from 'components/HeaderComponent/HeaderBoxItem';
 
 const formInitialValues = {
   startDate: '',
@@ -26,20 +28,19 @@ const DatePickerForm = ({ onSubmit, initialValues }) => {
       onSubmit={onSubmit}
       render={() => (
         <Form>
-          <InputContainer>
-            <Typography
-              variant="body2"
-              style={{ paddingTop: 10, display: 'inline-block' }}
-            >
+          <HeaderBoxContainer>
+            <HeaderBoxItem style={{ paddingTop: 12, paddingRight: 6 }}>
               Busca
-            </Typography>
-            <InputItem>
+            </HeaderBoxItem>
+            <HeaderBoxItem style={{ paddingLeft: 6, paddingRight: 6 }}>
               <Field name="dateStartEnd" component={CustomDateRange} />
-            </InputItem>
-            <Fab size="small" className="fab-custom" type="submit">
-              <SearchIcon />
-            </Fab>
-          </InputContainer>
+            </HeaderBoxItem>
+            <HeaderBoxItem style={{ paddingLeft: 6, paddingRight: 0 }}>
+              <Fab size="small" className="fab-custom" type="submit">
+                <SearchIcon />
+              </Fab>
+            </HeaderBoxItem>
+          </HeaderBoxContainer>
         </Form>
       )}
     />
