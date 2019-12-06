@@ -2,17 +2,27 @@ import React from 'react';
 import Typography from '@material-ui/core/Typography';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
+import styled from 'styled-components';
 import styles from './styles';
 
+const PageTitleContainer = styled('div')`
+  display: flex;
+  align-items: center;
+  @media (max-width: 480px) {
+    flex-direction: column;
+  }
+`;
+
+
 const PageHeader = ({ title, children, classes }) => (
-  <div className={classes.pageTitleContainer}>
+  <PageTitleContainer>
     <div className={classes.pageTitle}>
       <Typography variant="h6" className="page-title-text">
         {title}
       </Typography>
     </div>
     <div className={classes.pageTitleContent}>{children}</div>
-  </div>
+  </PageTitleContainer>
 );
 
 PageHeader.propTypes = {

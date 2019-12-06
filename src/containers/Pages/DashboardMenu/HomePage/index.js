@@ -24,6 +24,16 @@ import {
 } from 'recharts';
 import Select from 'components/Select';
 import DatePickerForm from 'components/Pages/DashboardPage/DatePickerForm';
+import styled from 'styled-components';
+
+const ChartContainer = styled('div')`
+  @media (max-width: 680px) {
+    overflow-x: scroll;
+    width: calc(100vw - 60px);
+    position: relative;
+  }
+`;
+
 
 const DashboardPage = () => {
   const data = [
@@ -148,25 +158,27 @@ const DashboardPage = () => {
             </FormControl>
           </Grid>
           <Grid item md={12}>
-            <LineChart
-              data={data}
-              width={600}
-              height={300}
-              margin={{ top: 5, right: 30, left: 20, bottom: 30 }}
-            >
-              <XAxis dataKey="name" />
-              <YAxis />
-              <CartesianGrid strokeDasharray="3 3" />
-              <Tooltip />
-              <Legend />
-              <Line
-                type="monotone"
-                dataKey="pv"
-                stroke="#8884d8"
-                activeDot={{ r: 8 }}
-              />
-              <Line type="monotone" dataKey="uv" stroke="#82ca9d" />
-            </LineChart>
+            <ChartContainer>
+              <LineChart
+                data={data}
+                width={600}
+                height={300}
+                margin={{ top: 5, right: 30, left: 20, bottom: 30 }}
+              >
+                <XAxis dataKey="name" />
+                <YAxis />
+                <CartesianGrid strokeDasharray="3 3" />
+                <Tooltip />
+                <Legend />
+                <Line
+                  type="monotone"
+                  dataKey="pv"
+                  stroke="#8884d8"
+                  activeDot={{ r: 8 }}
+                />
+                <Line type="monotone" dataKey="uv" stroke="#82ca9d" />
+              </LineChart>
+            </ChartContainer>
           </Grid>
         </Grid>
       </Paper>
