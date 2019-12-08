@@ -15,7 +15,9 @@ const CouponUpdatePage = ({ match }) => {
 
   const [localState, setLocalState] = React.useState(null);
 
-  const { coupon, couponLoading } = useSelector(state => state.coupon);
+  const { coupon, couponLoading, couponUpdateLoading } = useSelector(
+    state => state.coupon,
+  );
 
   const getInitialData = () => {
     const { params } = match;
@@ -56,6 +58,8 @@ const CouponUpdatePage = ({ match }) => {
           initialValues={localState}
           handleBack={handleBack}
           onSubmit={onSubmit}
+          isLoading={couponUpdateLoading}
+          freezeCode
         />
       )}
     </PageBase>

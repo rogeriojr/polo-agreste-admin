@@ -41,6 +41,9 @@ export const initialState = {
   couponListLoading: false,
   couponListError: null,
   couponListTotal: 0,
+  // Insere uma categoria
+  couponInsertLoading: false,
+  couponInsertError: false,
   // Atualiza uma categoria
   couponUpdateLoading: false,
   couponUpdateError: false,
@@ -88,6 +91,25 @@ export default (state = initialState, action) => {
         ...state,
         couponListLoading: false,
         couponListError: action.payload,
+      };
+    // Insere
+    case Types.GET_INSERT_REQUEST:
+      return {
+        ...state,
+        couponInsertLoading: true,
+        couponInsertError: null,
+      };
+    case Types.GET_INSERT_SUCCESS:
+      return {
+        ...state,
+        couponInsertLoading: false,
+        couponInsertError: null,
+      };
+    case Types.GET_INSERT_FAILURE:
+      return {
+        ...state,
+        couponInsertLoading: false,
+        couponInsertError: action.payload,
       };
     // Atualiza um categoria
     case Types.GET_UPDATE_REQUEST:

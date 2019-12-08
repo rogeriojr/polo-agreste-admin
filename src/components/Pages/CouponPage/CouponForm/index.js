@@ -65,6 +65,8 @@ const CouponForm = ({
   initialValues = formInitialValues,
   submitText,
   handleBack,
+  isLoading,
+  freezeCode,
 }) => {
   const [value, setValue] = React.useState(0);
   const handleChange = (event, newValue) => {
@@ -96,7 +98,12 @@ const CouponForm = ({
             </InputContainer>
             <InputContainer>
               <InputItem>
-                <Field name="code" label="Código" component={CustomTextField} />
+                <Field
+                  name="code"
+                  label="Código"
+                  component={CustomTextField}
+                  disabled={freezeCode}
+                />
               </InputItem>
               <InputItem>
                 <Field
@@ -186,7 +193,11 @@ const CouponForm = ({
                 </span>
               </InputItem>
             </InputContainer>
-            <FormButtons handleBack={handleBack} submitText={submitText} />
+            <FormButtons
+              handleBack={handleBack}
+              submitText={submitText}
+              isLoading={isLoading}
+            />
           </Card>
         </Form>
       )}
@@ -199,6 +210,8 @@ CouponForm.propTypes = {
   initialValues: PropTypes.oneOfType([PropTypes.object]),
   submitText: PropTypes.string,
   handleBack: PropTypes.oneOfType([PropTypes.bool, PropTypes.func]),
+  isLoading: PropTypes.bool.isRequired,
+  freezeCode: PropTypes.bool,
 };
 
 CouponForm.defaultProps = {
@@ -206,6 +219,7 @@ CouponForm.defaultProps = {
   submitText: 'Salvar',
   handleBack: false,
   onSubmit: () => {},
+  freezeCode: false,
 };
 
 export default CouponForm;
