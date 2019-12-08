@@ -30,6 +30,7 @@ import walletReducer from 'store/ducks/wallet';
 import shoppingReducer from 'store/ducks/shopping';
 import virtualCatalogReducer from 'store/ducks/virtualCatalog';
 import scrollReducer from 'store/ducks/scroll';
+import couponReducer from 'store/ducks/coupon';
 
 /**
  * Merges the main reducer with the router state and dynamically injected reducers
@@ -62,4 +63,5 @@ export default history =>
     shopping: shoppingReducer,
     virtualCatalog: virtualCatalogReducer,
     scroll: scrollReducer,
+    coupon: couponReducer,
   });

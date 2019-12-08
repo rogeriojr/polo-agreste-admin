@@ -17,6 +17,8 @@ const Default = props => <Responsive {...props} minWidth={768} />;
 const CustomDateRange = ({
   field,
   form: { values, setFieldValue },
+  dateStartField,
+  dateEndField,
   ...props
 }) => {
   const [localState, setLocalState] = React.useState({
@@ -27,10 +29,10 @@ const CustomDateRange = ({
 
   const onDatesChange = ({ startDate, endDate }) => {
     setFieldValue(
-      'dateStart',
+      dateStartField,
       startDate ? startDate.format('YYYY-MM-DD') : null,
     );
-    setFieldValue('dateEnd', endDate ? endDate.format('YYYY-MM-DD') : null);
+    setFieldValue(dateEndField, endDate ? endDate.format('YYYY-MM-DD') : null);
   };
 
   const onFocusChange = focusedInput => {
@@ -57,11 +59,11 @@ const CustomDateRange = ({
       startDateId: `sd_${time}_${rand}`,
       endDateId: `ed_${time}_${rand}`,
     });
-    if (!values.dateStart) {
-      setFieldValue('dateStart', null);
+    if (!values[dateStartField]) {
+      setFieldValue(dateStartField, null);
     }
-    if (!values.dateEnd) {
-      setFieldValue('dateEnd', null);
+    if (!values[dateEndField]) {
+      setFieldValue(dateEndField, null);
     }
   }, []);
 
@@ -69,9 +71,9 @@ const CustomDateRange = ({
     <>
       <Mobile>
         <DateRangePicker
-          startDate={convDate(values.dateStart)} // momentPropTypes.momentObj or null,
+          startDate={convDate(values[dateStartField])} // momentPropTypes.momentObj or null,
           startDateId={localState.startDateId} // PropTypes.string.isRequired,
-          endDate={convDate(values.dateEnd)} // momentPropTypes.momentObj or null,
+          endDate={convDate(values[dateEndField])} // momentPropTypes.momentObj or null,
           endDateId={localState.endDateId} // PropTypes.string.isRequired,
           onDatesChange={onDatesChange} // PropTypes.func.isRequired,
           focusedInput={localState.focusedInput} // PropTypes.oneOf([START_DATE, END_DATE]) or null,
@@ -84,9 +86,9 @@ const CustomDateRange = ({
       </Mobile>
       <Default>
         <DateRangePicker
-          startDate={convDate(values.dateStart)} // momentPropTypes.momentObj or null,
+          startDate={convDate(values[dateStartField])} // momentPropTypes.momentObj or null,
           startDateId={localState.startDateId} // PropTypes.string.isRequired,
-          endDate={convDate(values.dateEnd)} // momentPropTypes.momentObj or null,
+          endDate={convDate(values[dateEndField])} // momentPropTypes.momentObj or null,
           endDateId={localState.endDateId} // PropTypes.string.isRequired,
           onDatesChange={onDatesChange} // PropTypes.func.isRequired,
           focusedInput={localState.focusedInput} // PropTypes.oneOf([START_DATE, END_DATE]) or null,
@@ -106,6 +108,13 @@ const CustomDateRange = ({
 CustomDateRange.propTypes = {
   field: PropTypes.oneOfType([PropTypes.object]).isRequired,
   form: PropTypes.oneOfType([PropTypes.object]).isRequired,
+  dateStartField: PropTypes.string,
+  dateEndField: PropTypes.string,
+};
+
+CustomDateRange.defaultProps = {
+  dateStartField: 'dateStart',
+  dateEndField: 'dateEnd',
 };
 
 export default CustomDateRange;

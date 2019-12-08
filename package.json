@@ -58,7 +58,7 @@
   },
   "scripts": {
     "start": "react-scripts start",
-    "deploy": "yarn build && cross-env NODE_PATH=./src aws s3 sync build/ s3://app.44express.com --profile market_tulio",
+    "deploy": "yarn build && cross-env NODE_PATH=./src aws s3 sync build/ s3://app.44express.com --profile market_gabriel",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",

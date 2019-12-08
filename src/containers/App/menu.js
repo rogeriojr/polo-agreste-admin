@@ -66,6 +66,12 @@ import ScrollListPage from 'containers/Pages/MarketingMenu/ScrollListPage/Loadab
 import ScrollInsertPage from 'containers/Pages/MarketingMenu/ScrollInsertPage/Loadable';
 import ScrollUpdatePage from 'containers/Pages/MarketingMenu/ScrollUpdatePage/Loadable';
 
+// Menu Promoções
+
+import CouponListPage from 'containers/Pages/PromotionMenu/CouponListPage/Loadable';
+import CouponInsertPage from 'containers/Pages/PromotionMenu/CouponInsertPage/Loadable';
+import CouponUpdatePage from 'containers/Pages/PromotionMenu/CouponUpdatePage/Loadable';
+
 // Menu usuários
 import UserListPage from 'containers/Pages/UserMenu/ListPage/Loadable';
 import UserNewPage from 'containers/Pages/UserMenu/InsertPage/Loadable';
@@ -416,6 +422,33 @@ const Menu = [
         text: 'Atualizar scroll',
         url: '/marketing/scrolls/update/:id',
         component: ScrollUpdatePage,
+        showInMenu: false,
+      },
+    ],
+  },
+  {
+    id: 'promotion',
+    text: 'Promoções',
+    icon: <Icon>money_off</Icon>,
+    children: [
+      {
+        id: 'promotion-coupon-list',
+        text: 'Cupom de desconto',
+        url: '/promotion/coupons',
+        component: CouponListPage,
+      },
+      {
+        id: 'promotion-coupon-new',
+        text: 'Cadastrar cupom',
+        url: '/promotion/coupons/new',
+        component: CouponInsertPage,
+        showInMenu: false,
+      },
+      {
+        id: 'promotion-coupon-update',
+        text: 'Atualizar cupom',
+        url: '/promotion/coupons/update/:id',
+        component: CouponUpdatePage,
         showInMenu: false,
       },
     ],

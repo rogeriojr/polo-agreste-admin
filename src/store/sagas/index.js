@@ -22,6 +22,7 @@ import walletSaga from './wallet';
 import shoppingSaga from './shopping';
 import virtualCatalogSaga from './virtualCatalog';
 import scrollSaga from './scroll';
+import couponSaga from './coupon';
 
 export default function* rootSaga() {
   yield all([
@@ -48,5 +49,6 @@ export default function* rootSaga() {
     fork(shoppingSaga),
     fork(virtualCatalogSaga),
     fork(scrollSaga),
+    fork(couponSaga),
   ]);
 }
