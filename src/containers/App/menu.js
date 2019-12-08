@@ -62,6 +62,9 @@ import BannerUpdatePage from 'containers/Pages/MarketingMenu/BannerUpdatePage/Lo
 import TrendListPage from 'containers/Pages/MarketingMenu/TrendListPage/Loadable';
 import TrendInsertPage from 'containers/Pages/MarketingMenu/TrendInsertPage/Loadable';
 import TrendUpdatePage from 'containers/Pages/MarketingMenu/TrendUpdatePage/Loadable';
+import ScrollListPage from 'containers/Pages/MarketingMenu/ScrollListPage/Loadable';
+import ScrollInsertPage from 'containers/Pages/MarketingMenu/ScrollInsertPage/Loadable';
+import ScrollUpdatePage from 'containers/Pages/MarketingMenu/ScrollUpdatePage/Loadable';
 
 // Menu usuários
 import UserListPage from 'containers/Pages/UserMenu/ListPage/Loadable';
@@ -393,6 +396,26 @@ const Menu = [
         text: 'Atualizar tendência',
         url: '/marketing/trends/update/:id',
         component: TrendUpdatePage,
+        showInMenu: false,
+      },
+      {
+        id: 'marketing-scroll-list',
+        text: 'Scrolls',
+        url: '/marketing/scrolls',
+        component: ScrollListPage,
+      },
+      {
+        id: 'marketing-scroll-new',
+        text: 'Cadastrar scroll',
+        url: '/marketing/scrolls/new',
+        component: ScrollInsertPage,
+        showInMenu: false,
+      },
+      {
+        id: 'marketing-scroll-update',
+        text: 'Atualizar scroll',
+        url: '/marketing/scrolls/update/:id',
+        component: ScrollUpdatePage,
         showInMenu: false,
       },
     ],

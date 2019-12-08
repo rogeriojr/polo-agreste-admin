@@ -78,6 +78,20 @@ const formatStatus = status => {
   return validStatus[status];
 };
 
+const imageToBase64 = image => {
+  return new Promise((resolve, reject) => {
+    try {
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        resolve(reader.result);
+      };
+      reader.readAsDataURL(image);
+    } catch (ex) {
+      reject(ex);
+    }
+  });
+};
+
 export {
   toMutable,
   toPrice,
@@ -87,4 +101,5 @@ export {
   formatStoresName,
   formatDate,
   formatStatus,
+  imageToBase64,
 };
