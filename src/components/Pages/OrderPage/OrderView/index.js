@@ -38,7 +38,12 @@ const OrderView = ({ orderInfo }) => {
   });
 
   const onSubmit = form => {
-    dispatch(OrderCreators.getUpdateStatusRequest({ id: orderInfo.id, status: form.status }));
+    dispatch(
+      OrderCreators.getUpdateStatusRequest({
+        id: orderInfo.id,
+        status: form.status,
+      }),
+    );
   }
 
 
@@ -115,6 +120,7 @@ const OrderView = ({ orderInfo }) => {
                 <TableRow>
                   <TableCell>COD.</TableCell>
                   <TableCell>IMAGEM</TableCell>
+                  <TableCell>LOJA</TableCell>
                   <TableCell>PRODUTO</TableCell>
                   <TableCell>PREÇO ORIGINAL</TableCell>
                   <TableCell>DESCONTOS</TableCell>
@@ -128,7 +134,12 @@ const OrderView = ({ orderInfo }) => {
                   // eslint-disable-next-line react/no-array-index-key
                   <TableRow key={i}>
                     <TableCell>{orderItem.product.id}</TableCell>
-                    <TableCell><StyledImg src={orderItem.product.images[0].sizes.small}/></TableCell>
+                    <TableCell>
+                      <StyledImg
+                        src={orderItem.product.images[0].sizes.small}
+                      />
+                    </TableCell>
+                    <TableCell>{orderItem.product.store.name}</TableCell>
                     <TableCell>{orderItem.product.name}</TableCell>
                     <TableCell>R$ {toPrice(orderItem.price)}</TableCell>
                     <TableCell>R$ 00,00</TableCell>
