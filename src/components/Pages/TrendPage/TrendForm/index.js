@@ -14,6 +14,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import CustomImageField from 'components/form/components/CustomImageField';
 import CustomCurrencyField from 'components/form/components/CustomCurrencyField';
 import CustomInputDate from 'components/form/components/CustomInputDate';
+import ProductSelect from 'components/form/components/CustomSearchSelect/ProductSelect';
 
 const TabContainer = ({ children }) => {
   return (
@@ -76,7 +77,13 @@ const TrendForm = ({
   };
 
   const getInitialData = () => {
-    dispatch(ProductCreators.getProductListRequest({ perPage: 10000 }));
+    dispatch(ProductCreators.getProductListRequest({ perPage: 50 }));
+  };
+
+  const searchProduct = searchInfo => {
+    dispatch(
+      ProductCreators.getProductListRequest({ perPage: 50, ...searchInfo }),
+    );
   };
 
   React.useEffect(() => {
@@ -117,9 +124,10 @@ const TrendForm = ({
                   name="products"
                   label="Produtos"
                   options={productList}
-                  component={CustomSelect}
+                  component={ProductSelect}
                   placeholder="Produtos"
                   isMulti
+                  search={searchProduct}
                   isLoading={productListLoading}
                 />
               </InputItem>
