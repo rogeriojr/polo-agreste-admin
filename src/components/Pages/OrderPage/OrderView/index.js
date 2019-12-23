@@ -194,8 +194,8 @@ const OrderView = ({ orderInfo }) => {
                       {orderItem.product.variations.length > 0 &&
                         orderItem.product.variations.map(variation => (
                           <span key={variation.id}>
-                            Cor: {variation.color.name} <br />
-                            Tamanho: {variation.size.name}
+                            <b>Cor:</b> {variation.color.name} <br />
+                            <b>Tamanho:</b> {variation.size.name}
                           </span>
                         ))}
                     </TableCell>
