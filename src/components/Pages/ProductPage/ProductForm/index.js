@@ -2,7 +2,13 @@ import React from 'react';
 import { Formik, FastField, Form, Field } from 'formik';
 import * as Yup from 'yup';
 import PropTypes from 'prop-types';
-import { Card, Typography, Icon, Box, CircularProgress } from '@material-ui/core';
+import {
+  Card,
+  Typography,
+  Icon,
+  Box,
+  CircularProgress,
+} from '@material-ui/core';
 import { Tab, Tabs } from 'components/Layout/Tabs';
 import { InputContainer, InputItem } from 'components/form/StyledComponents';
 import CustomTextField from 'components/form/components/CustomTextField';
@@ -18,10 +24,16 @@ import { Creators as ProductSizeCreators } from 'store/ducks/productSize';
 import CustomCurrencyField from 'components/form/components/CustomCurrencyField';
 import VariationField from 'components/Pages/ProductPage/ProductForm/VariationField';
 import ProductImageField from 'components/Pages/ProductPage/ProductImageField';
-import { CustomCheckboxGroup, CustomCheckboxGroupItem } from 'components/form/components/CustomCheckboxGroup';
+import {
+  CustomCheckboxGroup,
+  CustomCheckboxGroupItem,
+} from 'components/form/components/CustomCheckboxGroup';
 import { CategoryCheckboxGroupItem } from 'components/Pages/ProductPage/ProductForm/CategoryCheckbox';
 import { CustomCheckboxGroupNumber } from 'components/form/components/CustomCheckboxGroupNumber';
-import { CustomObjectCheckboxGroup, CustomObjectCheckboxGroupItem } from 'components/form/components/CustomObjectCheckboxGroup';
+import {
+  CustomObjectCheckboxGroup,
+  CustomObjectCheckboxGroupItem,
+} from 'components/form/components/CustomObjectCheckboxGroup';
 import ProductSelect from 'components/form/components/CustomSearchSelect/ProductSelect';
 import ProductsRelated from 'components/Pages/ProductPage/ProductForm/ProductsRelated';
 
@@ -72,11 +84,13 @@ const schema = Yup.object().shape({
   featured: Yup.string(),
   id: Yup.number(),
   code_integration: Yup.string(),
-  genres: Yup.array().of(
-    Yup.object().shape({
-      id: Yup.number(),
-    }),
-  ).required('Selecione um gênero'),
+  genres: Yup.array()
+    .of(
+      Yup.object().shape({
+        id: Yup.number(),
+      }),
+    )
+    .required('Selecione um gênero'),
   code_ncm: Yup.string(),
   code_ean: Yup.string(),
   name: Yup.string().required('Campo obrigatório'),
@@ -97,11 +111,13 @@ const schema = Yup.object().shape({
   store: Yup.object().shape({
     id: Yup.number(),
   }),
-  categories: Yup.array().of(
-    Yup.object().shape({
-      id: Yup.number(),
-    }),
-  ).required('Selecione uma categoria'),
+  categories: Yup.array()
+    .of(
+      Yup.object().shape({
+        id: Yup.number(),
+      }),
+    )
+    .required('Selecione uma categoria'),
 });
 
 const ProductForm = ({
@@ -116,7 +132,9 @@ const ProductForm = ({
   const dispatch = useDispatch();
   const [value, setValue] = React.useState(0);
 
-  const { category, store, product, productColor, productSize } = useSelector(state => state);
+  const { category, store, product, productColor, productSize } = useSelector(
+    state => state,
+  );
   const { productList, productListLoading } = useSelector(
     state => state.product,
   );
@@ -141,7 +159,7 @@ const ProductForm = ({
     dispatch(
       ProductCreators.getProductListRequest({ perPage: 50, ...searchInfo }),
     );
-  }
+  };
 
   const onDeleteImageRequest = image => {
     dispatch(
@@ -169,8 +187,8 @@ const ProductForm = ({
       enableReinitialize
       render={({ values, errors }) => (
         <Form>
-          <Box display='flex' flexDirection='row' flexWrap='wrap'>
-            <Box flex='1'>
+          <Box display="flex" flexDirection="row" flexWrap="wrap">
+            <Box flex="1">
               <Card style={{ padding: 20 }}>
                 <InputContainer>
                   <InputItem style={{ flexGrow: 2 }}>
@@ -205,7 +223,10 @@ const ProductForm = ({
                       <Tab label="DESCRIÇÕES" icon={<Icon>text_format</Icon>} />
                       {/*<Tab label="CATEGORIAS" icon={<Icon>category</Icon>} /> */}
                       <Tab label="VARIAÇÕES" icon={<Icon>toc</Icon>} />
-                      <Tab label="PRODUTOS RELACIONADOS" icon={<Icon>shuffle</Icon>} />
+                      <Tab
+                        label="PRODUTOS RELACIONADOS"
+                        icon={<Icon>shuffle</Icon>}
+                      />
                     </Tabs>
                     {value === 0 && (
                       <TabContainer>
@@ -430,7 +451,9 @@ const ProductForm = ({
                     )}
                     {value === 4 && (
                       <TabContainer>
-                        <Typography variant="h6">Produtos Relacionados</Typography>
+                        <Typography variant="h6">
+                          Produtos Relacionados
+                        </Typography>
                         <InputContainer>
                           <InputItem style={{ width: '50%' }}>
                             <Field
@@ -462,69 +485,134 @@ const ProductForm = ({
               </Card>
             </Box>
             <Box style={{ minWidth: 300 }}>
-
               <Card style={{ marginLeft: 20, padding: 20 }}>
                 <Typography variant="h6">Gêneros</Typography>
                 <Box style={{ marginTop: 20 }}>
                   <Typography style={styles.purpleTitle}>Adulto</Typography>
                   <Field name="genres" component={CustomObjectCheckboxGroup}>
-                    <Field label="Homem" value={{ id: 1, name: 'Homem' }} component={CustomObjectCheckboxGroupItem} />
-                    <Field label="Mulher" value={{ id: 2, name: 'Mulher' }} component={CustomObjectCheckboxGroupItem} />
+                    <Field
+                      label="Homem"
+                      value={{ id: 1, name: 'Homem' }}
+                      component={CustomObjectCheckboxGroupItem}
+                    />
+                    <Field
+                      label="Mulher"
+                      value={{ id: 2, name: 'Mulher' }}
+                      component={CustomObjectCheckboxGroupItem}
+                    />
                   </Field>
                 </Box>
                 <Box style={{ marginTop: 20 }}>
                   <Typography style={styles.purpleTitle}>Criança</Typography>
                   <Field name="genres" component={CustomObjectCheckboxGroup}>
-                    <Field label="Menino" value={{ id: 3, name: 'Menino' }} component={CustomObjectCheckboxGroupItem} />
-                    <Field label="Menina" value={{ id: 4, name: 'Menina' }} component={CustomObjectCheckboxGroupItem} />
+                    <Field
+                      label="Menino"
+                      value={{ id: 3, name: 'Menino' }}
+                      component={CustomObjectCheckboxGroupItem}
+                    />
+                    <Field
+                      label="Menina"
+                      value={{ id: 4, name: 'Menina' }}
+                      component={CustomObjectCheckboxGroupItem}
+                    />
                   </Field>
                 </Box>
                 <Box style={{ marginTop: 20 }}>
                   <Typography style={styles.purpleTitle}>Bebê</Typography>
                   <Field name="genres" component={CustomObjectCheckboxGroup}>
-                    <Field label="Masculino" value={{ id: 5, name: 'Masculino' }} component={CustomObjectCheckboxGroupItem} />
-                    <Field label="Feminino" value={{ id: 6, name: 'Feminino' }} component={CustomObjectCheckboxGroupItem} />
+                    <Field
+                      label="Masculino"
+                      value={{ id: 5, name: 'Masculino' }}
+                      component={CustomObjectCheckboxGroupItem}
+                    />
+                    <Field
+                      label="Feminino"
+                      value={{ id: 6, name: 'Feminino' }}
+                      component={CustomObjectCheckboxGroupItem}
+                    />
                   </Field>
                 </Box>
-                {typeof errors['genres'] != 'undefined' &&
-                  <Typography style={{ color: 'red' }}>{errors['genres']}</Typography>
-                }
+                {typeof errors.genres !== 'undefined' && (
+                  <Typography style={{ color: 'red' }}>
+                    {errors.genres}
+                  </Typography>
+                )}
               </Card>
 
-              <Card style={{ marginLeft: 20, marginTop: 20, paddingTop: 20, paddingLeft: 20, paddingRight: 20 }}>
+              <Card
+                style={{
+                  marginLeft: 20,
+                  marginTop: 20,
+                  paddingTop: 20,
+                  paddingLeft: 20,
+                  paddingRight: 20,
+                }}
+              >
                 <Typography variant="h6">Categorias de Produtos</Typography>
-                <Box style={{ maxHeight: 200, overflow: 'auto', marginTop: 10 }}>
-                  {categoryList.length > 0 &&
+                <Box
+                  style={{ maxHeight: 200, overflow: 'auto', marginTop: 10 }}
+                >
+                  {categoryList.length > 0 && (
                     <>
-                      {categoryList.filter(item => Object.keys(item.category_father).length === 0).map(item => (
-                        <Box key={item.id} style={{ marginTop: 10, marginLeft: 10 }}>
-                          <Box>
-                            <Field name='categories' component={CustomObjectCheckboxGroup}>
-                              <Field label={item.name} name='categories' value={{ id: item.id, name: item.name }} component={CustomObjectCheckboxGroupItem} />
-                            </Field>
-                          </Box>
-                          <Box display='flex' flexDirection='column' style={{ marginLeft: 25 }}>
-                            {item.category_child.map(item => (
-                              <Field name='categories' component={CustomObjectCheckboxGroup}>
-                                <Field label={item.name} name='categories' value={{ id: item.id, name: item.name }} component={CustomObjectCheckboxGroupItem} />
+                      {categoryList
+                        .filter(
+                          item =>
+                            Object.keys(item.category_father).length === 0,
+                        )
+                        .map(item => (
+                          <Box
+                            key={item.id}
+                            style={{ marginTop: 10, marginLeft: 10 }}
+                          >
+                            <Box>
+                              <Field
+                                name="categories"
+                                component={CustomObjectCheckboxGroup}
+                              >
+                                <Field
+                                  label={item.name}
+                                  name="categories"
+                                  value={{ id: item.id, name: item.name }}
+                                  component={CustomObjectCheckboxGroupItem}
+                                />
                               </Field>
-                            ))}
+                            </Box>
+                            <Box
+                              display="flex"
+                              flexDirection="column"
+                              style={{ marginLeft: 25 }}
+                            >
+                              {item.category_child.map(item => (
+                                <Field
+                                  name="categories"
+                                  component={CustomObjectCheckboxGroup}
+                                >
+                                  <Field
+                                    label={item.name}
+                                    name="categories"
+                                    value={{ id: item.id, name: item.name }}
+                                    component={CustomObjectCheckboxGroupItem}
+                                  />
+                                </Field>
+                              ))}
+                            </Box>
                           </Box>
-                        </Box>
-                      ))}
+                        ))}
                     </>
-                  }
+                  )}
                 </Box>
-                {typeof errors['categories'] != 'undefined' &&
+                {typeof errors['categories'] != 'undefined' && (
                   <Box>
-                    <Typography style={{ color: 'red' }}>{errors['categories']}</Typography>
+                    <Typography style={{ color: 'red' }}>
+                      {errors['categories']}
+                    </Typography>
                   </Box>
-                }
-                {categoryListLoading &&
-                  <Box flex='1' display='flex' justifyContent='center'>
+                )}
+                {categoryListLoading && (
+                  <Box flex="1" display="flex" justifyContent="center">
                     <CircularProgress size={25} style={{ color: '#ce4899' }} />
                   </Box>
-                }
+                )}
                 <FormButtons
                   handleBack={handleBack}
                   isLoading={isLoading}
@@ -540,14 +628,12 @@ const ProductForm = ({
 };
 
 const styles = {
-
   purpleTitle: {
     color: '#CE4899',
     fontWeight: 'bold',
     fontSize: 16,
-  }
-
-}
+  },
+};
 
 ProductForm.propTypes = {
   onSubmit: PropTypes.func,
@@ -561,7 +647,7 @@ ProductForm.defaultProps = {
   initialValues: formInitialValues,
   submitText: 'Salvar',
   handleBack: false,
-  onSubmit: () => { },
+  onSubmit: () => {},
 };
 
 export default ProductForm;

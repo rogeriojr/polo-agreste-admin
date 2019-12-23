@@ -61,6 +61,7 @@ function* getProductInsert({ payload }) {
       images_data,
       variations,
       related,
+      genres,
     } = payload;
     const response = yield call(api.post, '/v1/admin/products', {
       code_integration,
@@ -85,6 +86,7 @@ function* getProductInsert({ payload }) {
       categories,
       variations,
       related,
+      genres,
     });
     const { id } = response.data.data;
     yield getProductImagesUpload({ id, featured, images_data });
