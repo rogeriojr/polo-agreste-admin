@@ -27,7 +27,6 @@ const StyledImg = styled('img')`
 `;
 
 const OrderView = ({ orderInfo }) => {
-
   const dispatch = useDispatch();
 
   let totalValue = 0;
@@ -44,8 +43,7 @@ const OrderView = ({ orderInfo }) => {
         status: form.status,
       }),
     );
-  }
-
+  };
 
   return (
     <div>
@@ -63,12 +61,27 @@ const OrderView = ({ orderInfo }) => {
           <Card style={{ height: '100%' }}>
             <CardHeader title="Dados do cliente" />
             <CardContent style={{ lineHeight: 2.0, color: '#4e3e51' }}>
-              <span style={{ color: '#ce4899', fontWeight: '500' }}>Cliente:</span> {orderInfo.user.name} <br />
-              <span style={{ color: '#ce4899', fontWeight: '500' }}>Email:</span> Valor desconhecido <br />
-              <span style={{ color: '#ce4899', fontWeight: '500' }}>Telefone principal:</span> {orderInfo.user.cell_phone}<br />
-              <span style={{ color: '#ce4899', fontWeight: '500' }}>CPF:</span> {orderInfo.user.cpf} <br />
+              <span style={{ color: '#ce4899', fontWeight: '500' }}>
+                Cliente:
+              </span>{' '}
+              {orderInfo.user.name} <br />
+              <span style={{ color: '#ce4899', fontWeight: '500' }}>
+                Email:
+              </span>{' '}
+              Valor desconhecido <br />
+              <span style={{ color: '#ce4899', fontWeight: '500' }}>
+                Telefone principal:
+              </span>{' '}
+              {orderInfo.user.cell_phone}
+              <br />
+              <span style={{ color: '#ce4899', fontWeight: '500' }}>
+                CPF:
+              </span>{' '}
+              {orderInfo.user.cpf} <br />
+              {/*
               <span style={{ color: '#ce4899', fontWeight: '500' }}>Data de nascimento:</span> Valor desconhecido <br />
               <span style={{ color: '#ce4899', fontWeight: '500' }}>Perfil de cliente:</span> Valor desconhecido <br />
+              */}
             </CardContent>
           </Card>
         </Box>
@@ -76,8 +89,13 @@ const OrderView = ({ orderInfo }) => {
           <Card style={{ height: '100%' }}>
             <CardHeader title="Dados da entrega" />
             <CardContent style={{ lineHeight: 2.0, color: '#4e3e51' }}>
+              {/*
               <span style={{ color: '#ce4899', fontWeight: '500' }}>Centro de distribuição:</span> Desconhecido <br />
-              <span style={{ color: '#ce4899', fontWeight: '500' }}>Endereço:</span> {orderInfo.address.street}
+              */}
+              <span style={{ color: '#ce4899', fontWeight: '500' }}>
+                Endereço:
+              </span>{' '}
+              {orderInfo.address.street}
               {orderInfo.address.number && (
                 <>, Nº {orderInfo.address.number} </>
               )}
@@ -85,14 +103,32 @@ const OrderView = ({ orderInfo }) => {
                 <>, {orderInfo.address.complement}</>
               )}
               <br />
-              <span style={{ color: '#ce4899', fontWeight: '500' }}>Bairro:</span> {orderInfo.address.district} <br />
-              <span style={{ color: '#ce4899', fontWeight: '500' }}>Cidade:</span> {orderInfo.address.city.name} <br />
-              <span style={{ color: '#ce4899', fontWeight: '500' }}>CEP:</span> {orderInfo.address.code_post} <br />
-              <span style={{ color: '#ce4899', fontWeight: '500' }}>Frete:</span> R$ {toPrice(orderInfo.stores[0].delivery_price)}<br />
+              <span style={{ color: '#ce4899', fontWeight: '500' }}>
+                Bairro:
+              </span>{' '}
+              {orderInfo.address.district} <br />
+              <span style={{ color: '#ce4899', fontWeight: '500' }}>
+                Cidade:
+              </span>{' '}
+              {orderInfo.address.city.name} <br />
+              <span style={{ color: '#ce4899', fontWeight: '500' }}>
+                CEP:
+              </span>{' '}
+              {orderInfo.address.code_post} <br />
+              <span style={{ color: '#ce4899', fontWeight: '500' }}>
+                Frete:
+              </span>{' '}
+              R$ {toPrice(orderInfo.stores[0].delivery_price)}
+              <br />
+              {/*
               <span style={{ color: '#ce4899', fontWeight: '500' }}>Rastreamento:</span> Desconhecido <br />
               <span style={{ color: '#ce4899', fontWeight: '500' }}>Destinatário:</span> Desconhecido <br />
               <span style={{ color: '#ce4899', fontWeight: '500' }}>Observações:</span> Desconhecido <br /> <br />
-              <span style={{ color: '#ce4899', fontWeight: '500' }}>Lojas:</span> <br />
+              */}
+              <span style={{ color: '#ce4899', fontWeight: '500' }}>
+                Lojas:
+              </span>{' '}
+              <br />
               <span style={{ whiteSpace: 'pre' }}>
                 {formatStoresName(orderInfo.stores)}
               </span>
@@ -103,11 +139,23 @@ const OrderView = ({ orderInfo }) => {
           <Card style={{ height: '100%' }}>
             <CardHeader title="Dados do Pagamento" />
             <CardContent style={{ lineHeight: 2.0, color: '#4e3e51' }}>
-              <span style={{ color: '#ce4899', fontWeight: '500' }}>Valor:</span> R$ {toPrice(orderInfo.price)} <br />
-              <span style={{ color: '#ce4899', fontWeight: '500' }}>Forma:</span> {formatPaymentType(orderInfo.payment_type)} <br />
-              <span style={{ color: '#ce4899', fontWeight: '500' }}>Parcelas:</span> Valor desconhecido <br />
+              <span style={{ color: '#ce4899', fontWeight: '500' }}>
+                Valor:
+              </span>{' '}
+              R$ {toPrice(orderInfo.price)} <br />
+              <span style={{ color: '#ce4899', fontWeight: '500' }}>
+                Forma:
+              </span>{' '}
+              {formatPaymentType(orderInfo.payment_type)} <br />
+              <span style={{ color: '#ce4899', fontWeight: '500' }}>
+                Parcelas:
+              </span>{' '}
+              Valor desconhecido <br />
             </CardContent>
-            <StatusOrderForm initialValues={{ status: orderInfo.status }} onSubmit={onSubmit} />
+            <StatusOrderForm
+              initialValues={{ status: orderInfo.status }}
+              onSubmit={onSubmit}
+            />
           </Card>
         </Box>
       </Box>
@@ -122,6 +170,7 @@ const OrderView = ({ orderInfo }) => {
                   <TableCell>IMAGEM</TableCell>
                   <TableCell>LOJA</TableCell>
                   <TableCell>PRODUTO</TableCell>
+                  <TableCell>VARIAÇÃO</TableCell>
                   <TableCell>PREÇO ORIGINAL</TableCell>
                   <TableCell>DESCONTOS</TableCell>
                   <TableCell>PREÇO DE VENDA</TableCell>
@@ -141,6 +190,15 @@ const OrderView = ({ orderInfo }) => {
                     </TableCell>
                     <TableCell>{orderItem.product.store.name}</TableCell>
                     <TableCell>{orderItem.product.name}</TableCell>
+                    <TableCell>
+                      {orderItem.product.variations.length > 0 &&
+                        orderItem.product.variations.map(variation => (
+                          <span key={variation.id}>
+                            Cor: {variation.color.name} <br />
+                            Tamanho: {variation.size.name}
+                          </span>
+                        ))}
+                    </TableCell>
                     <TableCell>R$ {toPrice(orderItem.price)}</TableCell>
                     <TableCell>R$ 00,00</TableCell>
                     <TableCell>R$ {toPrice(orderItem.price)}</TableCell>
@@ -156,21 +214,30 @@ const OrderView = ({ orderInfo }) => {
               </TableBody>
               <TableFooter>
                 <TableRow>
-                  <TableCell colSpan={6}>
+                  <TableCell colSpan={8}>
                     <b>Subtotal</b>
                   </TableCell>
                   <TableCell>{totalQuantity}</TableCell>
                   <TableCell align="left">R$ {toPrice(totalValue)}</TableCell>
                 </TableRow>
                 <TableRow>
-                  <TableCell colSpan={6}>&nbsp;</TableCell>
+                  <TableCell colSpan={8}>&nbsp;</TableCell>
                   <TableCell>
                     <b>Frete</b>
                   </TableCell>
-                  <TableCell align="left">R$ {toPrice(orderInfo.stores.reduce((accumulator, item) => accumulator+item.delivery_price , 0))}</TableCell>
+                  <TableCell align="left">
+                    R${' '}
+                    {toPrice(
+                      orderInfo.stores.reduce(
+                        (accumulator, item) =>
+                          accumulator + item.delivery_price,
+                        0,
+                      ),
+                    )}
+                  </TableCell>
                 </TableRow>
                 <TableRow>
-                  <TableCell colSpan={6}>&nbsp;</TableCell>
+                  <TableCell colSpan={8}>&nbsp;</TableCell>
                   <TableCell>
                     <b>Total</b>
                   </TableCell>
