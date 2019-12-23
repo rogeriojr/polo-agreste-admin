@@ -170,7 +170,6 @@ const OrderView = ({ orderInfo }) => {
                   <TableCell>IMAGEM</TableCell>
                   <TableCell>LOJA</TableCell>
                   <TableCell>PRODUTO</TableCell>
-                  <TableCell>VARIAÇÃO</TableCell>
                   <TableCell>PREÇO ORIGINAL</TableCell>
                   <TableCell>DESCONTOS</TableCell>
                   <TableCell>PREÇO DE VENDA</TableCell>
@@ -189,12 +188,12 @@ const OrderView = ({ orderInfo }) => {
                       />
                     </TableCell>
                     <TableCell>{orderItem.product.store.name}</TableCell>
-                    <TableCell>{orderItem.product.name}</TableCell>
                     <TableCell>
+                      {orderItem.product.name} <br />
                       {orderItem.product.variations.length > 0 &&
                         orderItem.product.variations.map(variation => (
                           <span key={variation.id}>
-                            <b>Cor:</b> {variation.color.name} <br />
+                            <b>Cor:</b> {`${variation.color.name} - `}
                             <b>Tamanho:</b> {variation.size.name}
                           </span>
                         ))}
@@ -214,14 +213,14 @@ const OrderView = ({ orderInfo }) => {
               </TableBody>
               <TableFooter>
                 <TableRow>
-                  <TableCell colSpan={8}>
+                  <TableCell colSpan={7}>
                     <b>Subtotal</b>
                   </TableCell>
                   <TableCell>{totalQuantity}</TableCell>
                   <TableCell align="left">R$ {toPrice(totalValue)}</TableCell>
                 </TableRow>
                 <TableRow>
-                  <TableCell colSpan={8}>&nbsp;</TableCell>
+                  <TableCell colSpan={7}>&nbsp;</TableCell>
                   <TableCell>
                     <b>Frete</b>
                   </TableCell>
@@ -237,7 +236,7 @@ const OrderView = ({ orderInfo }) => {
                   </TableCell>
                 </TableRow>
                 <TableRow>
-                  <TableCell colSpan={8}>&nbsp;</TableCell>
+                  <TableCell colSpan={7}>&nbsp;</TableCell>
                   <TableCell>
                     <b>Total</b>
                   </TableCell>
