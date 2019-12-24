@@ -65,9 +65,11 @@ const OrderView = ({ orderInfo }) => {
                 Cliente:
               </span>{' '}
               {orderInfo.user.name} <br />
+              {/*
               <span style={{ color: '#ce4899', fontWeight: '500' }}>
                 Email:
               </span>{' '}
+              */}
               Valor desconhecido <br />
               <span style={{ color: '#ce4899', fontWeight: '500' }}>
                 Telefone principal:
@@ -92,6 +94,26 @@ const OrderView = ({ orderInfo }) => {
               {/*
               <span style={{ color: '#ce4899', fontWeight: '500' }}>Centro de distribuição:</span> Desconhecido <br />
               */}
+              <strong>Transportadora:</strong>
+              <br />
+              <span style={{ color: '#ce4899', fontWeight: '500' }}>
+                Nome:
+              </span>{' '}
+              {orderInfo.delivery_name}
+              <br />
+              <span style={{ color: '#ce4899', fontWeight: '500' }}>
+                Transportadora:
+              </span>{' '}
+              {orderInfo.delivery_carrier}
+              <br />
+              <span style={{ color: '#ce4899', fontWeight: '500' }}>
+                Frete:
+              </span>{' '}
+              R$ {toPrice(orderInfo.delivery_price)}
+              <br />
+              <br />
+              <strong>Endereço do Cliente:</strong>
+              <br />
               <span style={{ color: '#ce4899', fontWeight: '500' }}>
                 Endereço:
               </span>{' '}
@@ -115,16 +137,12 @@ const OrderView = ({ orderInfo }) => {
                 CEP:
               </span>{' '}
               {orderInfo.address.code_post} <br />
-              <span style={{ color: '#ce4899', fontWeight: '500' }}>
-                Frete:
-              </span>{' '}
-              R$ {toPrice(orderInfo.stores[0].delivery_price)}
-              <br />
               {/*
               <span style={{ color: '#ce4899', fontWeight: '500' }}>Rastreamento:</span> Desconhecido <br />
               <span style={{ color: '#ce4899', fontWeight: '500' }}>Destinatário:</span> Desconhecido <br />
               <span style={{ color: '#ce4899', fontWeight: '500' }}>Observações:</span> Desconhecido <br /> <br />
               */}
+              {/*
               <span style={{ color: '#ce4899', fontWeight: '500' }}>
                 Lojas:
               </span>{' '}
@@ -132,6 +150,7 @@ const OrderView = ({ orderInfo }) => {
               <span style={{ whiteSpace: 'pre' }}>
                 {formatStoresName(orderInfo.stores)}
               </span>
+              */}
             </CardContent>
           </Card>
         </Box>
@@ -226,6 +245,7 @@ const OrderView = ({ orderInfo }) => {
                   </TableCell>
                   <TableCell align="left">
                     R${' '}
+                    {/*
                     {toPrice(
                       orderInfo.stores.reduce(
                         (accumulator, item) =>
@@ -233,6 +253,8 @@ const OrderView = ({ orderInfo }) => {
                         0,
                       ),
                     )}
+                      */}
+                    {toPrice(orderInfo.delivery_price)}
                   </TableCell>
                 </TableRow>
                 <TableRow>
