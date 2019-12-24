@@ -69,8 +69,8 @@ const OrderView = ({ orderInfo }) => {
               <span style={{ color: '#ce4899', fontWeight: '500' }}>
                 Email:
               </span>{' '}
-              */}
               Valor desconhecido <br />
+              */}
               <span style={{ color: '#ce4899', fontWeight: '500' }}>
                 Telefone principal:
               </span>{' '}
