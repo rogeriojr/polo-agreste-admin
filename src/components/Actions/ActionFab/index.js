@@ -2,6 +2,7 @@ import React from 'react';
 import { Fab, Icon } from '@material-ui/core';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
+import { CircularProgress } from '@material-ui/core';
 
 const StyledFab = styled(Fab)`
   && {
@@ -31,18 +32,33 @@ const StyledIcon = styled(Icon)`
   }
 `;
 
-const ActionFab = ({ icon, ...otherProps }) => (
+const CustomCircularProgress = styled(CircularProgress)`
+  && {
+    color: #fff;
+  }
+`;
+
+const ActionFab = ({ icon, isLoading, ...otherProps }) => (
   <StyledFab
     size="small"
     onClick={otherProps.onClick ? otherProps.onClick : null}
     {...otherProps}
   >
-    <StyledIcon>{icon}</StyledIcon>
+    {!isLoading ? (
+      <StyledIcon>{icon}</StyledIcon>
+    ) : (
+      <CustomCircularProgress size={22} />
+    )}
   </StyledFab>
 );
 
 ActionFab.propTypes = {
   icon: PropTypes.string.isRequired,
+  isLoading: PropTypes.bool,
 };
+
+ActionFab.defaultProps = {
+  isLoading: false,
+}
 
 export default ActionFab;

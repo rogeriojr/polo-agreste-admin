@@ -4,8 +4,24 @@ import ActionFab from 'components/Actions/ActionFab';
 import { Link } from 'react-router-dom';
 import ActionMenuItem from 'components/Actions/ActionMenuItem';
 import ActionMenu from 'components/Actions/ActionMenu';
+import { Creators } from 'store/ducks/virtualCatalog';
+import { useDispatch, useSelector } from 'react-redux';
 
 const VirtualCatalogActions = ({ rowData, onDeleteRequest }) => {
+  const dispatch = useDispatch();
+
+  const [clicked, setClicked] = React.useState(false);
+
+  const { virtualCatalogGeneratedLoading, virtualCatalogGenerated } = useSelector(
+    state => state.virtualCatalog,
+  );
+
+  const onDownloadCatalog = () => {
+    const { id, name } = rowData;
+    setClicked(true);
+    dispatch(Creators.getVirtualCatalogGenerateRequest({ id, name }));
+  };
+
   const [localState, setLocalState] = React.useState({
     anchorEl: null,
   });
@@ -22,6 +38,12 @@ const VirtualCatalogActions = ({ rowData, onDeleteRequest }) => {
     onDeleteRequest(rowData);
   };
 
+  React.useEffect(() => {
+    if (!virtualCatalogGeneratedLoading && virtualCatalogGenerated === rowData.id && clicked) {
+      setClicked(false);
+    }
+  }, [virtualCatalogGeneratedLoading,virtualCatalogGenerated]);
+console.log({clicked, virtualCatalogGeneratedLoading,virtualCatalogGenerated})
   return (
     <>
       <ActionFab icon="more_vert" onClick={handleClick} />
@@ -35,12 +57,11 @@ const VirtualCatalogActions = ({ rowData, onDeleteRequest }) => {
         </ActionMenuItem>
         <ActionMenuItem onClick={onDelete}>Remover</ActionMenuItem>
       </ActionMenu>
-      <a
-        href={`http://api.44express.com/v1/admin/virtual/catalogs/${rowData.id}/generate`}
-        download
-      >
-        <ActionFab icon="get_app" />
-      </a>
+      <ActionFab
+        icon="get_app"
+        onClick={onDownloadCatalog}
+        isLoading={clicked}
+      />
     </>
   );
 };

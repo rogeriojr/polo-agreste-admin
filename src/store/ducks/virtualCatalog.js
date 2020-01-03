@@ -10,6 +10,10 @@ export const Types = {
   GET_SUCCESS: 'virtualCatalog/GET_SUCCESS',
   GET_FAILURE: 'virtualCatalog/GET_FAILURE',
 
+  GET_GENERATE_REQUEST: 'virtualCatalog/GET_GENERATE_REQUEST',
+  GET_GENERATE_SUCCESS: 'virtualCatalog/GET_GENERATE_SUCCESS',
+  GET_GENERATE_FAILURE: 'virtualCatalog/GET_GENERATE_FAILURE',
+
   // Obtem catergorias
   GET_LIST_REQUEST: 'virtualCatalog/GET_LIST_REQUEST',
   GET_LIST_SUCCESS: 'virtualCatalog/GET_LIST_SUCCESS',
@@ -41,6 +45,10 @@ export const initialState = {
   virtualCatalog: {},
   virtualCatalogLoading: false,
   virtualCatalogError: null,
+  // Arquivo gerado
+  virtualCatalogGenerated: null,
+  virtualCatalogGeneratedLoading: false,
+  virtualCatalogGeneratedError: null,
   // Lista de categorias
   virtualCatalogList: [],
   virtualCatalogListLoading: false,
@@ -79,6 +87,27 @@ export default (state = initialState, action) => {
         ...state,
         virtualCatalogLoading: false,
         virtualCatalogError: action.payload,
+      };
+    // Categoria por id
+    case Types.GET_GENERATE_REQUEST:
+      return {
+        ...state,
+        virtualCatalogGenerated: null,
+        virtualCatalogGeneratedError: null,
+        virtualCatalogGeneratedLoading: true,
+      };
+    case Types.GET_GENERATE_SUCCESS:
+      return {
+        ...state,
+        virtualCatalogGenerated: action.payload.data,
+        virtualCatalogGeneratedLoading: false,
+        virtualCatalogGeneratedError: null,
+      };
+    case Types.GET_GENERATE_FAILURE:
+      return {
+        ...state,
+        virtualCatalogGeneratedLoading: false,
+        virtualCatalogGeneratedError: action.payload,
       };
     // Lista de categorias
     case Types.GET_LIST_REQUEST:
@@ -170,6 +199,19 @@ export const Creators = {
   }),
   getVirtualCatalogFailure: error => ({
     type: Types.GET_FAILURE,
+    payload: error,
+  }),
+  // Gera catalogo virtual
+  getVirtualCatalogGenerateRequest: ({ id, name }) => ({
+    type: Types.GET_GENERATE_REQUEST,
+    payload: { id, name },
+  }),
+  getVirtualCatalogGenerateSuccess: ({ id }) =>  ({
+    type: Types.GET_GENERATE_SUCCESS,
+    payload: id,
+  }),
+  getVirtualCatalogGenerateFailure: error => ({
+    type: Types.GET_GENERATE_FAILURE,
     payload: error,
   }),
   // Insere uma categoria

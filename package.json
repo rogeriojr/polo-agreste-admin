@@ -18,6 +18,7 @@
     "immutability-helper": "^3.0.1",
     "immutable": "^4.0.0-rc.12",
     "js-brasil": "^1.4.1",
+    "js-file-download": "^0.4.9",
     "loadable-components": "^2.2.3",
     "luxon": "^1.17.2",
     "material-table": "^1.40.1",

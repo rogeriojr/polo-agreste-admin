@@ -6,6 +6,7 @@ import { callApi } from 'store/sagas/auth';
 
 import { push } from 'connected-react-router';
 import Notifications from 'react-notification-system-redux';
+import fileDownload from 'js-file-download';
 
 function* getVirtualCatalog({ payload }) {
   try {
@@ -14,6 +15,22 @@ function* getVirtualCatalog({ payload }) {
     yield put(Creators.getVirtualCatalogSuccess(response.data));
   } catch (err) {
     yield put(Creators.getVirtualCatalogFailure('Erro ao buscar na API'));
+  }
+}
+
+function* getVirtualCatalogGenerate({ payload }) {
+  try {
+    const { id, name } = payload;
+    const response = yield call(
+      api.get,
+      `/v1/admin/virtual/catalogs/${id}/generate`,
+    );
+    yield call(fileDownload, response.data, `${name}.pdf`);
+    yield put(Creators.getVirtualCatalogGenerateSuccess({ id }));
+  } catch (err) {
+    yield put(
+      Creators.getVirtualCatalogGenerateFailure('Erro ao buscar na API'),
+    );
   }
 }
 
@@ -124,6 +141,7 @@ function* getVirtualCatalogList({ payload }) {
 export default function* productListSaga() {
   yield all([
     takeLatest(Types.GET_REQUEST, getVirtualCatalog),
+    takeLatest(Types.GET_GENERATE_REQUEST, getVirtualCatalogGenerate),
     takeLatest(Types.GET_INSERT_REQUEST, getVirtualCatalogInsert),
     takeLatest(Types.GET_UPDATE_REQUEST, getVirtualCatalogUpdate),
     takeLatest(Types.GET_DELETE_REQUEST, getVirtualCatalogDelete),
