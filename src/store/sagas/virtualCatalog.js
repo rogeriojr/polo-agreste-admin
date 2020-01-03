@@ -24,9 +24,14 @@ function* getVirtualCatalogGenerate({ payload }) {
     const response = yield call(
       api.get,
       `/v1/admin/virtual/catalogs/${id}/generate`,
+      {},
+      {
+        responseType: 'blob',
+      },
     );
-    yield call(fileDownload, response.data, `${name}.pdf`);
     yield put(Creators.getVirtualCatalogGenerateSuccess({ id }));
+    const contentType = response.headers['content-type'];
+    yield call(fileDownload, response.data, `${name}.pdf`, contentType);
   } catch (err) {
     yield put(
       Creators.getVirtualCatalogGenerateFailure('Erro ao buscar na API'),
