@@ -73,7 +73,6 @@ const columns = ({ onDeleteRequest, groupId }) => {
       ),
     },
   ];
-
 };
 
 const VirtualCatalogListPage = () => {
@@ -91,12 +90,18 @@ const VirtualCatalogListPage = () => {
     perPage: 10,
   });
 
-  const {
-    virtualCatalogList,
-    virtualCatalogListLoading,
-    virtualCatalogListTotal,
-    virtualCatalogDeleteLoading,
-  } = useSelector(state => state.virtualCatalog);
+  const virtualCatalogList = useSelector(
+    state => state.virtualCatalog.virtualCatalogList,
+  );
+  const virtualCatalogListLoading = useSelector(
+    state => state.virtualCatalog.virtualCatalogListLoading,
+  );
+  const virtualCatalogListTotal = useSelector(
+    state => state.virtualCatalog.virtualCatalogListTotal,
+  );
+  const virtualCatalogDeleteLoading = useSelector(
+    state => state.virtualCatalog.virtualCatalogDeleteLoading,
+  );
 
   const stateApp = useSelector(state => state.app);
   const jwtIdentity = stateApp.get('jwtIdentity');

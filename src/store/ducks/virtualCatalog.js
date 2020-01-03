@@ -99,7 +99,7 @@ export default (state = initialState, action) => {
     case Types.GET_GENERATE_SUCCESS:
       return {
         ...state,
-        virtualCatalogGenerated: action.payload.data,
+        virtualCatalogGenerated: action.payload,
         virtualCatalogGeneratedLoading: false,
         virtualCatalogGeneratedError: null,
       };

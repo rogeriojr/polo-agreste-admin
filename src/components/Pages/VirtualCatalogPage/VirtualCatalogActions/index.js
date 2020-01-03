@@ -12,9 +12,10 @@ const VirtualCatalogActions = ({ rowData, onDeleteRequest }) => {
 
   const [clicked, setClicked] = React.useState(false);
 
-  const { virtualCatalogGeneratedLoading, virtualCatalogGenerated } = useSelector(
-    state => state.virtualCatalog,
-  );
+  const {
+    virtualCatalogGeneratedLoading,
+    virtualCatalogGenerated,
+  } = useSelector(state => state.virtualCatalog);
 
   const onDownloadCatalog = () => {
     const { id, name } = rowData;
@@ -39,11 +40,14 @@ const VirtualCatalogActions = ({ rowData, onDeleteRequest }) => {
   };
 
   React.useEffect(() => {
-    if (!virtualCatalogGeneratedLoading && virtualCatalogGenerated === rowData.id && clicked) {
+    if (
+      virtualCatalogGenerated === rowData.id &&
+      !virtualCatalogGeneratedLoading
+    ) {
       setClicked(false);
     }
-  }, [virtualCatalogGeneratedLoading,virtualCatalogGenerated]);
-console.log({clicked, virtualCatalogGeneratedLoading,virtualCatalogGenerated})
+  }, [virtualCatalogGenerated, virtualCatalogGeneratedLoading]);
+
   return (
     <>
       <ActionFab icon="more_vert" onClick={handleClick} />
@@ -72,7 +76,7 @@ VirtualCatalogActions.propTypes = {
 };
 
 VirtualCatalogActions.defaultProps = {
-  onDeleteRequest: () => {},
+  onDeleteRequest: () => { },
 };
 
 export default VirtualCatalogActions;
