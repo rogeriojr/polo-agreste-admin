@@ -33,7 +33,6 @@ TabContainer.propTypes = {
 export const formInitialValues = {
   id: '',
   name: '',
-  email: '',
   description: '',
   cnpj: '',
   social_name: '',
@@ -53,14 +52,23 @@ export const formInitialValues = {
       id: '',
     },
   },
+  shopping_global: {
+    email_name: '',
+    email_smtp: '',
+    email_stock: '',
+    email_commercial: '',
+    email_financial: '',
+    email_support: '',
+    rate_markup: '',
+    rate_shopping: '',
+    rate_finacial: '',
+    rate_reseller: '',
+  },
 };
 
 const schema = Yup.object().shape({
   id: Yup.number(),
   name: Yup.string().required('Campo obrigatório'),
-  email: Yup.string()
-    .email('E-mail inválido')
-    .required('Campo obrigatório'),
   // description: Yup.string(),
   cnpj: Yup.string()
     .test('cnpj', 'CNPJ inválido', val =>
@@ -89,6 +97,30 @@ const schema = Yup.object().shape({
         .required('Campo obrigatório'),
     }),
   }),
+  shopping_global: Yup.object().shape({
+    email_name: Yup.string()
+      .email('E-mail inválido')
+      .required('Campo obrigatório'),
+    email_smtp: Yup.string()
+      .email('E-mail inválido')
+      .required('Campo obrigatório'),
+    email_stock: Yup.string()
+      .email('E-mail inválido')
+      .required('Campo obrigatório'),
+    email_commercial: Yup.string()
+      .email('E-mail inválido')
+      .required('Campo obrigatório'),
+    email_financial: Yup.string()
+      .email('E-mail inválido')
+      .required('Campo obrigatório'),
+    email_support: Yup.string()
+      .email('E-mail inválido')
+      .required('Campo obrigatório'),
+    rate_markup: Yup.string().nullable(),
+    rate_shopping: Yup.string().nullable(),
+    rate_finacial: Yup.string().nullable(),
+    rate_reseller: Yup.string().nullable(),
+  }),
 });
 
 const ShoppingForm = ({
@@ -98,7 +130,6 @@ const ShoppingForm = ({
   handleBack,
   isLoading,
 }) => {
-
   const realInitialValues = {
     ...formInitialValues,
     ...initialValues,
@@ -107,7 +138,7 @@ const ShoppingForm = ({
 
   const cepTypes = {
     STORE: 0,
-    MANAGER: 1,
+    MANAGER: 0,
   };
 
   const [value, setValue] = React.useState(0);
@@ -190,6 +221,7 @@ const ShoppingForm = ({
           <Card style={{ marginTop: 20 }}>
             <Tabs value={value} onChange={handleChange}>
               <Tab label="SHOPPING" icon={<Icon>store_mall_directory</Icon>} />
+              <Tab label="CONFIGURAÇÕES GERAIS" icon={<Icon>settings</Icon>} />
             </Tabs>
             {value === 0 && (
               <TabContainer>
@@ -245,15 +277,6 @@ const ShoppingForm = ({
                       component={CustomTextField}
                     />
                   </InputItem>
-                  <InputItem>
-                    <FastField
-                      name="email"
-                      label="E-mail"
-                      component={CustomTextField}
-                    />
-                  </InputItem>
-                </InputContainer>
-                <InputContainer>
                   <InputItem>
                     <FastField
                       name="website"
@@ -347,6 +370,102 @@ const ShoppingForm = ({
                 </InputContainer>
               </TabContainer>
             )}
+            {value === 1 && (
+              <TabContainer>
+                <Typography variant="h6">E-mails</Typography>
+                <InputContainer>
+                  <InputItem>
+                    <FastField
+                      name="shopping_global.email_name"
+                      label="E-mail padrão"
+                      component={CustomTextField}
+                    />
+                  </InputItem>
+                  <InputItem>
+                    <FastField
+                      name="shopping_global.email_smtp"
+                      label="E-mail SMTP"
+                      component={CustomTextField}
+                    />
+                  </InputItem>
+                </InputContainer>
+                <InputContainer>
+                  <InputItem>
+                    <FastField
+                      name="shopping_global.email_stock"
+                      label="E-mail de estoque"
+                      component={CustomTextField}
+                    />
+                  </InputItem>
+                  <InputItem>
+                    <FastField
+                      name="shopping_global.email_commercial"
+                      label="E-mail Comercial"
+                      component={CustomTextField}
+                    />
+                  </InputItem>
+                </InputContainer>
+                <InputContainer>
+                  <InputItem>
+                    <FastField
+                      name="shopping_global.email_financial"
+                      label="E-mail Financeiro"
+                      component={CustomTextField}
+                    />
+                  </InputItem>
+                  <InputItem>
+                    <FastField
+                      name="shopping_global.email_support"
+                      label="E-mail de Suporte"
+                      component={CustomTextField}
+                    />
+                  </InputItem>
+                </InputContainer>
+                <Typography variant="h6">Taxas</Typography>
+                <InputContainer>
+                  <InputItem>
+                    <Field
+                      name="shopping_global.rate_markup"
+                      label="Taxa de Markup"
+                      component={CustomTextField}
+                      type="number"
+                      min={0}
+                      max={100}
+                    />
+                  </InputItem>
+                  <InputItem>
+                    <Field
+                      name="shopping_global.rate_shopping"
+                      label="Taxa do Shopping"
+                      component={CustomTextField}
+                      type="number"
+                      min={0}
+                      max={100}
+                    />
+                  </InputItem>
+                  <InputItem>
+                    <Field
+                      name="shopping_global.rate_finacial"
+                      label="Taxa da Financeira"
+                      component={CustomTextField}
+                      type="number"
+                      min={0}
+                      max={100}
+                    />
+                  </InputItem>
+                  <InputItem>
+                    <Field
+                      name="shopping_global.rate_reseller"
+                      label="Taxa do Vendedor"
+                      component={CustomTextField}
+                      type="number"
+                      min={0}
+                      max={100}
+                    />
+                  </InputItem>
+                </InputContainer>
+              </TabContainer>
+            )}
             <FormButtons
               handleBack={handleBack}
               isLoading={isLoading}
@@ -371,7 +490,7 @@ ShoppingForm.defaultProps = {
   initialValues: formInitialValues,
   submitText: 'Salvar',
   handleBack: false,
-  onSubmit: () => { },
+  onSubmit: () => {},
 };
 
 export default ShoppingForm;

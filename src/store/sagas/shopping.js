@@ -96,8 +96,7 @@ function* getShoppingUpdate({ payload }) {
       website,
       status,
       address,
-      manager,
-      bank,
+      shopping_global,
       image_data,
     } = payload;
     const response = yield call(api.put, `/v1/admin/shopping/config`, {
@@ -112,8 +111,7 @@ function* getShoppingUpdate({ payload }) {
       website,
       status,
       address,
-      manager,
-      bank,
+      shopping_global,
     });
     if (typeof image_data === 'object' && image_data instanceof File) {
       const imageUpload = yield getShoppingImageUpload({ id, image_data });
