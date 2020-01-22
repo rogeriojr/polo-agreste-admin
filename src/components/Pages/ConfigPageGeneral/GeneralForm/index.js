@@ -61,7 +61,7 @@ export const formInitialValues = {
     email_support: '',
     rate_markup: '',
     rate_shopping: '',
-    rate_finacial: '',
+    rate_financial: '',
     rate_reseller: '',
   },
 };
@@ -90,7 +90,7 @@ const schema = Yup.object().shape({
     street: Yup.string().required('Campo obrigatório'),
     number: Yup.string().required('Campo obrigatório'),
     district: Yup.string().required('Campo obrigatório'),
-    complement: Yup.string(),
+    complement: Yup.string().required('Campo obrigatório'),
     city: Yup.object().shape({
       id: Yup.string()
         .test(...validators.numberNotRequired())
@@ -118,7 +118,7 @@ const schema = Yup.object().shape({
       .required('Campo obrigatório'),
     rate_markup: Yup.string().nullable(),
     rate_shopping: Yup.string().nullable(),
-    rate_finacial: Yup.string().nullable(),
+    rate_financial: Yup.string().nullable(),
     rate_reseller: Yup.string().nullable(),
   }),
 });
@@ -445,7 +445,7 @@ const ShoppingForm = ({
                   </InputItem>
                   <InputItem>
                     <Field
-                      name="shopping_global.rate_finacial"
+                      name="shopping_global.rate_financial"
                       label="Taxa da Financeira"
                       component={CustomTextField}
                       type="number"
