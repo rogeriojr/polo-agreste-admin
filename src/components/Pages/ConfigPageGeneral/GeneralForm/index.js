@@ -53,39 +53,6 @@ export const formInitialValues = {
       id: '',
     },
   },
-  manager: {
-    name: '',
-    father_name: '',
-    mother_name: '',
-    email: '',
-    cpf: '',
-    rg_number: '',
-    rg_issuer: '',
-    rg_issuer_date: '',
-    cell_phone: '',
-    birth_date: '',
-    code_post: '',
-    street: '',
-    number: '',
-    district: '',
-    complement: '',
-    city: {
-      id: '',
-    },
-  },
-  bank: {
-    bank: {
-      id: '',
-    },
-    agency: '',
-    agency_check: '',
-    account: '',
-    account_check: '',
-    type: '',
-    doc_type: 'CPF',
-    doc_number: '',
-    account_holder: '',
-  },
 };
 
 const schema = Yup.object().shape({
@@ -122,49 +89,6 @@ const schema = Yup.object().shape({
         .required('Campo obrigatório'),
     }),
   }),
-  manager: Yup.object().shape({
-    name: Yup.string().required('Este campo é obrigatório'),
-    email: Yup.string()
-      .email('E-mail inválido')
-      .required('Campo obrigatório'),
-    cpf: Yup.string()
-      .test(...validators.cpfInvalid('CPF inválido'))
-      .required('Obrigatório'),
-    cell_phone: Yup.string().required('Campo obrigatório'),
-    birth_date: Yup.string().required('Campo obrigatório'),
-    code_post: Yup.string()
-      .test('cep', 'CEP inválido', val =>
-        val === undefined ? false : validateBr.cep(val),
-      )
-      .required('Campo obrigatório'),
-    street: Yup.string().required('Campo obrigatório'),
-    number: Yup.string().required('Campo obrigatório'),
-    district: Yup.string().required('Campo obrigatório'),
-    complement: Yup.string(),
-    city: Yup.object().shape({
-      id: Yup.string()
-        .test(...validators.numberNotRequired())
-        .required('Campo obrigatório'),
-    }),
-    image: '',
-    image_data: '',
-    image_info: '',
-  }),
-  bank: Yup.object().shape({
-    bank: Yup.object().shape({
-      id: Yup.string().test(...validators.numberNotRequired()),
-    }),
-    agency: Yup.string().test(...validators.numberNotRequired()),
-    agency_check: Yup.string().test(
-      ...validators.numberNotRequired('Apenas numeros'),
-    ),
-    account: Yup.string().test(...validators.numberNotRequired()),
-    account_check: Yup.string().test(...validators.numberNotRequired()),
-    type: Yup.string(),
-    doc_type: Yup.string(),
-    doc_number: Yup.string(),
-    account_holder: Yup.string(),
-  }),
 });
 
 const ShoppingForm = ({
@@ -174,6 +98,11 @@ const ShoppingForm = ({
   handleBack,
   isLoading,
 }) => {
+
+  const realInitialValues = {
+    ...formInitialValues,
+    ...initialValues,
+  };
   const dispatch = useDispatch();
 
   const cepTypes = {
@@ -252,7 +181,7 @@ const ShoppingForm = ({
 
   return (
     <Formik
-      initialValues={initialValues}
+      initialValues={realInitialValues}
       validationSchema={schema}
       onSubmit={onSubmit}
       enableReinitialize

@@ -10,7 +10,7 @@ import Notifications from 'react-notification-system-redux';
 function* getShopping({ payload }) {
   try {
     const { id } = payload;
-    const request = call(api.get, `/v1/admin/shoppings/${id}`);
+    const request = call(api.get, `/v1/admin/shopping/config`);
     const response = yield call(callApi, request);
     yield put(Creators.getShoppingSuccess(response.data));
   } catch (err) {
@@ -25,7 +25,7 @@ function* getShoppingImageUpload(payload) {
     data.append('image', image_data);
     const response = yield call(
       api.post,
-      `/v1/admin/shoppings/${id}/images`,
+      `/v1/admin/shopping/config/images`,
       data,
     );
     return true;
@@ -100,7 +100,7 @@ function* getShoppingUpdate({ payload }) {
       bank,
       image_data,
     } = payload;
-    const response = yield call(api.put, `/v1/admin/shoppings/${id}`, {
+    const response = yield call(api.put, `/v1/admin/shopping/config`, {
       name,
       email,
       description: description.toString('markdown'),

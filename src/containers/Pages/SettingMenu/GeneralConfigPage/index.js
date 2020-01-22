@@ -49,6 +49,7 @@ const GeneralConfigPage = ({ match }) => {
   }, [shopping, match, shoppingLoading]);
 
   const onSubmit = data => {
+    console.log(data);
     dispatch(ShoppingCreators.getShoppingUpdateRequest(data));
   };
 
