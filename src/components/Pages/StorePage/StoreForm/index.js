@@ -10,7 +10,6 @@ import CustomSelect from 'components/form/components/CustomSelect';
 import FormButtons from 'components/form/components/FormButtons';
 import CustomRichText from 'components/form/components/CustomRichText';
 import { useDispatch, useSelector } from 'react-redux';
-import { Creators as CityCreators } from 'store/ducks/city';
 import { Creators as BankCreators } from 'store/ducks/bank';
 import { Creators as AddressCreators } from 'store/ducks/address';
 import CustomMaskField from 'components/form/components/CustomMaskField';
@@ -19,7 +18,6 @@ import validators from 'utils/validators';
 import CustomInputDate from 'components/form/components/CustomInputDate';
 import CustomImageField from 'components/form/components/CustomImageField';
 import { formatCityName, formatBankName } from 'utils/converters';
-import ProductImageField from 'components/Pages/ProductPage/ProductImageField';
 
 const TabContainer = ({ children }) => {
   return (
