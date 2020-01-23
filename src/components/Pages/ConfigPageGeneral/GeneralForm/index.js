@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useRef } from 'react';
 import { Formik, FastField, Form, Field } from 'formik';
 import * as Yup from 'yup';
 import PropTypes from 'prop-types';
@@ -9,7 +9,6 @@ import CustomTextField from 'components/form/components/CustomTextField';
 import CustomSelect from 'components/form/components/CustomSelect';
 import FormButtons from 'components/form/components/FormButtons';
 import { useDispatch, useSelector } from 'react-redux';
-import { Creators as CityCreators } from 'store/ducks/city';
 import { Creators as BankCreators } from 'store/ducks/bank';
 import { Creators as AddressCreators } from 'store/ducks/address';
 import CustomMaskField from 'components/form/components/CustomMaskField';
@@ -147,14 +146,32 @@ const ShoppingForm = ({
 
   const [formikForm, setFormikForm] = React.useState({});
 
-  const { cityList, cityListLoading } = useSelector(state => state.city);
+  const [cityInfo, setCityInfo] = React.useState({
+    cityList: [],
+    cityListLoading: true,
+  });
+
+  const { cityList, cityListLoading } = cityInfo;
+
   const { addressValidate, addressValidateLoading } = useSelector(
     state => state.address,
   );
 
+  const formikRef = useRef();
+
+  React.useEffect(() => {
+    setFormikForm(formikRef.current);
+  }, [formikRef]);
+
   const getInitialData = () => {
-    dispatch(CityCreators.getCityListRequest({ perPage: 10000 }));
     dispatch(BankCreators.getBankListRequest({ perPage: 1000 }));
+    if (realInitialValues.address.code_post) {
+      dispatch(
+        AddressCreators.getAddressValidateRequest({
+          code_post: realInitialValues.address.code_post,
+        }),
+      );
+    }
   };
 
   React.useEffect(() => {
@@ -171,10 +188,22 @@ const ShoppingForm = ({
         formikForm.setFieldValue('address.street', addressValidate.street);
         formikForm.setFieldValue('address.district', addressValidate.district);
         formikForm.setFieldValue('address.city.id', addressValidate.city.id);
+        setCityInfo({
+          cityList: [
+            {
+              ...addressValidate.city,
+            },
+          ],
+          cityListLoading: false,
+        });
       } else if (cepType === cepTypes.MANAGER) {
         formikForm.setFieldValue('manager.street', addressValidate.street);
         formikForm.setFieldValue('manager.district', addressValidate.district);
         formikForm.setFieldValue('manager.city.id', addressValidate.city.id);
+        formikForm.setFieldValue(
+          'address.city.name',
+          addressValidate.city.name,
+        );
       }
     } else if (
       addressValidateLoading === false &&
@@ -193,11 +222,10 @@ const ShoppingForm = ({
     }
   }, [addressValidate]);
 
-  const onCepChange = (form, curCepType) => event => {
+  const onCepChange = curCepType => event => {
     const fieldValue = event.target.value;
 
     setCepType(curCepType);
-    setFormikForm(form);
 
     if (fieldValue.indexOf('_') < 0 && fieldValue.length === 9) {
       dispatch(
@@ -216,6 +244,7 @@ const ShoppingForm = ({
       validationSchema={schema}
       onSubmit={onSubmit}
       enableReinitialize
+      ref={formikRef}
       render={({ values, ...form }) => (
         <Form>
           <Card style={{ marginTop: 20 }}>
@@ -307,7 +336,7 @@ const ShoppingForm = ({
                       label="CEP"
                       component={CustomMaskField}
                       mask="99999-999"
-                      onKeyUp={onCepChange(form, cepTypes.STORE)}
+                      onKeyUp={onCepChange(cepTypes.STORE)}
                     />
                   </InputItem>
                   <InputItem>
