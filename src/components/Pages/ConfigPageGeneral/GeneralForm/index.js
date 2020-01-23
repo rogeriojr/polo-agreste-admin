@@ -219,6 +219,10 @@ const ShoppingForm = ({
         formikForm.setFieldValue('manager.district', '');
         formikForm.setFieldValue('manager.city.id', '');
       }
+      setCityInfo({
+        cityList: [],
+        cityListLoading: false,
+      });
     }
   }, [addressValidate]);
 
@@ -228,6 +232,10 @@ const ShoppingForm = ({
     setCepType(curCepType);
 
     if (fieldValue.indexOf('_') < 0 && fieldValue.length === 9) {
+      setCityInfo({
+        cityList: [],
+        cityListLoading: true,
+      });
       dispatch(
         AddressCreators.getAddressValidateRequest({ code_post: fieldValue }),
       );

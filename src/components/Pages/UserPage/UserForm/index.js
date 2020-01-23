@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useRef } from 'react';
 import { Formik, Field, FastField, Form } from 'formik';
 import * as Yup from 'yup';
 import PropTypes from 'prop-types';
@@ -11,7 +11,6 @@ import FormButtons from 'components/form/components/FormButtons';
 import CustomRichText from 'components/form/components/CustomRichText';
 import { useDispatch, useSelector } from 'react-redux';
 import { Creators as GroupCreators } from 'store/ducks/group';
-import { Creators as CityCreators } from 'store/ducks/city';
 import { Creators as StoreCreators } from 'store/ducks/stores';
 import { Creators as AddressCreators } from 'store/ducks/address';
 import CustomMaskField from 'components/form/components/CustomMaskField';
@@ -110,7 +109,16 @@ const UserForm = ({
   const dispatch = useDispatch();
   const [value, setValue] = React.useState(0);
   const { groupList, groupListLoading } = useSelector(state => state.group);
-  const { cityList, cityListLoading } = useSelector(state => state.city);
+
+  const [cityInfo, setCityInfo] = React.useState({
+    cityList: [],
+    cityListLoading: true,
+  });
+
+  const formikRef = useRef();
+
+  const { cityList, cityListLoading } = cityInfo;
+
   const { storeList, storeListLoading } = useSelector(state => state.store);
   const { addressValidate, addressValidateLoading } = useSelector(
     state => state.address,
@@ -120,8 +128,19 @@ const UserForm = ({
 
   const getInitialData = () => {
     dispatch(GroupCreators.getGroupListRequest({ perPage: 1000 }));
-    dispatch(CityCreators.getCityListRequest({ perPage: 10000 }));
     dispatch(StoreCreators.getStoreListRequest({ perPage: 1000 }));
+    if (initialValues.address.code_post) {
+      dispatch(
+        AddressCreators.getAddressValidateRequest({
+          code_post: initialValues.address.code_post,
+        }),
+      );
+    } else {
+      setCityInfo({
+        cityList: [],
+        cityListLoading: false,
+      });
+    }
   };
 
   React.useEffect(() => {
@@ -133,6 +152,10 @@ const UserForm = ({
   };
 
   React.useEffect(() => {
+    setFormikForm(formikRef.current);
+  }, [formikRef]);
+
+  React.useEffect(() => {
     if (
       addressValidateLoading === false &&
       formikForm.setFieldValue &&
@@ -141,6 +164,14 @@ const UserForm = ({
       formikForm.setFieldValue('address.street', addressValidate.street);
       formikForm.setFieldValue('address.district', addressValidate.district);
       formikForm.setFieldValue('address.city.id', addressValidate.city.id);
+      setCityInfo({
+        cityList: [
+          {
+            ...addressValidate.city,
+          },
+        ],
+        cityListLoading: false,
+      });
     } else if (
       addressValidateLoading === false &&
       formikForm.setFieldValue &&
@@ -149,14 +180,20 @@ const UserForm = ({
       formikForm.setFieldValue('address.street', '');
       formikForm.setFieldValue('address.district', '');
       formikForm.setFieldValue('address.city.id', '');
+      setCityInfo({
+        cityList: [],
+        cityListLoading: false,
+      });
     }
   }, [addressValidate]);
 
-  const onCepChange = form => event => {
+  const onCepChange = event => {
     const fieldValue = event.target.value;
-    setFormikForm(form);
-
     if (fieldValue.indexOf('_') < 0 && fieldValue.length === 9) {
+      setCityInfo({
+        cityList: [],
+        cityListLoading: true,
+      });
       dispatch(
         AddressCreators.getAddressValidateRequest({ code_post: fieldValue }),
       );
@@ -169,6 +206,7 @@ const UserForm = ({
       validationSchema={schema}
       onSubmit={onSubmit}
       validateOnBlur
+      ref={formikRef}
       enableReinitialize
       render={({ values, ...form }) => (
         <Form>
@@ -319,7 +357,7 @@ const UserForm = ({
                           label="CEP"
                           component={CustomMaskField}
                           mask="99999-999"
-                          onKeyUp={onCepChange(form)}
+                          onKeyUp={onCepChange}
                         />
                       </InputItem>
                       <InputItem>

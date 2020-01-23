@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useRef } from 'react';
 import { Formik, FastField, Form, Field } from 'formik';
 import * as Yup from 'yup';
 import PropTypes from 'prop-types';
@@ -190,15 +190,48 @@ const StoreForm = ({
 
   const [formikForm, setFormikForm] = React.useState({});
 
-  const { cityList, cityListLoading } = useSelector(state => state.city);
+  const [cityStoreInfo, setCityStoreInfo] = React.useState({
+    cityList: [],
+    cityListLoading: true,
+  });
+
+  const [cityManagerInfo, setCityManagerInfo] = React.useState({
+    cityList: [],
+    cityListLoading: true,
+  });
+
+  const formikRef = useRef();
+
+  React.useEffect(() => {
+    setFormikForm(formikRef.current);
+  }, [formikRef]);
+
   const { bankList, bankListLoading } = useSelector(state => state.bank);
   const { addressValidate, addressValidateLoading } = useSelector(
     state => state.address,
   );
 
   const getInitialData = () => {
-    dispatch(CityCreators.getCityListRequest({ perPage: 10000 }));
     dispatch(BankCreators.getBankListRequest({ perPage: 1000 }));
+    if (initialValues.address && initialValues.address.code_post) {
+      dispatch(
+        AddressCreators.getAddressValidateRequest({
+          code_post: initialValues.address.code_post,
+        }),
+      );
+    } else {
+      setCityStoreInfo({
+        cityList: [],
+        cityListLoading: false,
+      });
+    }
+
+    if (!initialValues.manager || !initialValues.manager.code_post) {
+      setCityManagerInfo({
+        cityList: [],
+        cityListLoading: false,
+      });
+    }
   };
 
   React.useEffect(() => {
@@ -215,10 +248,41 @@ const StoreForm = ({
         formikForm.setFieldValue('address.street', addressValidate.street);
         formikForm.setFieldValue('address.district', addressValidate.district);
         formikForm.setFieldValue('address.city.id', addressValidate.city.id);
+
+        setCityStoreInfo({
+          cityList: [
+            {
+              ...addressValidate.city,
+            },
+          ],
+          cityListLoading: false,
+        });
+
+        if (
+          initialValues.manager &&
+          initialValues.manager.code_post &&
+          cityManagerInfo.cityList.length === 0
+        ) {
+          setCepType(cepTypes.MANAGER);
+          dispatch(
+            AddressCreators.getAddressValidateRequest({
+              code_post: initialValues.manager.code_post,
+            }),
+          );
+        }
       } else if (cepType === cepTypes.MANAGER) {
         formikForm.setFieldValue('manager.street', addressValidate.street);
         formikForm.setFieldValue('manager.district', addressValidate.district);
         formikForm.setFieldValue('manager.city.id', addressValidate.city.id);
+
+        setCityManagerInfo({
+          cityList: [
+            {
+              ...addressValidate.city,
+            },
+          ],
+          cityListLoading: false,
+        });
       }
     } else if (
       addressValidateLoading === false &&
@@ -229,19 +293,26 @@ const StoreForm = ({
         formikForm.setFieldValue('address.street', '');
         formikForm.setFieldValue('address.district', '');
         formikForm.setFieldValue('address.city.id', '');
+        setCityStoreInfo({
+          cityList: [],
+          cityListLoading: false,
+        });
       } else if (cepType === cepTypes.MANAGER) {
         formikForm.setFieldValue('manager.street', '');
         formikForm.setFieldValue('manager.district', '');
         formikForm.setFieldValue('manager.city.id', '');
+        setCityManagerInfo({
+          cityList: [],
+          cityListLoading: false,
+        });
       }
     }
   }, [addressValidate]);
 
-  const onCepChange = (form, curCepType) => event => {
+  const onCepChange = curCepType => event => {
     const fieldValue = event.target.value;
 
     setCepType(curCepType);
-    setFormikForm(form);
 
     if (fieldValue.indexOf('_') < 0 && fieldValue.length === 9) {
       dispatch(
@@ -260,6 +331,7 @@ const StoreForm = ({
       validationSchema={schema}
       onSubmit={onSubmit}
       enableReinitialize
+      ref={formikRef}
       render={({ values, ...form }) => (
         <Form>
           <Card style={{ marginTop: 20 }}>
@@ -365,7 +437,7 @@ const StoreForm = ({
                       label="CEP"
                       component={CustomMaskField}
                       mask="99999-999"
-                      onKeyUp={onCepChange(form, cepTypes.STORE)}
+                      onKeyUp={onCepChange(cepTypes.STORE)}
                     />
                   </InputItem>
                   <InputItem>
@@ -405,10 +477,10 @@ const StoreForm = ({
                     <Field
                       name="address.city.id"
                       label="Cidade"
-                      options={formatCityName(cityList)}
+                      options={formatCityName(cityStoreInfo.cityList)}
                       component={CustomSelect}
                       placeholder="Cidade"
-                      isLoading={cityListLoading}
+                      isLoading={cityStoreInfo.cityListLoading}
                     />
                   </InputItem>
                 </InputContainer>
@@ -482,7 +554,7 @@ const StoreForm = ({
                       name="manager.code_post"
                       label="CEP"
                       component={CustomMaskField}
-                      onKeyUp={onCepChange(form, cepTypes.MANAGER)}
+                      onKeyUp={onCepChange(cepTypes.MANAGER)}
                       mask="99999-999"
                     />
                   </InputItem>
@@ -523,10 +595,10 @@ const StoreForm = ({
                     <FastField
                       name="manager.city.id"
                       label="Cidade"
-                      options={formatCityName(cityList)}
+                      options={formatCityName(cityManagerInfo.cityList)}
                       component={CustomSelect}
                       placeholder="Cidade"
-                      isLoading={cityListLoading}
+                      isLoading={cityManagerInfo.cityListLoading}
                     />
                   </InputItem>
                 </InputContainer>
