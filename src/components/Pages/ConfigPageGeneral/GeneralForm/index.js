@@ -251,7 +251,6 @@ const ShoppingForm = ({
       initialValues={realInitialValues}
       validationSchema={schema}
       onSubmit={onSubmit}
-      enableReinitialize
       ref={formikRef}
       render={({ values, ...form }) => (
         <Form>
