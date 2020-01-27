@@ -61,10 +61,8 @@ const Profile = ({ classes, drawerIsOpen }) => {
         open={open}
         onClose={handleClose}
       >
-        <MenuItem>View Profile</MenuItem>
-        <MenuItem>Help</MenuItem>
         <Divider />
-        <MenuItem onClick={signOut}>Sign out</MenuItem>
+        <MenuItem onClick={signOut}>Sair</MenuItem>
       </Menu>
     </div>
   );
