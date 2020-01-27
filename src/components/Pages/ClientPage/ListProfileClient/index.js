@@ -15,21 +15,21 @@ const columns = ({ onDeleteRequest }) => [
     field: 'name',
     sorting: false,
   },
-  {
-    title: 'Perfil',
-    field: 'profile_content',
-    sorting: false,
-  },
+  // {
+  //   title: 'Perfil',
+  //   field: 'profile_content',
+  //   sorting: false,
+  // },
   {
     title: 'Plano',
     field: 'plan',
     sorting: false,
   },
-  {
-    title: 'Cadastro',
-    field: 'register',
-    sorting: false,
-  },
+  // {
+  //   title: 'Cadastro',
+  //   field: 'register',
+  //   sorting: false,
+  // },
   {
     title: 'Modificado',
     field: 'modified',

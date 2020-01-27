@@ -16,11 +16,11 @@ const columns = ({ onDeleteRequest }) => [
     field: 'name',
     sorting: false,
   },
-  {
-    title: 'Perfil',
-    field: 'profile',
-    sorting: false,
-  },
+  // {
+  //   title: 'Perfil',
+  //   field: 'profile',
+  //   sorting: false,
+  // },
   {
     title: 'E-mail',
     field: 'email',
@@ -36,11 +36,11 @@ const columns = ({ onDeleteRequest }) => [
     field: 'cell_phone',
     sorting: false,
   },
-  {
-    title: 'Cadastro',
-    field: 'create_at',
-    sorting: false,
-  },
+  // {
+  //   title: 'Cadastro',
+  //   field: 'create_at',
+  //   sorting: false,
+  // },
   {
     title: 'Ações',
     render: rowData => (
