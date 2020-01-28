@@ -18,6 +18,7 @@ import validators from 'utils/validators';
 import CustomInputDate from 'components/form/components/CustomInputDate';
 import CustomImageField from 'components/form/components/CustomImageField';
 import { formatCityName, formatBankName } from 'utils/converters';
+import StoreUsersList from 'components/Pages/StorePage/StoreUsersList';
 
 const TabContainer = ({ children }) => {
   return (
@@ -335,7 +336,7 @@ const StoreForm = ({
           <Card style={{ marginTop: 20 }}>
             <Tabs value={value} onChange={handleChange}>
               <Tab label="LOJA" icon={<Icon>store_mall_directory</Icon>} />
-              <Tab label="RESPONSÁVEL" icon={<Icon>person</Icon>} />
+              <Tab label="LISTA DE USUÁRIOS" icon={<Icon>people_alt</Icon>} />
               <Tab
                 label="INFORMAÇÕES BANCÁRIAS"
                 icon={<Icon>attach_money</Icon>}
@@ -500,106 +501,7 @@ const StoreForm = ({
             )}
             {value === 1 && (
               <TabContainer>
-                <Typography variant="h6">Dados Pessoais</Typography>
-                <InputContainer>
-                  <InputItem>
-                    <FastField
-                      name="manager.name"
-                      label="Nome completo"
-                      component={CustomTextField}
-                    />
-                  </InputItem>
-                  <InputItem>
-                    <FastField
-                      name="manager.cpf"
-                      label="CPF"
-                      mask="999.999.999-99"
-                      component={CustomMaskField}
-                    />
-                  </InputItem>
-                  {<div>{values.cpf}</div>}
-                </InputContainer>
-                <InputContainer>
-                  <InputItem>
-                    <Field
-                      name="manager.birth_date"
-                      label="Data de nascimento"
-                      component={CustomInputDate}
-                    />
-                  </InputItem>
-                  <InputItem>
-                    <FastField
-                      name="manager.cell_phone"
-                      label="Telefone"
-                      mask="(99) 99999-9999"
-                      component={CustomMaskField}
-                    />
-                  </InputItem>
-                </InputContainer>
-                <InputContainer>
-                  <InputItem>
-                    <FastField
-                      name="manager.email"
-                      label="E-mail"
-                      component={CustomTextField}
-                    />
-                  </InputItem>
-                </InputContainer>
-                <Typography variant="h6">Endereço</Typography>
-                <InputContainer>
-                  <InputItem>
-                    <FastField
-                      name="manager.code_post"
-                      label="CEP"
-                      component={CustomMaskField}
-                      onKeyUp={onCepChange(cepTypes.MANAGER)}
-                      mask="99999-999"
-                    />
-                  </InputItem>
-                  <InputItem>
-                    <FastField
-                      name="manager.street"
-                      label="Logradouro"
-                      component={CustomTextField}
-                    />
-                  </InputItem>
-                </InputContainer>
-                <InputContainer>
-                  <InputItem>
-                    <FastField
-                      name="manager.number"
-                      label="Número"
-                      type="number"
-                      component={CustomTextField}
-                    />
-                  </InputItem>
-                  <InputItem>
-                    <FastField
-                      name="manager.complement"
-                      label="Complemento"
-                      component={CustomTextField}
-                    />
-                  </InputItem>
-                </InputContainer>
-                <InputContainer>
-                  <InputItem>
-                    <FastField
-                      name="manager.district"
-                      label="Bairro"
-                      component={CustomTextField}
-                    />
-                  </InputItem>
-                  <InputItem style={{ pointerEvents: 'none' }}>
-                    <FastField
-                      name="manager.city.id"
-                      label="Cidade"
-                      options={formatCityName(cityManagerInfo.cityList)}
-                      component={CustomSelect}
-                      placeholder="Cidade"
-                      isLoading={cityManagerInfo.cityListLoading}
-                    />
-                  </InputItem>
-                </InputContainer>
+                <StoreUsersList />
               </TabContainer>
             )}
             {value === 2 && (
@@ -732,7 +634,7 @@ StoreForm.propTypes = {
   submitText: PropTypes.string,
   handleBack: PropTypes.oneOfType([PropTypes.bool, PropTypes.func]),
   isLoading: PropTypes.bool.isRequired,
-  stateImages: PropTypes.any.isRequired, 
+  stateImages: PropTypes.any.isRequired,
   setStateImages: PropTypes.func.isRequired,
 };
 
