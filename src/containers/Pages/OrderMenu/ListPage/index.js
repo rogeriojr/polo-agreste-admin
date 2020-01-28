@@ -100,7 +100,7 @@ const OrderListPage = () => {
     {
       title: 'Atualizado',
       field: 'updated_at',
-      render: rowData => <span>{formatDate2(rowData.update_at)}</span>,
+      render: rowData => <span>{formatDate2(rowData.updated_at)}</span>,
     },
     {
       title: 'Ações',

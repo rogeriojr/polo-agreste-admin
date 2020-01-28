@@ -32,7 +32,7 @@ const columns = ({ onDeleteRequest }) => [
   },
   {
     title: 'Atualizada',
-    field: 'update_at',
+    field: 'updated_at',
     sorting: false,
   },
   {
