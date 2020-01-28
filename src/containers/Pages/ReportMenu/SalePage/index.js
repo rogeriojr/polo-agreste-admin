@@ -11,7 +11,7 @@ import AlertDialog from 'components/AlertDialog';
 import OrderActions from 'components/Pages/OrderPage/OrderActions';
 import { InputItem, InputContainer } from 'components/form/StyledComponents';
 import CustomSelect from 'components/form/components/CustomSelect';
-import { formatStoresName, formatDate, formatStatus } from 'utils/converters';
+import { formatStoresName, formatDate2, formatStatus } from 'utils/converters';
 import OrderPaymentType from 'components/Pages/OrderPage/OrderPaymentType';
 import SaleInfo from 'components/Pages/SalePage/SaleInfo';
 
@@ -63,12 +63,12 @@ const SalePage = () => {
     {
       title: 'Realizado',
       field: 'created_at',
-      render: rowData => <span>{formatDate(rowData.created_at)}</span>,
+      render: rowData => <span>{formatDate2(rowData.created_at)}</span>,
     },
     {
       title: 'Atualizado',
       field: 'updated_at',
-      render: rowData => <span>{formatDate(rowData.updated_at)}</span>,
+      render: rowData => <span>{formatDate2(rowData.update_at)}</span>,
     },
   ];
 
