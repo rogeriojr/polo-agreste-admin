@@ -55,7 +55,11 @@ const formatStoresName = stores => {
 
 const formatDate = date => {
   moment.locale('pt-br');
-  return moment(date).format('DD/MM/YYYY HH:mm');
+  return moment(date, '').format('DD/MM/YYYY HH:mm');
+};
+
+const formatDate2 = date => {
+  return moment.utc(date).format('DD/MM/YYYY HH:mm');
 };
 
 const formatStatus = status => {
@@ -100,6 +104,7 @@ export {
   formatPaymentType,
   formatStoresName,
   formatDate,
+  formatDate2,
   formatStatus,
   imageToBase64,
 };

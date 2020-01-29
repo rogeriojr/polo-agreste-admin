@@ -2,51 +2,48 @@ import React from 'react';
 import PageBase from 'components/PageBase';
 import DefaultTable from 'components/Tables/DefaultTable';
 import { useDispatch, useSelector } from 'react-redux';
-import { Creators as CategoryCreators } from 'store/ducks/category';
+import { Creators as UserCreators } from 'store/ducks/user';
 import { Paper } from '@material-ui/core';
 import HeaderComponent from 'components/HeaderComponent';
-import ListProfileClientTableHeader from 'components/Pages/ClientPage/CustomTableHeader';
-import ListaProfileClientActions from 'components/Pages/ClientPage/ListaProfileClientActions';
+import UserTableHeader from 'components/Pages/UserPage/UserTableHeader';
+import UserActions from 'components/Pages/UserPage/UserActions';
 import AlertDialog from 'components/AlertDialog';
 
 const columns = ({ onDeleteRequest }) => [
+  {
+    title: 'Referência',
+    field: 'id',
+    sorting: false,
+  },
   {
     title: 'Nome',
     field: 'name',
     sorting: false,
   },
-  // {
-  //   title: 'Perfil',
-  //   field: 'profile_content',
-  //   sorting: false,
-  // },
   {
-    title: 'Plano',
-    field: 'plan',
+    title: 'E-mail',
+    field: 'email',
     sorting: false,
   },
-  // {
-  //   title: 'Cadastro',
-  //   field: 'register',
-  //   sorting: false,
-  // },
   {
-    title: 'Modificado',
-    field: 'modified',
+    title: 'Loja',
+    field: 'store.name',
+    sorting: false,
+  },
+  {
+    title: 'Grupo',
+    field: 'group.name',
     sorting: false,
   },
   {
     title: 'Ações',
     render: rowData => (
-      <ListaProfileClientActions
-        rowData={rowData}
-        onDeleteRequest={onDeleteRequest}
-      />
+      <UserActions rowData={rowData} onDeleteRequest={onDeleteRequest} />
     ),
   },
 ];
 
-const ListProfileClient = () => {
+const StoreUsersList = () => {
   const dispatch = useDispatch();
   const [deleteState, setDeleteState] = React.useState({
     open: false,
@@ -60,16 +57,16 @@ const ListProfileClient = () => {
     page: 1,
     perPage: 10,
   });
-  // criar rota no saga para cliente, não usar category
+
   const {
-    categoryList,
-    categoryListLoading,
-    categoryListTotal,
-    categoryDeleteLoading,
-  } = useSelector(state => state.category);
+    userList,
+    userListLoading,
+    userListTotal,
+    userDeleteLoading,
+  } = useSelector(state => state.user);
 
   React.useEffect(() => {
-    dispatch(CategoryCreators.getCategoryListRequest(localState));
+    dispatch(UserCreators.getUserListRequest(localState));
   }, []);
 
   const handleAlertDialogClose = () => {
@@ -77,17 +74,17 @@ const ListProfileClient = () => {
   };
 
   React.useEffect(() => {
-    if (categoryDeleteLoading === false && deleteState.open) {
+    if (userDeleteLoading === false && deleteState.open) {
       handleAlertDialogClose();
     }
-  }, [categoryDeleteLoading]);
+  }, [userDeleteLoading]);
 
   const getFunction = data => {
     setLocalState(oldLocalState => ({ ...oldLocalState, ...data }));
   };
 
   React.useEffect(() => {
-    dispatch(CategoryCreators.getCategoryListRequest(localState));
+    dispatch(UserCreators.getUserListRequest(localState));
   }, [localState]);
 
   const onDeleteRequest = item => {
@@ -95,38 +92,30 @@ const ListProfileClient = () => {
   };
 
   const onDeleteConfirm = () => {
-    dispatch(CategoryCreators.getCategoryDeleteRequest(deleteState.item.id));
+    dispatch(UserCreators.getUserDeleteRequest(deleteState.item.id));
   };
 
   return (
-    <PageBase>
-      <HeaderComponent title="Listar Perfis de Cliente">
-        <ListProfileClientTableHeader
-          getFunction={getFunction}
-          initialValues={{ search: localState.search }}
-        />
-      </HeaderComponent>
-      <Paper>
+    <>
         <DefaultTable
           getFunction={getFunction}
           columns={columns({ onDeleteRequest })}
-          data={categoryList}
-          total={categoryListTotal}
-          isLoading={categoryListLoading}
+          data={userList}
+          total={userListTotal}
+          isLoading={userListLoading}
           page={localState.page}
           perPage={localState.perPage}
         />
-      </Paper>
       <AlertDialog
         isOpen={deleteState.open}
-        isLoading={categoryDeleteLoading}
+        isLoading={userDeleteLoading}
         handleClose={handleAlertDialogClose}
         onConfirm={onDeleteConfirm}
         title="Excluir registro?"
-        description={`Remover cliente: ${deleteState.item.name}`}
+        description={`Remover categoria: ${deleteState.item.name}`}
       />
-    </PageBase>
+    </>
   );
 };
 
-export default ListProfileClient;
+export default StoreUsersList;

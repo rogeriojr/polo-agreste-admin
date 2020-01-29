@@ -98,11 +98,8 @@ const schema = Yup.object().shape({
   description_tec: Yup.string(),
   stock_control: Yup.string().required('Campo obrigatório'),
   stock: Yup.number(),
-  price: Yup.string().required('Campo obrigatório'),
   price_discount: Yup.string(),
-  quantity_max: Yup.number(),
   quantity_min_whole: Yup.number(),
-  quantity_max_whole: Yup.number(),
   height: Yup.string(),
   width: Yup.string(),
   length: Yup.string(),
@@ -234,13 +231,6 @@ const ProductForm = ({
                         <InputContainer>
                           <InputItem>
                             <FastField
-                              name="price"
-                              label="Preço varejo"
-                              component={CustomCurrencyField}
-                            />
-                          </InputItem>
-                          <InputItem>
-                            <FastField
                               name="price_whole"
                               label="Preço atacado"
                               component={CustomCurrencyField}
@@ -273,14 +263,14 @@ const ProductForm = ({
                         </InputContainer>
                         <Typography variant="h6">Limite de vendas</Typography>
                         <InputContainer>
-                          <InputItem>
+                          {/* <InputItem>
                             <FastField
                               name="quantity_max"
                               type="number"
                               label="Quantidade máxima de varejo"
                               component={CustomTextField}
                             />
-                          </InputItem>
+                          </InputItem> */}
                           <InputItem>
                             <FastField
                               name="quantity_min_whole"
@@ -289,14 +279,14 @@ const ProductForm = ({
                               component={CustomTextField}
                             />
                           </InputItem>
-                          <InputItem>
+                          {/* <InputItem>
                             <FastField
                               name="quantity_max_whole"
                               type="number"
                               label="Quantidade máxima de atacado"
                               component={CustomTextField}
                             />
-                          </InputItem>
+                          </InputItem> */}
                         </InputContainer>
                         <Typography variant="h6">Dimensões</Typography>
                         <InputContainer>

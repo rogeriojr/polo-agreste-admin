@@ -196,7 +196,7 @@ const VariationField = ({
                   isLoading={isLoadingSize}
                 />
               </InputItem>
-              <InputItem>
+              {/* <InputItem>
                 <StyledTextField
                   value={fieldValue.price}
                   onChange={onChangeVariation(indexVariation, 'price')}
@@ -207,7 +207,7 @@ const VariationField = ({
                     inputComponent: NumberFormatCustom,
                   }}
                 />
-              </InputItem>
+              </InputItem> */}
               <InputItem>
                 <StyledTextField
                   value={fieldValue.price_whole}

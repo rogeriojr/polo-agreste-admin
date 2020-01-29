@@ -8,9 +8,8 @@ import OrderTableHeader from 'components/Pages/OrderPage/OrderTableHeader';
 import { Paper } from '@material-ui/core';
 import AlertDialog from 'components/AlertDialog';
 import OrderActions from 'components/Pages/OrderPage/OrderActions';
-import { InputItem, InputContainer } from 'components/form/StyledComponents';
 import CustomSelect from 'components/form/components/CustomSelect';
-import { formatPaymentType, formatStoresName, formatDate, formatStatus, toPrice } from 'utils/converters';
+import { formatPaymentType, formatStoresName, formatDate2, formatStatus, toPrice } from 'utils/converters';
 import { Link } from 'react-router-dom';
 import OrderPaymentType from 'components/Pages/OrderPage/OrderPaymentType';
 import moment from 'moment';
@@ -96,12 +95,12 @@ const OrderListPage = () => {
     {
       title: 'Realizado',
       field: 'created_at',
-      render: rowData => <span>{formatDate(rowData.created_at)}</span>,
+      render: rowData => <span>{formatDate2(rowData.created_at)}</span>,
     },
     {
       title: 'Atualizado',
       field: 'updated_at',
-      render: rowData => <span>{formatDate(rowData.updated_at)}</span>,
+      render: rowData => <span>{formatDate2(rowData.updated_at)}</span>,
     },
     {
       title: 'Ações',

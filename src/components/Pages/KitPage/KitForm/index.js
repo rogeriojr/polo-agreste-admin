@@ -134,13 +134,13 @@ const KitForm = ({
               </InputItem>
             </InputContainer>
             <InputContainer>
-              <InputItem>
+              {/* <InputItem>
                 <FastField
                   name="price"
                   label="Preço varejo"
                   component={CustomCurrencyField}
                 />
-              </InputItem>
+              </InputItem> */}
               <InputItem>
                 <FastField
                   name="price_whole"

@@ -1,7 +1,6 @@
 import React from 'react';
-import { TextField, FormHelperText, InputAdornment } from '@material-ui/core';
+import { FormHelperText } from '@material-ui/core';
 import PropTypes from 'prop-types';
-import styled from 'styled-components';
 import { ErrorMessage } from 'formik';
 import 'react-dates/initialize';
 import { DateRangePicker } from 'react-dates';
@@ -79,6 +78,7 @@ const CustomDateRange = ({
           focusedInput={localState.focusedInput} // PropTypes.oneOf([START_DATE, END_DATE]) or null,
           onFocusChange={onFocusChange} // PropTypes.func.isRequired,
           startDatePlaceholderText="Data inicial"
+          hideKeyboardShortcutsPanel
           endDatePlaceholderText="Data final"
           isOutsideRange={() => false}
           numberOfMonths={1}
@@ -86,6 +86,7 @@ const CustomDateRange = ({
       </Mobile>
       <Default>
         <DateRangePicker
+         hideKeyboardShortcutsPanel
           startDate={convDate(values[dateStartField])} // momentPropTypes.momentObj or null,
           startDateId={localState.startDateId} // PropTypes.string.isRequired,
           endDate={convDate(values[dateEndField])} // momentPropTypes.momentObj or null,

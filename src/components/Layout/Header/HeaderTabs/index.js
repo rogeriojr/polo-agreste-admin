@@ -67,7 +67,7 @@ class HeaderTabs extends React.Component {
               handleTabChange={handleTabChange}
             />
           )}
-          {showSearch && (
+          {/* {showSearch && (
             <ClickAwayListener onClickAway={this.handleOnClickAway}>
               <Search />
             </ClickAwayListener>
@@ -78,7 +78,7 @@ class HeaderTabs extends React.Component {
           >
             <SearchIcon />
           </IconButton>
-          <SettingsButton />
+          <SettingsButton /> */}
           <Profile drawerIsOpen={drawerIsOpen} />
         </Toolbar>
       </AppBar>
