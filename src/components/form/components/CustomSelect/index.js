@@ -41,12 +41,17 @@ const CustomSelect = ({
   isMulti,
   isLoading,
   optionLimit,
+  isClearable,
 }) => {
   const [selectOptions, setSelectOptions] = React.useState([]);
   const [selectedOption, setSelectedOption] = React.useState(isMulti ? [] : '');
   const onChange = option => {
-    if (!option) {
+    if (!option && isMulti) {
       form.setFieldValue(field.name, []);
+      return;
+    }
+    if (!option) {
+      form.setFieldValue(field.name, '');
       return;
     }
     if ((optionLimit && option.length <= optionLimit) || !optionLimit) {
@@ -61,14 +66,12 @@ const CustomSelect = ({
 
   const getValue = () => {
     if (isMulti) {
-
-        const selecteds = options.filter(option =>
-          field.value.map(x => x.id).includes(option.id),
-          );
-          setSelectedOption(
-            selecteds.map(item => ({ value: item.id, label: item.name })),
-            );
-          
+      const selecteds = options.filter(option =>
+        field.value.map(x => x.id).includes(option.id),
+      );
+      setSelectedOption(
+        selecteds.map(item => ({ value: item.id, label: item.name })),
+      );
     } else {
       const selected = selectOptions.find(
         option => option.value === field.value,
@@ -106,6 +109,7 @@ const CustomSelect = ({
         isMulti={isMulti}
         menuPortalTarget={document.querySelector('body')}
         isLoading={isLoading}
+        isClearable={isClearable}
       />
       {selectedOption !== '' && (
         <StyledInputLabel>{placeholder}</StyledInputLabel>
@@ -125,12 +129,14 @@ CustomSelect.propTypes = {
   isLoading: PropTypes.bool,
   isMulti: PropTypes.bool,
   optionLimit: PropTypes.oneOfType([PropTypes.bool, PropTypes.number]),
+  isClearable: PropTypes.bool,
 };
 
 CustomSelect.defaultProps = {
   isMulti: false,
   isLoading: true,
   optionLimit: false,
+  isClearable: false,
 };
 
 export default CustomSelect;

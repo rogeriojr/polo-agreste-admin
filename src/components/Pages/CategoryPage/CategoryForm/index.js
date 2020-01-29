@@ -44,7 +44,7 @@ const schema = Yup.object().shape({
   description: Yup.string(),
   order_position: Yup.number(),
   category_father: Yup.object().shape({
-    id: Yup.number(),
+    id: Yup.mixed(),
   }),
 });
 
@@ -114,6 +114,7 @@ const CategoryForm = ({
                           component={CustomSelect}
                           placeholder="Categoria pai"
                           isLoading={categoryListLoading}
+                          isClearable
                         />
                       </InputItem>
                     </InputContainer>
