@@ -15,6 +15,7 @@ import CustomMaskField from 'components/form/components/CustomMaskField';
 import { validateBr } from 'js-brasil';
 import validators from 'utils/validators';
 import CustomImageField from 'components/form/components/CustomImageField';
+import CustomCurrencyField from 'components/form/components/CustomCurrencyField';
 import { formatCityName } from 'utils/converters';
 
 const TabContainer = ({ children }) => {
@@ -62,6 +63,10 @@ export const formInitialValues = {
     rate_shopping: '',
     rate_financial: '',
     rate_reseller: '',
+    express_delivery_price: '',
+    delivery_time: '',
+    local_pickup_price: '',
+    local_pickup_price_time: '',
   },
 };
 
@@ -119,6 +124,10 @@ const schema = Yup.object().shape({
     rate_shopping: Yup.string().nullable(),
     rate_financial: Yup.string().nullable(),
     rate_reseller: Yup.string().nullable(),
+    express_delivery_price: Yup.mixed().required('Campo obrigatório'),
+    delivery_time: Yup.mixed().required('Campo obrigatório'),
+    local_pickup_price: Yup.mixed().required('Campo obrigatório'),
+    local_pickup_price_time: Yup.mixed().required('Campo obrigatório'),
   }),
 });
 
@@ -497,6 +506,43 @@ const ShoppingForm = ({
                       type="number"
                       min={0}
                       max={100}
+                    />
+                  </InputItem>
+                </InputContainer>
+                <Typography variant="h6">Entrega</Typography>
+                <InputContainer>
+                  <InputItem>
+                    <Field
+                      name="shopping_global.express_delivery_price"
+                      label="Preço da entrega expressa"
+                      component={CustomCurrencyField}
+                    />
+                  </InputItem>
+                  <InputItem>
+                    <Field
+                      name="shopping_global.delivery_time"
+                      label="Tempo da entrega expressa"
+                      component={CustomTextField}
+                      endAdornment="dias"
+                      type="number"
+                    />
+                  </InputItem>
+                </InputContainer>
+                <InputContainer>
+                  <InputItem>
+                    <Field
+                      name="shopping_global.local_pickup_price"
+                      label="Preço da retirada local"
+                      component={CustomCurrencyField}
+                    />
+                  </InputItem>
+                  <InputItem>
+                    <Field
+                      name="shopping_global.local_pickup_price_time"
+                      label="Tempo da retirada local"
+                      component={CustomTextField}
+                      endAdornment="dias"
+                      type="number"
                     />
                   </InputItem>
                 </InputContainer>
