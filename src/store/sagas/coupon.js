@@ -126,7 +126,17 @@ function* getCouponList({ payload }) {
     const response = yield call(callApi, request);
     yield put(Creators.getCouponListSuccess(response.data));
   } catch (err) {
-    yield put(Creators.getCouponListFailure('Erro ao buscar na API'));
+    if (err.status === 404) {
+      yield put(
+        Creators.getCouponListSuccess({
+          total: 0,
+          data: [],
+        }),
+      );
+    } else {
+      yield put(Creators.getCouponListFailure('Erro ao buscar na API'));
+    }
+    yield put(Notifications.error({ title: err.data.msg }));
   }
 }
 

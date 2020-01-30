@@ -4,6 +4,8 @@ import api from 'services/api';
 import { Types, Creators } from 'store/ducks/city';
 import { callApi } from 'store/sagas/auth';
 
+import Notifications from 'react-notification-system-redux';
+
 function* getCity({ payload }) {
   try {
     const { id } = payload;
@@ -77,7 +79,17 @@ function* getCityList({ payload }) {
     const response = yield call(callApi, request);
     yield put(Creators.getCityListSuccess(response.data));
   } catch (err) {
-    yield put(Creators.getCityListFailure('Erro ao buscar na API'));
+    if (err.status === 404) {
+      yield put(
+        Creators.getCityListSuccess({
+          total: 0,
+          data: [],
+        }),
+      );
+    } else {
+      yield put(Creators.getCityListFailure('Erro ao buscar na API'));
+    }
+    yield put(Notifications.error({ title: err.data.msg }));
   }
 }
 

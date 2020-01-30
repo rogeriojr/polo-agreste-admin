@@ -85,7 +85,17 @@ function* getGroupList({ payload }) {
     const response = yield call(callApi, request);
     yield put(Creators.getGroupListSuccess(response.data));
   } catch (err) {
-    yield put(Creators.getGroupListFailure('Erro ao buscar na API'));
+    if (err.status === 404) {
+      yield put(
+        Creators.getGroupListSuccess({
+          total: 0,
+          data: [],
+        }),
+      );
+    } else {
+      yield put(Creators.getGroupListFailure('Erro ao buscar na API'));
+    }
+    yield put(Notifications.error({ title: err.data.msg }));
   }
 }
 

@@ -97,7 +97,17 @@ function* getOrderList({ payload }) {
     if (response.status !== 200) throw new Error(response);
     yield put(Creators.getOrderListSuccess(response.data));
   } catch (err) {
-    yield put(Creators.getOrderListFailure('Erro ao buscar na API'));
+    if (err.status === 404) {
+      yield put(
+        Creators.getOrderListSuccess({
+          total: 0,
+          data: [],
+        }),
+      );
+    } else {
+      yield put(Creators.getOrderListFailure('Erro ao buscar na API'));
+    }
+    yield put(Notifications.error({ title: err.data.msg }));
   }
 }
 

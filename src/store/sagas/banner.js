@@ -127,7 +127,17 @@ function* getBannerList({ payload }) {
     const response = yield call(callApi, request);
     yield put(Creators.getBannerListSuccess(response.data));
   } catch (err) {
-    yield put(Creators.getBannerListFailure('Erro ao buscar na API'));
+    if (err.status === 404) {
+      yield put(
+        Creators.getBannerListSuccess({
+          total: 0,
+          data: [],
+        }),
+      );
+    } else {
+      yield put(Creators.getBannerListFailure('Erro ao buscar na API'));
+    }
+    yield put(Notifications.error({ title: err.data.msg }));
   }
 }
 

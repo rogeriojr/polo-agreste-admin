@@ -112,7 +112,17 @@ function* getTrendList({ payload }) {
     const response = yield call(callApi, request);
     yield put(Creators.getTrendListSuccess(response.data));
   } catch (err) {
-    yield put(Creators.getTrendListFailure('Erro ao buscar na API'));
+    if (err.status === 404) {
+      yield put(
+        Creators.getTrendListSuccess({
+          total: 0,
+          data: [],
+        }),
+      );
+    } else {
+      yield put(Creators.getTrendListFailure('Erro ao buscar na API'));
+    }
+    yield put(Notifications.error({ title: err.data.msg }));
   }
 }
 

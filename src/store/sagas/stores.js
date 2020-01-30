@@ -154,7 +154,17 @@ function* getStoreList({ payload }) {
     const response = yield call(callApi, request);
     yield put(Creators.getStoreListSuccess(response.data));
   } catch (err) {
-    yield put(Creators.getStoreListFailure('Erro ao buscar na API'));
+    if (err.status === 404) {
+      yield put(
+        Creators.getStoreListSuccess({
+          total: 0,
+          data: [],
+        }),
+      );
+    } else {
+      yield put(Creators.getStoreListFailure('Erro ao buscar na API'));
+    }
+    yield put(Notifications.error({ title: err.data.msg }));
   }
 }
 
