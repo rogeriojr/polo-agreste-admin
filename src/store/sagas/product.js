@@ -130,7 +130,7 @@ function* getProductUpdate({ payload }) {
       variations,
       related,
     } = payload;
-    const response =  yield call(api.put, `/v1/admin/products/${id}`, {
+    const response = yield call(api.put, `/v1/admin/products/${id}`, {
       code_integration,
       genres,
       code_ncm,
@@ -157,7 +157,7 @@ function* getProductUpdate({ payload }) {
       related,
     });
     yield getProductImagesUpload({ id, images_data });
-    if(response.status != 200) throw response;
+    if (response.status != 200) throw response;
     yield put(Creators.getProductUpdateSuccess(response.data));
     yield put(Creators.getProductRequest({ id }));
     yield put(Notifications.success({ title: 'Edição concluida com sucesso' }));
@@ -208,11 +208,20 @@ function* getProductList({ payload }) {
       order: orderByColumn,
       order_by: orderByDirection,
     });
-
     const response = yield call(callApi, request);
     yield put(Creators.getProductListSuccess(response.data));
   } catch (err) {
-    yield put(Creators.getProductListFailure('Erro ao buscar na API'));
+    if (err.status === 404) {
+      yield put(
+        Creators.getProductListSuccess({
+          total: 0,
+          data: [],
+        }),
+      );
+    } else {
+      yield put(Creators.getProductListFailure('Erro ao buscar na API'));
+    }
+    yield put(Notifications.error({ title: err.data.msg }));
   }
 }
 

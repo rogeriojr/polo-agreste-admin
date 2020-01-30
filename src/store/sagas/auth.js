@@ -80,6 +80,9 @@ export function* callApi(apiCall) {
   if (response.status === 201 || response.status === 200) {
     return response;
   }
+  if (response.status === 404) {
+    throw response;
+  }
   yield put(AuthCreators.getLoginRefreshTokenRequest());
   const action = yield take([
     AuthTypes.GET_REFRESH_TOKEN_SUCCESS,

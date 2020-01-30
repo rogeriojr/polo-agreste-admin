@@ -33,7 +33,6 @@ const DefaultTable = ({
   };
 
   React.useEffect(() => {
-    if (data.length < 1) return;
     setTableData(Immutable.asMutable(data, { deep: true }));
   }, [data]);
 
