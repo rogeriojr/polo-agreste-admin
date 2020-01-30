@@ -78,11 +78,11 @@ const ProductImageField = ({
               ...values[`${field.name}_data`],
               ...filesArr,
             ]);
+            setLocalState({
+              ...localState,
+              images: [...imagesAdd, ...localState.images, ...imagesArr],
+            });
           }
-          setLocalState({
-            ...localState,
-            images: [...imagesAdd, ...localState.images, ...imagesArr],
-          });
         }
         return;
       }
