@@ -26,7 +26,7 @@ const MUIDatatablesTranslations = {
     actions: 'Ações',
   },
   body: {
-    emptyDataSourceMessage: 'Não registros para exibir',
+    emptyDataSourceMessage: 'Não há registros para exibir',
     toolTip: 'Ordenar',
     filterRow: {
       filterTooltip: 'Filtrar',
