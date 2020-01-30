@@ -87,7 +87,17 @@ function* getProductSizeList({ payload }) {
     const response = yield call(callApi, request);
     yield put(Creators.getProductSizeListSuccess(response.data));
   } catch (err) {
-    yield put(Creators.getProductSizeListFailure('Erro ao buscar na API'));
+    if (err.status === 404) {
+      yield put(
+        Creators.getProductSizeListSuccess({
+          total: 0,
+          data: [],
+        }),
+      );
+    } else {
+      yield put(Creators.getProductSizeListFailure('Erro ao buscar na API'));
+    }
+    yield put(Notifications.error({ title: err.data.msg }));
   }
 }
 

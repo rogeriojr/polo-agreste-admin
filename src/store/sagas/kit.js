@@ -135,7 +135,17 @@ function* getKitList({ payload }) {
     const response = yield call(callApi, request);
     yield put(Creators.getKitListSuccess(response.data));
   } catch (err) {
-    yield put(Creators.getKitListFailure('Erro ao buscar na API'));
+    if (err.status === 404) {
+      yield put(
+        Creators.getKitListSuccess({
+          total: 0,
+          data: [],
+        }),
+      );
+    } else {
+      yield put(Creators.getKitListFailure('Erro ao buscar na API'));
+    }
+    yield put(Notifications.error({ title: err.data.msg }));
   }
 }
 

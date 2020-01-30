@@ -147,7 +147,17 @@ function* getUserList({ payload }) {
     if(response.status !== 200 && response.status != 201 ) throw response;
     yield put(Creators.getUserListSuccess(response.data));
   } catch (err) {
-    yield put(Creators.getUserListFailure('Erro ao buscar na API'));
+    if (err.status === 404) {
+      yield put(
+        Creators.getUserListSuccess({
+          total: 0,
+          data: [],
+        }),
+      );
+    } else {
+      yield put(Creators.getUserListFailure('Erro ao buscar na API'));
+    }
+    yield put(Notifications.error({ title: err.data.msg }));
   }
 }
 

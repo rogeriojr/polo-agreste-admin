@@ -81,7 +81,17 @@ function* getPageList({ payload }) {
     const response = yield call(callApi, request);
     yield put(Creators.getPageListSuccess(response.data));
   } catch (err) {
-    yield put(Creators.getPageListFailure('Erro ao buscar na API'));
+    if (err.status === 404) {
+      yield put(
+        Creators.getPageListSuccess({
+          total: 0,
+          data: [],
+        }),
+      );
+    } else {
+      yield put(Creators.getPageListFailure('Erro ao buscar na API'));
+    }
+    yield put(Notifications.error({ title: err.data.msg }));
   }
 }
 

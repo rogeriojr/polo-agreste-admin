@@ -119,7 +119,17 @@ function* getBankList({ payload }) {
     const response = yield call(callApi, request);
     yield put(Creators.getBankListSuccess(response.data));
   } catch (err) {
-    yield put(Creators.getBankListFailure('Erro ao buscar na API'));
+    if (err.status === 404) {
+      yield put(
+        Creators.getBankListSuccess({
+          total: 0,
+          data: [],
+        }),
+      );
+    } else {
+      yield put(Creators.getBankListFailure('Erro ao buscar na API'));
+    }
+    yield put(Notifications.error({ title: err.data.msg }));
   }
 }
 

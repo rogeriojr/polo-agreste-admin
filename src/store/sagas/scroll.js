@@ -135,7 +135,17 @@ function* getScrollList({ payload }) {
     const response = yield call(callApi, request);
     yield put(Creators.getScrollListSuccess(response.data));
   } catch (err) {
-    yield put(Creators.getScrollListFailure('Erro ao buscar na API'));
+    if (err.status === 404) {
+      yield put(
+        Creators.getScrollListSuccess({
+          total: 0,
+          data: [],
+        }),
+      );
+    } else {
+      yield put(Creators.getScrollListFailure('Erro ao buscar na API'));
+    }
+    yield put(Notifications.error({ title: err.data.msg }));
   }
 }
 

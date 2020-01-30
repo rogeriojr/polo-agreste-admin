@@ -138,7 +138,17 @@ function* getVirtualCatalogList({ payload }) {
     const response = yield call(callApi, request);
     yield put(Creators.getVirtualCatalogListSuccess(response.data));
   } catch (err) {
-    yield put(Creators.getVirtualCatalogListFailure('Erro ao buscar na API'));
+    if (err.status === 404) {
+      yield put(
+        Creators.getVirtualCatalogListSuccess({
+          total: 0,
+          data: [],
+        }),
+      );
+    } else {
+      yield put(Creators.getVirtualCatalogListFailure('Erro ao buscar na API'));
+    }
+    yield put(Notifications.error({ title: err.data.msg }));
   }
 }
 
