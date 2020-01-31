@@ -184,6 +184,7 @@ export const Creators = {
     manager,
     bank,
     image_data,
+    quantity_min_whole,
   }) => ({
     type: Types.GET_INSERT_REQUEST,
     payload: {
@@ -201,6 +202,7 @@ export const Creators = {
       manager,
       bank,
       image_data,
+      quantity_min_whole,
     },
   }),
   getStoreInsertSuccess: () => ({
@@ -247,6 +249,7 @@ export const Creators = {
     manager,
     bank,
     image_data,
+    quantity_min_whole,
   }) => ({
     type: Types.GET_UPDATE_REQUEST,
     payload: {
@@ -265,6 +268,7 @@ export const Creators = {
       manager,
       bank,
       image_data,
+      quantity_min_whole,
     },
   }),
   getStoreUpdateSuccess: () => ({

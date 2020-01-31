@@ -47,6 +47,7 @@ function* getStoreInsert({ payload }) {
       manager,
       bank,
       image_data,
+      quantity_min_whole,
     } = payload;
     const response = yield call(api.post, '/v1/admin/stores', {
       name,
@@ -62,6 +63,7 @@ function* getStoreInsert({ payload }) {
       address,
       manager,
       bank,
+      quantity_min_whole,
     });
     const { id } = response.data.data;
     if (typeof image_data === 'object' && image_data instanceof File) {
@@ -95,6 +97,7 @@ function* getStoreUpdate({ payload }) {
       manager,
       bank,
       image_data,
+      quantity_min_whole,
     } = payload;
     const response = yield call(api.put, `/v1/admin/stores/${id}`, {
       name,
@@ -110,6 +113,7 @@ function* getStoreUpdate({ payload }) {
       address,
       manager,
       bank,
+      quantity_min_whole,
     });
     if (typeof image_data === 'object' && image_data instanceof File) {
       const imageUpload = yield getStoreImageUpload({ id, image_data });

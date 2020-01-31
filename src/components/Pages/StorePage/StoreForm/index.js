@@ -39,6 +39,7 @@ export const formInitialValues = {
   description: '',
   cnpj: '',
   social_name: '',
+  quantity_min_whole: '',
   state_register: '',
   cell_phone: '',
   cnae: '',
@@ -103,6 +104,7 @@ const schema = Yup.object().shape({
     )
     .required('Obrigatório'),
   social_name: Yup.string().required('Campo obrigatório'),
+  quantity_min_whole: Yup.string(),
   state_register: Yup.string(),
   cell_phone: Yup.string().required('Campo obrigatório'),
   cnae: Yup.string(),
@@ -344,161 +346,190 @@ const StoreForm = ({
               <Tab label="QUEM SOMOS " icon={<Icon>text_format</Icon>} />
             </Tabs>
             {value === 0 && (
-              <TabContainer>
-                <Typography variant="h6">Dados Básico</Typography>
-                <InputContainer>
-                  <InputItem>
-                    <FastField
-                      name="name"
-                      label="Nome da loja"
-                      component={CustomTextField}
-                    />
-                  </InputItem>
-                </InputContainer>
-                <InputContainer>
-                  <InputItem>
-                    <FastField
-                      name="social_name"
-                      label="Razão Social"
-                      component={CustomTextField}
-                    />
-                  </InputItem>
-                  <InputItem>
-                    <FastField
-                      name="cell_phone"
-                      label="Telefone"
-                      mask="(99) 99999-9999"
-                      component={CustomMaskField}
-                    />
-                  </InputItem>
-                </InputContainer>
-                <InputContainer>
-                  <InputItem>
-                    <FastField
-                      name="cnpj"
-                      label="CNPJ"
-                      mask="99.999.999/9999-99"
-                      component={CustomMaskField}
-                    />
-                  </InputItem>
-                  <InputItem>
-                    <FastField
-                      name="state_register"
-                      label="Inscrição Estadual"
-                      component={CustomTextField}
-                    />
-                  </InputItem>
-                </InputContainer>
-                <InputContainer>
-                  <InputItem>
-                    <FastField
-                      name="cnae"
-                      label="CNAE"
-                      component={CustomTextField}
-                    />
-                  </InputItem>
-                  <InputItem>
-                    <FastField
-                      name="email"
-                      label="E-mail"
-                      component={CustomTextField}
-                    />
-                  </InputItem>
-                </InputContainer>
-                <InputContainer>
-                  <InputItem>
-                    <FastField
-                      name="website"
-                      label="Website"
-                      component={CustomTextField}
-                    />
-                  </InputItem>
-                  <InputItem>
-                    <FastField
-                      name="status"
-                      label="Status"
-                      options={[
-                        { id: 0, name: 'Aguardando aprovação' },
-                        { id: 1, name: 'Ativo' },
-                        { id: 2, name: 'Bloqueado' },
-                      ]}
-                      component={CustomSelect}
-                      placeholder="Status"
-                      isLoading={false}
-                    />
-                  </InputItem>
-                </InputContainer>
-                <Typography variant="h6">Endereço</Typography>
-                <InputContainer>
-                  <InputItem>
-                    <FastField
-                      name="address.code_post"
-                      label="CEP"
-                      component={CustomMaskField}
-                      mask="99999-999"
-                      onKeyUp={onCepChange(cepTypes.STORE)}
-                    />
-                  </InputItem>
-                  <InputItem>
-                    <FastField
-                      name="address.street"
-                      label="Logradouro"
-                      component={CustomTextField}
-                    />
-                  </InputItem>
-                </InputContainer>
-                <InputContainer>
-                  <InputItem>
-                    <FastField
-                      name="address.number"
-                      label="Número"
-                      type="number"
-                      component={CustomTextField}
-                    />
-                  </InputItem>
-                  <InputItem>
-                    <FastField
-                      name="address.complement"
-                      label="Complemento"
-                      component={CustomTextField}
-                    />
-                  </InputItem>
-                </InputContainer>
-                <InputContainer>
-                  <InputItem>
-                    <FastField
-                      name="address.district"
-                      label="Bairro"
-                      component={CustomTextField}
-                    />
-                  </InputItem>
-                  <InputItem style={{ pointerEvents: 'none' }}>
-                    <Field
-                      name="address.city.id"
-                      label="Cidade"
-                      options={formatCityName(cityStoreInfo.cityList)}
-                      component={CustomSelect}
-                      placeholder="Cidade"
-                      isLoading={cityStoreInfo.cityListLoading}
-                    />
-                  </InputItem>
-                </InputContainer>
-                <InputContainer>
-                  <InputItem>
-                    <FastField
-                      name="image"
-                      label="Imagem"
-                      component={CustomImageField}
-                      previewUrl={
-                        values.image_info && values.image_info.small
-                          ? values.image_info.small
-                          : ''
-                      }
-                    />
-                  </InputItem>
-                </InputContainer>
-              </TabContainer>
-            )}
+            <TabContainer>
+              <InputContainer>
+                <InputItem>
+                  <Typography variant="h6">Dados Básico</Typography>
+                </InputItem>
+              </InputContainer>
+              <InputContainer></InputContainer>
+              <InputContainer>
+                <InputItem>
+                  <FastField
+                    name="name"
+                    label="Nome da loja"
+                    component={CustomTextField}
+                  />
+                </InputItem>
+              </InputContainer>
+              <InputContainer>
+                <InputItem>
+                  <FastField
+                    name="social_name"
+                    label="Razão Social"
+                    component={CustomTextField}
+                  />
+                </InputItem>
+                <InputItem>
+                  <FastField
+                    name="cell_phone"
+                    label="Telefone"
+                    mask="(99) 99999-9999"
+                    component={CustomMaskField}
+                  />
+                </InputItem>
+              </InputContainer>
+              <InputContainer>
+                <InputItem>
+                  <FastField
+                    name="cnpj"
+                    label="CNPJ"
+                    mask="99.999.999/9999-99"
+                    component={CustomMaskField}
+                  />
+                </InputItem>
+                <InputItem>
+                  <FastField
+                    name="state_register"
+                    label="Inscrição Estadual"
+                    component={CustomTextField}
+                  />
+                </InputItem>
+              </InputContainer>
+              <InputContainer>
+                <InputItem>
+                  <FastField
+                    name="cnae"
+                    label="CNAE"
+                    component={CustomTextField}
+                  />
+                </InputItem>
+                <InputItem>
+                  <FastField
+                    name="email"
+                    label="E-mail"
+                    component={CustomTextField}
+                  />
+                </InputItem>
+              </InputContainer>
+              <InputContainer>
+                <InputItem>
+                  <FastField
+                    name="website"
+                    label="Website"
+                    component={CustomTextField}
+                  />
+                </InputItem>
+                <InputItem>
+                  <FastField
+                    name="status"
+                    label="Status"
+                    options={[
+                      { id: 0, name: 'Aguardando aprovação' },
+                      { id: 1, name: 'Ativo' },
+                      { id: 2, name: 'Bloqueado' },
+                    ]}
+                    component={CustomSelect}
+                    placeholder="Status"
+                    isLoading={false}
+                  />
+                </InputItem>
+              </InputContainer>
+              <InputContainer>
+                <InputItem>
+                  <Typography variant="h6">Endereço</Typography>
+                </InputItem>
+              </InputContainer>
+              <InputContainer>
+                <InputItem>
+                  <FastField
+                    name="address.code_post"
+                    label="CEP"
+                    component={CustomMaskField}
+                    mask="99999-999"
+                    onKeyUp={onCepChange(cepTypes.STORE)}
+                  />
+                </InputItem>
+                <InputItem>
+                  <FastField
+                    name="address.street"
+                    label="Logradouro"
+                    component={CustomTextField}
+                  />
+                </InputItem>
+              </InputContainer>
+              <InputContainer>
+                <InputItem>
+                  <FastField
+                    name="address.number"
+                    label="Número"
+                    type="number"
+                    component={CustomTextField}
+                  />
+                </InputItem>
+                <InputItem>
+                  <FastField
+                    name="address.complement"
+                    label="Complemento"
+                    component={CustomTextField}
+                  />
+                </InputItem>
+              </InputContainer>
+              <InputContainer>
+                <InputItem>
+                  <FastField
+                    name="address.district"
+                    label="Bairro"
+                    component={CustomTextField}
+                  />
+                </InputItem>
+                <InputItem style={{ pointerEvents: 'none' }}>
+                  <Field
+                    name="address.city.id"
+                    label="Cidade"
+                    options={formatCityName(cityStoreInfo.cityList)}
+                    component={CustomSelect}
+                    placeholder="Cidade"
+                    isLoading={cityStoreInfo.cityListLoading}
+                  />
+                </InputItem>
+              </InputContainer>
+              <InputContainer>
+                <InputItem>
+                  <Typography variant="h6">Configurações de atacado</Typography>
+                </InputItem>
+              </InputContainer>
+                <InputItem>
+                  <FastField
+                    name="quantity_min_whole"
+                    label="Quantidade mínima para atacado da loja"
+                    type="number"
+                    component={CustomTextField}
+                  />
+                </InputItem>
+                <InputItem>
+                  <Typography variant="p" style={{ color: '#ce4899' }}>
+                    Caso o campo esteja vazio ou zerado, os produtos
+                    serão vendidos exclusivamente
+                    em varejo
+                  </Typography>
+                </InputItem>
+              <InputContainer>
+                <InputItem>
+                  <FastField
+                    name="image"
+                    label="Imagem"
+                    component={CustomImageField}
+                    previewUrl={
+                      values.image_info && values.image_info.small
+                        ? values.image_info.small
+                        : ''
+                    }
+                  />
+                </InputItem>
+              </InputContainer>
+            </TabContainer>
+          )}
             {value === 1 && (
               <TabContainer>
                 <StoreUsersList />
