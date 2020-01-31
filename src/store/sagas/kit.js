@@ -10,7 +10,8 @@ import Notifications from 'react-notification-system-redux';
 function* getKit({ payload }) {
   try {
     const { id } = payload;
-    const response = yield call(api.get, `/v1/admin/kits/${id}`);
+    const request = yield call(api.get, `/v1/admin/kits/${id}`);
+    const response = yield call(callApi, request);
     yield put(Creators.getKitSuccess(response.data));
   } catch (err) {
     yield put(Creators.getKitFailure('Erro ao buscar na API'));
@@ -43,7 +44,7 @@ function* getKitInsert({ payload }) {
       products,
       images_data,
     } = payload;
-    const response = yield call(api.post, '/v1/admin/kits', {
+    const request = yield call(api.post, '/v1/admin/kits', {
       name,
       price,
       price_whole,
@@ -51,6 +52,7 @@ function* getKitInsert({ payload }) {
       date_end,
       products,
     });
+    const response = yield call(callApi, request);
     const { id } = response.data.data;
     yield getKitImagesUpload({ id, images_data });
     yield put(Creators.getKitInsertSuccess());
@@ -75,7 +77,7 @@ function* getKitUpdate({ payload }) {
       products,
       images_data,
     } = payload;
-    /* const response =  */ yield call(api.put, `/v1/admin/kits/${id}`, {
+    const request = yield call(api.put, `/v1/admin/kits/${id}`, {
       name,
       price,
       price_whole,
@@ -83,6 +85,7 @@ function* getKitUpdate({ payload }) {
       date_end,
       products,
     });
+    const response = yield call(callApi, request);
     yield getKitImagesUpload({ id, images_data });
     yield put(Creators.getKitUpdateSuccess());
     yield put(Creators.getKitRequest({ id }));
@@ -95,7 +98,8 @@ function* getKitUpdate({ payload }) {
 function* getKitDelete({ payload }) {
   try {
     const { id } = payload;
-    /* const response =  */ yield call(api.delete, `/v1/admin/kits/${id}`);
+    const request = yield call(api.delete, `/v1/admin/kits/${id}`);
+    const response = yield call(callApi, request);
     yield put(Creators.getKitDeleteSuccess());
     // Remove a categoria deletada da lista
     const { kitList, kitListTotal } = yield select(state => state.kit);
@@ -114,7 +118,11 @@ function* getKitDelete({ payload }) {
 function* getImageKitDelete({ payload }) {
   try {
     const { id, id_kit } = payload;
-    yield call(api.delete, `/v1/admin/kits/${id_kit}/images/${id}`);
+    const request = yield call(
+      api.delete,
+      `/v1/admin/kits/${id_kit}/images/${id}`,
+    );
+    const response = yield call(callApi, request);
     yield put(Creators.getImageKitDeleteSuccess());
   } catch (err) {
     yield put(Creators.getImageKitDeleteFailure('Erro ao buscar na API'));

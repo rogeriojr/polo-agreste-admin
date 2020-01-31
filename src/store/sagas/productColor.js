@@ -9,7 +9,8 @@ import Notifications from 'react-notification-system-redux';
 function* getProductColor({ payload }) {
   try {
     const { id } = payload;
-    const response = yield call(api.get, `/v1/admin/products/colors/${id}`);
+    const request = yield call(api.get, `/v1/admin/products/colors/${id}`);
+    const response = yield call(callApi, request);
     yield put(Creators.getProductColorSuccess(response.data));
   } catch (err) {
     yield put(Creators.getProductColorFailure('Erro ao buscar na API'));
@@ -19,13 +20,14 @@ function* getProductColor({ payload }) {
 function* getProductColorInsert({ payload }) {
   try {
     const { order_position, hexa, code, name, status } = payload;
-    const response = yield call(api.post, '/v1/admin/products/colors', {
+    const request = yield call(api.post, '/v1/admin/products/colors', {
       order_position,
       hexa,
       code,
       name,
       status,
     });
+    const response = yield call(callApi, request);
     const { id } = response.data.data;
     yield put(Creators.getProductColorInsertSuccess());
     yield put(
@@ -40,13 +42,14 @@ function* getProductColorInsert({ payload }) {
 function* getProductColorUpdate({ payload }) {
   try {
     const { id, order_position, hexa, code, name, status } = payload;
-    const response = yield call(api.put, `/v1/admin/products/colors/${id}`, {
+    const request = yield call(api.put, `/v1/admin/products/colors/${id}`, {
       order_position,
       hexa,
       code,
       name,
       status,
     });
+    const response = yield call(callApi, request);
     yield put(Creators.getProductColorUpdateSuccess());
     yield put(Notifications.success({ title: 'Edição concluida com sucesso' }));
   } catch (err) {
@@ -57,7 +60,8 @@ function* getProductColorUpdate({ payload }) {
 function* getProductColorDelete({ payload }) {
   try {
     const { id } = payload;
-    const response = yield call(api.delete, `/v1/admin/products/colors/${id}`);
+    const request = yield call(api.delete, `/v1/admin/products/colors/${id}`);
+    const response = yield call(callApi, request);
     yield put(Creators.getProductColorDeleteSuccess());
     // Remove a categoria deletada da lista
     const { productColorList, productColorListTotal } = yield select(

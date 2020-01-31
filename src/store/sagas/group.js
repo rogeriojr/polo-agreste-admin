@@ -10,7 +10,8 @@ import Notifications from 'react-notification-system-redux';
 function* getGroup({ payload }) {
   try {
     const { id } = payload;
-    const response = yield call(api.get, `/v1/admin/groups/${id}`);
+    const request = yield call(api.get, `/v1/admin/groups/${id}`);
+    const response = yield call(callApi, request);
     yield put(Creators.getGroupSuccess(response.data));
   } catch (err) {
     yield put(Creators.getGroupFailure('Erro ao buscar na API'));
@@ -20,12 +21,13 @@ function* getGroup({ payload }) {
 function* getGroupInsert({ payload }) {
   try {
     const { group_father, description, name, order_position } = payload;
-    const response = yield call(api.post, '/v1/admin/groups', {
+    const request = yield call(api.post, '/v1/admin/groups', {
       name,
       order_position,
       description: description.toString('markdown'),
       group_father,
     });
+    const response = yield call(callApi, request);
     yield put(Creators.getGroupInsertSuccess());
     yield put(
       Notifications.success({ title: 'Cadastro concluido com sucesso' }),
@@ -39,12 +41,13 @@ function* getGroupInsert({ payload }) {
 function* getGroupUpdate({ payload }) {
   try {
     const { id, group_father, description, name, order_position } = payload;
-    const response = yield call(api.put, `/v1/admin/groups/${id}`, {
+    const request = yield call(api.put, `/v1/admin/groups/${id}`, {
       name,
       order_position,
       description: description.toString('markdown'),
       group_father,
     });
+    const response = yield call(callApi, request);
     yield put(Creators.getGroupUpdateSuccess());
     yield put(Notifications.success({ title: 'Edição concluida com sucesso' }));
   } catch (err) {

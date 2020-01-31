@@ -10,7 +10,8 @@ import Notifications from 'react-notification-system-redux';
 function* getTrend({ payload }) {
   try {
     const { id } = payload;
-    const response = yield call(api.get, `/v1/admin/trends/${id}`);
+    const request = yield call(api.get, `/v1/admin/trends/${id}`);
+    const response = yield call(callApi, request);
     yield put(Creators.getTrendSuccess(response.data));
   } catch (err) {
     yield put(Creators.getTrendFailure('Erro ao buscar na API'));
@@ -35,11 +36,12 @@ function* getTrendImagesUpload(payload) {
 function* getTrendInsert({ payload }) {
   try {
     const { name, status, products, images_data } = payload;
-    const response = yield call(api.post, '/v1/admin/trends', {
+    const request = yield call(api.post, '/v1/admin/trends', {
       name,
       status,
       products,
     });
+    const response = yield call(callApi, request);
     const { id } = response.data.data;
     yield getTrendImagesUpload({ id, images_data });
     yield put(Creators.getTrendInsertSuccess());
@@ -55,11 +57,12 @@ function* getTrendInsert({ payload }) {
 function* getTrendUpdate({ payload }) {
   try {
     const { id, name, status, products, images_data } = payload;
-    /* const response =  */ yield call(api.put, `/v1/admin/trends/${id}`, {
+    const request =  yield call(api.put, `/v1/admin/trends/${id}`, {
       name,
       status,
       products,
     });
+    const response = yield call(callApi, request);
     yield getTrendImagesUpload({ id, images_data });
     yield put(Creators.getTrendUpdateSuccess());
     yield put(Creators.getTrendRequest({ id }));
@@ -72,7 +75,8 @@ function* getTrendUpdate({ payload }) {
 function* getTrendDelete({ payload }) {
   try {
     const { id } = payload;
-    /* const response =  */ yield call(api.delete, `/v1/admin/trends/${id}`);
+    const request = yield call(api.delete, `/v1/admin/trends/${id}`);
+    const response = yield call(callApi, request);
     yield put(Creators.getTrendDeleteSuccess());
     // Remove a categoria deletada da lista
     const { trendList, trendListTotal } = yield select(state => state.trend);
@@ -91,7 +95,8 @@ function* getTrendDelete({ payload }) {
 function* getImageTrendDelete({ payload }) {
   try {
     const { id, id_trend } = payload;
-    yield call(api.delete, `/v1/admin/trends/${id_trend}/images/${id}`);
+    const request = yield call(api.delete, `/v1/admin/trends/${id_trend}/images/${id}`);
+    const response = yield call(callApi, request);
     yield put(Creators.getImageTrendDeleteSuccess());
   } catch (err) {
     yield put(Creators.getImageTrendDeleteFailure('Erro ao buscar na API'));

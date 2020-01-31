@@ -7,9 +7,10 @@ import { callApi } from 'store/sagas/auth';
 function* getAddressValidate({ payload }) {
   try {
     const { code_post } = payload;
-    const response = yield call(api.get, '/v1/client/address/validate', {
+    const request = yield call(api.get, '/v1/client/address/validate', {
       code_post,
     });
+    const response = yield call(callApi, request);
     yield put(Creators.getAddressValidateSuccess(response.data));
   } catch (err) {
     yield put(Creators.getAddressValidateFailure('Erro ao buscar na API'));

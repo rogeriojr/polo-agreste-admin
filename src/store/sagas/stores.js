@@ -49,7 +49,7 @@ function* getStoreInsert({ payload }) {
       image_data,
       quantity_min_whole,
     } = payload;
-    const response = yield call(api.post, '/v1/admin/stores', {
+    const request = yield call(api.post, '/v1/admin/stores', {
       name,
       email,
       description: description.toString('markdown'),
@@ -65,6 +65,7 @@ function* getStoreInsert({ payload }) {
       bank,
       quantity_min_whole,
     });
+    const response = yield call(callApi, request);
     const { id } = response.data.data;
     if (typeof image_data === 'object' && image_data instanceof File) {
       const imageUpload = yield getStoreImageUpload({ id, image_data });
@@ -99,7 +100,7 @@ function* getStoreUpdate({ payload }) {
       image_data,
       quantity_min_whole,
     } = payload;
-    const response = yield call(api.put, `/v1/admin/stores/${id}`, {
+    const request = yield call(api.put, `/v1/admin/stores/${id}`, {
       name,
       email,
       description: description.toString('markdown'),
@@ -115,6 +116,7 @@ function* getStoreUpdate({ payload }) {
       bank,
       quantity_min_whole,
     });
+    const response = yield call(callApi, request);
     if (typeof image_data === 'object' && image_data instanceof File) {
       const imageUpload = yield getStoreImageUpload({ id, image_data });
     }
@@ -128,7 +130,8 @@ function* getStoreUpdate({ payload }) {
 function* getStoreDelete({ payload }) {
   try {
     const { id } = payload;
-    const response = yield call(api.delete, `/v1/admin/stores/${id}`);
+    const request = yield call(api.delete, `/v1/admin/stores/${id}`);
+    const response = yield call(callApi, request);
     yield put(Creators.getStoreDeleteSuccess());
     // Remove a categoria deletada da lista
     const { storeList, storeListTotal } = yield select(state => state.store);

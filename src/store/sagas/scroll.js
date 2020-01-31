@@ -11,7 +11,8 @@ import { imageToBase64 } from 'utils/converters';
 function* getScroll({ payload }) {
   try {
     const { id } = payload;
-    const response = yield call(api.get, `/v1/admin/scrolls/${id}`);
+    const request = yield call(api.get, `/v1/admin/scrolls/${id}`);
+    const response = yield call(callApi, request);
     yield put(Creators.getScrollSuccess(response.data));
   } catch (err) {
     yield put(Creators.getScrollFailure('Erro ao buscar na API'));
@@ -42,7 +43,8 @@ function* getScrollInsert({ payload }) {
       data.image = image;
     }
 
-    const response = yield call(api.post, '/v1/admin/scrolls', data);
+    const request = yield call(api.post, '/v1/admin/scrolls', data);
+    const response = yield call(callApi, request);
     const { id } = response.data.data;
     yield put(Creators.getScrollInsertSuccess());
     yield put(
@@ -79,11 +81,10 @@ function* getScrollUpdate({ payload }) {
       data.image = image;
     }
 
-    /* const response =  */ yield call(
-      api.put,
-      `/v1/admin/scrolls/${id}`,
-      data,
-    );
+    const request = yield call(api.put, `/v1/admin/scrolls/${id}`, data);
+
+    const response = yield call(callApi, request);
+
     yield put(Creators.getScrollUpdateSuccess());
     yield put(Creators.getScrollRequest({ id }));
     yield put(Notifications.success({ title: 'Edição concluida com sucesso' }));
@@ -95,7 +96,8 @@ function* getScrollUpdate({ payload }) {
 function* getScrollDelete({ payload }) {
   try {
     const { id } = payload;
-    /* const response =  */ yield call(api.delete, `/v1/admin/scrolls/${id}`);
+    const request = yield call(api.delete, `/v1/admin/scrolls/${id}`);
+    const response = yield call(callApi, request);
     yield put(Creators.getScrollDeleteSuccess());
     // Remove a categoria deletada da lista
     const { scrollList, scrollListTotal } = yield select(state => state.scroll);
@@ -114,7 +116,11 @@ function* getScrollDelete({ payload }) {
 function* getImageScrollDelete({ payload }) {
   try {
     const { id, id_scroll } = payload;
-    yield call(api.delete, `/v1/admin/scrolls/${id_scroll}/images/${id}`);
+    const request = yield call(
+      api.delete,
+      `/v1/admin/scrolls/${id_scroll}/images/${id}`,
+    );
+    const response = yield call(callApi, request);
     yield put(Creators.getImageScrollDeleteSuccess());
   } catch (err) {
     yield put(Creators.getImageScrollDeleteFailure('Erro ao buscar na API'));

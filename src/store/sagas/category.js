@@ -10,7 +10,8 @@ import Notifications from 'react-notification-system-redux';
 function* getCategory({ payload }) {
   try {
     const { id } = payload;
-    const response = yield call(api.get, `/v1/admin/categories/${id}`);
+    const request = yield call(api.get, `/v1/admin/categories/${id}`);
+    const response = yield call(callApi, request);
     yield put(Creators.getCategorySuccess(response.data));
   } catch (err) {
     yield put(Creators.getCategoryFailure('Erro ao buscar na API'));
@@ -38,12 +39,13 @@ function* getCategoryInsert({ payload }) {
       order_position,
       image_data,
     } = payload;
-    const response = yield call(api.post, '/v1/admin/categories', {
+    const request = yield call(api.post, '/v1/admin/categories', {
       name,
       order_position,
       description: description.toString('markdown'),
       category_father,
     });
+    const response = yield call(callApi, request);
     const { id } = response.data.data;
     if (typeof image_data === 'object' && image_data instanceof File) {
       const imageUpload = yield getCategoryImageUpload({ id, image_data });
@@ -68,12 +70,13 @@ function* getCategoryUpdate({ payload }) {
       order_position,
       image_data,
     } = payload;
-    const response = yield call(api.put, `/v1/admin/categories/${id}`, {
+    const request = yield call(api.put, `/v1/admin/categories/${id}`, {
       name,
       order_position,
       description: description.toString('markdown'),
       category_father,
     });
+    const response = yield call(callApi, request);
     if (typeof image_data === 'object' && image_data instanceof File) {
       const imageUpload = yield getCategoryImageUpload({ id, image_data });
     }
@@ -87,7 +90,8 @@ function* getCategoryUpdate({ payload }) {
 function* getCategoryDelete({ payload }) {
   try {
     const { id } = payload;
-    const response = yield call(api.delete, `/v1/admin/categories/${id}`);
+    const request = yield call(api.delete, `/v1/admin/categories/${id}`);
+    const response = yield call(callApi, request);
     yield put(Creators.getCategoryDeleteSuccess());
     // Remove a categoria deletada da lista
     const { categoryList, categoryListTotal } = yield select(

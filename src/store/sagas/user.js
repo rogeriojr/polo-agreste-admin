@@ -12,7 +12,8 @@ import Notifications from 'react-notification-system-redux';
 function* getUser({ payload }) {
   try {
     const { id } = payload;
-    const response = yield call(api.get, `/v1/admin/users/${id}`);
+    const request = yield call(api.get, `/v1/admin/users/${id}`);
+    const response = yield call(callApi, request);
     yield put(Creators.getUserSuccess(response.data));
   } catch (err) {
     yield put(Creators.getUserFailure('Erro ao buscar na API'));
@@ -35,8 +36,8 @@ function* getUserImageUpdate(payload) {
     const { id, image_data } = payload;
     const data = new FormData();
     data.append('image', image_data);
-    alert('Imagem atualizada com sucesso');
-    const response = yield call(api.put, `/v1/admin/users/${id}/images`, data);
+    const request = yield call(api.put, `/v1/admin/users/${id}/images`, data);
+    const response = yield call(callApi, request);
     return true;
   } catch (err) {
     return false;
@@ -59,7 +60,7 @@ function* getUserInsert({ payload }) {
       address,
       image_data,
     } = payload;
-    const response = yield call(api.post, '/v1/admin/users', {
+    const request = yield call(api.post, '/v1/admin/users', {
       email,
       password,
       name,
@@ -71,6 +72,7 @@ function* getUserInsert({ payload }) {
       store,
       address,
     });
+    const response = yield call(callApi, request);
     const { id } = response.data.data;
     if (typeof image_data === 'object' && image_data instanceof File) {
       const imageUpload = yield getUserImageUpload({ id, image_data });
@@ -102,7 +104,7 @@ function* getUserUpdate({ payload }) {
       address,
       image_data,
     } = payload;
-    const response = yield call(api.put, `/v1/admin/users/${id}`, {
+    const request = yield call(api.put, `/v1/admin/users/${id}`, {
       email,
       password,
       name,
@@ -114,23 +116,20 @@ function* getUserUpdate({ payload }) {
       group,
       address,
     });
-    const { 
-      admin:{
-        user:{
+    const response = yield call(callApi, request);
+    const {
+      admin: {
+        user: {
           user: {
-            image: {
-              original : isPrimaryImage
-            }
-          }
-        }
-      }
-     } = yield select(state => state);
+            image: { original: isPrimaryImage },
+          },
+        },
+      },
+    } = yield select(state => state);
     if (typeof image_data === 'object' && image_data instanceof File) {
-      console.tron.log(isPrimaryImage)
       if (isPrimaryImage == '') {
         const imageUpload = yield getUserImageUpload({ id, image_data });
-      }
-      else{
+      } else {
         const imageUpdate = yield getUserImageUpdate({ id, image_data });
       }
     }
@@ -144,7 +143,8 @@ function* getUserUpdate({ payload }) {
 function* getUserDelete({ payload }) {
   try {
     const { id } = payload;
-    const response = yield call(api.delete, `/v1/admin/users/${id}`);
+    const request = yield call(api.delete, `/v1/admin/users/${id}`);
+    const response = yield call(callApi, request);
     yield put(Creators.getUserDeleteSuccess());
     // Remove a categoria deletada da lista
     const { userList, userListTotal } = yield select(state => state.user);
@@ -162,7 +162,14 @@ function* getUserDelete({ payload }) {
 
 function* getUserList({ payload }) {
   try {
-    const { page, perPage, search, orderByColumn, orderByDirection, group_id } = payload;
+    const {
+      page,
+      perPage,
+      search,
+      orderByColumn,
+      orderByDirection,
+      group_id,
+    } = payload;
     const request = call(api.get, '/v1/admin/users', {
       page,
       search,
@@ -173,7 +180,7 @@ function* getUserList({ payload }) {
     });
 
     const response = yield call(callApi, request);
-    if(response.status !== 200 && response.status != 201 ) throw response;
+    if (response.status !== 200 && response.status != 201) throw response;
     yield put(Creators.getUserListSuccess(response.data));
   } catch (err) {
     if (err.status === 404) {

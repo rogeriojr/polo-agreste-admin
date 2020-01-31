@@ -9,7 +9,8 @@ import Notifications from 'react-notification-system-redux';
 function* getCoupon({ payload }) {
   try {
     const { id } = payload;
-    const response = yield call(api.get, `/v1/admin/promotions/coupons/${id}`);
+    const request = yield call(api.get, `/v1/admin/promotions/coupons/${id}`);
+    const response = yield call(callApi, request);
     yield put(Creators.getCouponSuccess(response.data));
   } catch (err) {
     yield put(Creators.getCouponFailure('Erro ao buscar na API'));
@@ -31,7 +32,7 @@ function* getCouponInsert({ payload }) {
       quantity_client,
       status,
     } = payload;
-    const response = yield call(api.post, '/v1/admin/promotions/coupons', {
+    const request = yield call(api.post, '/v1/admin/promotions/coupons', {
       name,
       code,
       date_start,
@@ -44,6 +45,7 @@ function* getCouponInsert({ payload }) {
       quantity_client,
       status,
     });
+    const response = yield call(callApi, request);
     const { id } = response.data.data;
     yield put(Creators.getCouponInsertSuccess());
     yield put(
@@ -71,7 +73,7 @@ function* getCouponUpdate({ payload }) {
       quantity_client,
       status,
     } = payload;
-    const response = yield call(api.put, `/v1/admin/promotions/coupons/${id}`, {
+    const request = yield call(api.put, `/v1/admin/promotions/coupons/${id}`, {
       name,
       code,
       date_start,
@@ -84,6 +86,7 @@ function* getCouponUpdate({ payload }) {
       quantity_client,
       status,
     });
+    const response = yield call(callApi, request);
     yield put(Creators.getCouponUpdateSuccess());
     yield put(Notifications.success({ title: 'Edição concluida com sucesso' }));
   } catch (err) {
@@ -94,12 +97,14 @@ function* getCouponUpdate({ payload }) {
 function* getCouponDelete({ payload }) {
   try {
     const { id } = payload;
-    const response = yield call(api.delete, `/v1/admin/promotions/coupons/${id}`);
+    const request = yield call(
+      api.delete,
+      `/v1/admin/promotions/coupons/${id}`,
+    );
+    const response = yield call(callApi, request);
     yield put(Creators.getCouponDeleteSuccess());
     // Remove a categoria deletada da lista
-    const { couponList, couponListTotal } = yield select(
-      state => state.coupon,
-    );
+    const { couponList, couponListTotal } = yield select(state => state.coupon);
 
     yield put(
       Creators.getCouponListSuccess({

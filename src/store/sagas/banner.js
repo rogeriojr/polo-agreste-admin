@@ -27,7 +27,11 @@ function* getBannerImagesUpload(payload) {
         const image = images_data[iLocal];
         const data = new FormData();
         data.append('image', image);
-        const response = yield call(api.post, `/v1/admin/banners/${id}/images`, data);
+        const response = yield call(
+          api.post,
+          `/v1/admin/banners/${id}/images`,
+          data,
+        );
         const id_image = response.data.data.id;
         image_info.id = id_image;
         iLocal += 1;
@@ -50,10 +54,11 @@ function* getBannerImagesUpload(payload) {
 function* getBannerInsert({ payload }) {
   try {
     const { name, status, images_data, images_info } = payload;
-    const response = yield call(api.post, '/v1/admin/banners', {
+    const request = yield call(api.post, '/v1/admin/banners', {
       name,
       status,
     });
+    const response = yield call(callApi, request);
     const { id } = response.data.data;
     yield getBannerImagesUpload({ id, images_data, images_info });
     yield put(Creators.getBannerInsertSuccess());
@@ -69,10 +74,11 @@ function* getBannerInsert({ payload }) {
 function* getBannerUpdate({ payload }) {
   try {
     const { id, name, status, images_data, images_info } = payload;
-    /* const response =  */ yield call(api.put, `/v1/admin/banners/${id}`, {
+    const request = yield call(api.put, `/v1/admin/banners/${id}`, {
       name,
       status,
     });
+    const response = yield call(callApi, request);
     yield getBannerImagesUpload({ id, images_data, images_info });
     yield put(Creators.getBannerUpdateSuccess());
     yield put(Creators.getBannerRequest({ id }));
@@ -85,12 +91,11 @@ function* getBannerUpdate({ payload }) {
 function* getBannerDelete({ payload }) {
   try {
     const { id } = payload;
-    /* const response =  */ yield call(api.delete, `/v1/admin/banners/${id}`);
+    const request = yield call(api.delete, `/v1/admin/banners/${id}`);
+    const response = yield call(callApi, request);
     yield put(Creators.getBannerDeleteSuccess());
     // Remove a categoria deletada da lista
-    const { bannerList, bannerListTotal } = yield select(
-      state => state.banner,
-    );
+    const { bannerList, bannerListTotal } = yield select(state => state.banner);
 
     yield put(
       Creators.getBannerListSuccess({
@@ -106,7 +111,11 @@ function* getBannerDelete({ payload }) {
 function* getImageBannerDelete({ payload }) {
   try {
     const { id, id_banner } = payload;
-    yield call(api.delete, `/v1/admin/banners/${id_banner}/images/${id}`);
+    const request = yield call(
+      api.delete,
+      `/v1/admin/banners/${id_banner}/images/${id}`,
+    );
+    const response = yield call(callApi, request);
     yield put(Creators.getImageBannerDeleteSuccess());
   } catch (err) {
     yield put(Creators.getImageBannerDeleteFailure('Erro ao buscar na API'));

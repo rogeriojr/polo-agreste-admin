@@ -10,7 +10,8 @@ import Notifications from 'react-notification-system-redux';
 function* getProfileAccess({ payload }) {
   try {
     const { id } = payload;
-    const response = yield call(api.get, `/v1/admin/users/${id}`); // rota users passada somente para teste
+    const request = yield call(api.get, `/v1/admin/users/${id}`); // rota users passada somente para teste
+    const response = yield call(callApi, request);
     yield put(Creators.getProfileAccessSuccess(response.data));
   } catch (err) {
     yield put(Creators.getProfileAccessFailure('Erro ao buscar na API'));
@@ -22,7 +23,8 @@ function* getProfileAccessImageUpload(payload) {
     const { id, image_data } = payload;
     const data = new FormData();
     data.append('image', image_data);
-    const response = yield call(api.post, `/v1/admin/users/${id}/images`, data);
+    const request = yield call(api.post, `/v1/admin/users/${id}/images`, data);
+    const response = yield call(callApi, request);
     return true;
   } catch (err) {
     return false;
@@ -38,12 +40,13 @@ function* getProfileAccessInsert({ payload }) {
       order_position,
       image_data,
     } = payload;
-    const response = yield call(api.post, '/v1/admin/users', {
+    const request = yield call(api.post, '/v1/admin/users', {
       name,
       order_position,
       description: description.toString('markdown'),
       profileAccess_father,
     });
+    const response = yield call(callApi, request);
     const { id } = response.data.data;
     if (typeof image_data === 'object' && image_data instanceof File) {
       const imageUpload = yield getProfileAccessImageUpload({ id, image_data });
@@ -68,12 +71,13 @@ function* getProfileAccessUpdate({ payload }) {
       order_position,
       image_data,
     } = payload;
-    const response = yield call(api.put, `/v1/admin/users/${id}`, {
+    const request = yield call(api.put, `/v1/admin/users/${id}`, {
       name,
       order_position,
       description: description.toString('markdown'),
       profileAccess_father,
     });
+    const response = yield call(callApi, request);
     if (typeof image_data === 'object' && image_data instanceof File) {
       const imageUpload = yield getProfileAccessImageUpload({ id, image_data });
     }
@@ -87,7 +91,8 @@ function* getProfileAccessUpdate({ payload }) {
 function* getProfileAccessDelete({ payload }) {
   try {
     const { id } = payload;
-    const response = yield call(api.delete, `/v1/admin/users/${id}`);
+    const request = yield call(api.delete, `/v1/admin/users/${id}`);
+    const response = yield call(callApi, request);
     yield put(Creators.getProfileAccessDeleteSuccess());
     // Remove o perfil de acesso deletado da lista
     const { profileAccessList, profileAccessListTotal } = yield select(
