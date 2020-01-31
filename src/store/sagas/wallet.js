@@ -6,7 +6,8 @@ import { callApi } from 'store/sagas/auth';
 
 function* getWallet() {
   try {
-    const response = yield call(api.get, '/v1/admin/wallets', {});
+    const request = yield call(api.get, '/v1/admin/wallets', {});
+    const response = yield call(callApi, request);
     yield put(Creators.getWalletSuccess(response.data));
   } catch (err) {
     yield put(Creators.getWalletFailure('Erro ao buscar na API'));

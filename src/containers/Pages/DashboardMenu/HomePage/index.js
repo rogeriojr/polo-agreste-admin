@@ -25,6 +25,10 @@ import {
 import Select from 'components/Select';
 import DatePickerForm from 'components/Pages/DashboardPage/DatePickerForm';
 import styled from 'styled-components';
+import moment from 'moment';
+import { useDispatch, useSelector } from 'react-redux';
+import { Creators as DashboardCreators } from 'store/ducks/dashboard';
+import { toPrice } from 'utils/converters';
 
 const ChartContainer = styled('div')`
   @media (max-width: 680px) {
@@ -34,9 +38,8 @@ const ChartContainer = styled('div')`
   }
 `;
 
-
 const DashboardPage = () => {
-  const data = [
+  const graphicData = [
     { name: 'Page A', uv: 4000, pv: 2400, amt: 2400 },
     { name: 'Page B', uv: 3000, pv: 1398, amt: 2210 },
     { name: 'Page C', uv: 2000, pv: 9800, amt: 2290 },
@@ -45,71 +48,94 @@ const DashboardPage = () => {
     { name: 'Page F', uv: 2390, pv: 3800, amt: 2500 },
     { name: 'Page G', uv: 3490, pv: 4300, amt: 2100 },
   ];
+  
+  const dispatch = useDispatch()
 
-  const onSubmit = dados => {
-    console.log(dados);
+  const { dashboard, dashboardLoading } = useSelector(state => state.dashboard);
+
+  const today = moment();
+  const actualDate = moment();
+  const weekdate = today.add(-7, 'day');
+
+  const [localState, setLocalState] = React.useState({
+    dateStart: weekdate.format('YYYY-MM-DD'),
+    dateEnd: actualDate.format('YYYY-MM-DD'),
+  });
+
+  React.useEffect(() => {
+    dispatch(DashboardCreators.getDashboardRequest(localState));
+  }, []);
+
+  React.useEffect(() => {
+    dispatch(DashboardCreators.getDashboardRequest(localState));
+  }, [localState]);
+
+  const onSubmit = data => {
+    setLocalState({
+      ...localState,
+      ...data,
+    });
   };
 
   // const { changeStartDate, changeEndDate } = this;
   return (
     <PageBase>
       <PageHeader title="Dashboard">
-        <DatePickerForm onSubmit={onSubmit} />
+        <DatePickerForm
+          onSubmit={onSubmit}
+          initialValues={{
+            dateStart: weekdate,
+            dateEnd: actualDate,
+          }}
+        />
       </PageHeader>
-      <Grid justify="center" style={{ marginTop: 30 }} spacing={2} container>
-        <Grid item xs={12} sm={6} md={4} lg={3}>
-          <StatisticItem
-            icon="credit_card"
-            title="Cartão de Crédito"
-            description="R$ 0,00"
-          />
+      {!dashboardLoading && (
+        <Grid justify="center" style={{ marginTop: 30 }} spacing={2} container>
+          <Grid item xs={12} sm={6} md={4} lg={4}>
+            <StatisticItem
+              icon="attach_money"
+              title="Faturamento"
+              description={`R$ ${toPrice(dashboard.billing)}`}
+            />
+          </Grid>
+          <Grid item xs={12} sm={6} md={4} lg={4}>
+            <StatisticItem
+              icon="receipt"
+              title="Aguardando Pagamento"
+              description={`R$ ${toPrice(dashboard.awaiting_payment)}`}
+            />
+          </Grid>
+          <Grid item xs={12} sm={6} md={4} lg={4}>
+            <StatisticItem
+              icon="signal_cellular_alt"
+              title="Valor Médio da Venda"
+              description={`R$ ${toPrice(dashboard.average_ticket)}`}
+            />
+          </Grid>
+          <Grid item xs={12} sm={6} md={4} lg={4}>
+            <StatisticItem
+              icon="person_add"
+              title="Cadastros"
+              description={dashboard.registrations_made}
+            />
+          </Grid>
+          <Grid item xs={12} sm={6} md={4} lg={4}>
+            <StatisticItem
+              icon="style"
+              title="Produtos Vendidos"
+              description={dashboard.sold_products}
+            />
+          </Grid>
+          <Grid item xs={12} sm={6} md={4} lg={4}>
+            <StatisticItem
+              icon="trending_up"
+              title="Quantidade de vendas"
+              description={dashboard.sales_quantity}
+            />
+          </Grid>
         </Grid>
-        <Grid item xs={12} sm={6} md={4} lg={3}>
-          <StatisticItem
-            icon="attach_money"
-            title="Faturamento"
-            description="R$ 0,00"
-          />
-        </Grid>
-        <Grid item xs={12} sm={6} md={4} lg={3}>
-          <StatisticItem
-            icon="receipt"
-            title="Aguardando Pagamento"
-            description="R$ 0,00"
-          />
-        </Grid>
-        <Grid item xs={12} sm={6} md={4} lg={3}>
-          <StatisticItem
-            icon="signal_cellular_alt"
-            title="Ticket Médio"
-            description="R$ 0,00"
-          />
-        </Grid>
-        <Grid item xs={12} sm={6} md={4} lg={3}>
-          <StatisticItem
-            icon="remove_red_eye"
-            title="Page Views"
-            description="0000"
-          />
-        </Grid>
-        <Grid item xs={12} sm={6} md={4} lg={3}>
-          <StatisticItem
-            icon="attach_money"
-            title="Conversão"
-            description="0%"
-          />
-        </Grid>
-        <Grid item xs={12} sm={6} md={4} lg={3}>
-          <StatisticItem icon="person_add" title="Cadastros" description="0" />
-        </Grid>
-        <Grid item xs={12} sm={6} md={4} lg={3}>
-          <StatisticItem
-            icon="attach_money"
-            title="Produtos Vendidos"
-            description="0"
-          />
-        </Grid>
-      </Grid>
+      )}
+      {/*
       <Paper className="paper-custom" style={{ marginTop: 30 }}>
         <Grid container justify="center" spacing={2}>
           <Grid item md={4}>
@@ -160,7 +186,7 @@ const DashboardPage = () => {
           <Grid item md={12}>
             <ChartContainer>
               <LineChart
-                data={data}
+                data={graphicData}
                 width={600}
                 height={300}
                 margin={{ top: 5, right: 30, left: 20, bottom: 30 }}
@@ -182,6 +208,7 @@ const DashboardPage = () => {
           </Grid>
         </Grid>
       </Paper>
+      */}
     </PageBase>
   );
 };
