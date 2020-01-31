@@ -32,6 +32,7 @@ import virtualCatalogReducer from 'store/ducks/virtualCatalog';
 import scrollReducer from 'store/ducks/scroll';
 import couponReducer from 'store/ducks/coupon';
 import dashboardReducer from 'store/ducks/dashboard';
+import withdrawReducer from 'store/ducks/wallet/withdraw';
 
 /**
  * Merges the main reducer with the router state and dynamically injected reducers
@@ -66,4 +67,5 @@ export default history =>
     scroll: scrollReducer,
     coupon: couponReducer,
     dashboard: dashboardReducer,
+    withdraw: withdrawReducer,
   });
