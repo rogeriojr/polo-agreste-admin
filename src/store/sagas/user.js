@@ -30,6 +30,18 @@ function* getUserImageUpload(payload) {
     return false;
   }
 }
+function* getUserImageUpdate(payload) {
+  try {
+    const { id, image_data } = payload;
+    const data = new FormData();
+    data.append('image', image_data);
+    alert('Imagem atualizada com sucesso');
+    const response = yield call(api.put, `/v1/admin/users/${id}/images`, data);
+    return true;
+  } catch (err) {
+    return false;
+  }
+}
 
 function* getUserInsert({ payload }) {
   try {
@@ -102,8 +114,25 @@ function* getUserUpdate({ payload }) {
       group,
       address,
     });
+    const { 
+      admin:{
+        user:{
+          user: {
+            image: {
+              original : isPrimaryImage
+            }
+          }
+        }
+      }
+     } = yield select(state => state);
     if (typeof image_data === 'object' && image_data instanceof File) {
-      const imageUpload = yield getUserImageUpload({ id, image_data });
+      console.tron.log(isPrimaryImage)
+      if (isPrimaryImage == '') {
+        const imageUpload = yield getUserImageUpload({ id, image_data });
+      }
+      else{
+        const imageUpdate = yield getUserImageUpdate({ id, image_data });
+      }
     }
     yield put(Creators.getUserUpdateSuccess());
     yield put(Notifications.success({ title: 'Edição concluida com sucesso' }));
