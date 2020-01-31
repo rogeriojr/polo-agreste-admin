@@ -4,9 +4,11 @@ import DefaultTable from 'components/Tables/DefaultTable';
 import { useDispatch, useSelector } from 'react-redux';
 import { Creators as OrderCreators } from 'store/ducks/order';
 import { Creators as WalletCreators } from 'store/ducks/wallet';
+import { Creators as StoreCreators } from 'store/ducks/stores';
+import { Creators as WithdrawCreators } from 'store/ducks/wallet/withdraw';
 import HeaderComponent from 'components/HeaderComponent';
 import OrderTableHeader from 'components/Pages/OrderPage/OrderTableHeader';
-import { Paper } from '@material-ui/core';
+import { Paper, Button } from '@material-ui/core';
 import AlertDialog from 'components/AlertDialog';
 import OrderActions from 'components/Pages/OrderPage/OrderActions';
 import { InputItem, InputContainer } from 'components/form/StyledComponents';
@@ -14,6 +16,8 @@ import CustomSelect from 'components/form/components/CustomSelect';
 import { formatStoresName, formatDate2, formatStatus } from 'utils/converters';
 import OrderPaymentType from 'components/Pages/OrderPage/OrderPaymentType';
 import CashExpressInfo from 'components/Pages/CashExpressPage/CashExpressInfo';
+import CashExpressWithdraw from 'components/Pages/CashExpressPage/CashExpressWithdraw';
+import ButtonDefault from 'components/Button/ButtonDefault';
 
 const CashExpressPage = () => {
   const columns = ({ onDeleteRequest }) => [
@@ -74,13 +78,23 @@ const CashExpressPage = () => {
     orderDeleteLoading,
   } = useSelector(state => state.order);
 
-  const { wallet, walletLoading } = useSelector(
-    state => state.wallet,
-  );
+  const { wallet, walletLoading } = useSelector(state => state.wallet);
+
+  const { store, storeLoading } = useSelector(state => state.store);
+
+  const { withdrawLoading } = useSelector(state => state.withdraw);
+
+  const [modalOpen, setModalOpen] = React.useState(false);
+
+  const stateApp = useSelector(state => state.app);
+  const jwtIdentity = stateApp.get('jwtIdentity');
+
+  const storeId = jwtIdentity.store_id;
 
   React.useEffect(() => {
     dispatch(OrderCreators.getOrderListRequest(localState));
     dispatch(WalletCreators.getWalletRequest(localState));
+    dispatch(StoreCreators.getStoreRequest({ id: storeId }));
   }, []);
 
   const handleAlertDialogClose = () => {
@@ -111,6 +125,18 @@ const CashExpressPage = () => {
     dispatch(WalletCreators.getWalletRequest(localState));
   };
 
+  const handleModalClose = () => {
+    setModalOpen(false);
+  };
+
+  const handleModalOpen = () => {
+    setModalOpen(true);
+  };
+
+  const onSubmit = form => {
+    dispatch(WithdrawCreators.getWithdrawRequest(form.value));
+  };
+
   return (
     <PageBase>
       <HeaderComponent title="Cash Express" />
@@ -134,6 +160,23 @@ const CashExpressPage = () => {
         title="Excluir registro?"
         description={`Remover pedido: ${deleteState.item.name}`}
       />
+      {!storeLoading && wallet.cash && (
+        <>
+          <div style={{ textAlign: 'center', marginTop: 30 }}>
+            <ButtonDefault wallet={wallet} onClick={handleModalOpen}>
+              Realizar um saque
+            </ButtonDefault>
+          </div>
+          <CashExpressWithdraw
+            onSubmit={onSubmit}
+            handleClose={handleModalClose}
+            cash={wallet.cash}
+            isOpen={modalOpen}
+            isLoading={withdrawLoading}
+            wallet={wallet}
+          />
+        </>
+      )}
     </PageBase>
   );
 };
