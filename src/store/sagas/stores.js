@@ -49,7 +49,7 @@ function* getStoreInsert({ payload }) {
       image_data,
       quantity_min_whole,
     } = payload;
-    const request = yield call(api.post, '/v1/admin/stores', {
+    const request = call(api.post, '/v1/admin/stores', {
       name,
       email,
       description: description.toString('markdown'),
@@ -100,7 +100,7 @@ function* getStoreUpdate({ payload }) {
       image_data,
       quantity_min_whole,
     } = payload;
-    const request = yield call(api.put, `/v1/admin/stores/${id}`, {
+    const request = call(api.put, `/v1/admin/stores/${id}`, {
       name,
       email,
       description: description.toString('markdown'),
@@ -130,7 +130,7 @@ function* getStoreUpdate({ payload }) {
 function* getStoreDelete({ payload }) {
   try {
     const { id } = payload;
-    const request = yield call(api.delete, `/v1/admin/stores/${id}`);
+    const request = call(api.delete, `/v1/admin/stores/${id}`);
     const response = yield call(callApi, request);
     yield put(Creators.getStoreDeleteSuccess());
     // Remove a categoria deletada da lista

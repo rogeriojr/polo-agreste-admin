@@ -11,7 +11,7 @@ import { imageToBase64 } from 'utils/converters';
 function* getScroll({ payload }) {
   try {
     const { id } = payload;
-    const request = yield call(api.get, `/v1/admin/scrolls/${id}`);
+    const request = call(api.get, `/v1/admin/scrolls/${id}`);
     const response = yield call(callApi, request);
     yield put(Creators.getScrollSuccess(response.data));
   } catch (err) {
@@ -43,7 +43,7 @@ function* getScrollInsert({ payload }) {
       data.image = image;
     }
 
-    const request = yield call(api.post, '/v1/admin/scrolls', data);
+    const request = call(api.post, '/v1/admin/scrolls', data);
     const response = yield call(callApi, request);
     const { id } = response.data.data;
     yield put(Creators.getScrollInsertSuccess());
@@ -81,7 +81,7 @@ function* getScrollUpdate({ payload }) {
       data.image = image;
     }
 
-    const request = yield call(api.put, `/v1/admin/scrolls/${id}`, data);
+    const request = call(api.put, `/v1/admin/scrolls/${id}`, data);
 
     const response = yield call(callApi, request);
 
@@ -96,7 +96,7 @@ function* getScrollUpdate({ payload }) {
 function* getScrollDelete({ payload }) {
   try {
     const { id } = payload;
-    const request = yield call(api.delete, `/v1/admin/scrolls/${id}`);
+    const request = call(api.delete, `/v1/admin/scrolls/${id}`);
     const response = yield call(callApi, request);
     yield put(Creators.getScrollDeleteSuccess());
     // Remove a categoria deletada da lista

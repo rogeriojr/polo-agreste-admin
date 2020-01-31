@@ -14,7 +14,7 @@ function* getReportOrder({ payload }) {
         date_end: dateEnd,
       };
     }
-    const request = yield call(api.get, '/v1/admin/reports/orders', getters);
+    const request = call(api.get, '/v1/admin/reports/orders', getters);
     const response = yield call(callApi, request);
     yield put(Creators.getReportOrderSuccess(response.data));
   } catch (err) {

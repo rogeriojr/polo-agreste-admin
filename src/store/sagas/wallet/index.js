@@ -6,7 +6,7 @@ import { callApi } from 'store/sagas/auth';
 
 function* getWallet() {
   try {
-    const request = yield call(api.get, '/v1/admin/wallets', {});
+    const request = call(api.get, '/v1/admin/wallets', {});
     const response = yield call(callApi, request);
     if (response.status !== 200 && response.status !== 201) throw response;
     yield put(Creators.getWalletSuccess(response.data));

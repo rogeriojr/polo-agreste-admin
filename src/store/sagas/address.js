@@ -7,7 +7,7 @@ import { callApi } from 'store/sagas/auth';
 function* getAddressValidate({ payload }) {
   try {
     const { code_post } = payload;
-    const request = yield call(api.get, '/v1/client/address/validate', {
+    const request = call(api.get, '/v1/client/address/validate', {
       code_post,
     });
     const response = yield call(callApi, request);

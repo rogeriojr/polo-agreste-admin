@@ -7,7 +7,7 @@ import { callApi } from 'store/sagas/auth';
 function* getDashboard({ payload }) {
   try {
     const { dateStart, dateEnd } = payload;
-    const request = yield call(api.get, '/v1/admin/dashboard', {
+    const request = call(api.get, '/v1/admin/dashboard', {
       date_start: dateStart,
       date_end: dateEnd,
     });

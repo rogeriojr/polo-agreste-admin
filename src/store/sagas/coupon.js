@@ -9,7 +9,7 @@ import Notifications from 'react-notification-system-redux';
 function* getCoupon({ payload }) {
   try {
     const { id } = payload;
-    const request = yield call(api.get, `/v1/admin/promotions/coupons/${id}`);
+    const request = call(api.get, `/v1/admin/promotions/coupons/${id}`);
     const response = yield call(callApi, request);
     yield put(Creators.getCouponSuccess(response.data));
   } catch (err) {
@@ -32,7 +32,7 @@ function* getCouponInsert({ payload }) {
       quantity_client,
       status,
     } = payload;
-    const request = yield call(api.post, '/v1/admin/promotions/coupons', {
+    const request = call(api.post, '/v1/admin/promotions/coupons', {
       name,
       code,
       date_start,
@@ -73,7 +73,7 @@ function* getCouponUpdate({ payload }) {
       quantity_client,
       status,
     } = payload;
-    const request = yield call(api.put, `/v1/admin/promotions/coupons/${id}`, {
+    const request = call(api.put, `/v1/admin/promotions/coupons/${id}`, {
       name,
       code,
       date_start,

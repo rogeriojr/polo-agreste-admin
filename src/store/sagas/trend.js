@@ -10,7 +10,7 @@ import Notifications from 'react-notification-system-redux';
 function* getTrend({ payload }) {
   try {
     const { id } = payload;
-    const request = yield call(api.get, `/v1/admin/trends/${id}`);
+    const request = call(api.get, `/v1/admin/trends/${id}`);
     const response = yield call(callApi, request);
     yield put(Creators.getTrendSuccess(response.data));
   } catch (err) {
@@ -36,7 +36,7 @@ function* getTrendImagesUpload(payload) {
 function* getTrendInsert({ payload }) {
   try {
     const { name, status, products, images_data } = payload;
-    const request = yield call(api.post, '/v1/admin/trends', {
+    const request = call(api.post, '/v1/admin/trends', {
       name,
       status,
       products,
@@ -75,7 +75,7 @@ function* getTrendUpdate({ payload }) {
 function* getTrendDelete({ payload }) {
   try {
     const { id } = payload;
-    const request = yield call(api.delete, `/v1/admin/trends/${id}`);
+    const request = call(api.delete, `/v1/admin/trends/${id}`);
     const response = yield call(callApi, request);
     yield put(Creators.getTrendDeleteSuccess());
     // Remove a categoria deletada da lista
@@ -95,7 +95,7 @@ function* getTrendDelete({ payload }) {
 function* getImageTrendDelete({ payload }) {
   try {
     const { id, id_trend } = payload;
-    const request = yield call(api.delete, `/v1/admin/trends/${id_trend}/images/${id}`);
+    const request = call(api.delete, `/v1/admin/trends/${id_trend}/images/${id}`);
     const response = yield call(callApi, request);
     yield put(Creators.getImageTrendDeleteSuccess());
   } catch (err) {

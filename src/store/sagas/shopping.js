@@ -52,7 +52,7 @@ function* getShoppingInsert({ payload }) {
       bank,
       image_data,
     } = payload;
-    const request = yield call(api.post, '/v1/admin/shoppings', {
+    const request = call(api.post, '/v1/admin/shoppings', {
       name,
       email,
       description: description.toString('markdown'),
@@ -100,7 +100,7 @@ function* getShoppingUpdate({ payload }) {
       shopping_global,
       image_data,
     } = payload;
-    const request = yield call(api.put, `/v1/admin/shopping/config`, {
+    const request = call(api.put, `/v1/admin/shopping/config`, {
       name,
       email,
       description: description.toString('markdown'),
@@ -128,7 +128,7 @@ function* getShoppingUpdate({ payload }) {
 function* getShoppingDelete({ payload }) {
   try {
     const { id } = payload;
-    const request = yield call(api.delete, `/v1/admin/shoppings/${id}`);
+    const request = call(api.delete, `/v1/admin/shoppings/${id}`);
     const response = yield call(callApi, request);
     yield put(Creators.getShoppingDeleteSuccess());
     // Remove a categoria deletada da lista

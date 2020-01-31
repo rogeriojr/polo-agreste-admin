@@ -8,7 +8,7 @@ import { callApi } from 'store/sagas/auth';
 function* getWithdraw({ payload }) {
   try {
     const { amount } = payload;
-    const request = yield call(api.post, '/v1/admin/wallets/transfers', { amount });
+    const request = call(api.post, '/v1/admin/wallets/transfers', { amount });
     const response = yield call(callApi, request);
     if (response.status !== 200 && response.status !== 201) throw response;
     yield put(

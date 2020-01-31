@@ -10,7 +10,7 @@ import Notifications from 'react-notification-system-redux';
 function* getKit({ payload }) {
   try {
     const { id } = payload;
-    const request = yield call(api.get, `/v1/admin/kits/${id}`);
+    const request = call(api.get, `/v1/admin/kits/${id}`);
     const response = yield call(callApi, request);
     yield put(Creators.getKitSuccess(response.data));
   } catch (err) {
@@ -44,7 +44,7 @@ function* getKitInsert({ payload }) {
       products,
       images_data,
     } = payload;
-    const request = yield call(api.post, '/v1/admin/kits', {
+    const request = call(api.post, '/v1/admin/kits', {
       name,
       price,
       price_whole,
@@ -77,7 +77,7 @@ function* getKitUpdate({ payload }) {
       products,
       images_data,
     } = payload;
-    const request = yield call(api.put, `/v1/admin/kits/${id}`, {
+    const request = call(api.put, `/v1/admin/kits/${id}`, {
       name,
       price,
       price_whole,
@@ -98,7 +98,7 @@ function* getKitUpdate({ payload }) {
 function* getKitDelete({ payload }) {
   try {
     const { id } = payload;
-    const request = yield call(api.delete, `/v1/admin/kits/${id}`);
+    const request = call(api.delete, `/v1/admin/kits/${id}`);
     const response = yield call(callApi, request);
     yield put(Creators.getKitDeleteSuccess());
     // Remove a categoria deletada da lista

@@ -12,7 +12,7 @@ import Notifications from 'react-notification-system-redux';
 function* getUser({ payload }) {
   try {
     const { id } = payload;
-    const request = yield call(api.get, `/v1/admin/users/${id}`);
+    const request = call(api.get, `/v1/admin/users/${id}`);
     const response = yield call(callApi, request);
     yield put(Creators.getUserSuccess(response.data));
   } catch (err) {
@@ -36,7 +36,7 @@ function* getUserImageUpdate(payload) {
     const { id, image_data } = payload;
     const data = new FormData();
     data.append('image', image_data);
-    const request = yield call(api.put, `/v1/admin/users/${id}/images`, data);
+    const request = call(api.put, `/v1/admin/users/${id}/images`, data);
     const response = yield call(callApi, request);
     return true;
   } catch (err) {
@@ -60,7 +60,7 @@ function* getUserInsert({ payload }) {
       address,
       image_data,
     } = payload;
-    const request = yield call(api.post, '/v1/admin/users', {
+    const request = call(api.post, '/v1/admin/users', {
       email,
       password,
       name,
@@ -104,7 +104,7 @@ function* getUserUpdate({ payload }) {
       address,
       image_data,
     } = payload;
-    const request = yield call(api.put, `/v1/admin/users/${id}`, {
+    const request = call(api.put, `/v1/admin/users/${id}`, {
       email,
       password,
       name,
@@ -143,7 +143,7 @@ function* getUserUpdate({ payload }) {
 function* getUserDelete({ payload }) {
   try {
     const { id } = payload;
-    const request = yield call(api.delete, `/v1/admin/users/${id}`);
+    const request = call(api.delete, `/v1/admin/users/${id}`);
     const response = yield call(callApi, request);
     yield put(Creators.getUserDeleteSuccess());
     // Remove a categoria deletada da lista

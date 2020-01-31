@@ -10,7 +10,7 @@ import Notifications from 'react-notification-system-redux';
 function* getBank({ payload }) {
   try {
     const { id } = payload;
-    const request = yield call(api.get, `/v1/admin/banks/${id}`);
+    const request = call(api.get, `/v1/admin/banks/${id}`);
     const response = yield call(callApi, request);
     yield put(Creators.getBankSuccess(response.data));
   } catch (err) {
@@ -39,7 +39,7 @@ function* getBankInsert({ payload }) {
       order_position,
       image_data,
     } = payload;
-    const request = yield call(api.post, '/v1/admin/banks', {
+    const request = call(api.post, '/v1/admin/banks', {
       name,
       order_position,
       description: description.toString('markdown'),
@@ -70,7 +70,7 @@ function* getBankUpdate({ payload }) {
       order_position,
       image_data,
     } = payload;
-    const request = yield call(api.put, `/v1/admin/banks/${id}`, {
+    const request = call(api.put, `/v1/admin/banks/${id}`, {
       name,
       order_position,
       description: description.toString('markdown'),
@@ -90,7 +90,7 @@ function* getBankUpdate({ payload }) {
 function* getBankDelete({ payload }) {
   try {
     const { id } = payload;
-    const request = yield call(api.delete, `/v1/admin/banks/${id}`);
+    const request = call(api.delete, `/v1/admin/banks/${id}`);
     const response = yield call(callApi, request);
     yield put(Creators.getBankDeleteSuccess());
     // Remove a categoria deletada da lista

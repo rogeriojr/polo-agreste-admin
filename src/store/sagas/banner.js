@@ -54,7 +54,7 @@ function* getBannerImagesUpload(payload) {
 function* getBannerInsert({ payload }) {
   try {
     const { name, status, images_data, images_info } = payload;
-    const request = yield call(api.post, '/v1/admin/banners', {
+    const request = call(api.post, '/v1/admin/banners', {
       name,
       status,
     });
@@ -74,7 +74,7 @@ function* getBannerInsert({ payload }) {
 function* getBannerUpdate({ payload }) {
   try {
     const { id, name, status, images_data, images_info } = payload;
-    const request = yield call(api.put, `/v1/admin/banners/${id}`, {
+    const request = call(api.put, `/v1/admin/banners/${id}`, {
       name,
       status,
     });
@@ -91,7 +91,7 @@ function* getBannerUpdate({ payload }) {
 function* getBannerDelete({ payload }) {
   try {
     const { id } = payload;
-    const request = yield call(api.delete, `/v1/admin/banners/${id}`);
+    const request = call(api.delete, `/v1/admin/banners/${id}`);
     const response = yield call(callApi, request);
     yield put(Creators.getBannerDeleteSuccess());
     // Remove a categoria deletada da lista

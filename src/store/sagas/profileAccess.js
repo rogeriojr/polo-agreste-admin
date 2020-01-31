@@ -10,7 +10,7 @@ import Notifications from 'react-notification-system-redux';
 function* getProfileAccess({ payload }) {
   try {
     const { id } = payload;
-    const request = yield call(api.get, `/v1/admin/users/${id}`); // rota users passada somente para teste
+    const request = call(api.get, `/v1/admin/users/${id}`); // rota users passada somente para teste
     const response = yield call(callApi, request);
     yield put(Creators.getProfileAccessSuccess(response.data));
   } catch (err) {
@@ -23,7 +23,7 @@ function* getProfileAccessImageUpload(payload) {
     const { id, image_data } = payload;
     const data = new FormData();
     data.append('image', image_data);
-    const request = yield call(api.post, `/v1/admin/users/${id}/images`, data);
+    const request = call(api.post, `/v1/admin/users/${id}/images`, data);
     const response = yield call(callApi, request);
     return true;
   } catch (err) {
@@ -40,7 +40,7 @@ function* getProfileAccessInsert({ payload }) {
       order_position,
       image_data,
     } = payload;
-    const request = yield call(api.post, '/v1/admin/users', {
+    const request = call(api.post, '/v1/admin/users', {
       name,
       order_position,
       description: description.toString('markdown'),
@@ -71,7 +71,7 @@ function* getProfileAccessUpdate({ payload }) {
       order_position,
       image_data,
     } = payload;
-    const request = yield call(api.put, `/v1/admin/users/${id}`, {
+    const request = call(api.put, `/v1/admin/users/${id}`, {
       name,
       order_position,
       description: description.toString('markdown'),
@@ -91,7 +91,7 @@ function* getProfileAccessUpdate({ payload }) {
 function* getProfileAccessDelete({ payload }) {
   try {
     const { id } = payload;
-    const request = yield call(api.delete, `/v1/admin/users/${id}`);
+    const request = call(api.delete, `/v1/admin/users/${id}`);
     const response = yield call(callApi, request);
     yield put(Creators.getProfileAccessDeleteSuccess());
     // Remove o perfil de acesso deletado da lista

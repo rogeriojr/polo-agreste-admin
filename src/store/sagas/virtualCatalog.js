@@ -11,7 +11,7 @@ import fileDownload from 'js-file-download';
 function* getVirtualCatalog({ payload }) {
   try {
     const { id } = payload;
-    const request = yield call(api.get, `/v1/admin/virtual/catalogs/${id}`);
+    const request = call(api.get, `/v1/admin/virtual/catalogs/${id}`);
     const response = yield call(callApi, request);
     yield put(Creators.getVirtualCatalogSuccess(response.data));
   } catch (err) {
@@ -61,7 +61,7 @@ function* getVirtualCatalogImageUpload(payload) {
 function* getVirtualCatalogInsert({ payload }) {
   try {
     const { name, categories, products, store, image_data } = payload;
-    const request = yield call(api.post, '/v1/admin/virtual/catalogs', {
+    const request = call(api.post, '/v1/admin/virtual/catalogs', {
       name,
       categories,
       products,
@@ -88,7 +88,7 @@ function* getVirtualCatalogInsert({ payload }) {
 function* getVirtualCatalogUpdate({ payload }) {
   try {
     const { id, name, categories, products, store, image_data } = payload;
-    const request = yield call(api.put, `/v1/admin/virtual/catalogs/${id}`, {
+    const request = call(api.put, `/v1/admin/virtual/catalogs/${id}`, {
       name,
       categories,
       products,
@@ -111,7 +111,7 @@ function* getVirtualCatalogUpdate({ payload }) {
 function* getVirtualCatalogDelete({ payload }) {
   try {
     const { id } = payload;
-    const request = yield call(api.delete, `/v1/admin/virtual/catalogs/${id}`);
+    const request = call(api.delete, `/v1/admin/virtual/catalogs/${id}`);
     const response = yield call(callApi, request);
     yield put(Creators.getVirtualCatalogDeleteSuccess());
     // Remove a categoria deletada da lista

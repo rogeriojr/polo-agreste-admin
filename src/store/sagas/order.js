@@ -114,7 +114,7 @@ function* getOrderList({ payload }) {
 function* getStatusUpdate({ payload }) {
   try {
     const { id, status } = payload;
-    const request = yield call(api.put, `/v1/admin/orders/${id}`, {
+    const request = call(api.put, `/v1/admin/orders/${id}`, {
       status,
     });
     const response = yield call(callApi, request);

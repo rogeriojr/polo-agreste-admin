@@ -10,7 +10,7 @@ import Notifications from 'react-notification-system-redux';
 function* getProduct({ payload }) {
   try {
     const { id } = payload;
-    const request = yield call(api.get, `/v1/admin/products/${id}`);
+    const request = call(api.get, `/v1/admin/products/${id}`);
     const response = yield call(callApi, request);
     yield put(Creators.getProductSuccess(response.data));
   } catch (err) {
@@ -64,7 +64,7 @@ function* getProductInsert({ payload }) {
       related,
       genres,
     } = payload;
-    const request = yield call(api.post, '/v1/admin/products', {
+    const request = call(api.post, '/v1/admin/products', {
       code_integration,
       code_ncm,
       code_ean,
@@ -132,7 +132,7 @@ function* getProductUpdate({ payload }) {
       variations,
       related,
     } = payload;
-    const request = yield call(api.put, `/v1/admin/products/${id}`, {
+    const request = call(api.put, `/v1/admin/products/${id}`, {
       code_integration,
       genres,
       code_ncm,
@@ -173,7 +173,7 @@ function* getProductUpdate({ payload }) {
 function* getProductDelete({ payload }) {
   try {
     const { id } = payload;
-    const request = yield call(api.delete, `/v1/admin/products/${id}`);
+    const request = call(api.delete, `/v1/admin/products/${id}`);
     const response = yield call(callApi, request);
     yield put(Creators.getProductDeleteSuccess());
     // Remove a categoria deletada da lista

@@ -10,7 +10,7 @@ import Notifications from 'react-notification-system-redux';
 function* getGroup({ payload }) {
   try {
     const { id } = payload;
-    const request = yield call(api.get, `/v1/admin/groups/${id}`);
+    const request = call(api.get, `/v1/admin/groups/${id}`);
     const response = yield call(callApi, request);
     yield put(Creators.getGroupSuccess(response.data));
   } catch (err) {
@@ -21,7 +21,7 @@ function* getGroup({ payload }) {
 function* getGroupInsert({ payload }) {
   try {
     const { group_father, description, name, order_position } = payload;
-    const request = yield call(api.post, '/v1/admin/groups', {
+    const request = call(api.post, '/v1/admin/groups', {
       name,
       order_position,
       description: description.toString('markdown'),
@@ -41,7 +41,7 @@ function* getGroupInsert({ payload }) {
 function* getGroupUpdate({ payload }) {
   try {
     const { id, group_father, description, name, order_position } = payload;
-    const request = yield call(api.put, `/v1/admin/groups/${id}`, {
+    const request = call(api.put, `/v1/admin/groups/${id}`, {
       name,
       order_position,
       description: description.toString('markdown'),

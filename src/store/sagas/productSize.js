@@ -9,7 +9,7 @@ import Notifications from 'react-notification-system-redux';
 function* getProductSize({ payload }) {
   try {
     const { id } = payload;
-    const request = yield call(api.get, `/v1/admin/products/sizes/${id}`);
+    const request = call(api.get, `/v1/admin/products/sizes/${id}`);
     const response = yield call(callApi, request);
     yield put(Creators.getProductSizeSuccess(response.data));
   } catch (err) {
@@ -20,7 +20,7 @@ function* getProductSize({ payload }) {
 function* getProductSizeInsert({ payload }) {
   try {
     const { order_position, code, name, status } = payload;
-    const request = yield call(api.post, '/v1/admin/products/sizes', {
+    const request = call(api.post, '/v1/admin/products/sizes', {
       order_position,
       code,
       name,
@@ -41,7 +41,7 @@ function* getProductSizeInsert({ payload }) {
 function* getProductSizeUpdate({ payload }) {
   try {
     const { id, order_position, code, name, status } = payload;
-    const request = yield call(api.put, `/v1/admin/products/sizes/${id}`, {
+    const request = call(api.put, `/v1/admin/products/sizes/${id}`, {
       order_position,
       code,
       name,
@@ -58,7 +58,7 @@ function* getProductSizeUpdate({ payload }) {
 function* getProductSizeDelete({ payload }) {
   try {
     const { id } = payload;
-    const request = yield call(api.delete, `/v1/admin/products/sizes/${id}`);
+    const request = call(api.delete, `/v1/admin/products/sizes/${id}`);
     const response = yield call(callApi, request);
     yield put(Creators.getProductSizeDeleteSuccess());
     // Remove a categoria deletada da lista

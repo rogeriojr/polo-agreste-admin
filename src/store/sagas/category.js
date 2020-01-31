@@ -10,7 +10,7 @@ import Notifications from 'react-notification-system-redux';
 function* getCategory({ payload }) {
   try {
     const { id } = payload;
-    const request = yield call(api.get, `/v1/admin/categories/${id}`);
+    const request = call(api.get, `/v1/admin/categories/${id}`);
     const response = yield call(callApi, request);
     yield put(Creators.getCategorySuccess(response.data));
   } catch (err) {
@@ -39,7 +39,7 @@ function* getCategoryInsert({ payload }) {
       order_position,
       image_data,
     } = payload;
-    const request = yield call(api.post, '/v1/admin/categories', {
+    const request = call(api.post, '/v1/admin/categories', {
       name,
       order_position,
       description: description.toString('markdown'),
@@ -70,7 +70,7 @@ function* getCategoryUpdate({ payload }) {
       order_position,
       image_data,
     } = payload;
-    const request = yield call(api.put, `/v1/admin/categories/${id}`, {
+    const request = call(api.put, `/v1/admin/categories/${id}`, {
       name,
       order_position,
       description: description.toString('markdown'),
@@ -90,7 +90,7 @@ function* getCategoryUpdate({ payload }) {
 function* getCategoryDelete({ payload }) {
   try {
     const { id } = payload;
-    const request = yield call(api.delete, `/v1/admin/categories/${id}`);
+    const request = call(api.delete, `/v1/admin/categories/${id}`);
     const response = yield call(callApi, request);
     yield put(Creators.getCategoryDeleteSuccess());
     // Remove a categoria deletada da lista
