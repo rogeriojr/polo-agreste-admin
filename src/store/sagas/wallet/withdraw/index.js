@@ -3,11 +3,13 @@ import api from 'services/api';
 
 import { Types, Creators } from 'store/ducks/wallet/withdraw';
 import { Creators as NotificationCreators } from 'store/ducks/app';
+import { callApi } from 'store/sagas/auth';
 
 function* getWithdraw({ payload }) {
   try {
     const { amount } = payload;
-    const response = yield call(api.post, '/v1/admin/wallets/transfers', { amount });
+    const request = yield call(api.post, '/v1/admin/wallets/transfers', { amount });
+    const response = yield call(callApi, request);
     if (response.status !== 200 && response.status !== 201) throw response;
     yield put(
       NotificationCreators.openNotification({ message: response.data.msg, type: 'success' })
