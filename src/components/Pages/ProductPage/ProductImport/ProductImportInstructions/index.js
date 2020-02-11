@@ -42,12 +42,12 @@ const ProductImportInstructions = ({ submitText, submitText2 }) => {
         <CustomButton
           Icon={appIcons.GetAppIcon}
           label={submitText}
-          style={{ backgroundColor: '#ce4899', marginRight: 20, marginTop: 10 }}
+          style={{ backgroundColor: '#003B40', marginRight: 20, marginTop: 10 }}
         />
         <CustomButton
           Icon={appIcons.GetAppIcon}
           label={submitText2}
-          style={{ backgroundColor: '#ce4899', marginTop: 10 }}
+          style={{ backgroundColor: '#003B40', marginTop: 10 }}
         />
       </InputContainer>
     </>

@@ -61,28 +61,28 @@ const OrderView = ({ orderInfo }) => {
           <Card style={{ height: '100%' }}>
             <CardHeader title="Dados do cliente" />
             <CardContent style={{ lineHeight: 2.0, color: '#4e3e51' }}>
-              <span style={{ color: '#ce4899', fontWeight: '500' }}>
+              <span style={{ color: '#003B40', fontWeight: '500' }}>
                 Cliente:
               </span>{' '}
               {orderInfo.user.name} <br />
               {/*
-              <span style={{ color: '#ce4899', fontWeight: '500' }}>
+              <span style={{ color: '#003B40', fontWeight: '500' }}>
                 Email:
               </span>{' '}
               Valor desconhecido <br />
               */}
-              <span style={{ color: '#ce4899', fontWeight: '500' }}>
+              <span style={{ color: '#003B40', fontWeight: '500' }}>
                 Telefone principal:
               </span>{' '}
               {orderInfo.user.cell_phone}
               <br />
-              <span style={{ color: '#ce4899', fontWeight: '500' }}>
+              <span style={{ color: '#003B40', fontWeight: '500' }}>
                 CPF:
               </span>{' '}
               {orderInfo.user.cpf} <br />
               {/*
-              <span style={{ color: '#ce4899', fontWeight: '500' }}>Data de nascimento:</span> Valor desconhecido <br />
-              <span style={{ color: '#ce4899', fontWeight: '500' }}>Perfil de cliente:</span> Valor desconhecido <br />
+              <span style={{ color: '#003B40', fontWeight: '500' }}>Data de nascimento:</span> Valor desconhecido <br />
+              <span style={{ color: '#003B40', fontWeight: '500' }}>Perfil de cliente:</span> Valor desconhecido <br />
               */}
             </CardContent>
           </Card>
@@ -92,21 +92,21 @@ const OrderView = ({ orderInfo }) => {
             <CardHeader title="Dados da entrega" />
             <CardContent style={{ lineHeight: 2.0, color: '#4e3e51' }}>
               {/*
-              <span style={{ color: '#ce4899', fontWeight: '500' }}>Centro de distribuição:</span> Desconhecido <br />
+              <span style={{ color: '#003B40', fontWeight: '500' }}>Centro de distribuição:</span> Desconhecido <br />
               */}
               <strong>Transportadora:</strong>
               <br />
-              <span style={{ color: '#ce4899', fontWeight: '500' }}>
+              <span style={{ color: '#003B40', fontWeight: '500' }}>
                 Nome:
               </span>{' '}
               {orderInfo.delivery_name}
               <br />
-              <span style={{ color: '#ce4899', fontWeight: '500' }}>
+              <span style={{ color: '#003B40', fontWeight: '500' }}>
                 Transportadora:
               </span>{' '}
               {orderInfo.delivery_carrier}
               <br />
-              <span style={{ color: '#ce4899', fontWeight: '500' }}>
+              <span style={{ color: '#003B40', fontWeight: '500' }}>
                 Frete:
               </span>{' '}
               R$ {toPrice(orderInfo.delivery_price)}
@@ -114,7 +114,7 @@ const OrderView = ({ orderInfo }) => {
               <br />
               <strong>Endereço do Cliente:</strong>
               <br />
-              <span style={{ color: '#ce4899', fontWeight: '500' }}>
+              <span style={{ color: '#003B40', fontWeight: '500' }}>
                 Endereço:
               </span>{' '}
               {orderInfo.address.street}
@@ -125,25 +125,25 @@ const OrderView = ({ orderInfo }) => {
                 <>, {orderInfo.address.complement}</>
               )}
               <br />
-              <span style={{ color: '#ce4899', fontWeight: '500' }}>
+              <span style={{ color: '#003B40', fontWeight: '500' }}>
                 Bairro:
               </span>{' '}
               {orderInfo.address.district} <br />
-              <span style={{ color: '#ce4899', fontWeight: '500' }}>
+              <span style={{ color: '#003B40', fontWeight: '500' }}>
                 Cidade:
               </span>{' '}
               {orderInfo.address.city.name} <br />
-              <span style={{ color: '#ce4899', fontWeight: '500' }}>
+              <span style={{ color: '#003B40', fontWeight: '500' }}>
                 CEP:
               </span>{' '}
               {orderInfo.address.code_post} <br />
               {/*
-              <span style={{ color: '#ce4899', fontWeight: '500' }}>Rastreamento:</span> Desconhecido <br />
-              <span style={{ color: '#ce4899', fontWeight: '500' }}>Destinatário:</span> Desconhecido <br />
-              <span style={{ color: '#ce4899', fontWeight: '500' }}>Observações:</span> Desconhecido <br /> <br />
+              <span style={{ color: '#003B40', fontWeight: '500' }}>Rastreamento:</span> Desconhecido <br />
+              <span style={{ color: '#003B40', fontWeight: '500' }}>Destinatário:</span> Desconhecido <br />
+              <span style={{ color: '#003B40', fontWeight: '500' }}>Observações:</span> Desconhecido <br /> <br />
               */}
               {/*
-              <span style={{ color: '#ce4899', fontWeight: '500' }}>
+              <span style={{ color: '#003B40', fontWeight: '500' }}>
                 Lojas:
               </span>{' '}
               <br />
@@ -158,15 +158,15 @@ const OrderView = ({ orderInfo }) => {
           <Card style={{ height: '100%' }}>
             <CardHeader title="Dados do Pagamento" />
             <CardContent style={{ lineHeight: 2.0, color: '#4e3e51' }}>
-              <span style={{ color: '#ce4899', fontWeight: '500' }}>
+              <span style={{ color: '#003B40', fontWeight: '500' }}>
                 Valor:
               </span>{' '}
               R$ {toPrice(orderInfo.price)} <br />
-              <span style={{ color: '#ce4899', fontWeight: '500' }}>
+              <span style={{ color: '#003B40', fontWeight: '500' }}>
                 Forma:
               </span>{' '}
               {formatPaymentType(orderInfo.payment_type)} <br />
-              <span style={{ color: '#ce4899', fontWeight: '500' }}>
+              <span style={{ color: '#003B40', fontWeight: '500' }}>
                 Parcelas:
               </span>{' '}
               Valor desconhecido <br />

@@ -247,20 +247,20 @@ const GlobalStyle = createGlobalStyle`
   }
 
   .default-table [class*="MuiIconButton-root"]:not([class*="Mui-disabled"]){
-    color: #ce4899 !important;
+    color: #003B40 !important;
   }
 
   .bt-out-orange {
-    border: 1px solid #ce4899 !important;
+    border: 1px solid #003B40 !important;
     background: white !important;
     padding: 10px 10px !important;
-    color: #ce4899 !important;
+    color: #003B40 !important;
     font-size: 14px !important;
     text-transform: uppercase;
   }
 
   .bt-orange {
-    background: #ce4899 !important;
+    background: #003B40 !important;
     padding: 10px 10px !important;
     color: white !important;
     font-size: 14px !important;
@@ -269,7 +269,7 @@ const GlobalStyle = createGlobalStyle`
   }
 
   .bt-orange:hover{
-    background: #b53f86 !important;
+    background: #003B40 !important;
   }
 
   .toolbar-container {
@@ -322,12 +322,12 @@ const GlobalStyle = createGlobalStyle`
 
   .fab-custom {
     color: white !important;
-    background-color: #ce4899 !important;
+    background-color: #003B40 !important;
     box-shadow: 0px 1px 2px -1px rgba(0,0,0,0.2), 0px 1px 3px 0px rgba(0,0,0,0.14), 0px 1px 6px 0px rgba(0,0,0,0.12) !important;
   }
 
   .fab-custom {
-    background-color: #b53f86 !important;
+    background-color: #003B40 !important;
   }
 
   .toolbar-buttons .fab-custom {
@@ -347,7 +347,7 @@ const GlobalStyle = createGlobalStyle`
   }
 
   .MuiTableCell-head{
-    color: #ce4899 !important;
+    color: #003B40 !important;
     font-size: 0.95rem !important;
     font-weight: 400 !important;
     line-height: 1.6rem !important;

@@ -20,7 +20,7 @@ const ProductImportInfo = () => {
   return (
     <>
       <HeaderComponent title="Importações" variant="h6">
-        <CustomButton label="Salvar" onClick={() => {}} style={{ backgroundColor: '#ce4899' }} />
+        <CustomButton label="Salvar" onClick={() => {}} style={{ backgroundColor: '#003B40' }} />
       </HeaderComponent>
       <DefaultTable
         columns={columns}

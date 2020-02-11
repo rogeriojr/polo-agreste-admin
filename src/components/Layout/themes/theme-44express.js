@@ -9,8 +9,8 @@ const theme44express = createMuiTheme({
       active: '#525672',
     },
     text: {
-      primary: '#282829',
-      secondary: '#ce4899',
+      primary: '#000000',
+      secondary: '#003B40',
       divider: '#292b3a',
     },
   },
@@ -22,7 +22,7 @@ const theme44express = createMuiTheme({
   },
   custom: {
     link: {
-      color: '#e10050',
+      color: 'e0e0e0',
     },
     appBar: {
       backgroundColor: '#F2F6F9',
@@ -41,28 +41,28 @@ const theme44express = createMuiTheme({
       backgroundColor: 'transparent',
     },
     selectedItemText: {
-      color: '#282829',
+      color: '#000000',
     },
     selectedItemIcon: {
-      color: '#ce4899',
+      color: '#003B40',
     },
     listItemText: {
       color: 'rgba(0,0,0,0.6)',
     },
     text: '#757575',
     title: {
-      color: '#ce4899',
+      color: '#003B40',
     },
     tab: {
       color: 'rgba(0,0,0,0.38)',
     },
     tabSelected: {
-      color: '#ce4899',
+      color: '#003B40',
     },
     secondary: {
-      color: '#ce4899',
+      color: '#003B40',
       dark: {
-        color: '#b53f86',
+        color: '#003B40',
       },
     },
   },

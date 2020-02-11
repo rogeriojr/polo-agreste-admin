@@ -34,7 +34,7 @@ const FormButtons = ({
         width: 'auto',
         paddingRight: 20,
         paddingLeft: 20,
-        backgroundColor: '#ce4899',
+        backgroundColor: '#003B40',
       }}
       label={submitText}
       Icon={submitIcon}

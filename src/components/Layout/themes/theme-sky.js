@@ -24,7 +24,7 @@ const themeSky = createMuiTheme({
   },
   custom: {
     link: {
-      color: '#e10050',
+      color: 'e0e0e0',
     },
     appBar: {
       backgroundColor: '#f8f9fa',

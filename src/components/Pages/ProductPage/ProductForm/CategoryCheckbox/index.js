@@ -26,7 +26,7 @@ const CategoryCheckboxGroupItem = props => {
   },[]);
 
   return (
-    <FormControlLabel control={<Checkbox style={{ color:'#ce4899' }} />} checked={newChecked} onChange={handleChange} value={value} label={label} />
+    <FormControlLabel control={<Checkbox style={{ color:'#003B40' }} />} checked={newChecked} onChange={handleChange} value={value} label={label} />
   );
 };
 

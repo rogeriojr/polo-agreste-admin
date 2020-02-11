@@ -9,14 +9,14 @@ const styles = () => ({
     paddingTop: '6px',
   },
   statIcon: {
-    color: '#ce4899',
+    color: '#003B40',
     fontSize: '32px',
   },
   statContent: {
     float: 1,
   },
   statDescription: {
-    color: '#1976D2',
+    color: '#003B40 ',
   },
 });
 

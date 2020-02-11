@@ -30,7 +30,7 @@ const ModalContainer = styled(Paper)`
 
 const WithDrawInfoItemLabel = styled('div')`
   && {
-    color: #ce4899;
+    color: #003B40;
   }
 `;
 

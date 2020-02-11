@@ -57,7 +57,7 @@ const CustomCheckboxGroupItem = props => {
   const { value, label, field:{ checked, onChange } } = props;
 
   return (
-    <FormControlLabel control={<Checkbox style={{ color:'#ce4899' }} />} checked={checked} onChange={onChange} value={value} label={label} />
+    <FormControlLabel control={<Checkbox style={{ color:'#003B40' }} />} checked={checked} onChange={onChange} value={value} label={label} />
   );
 };
 

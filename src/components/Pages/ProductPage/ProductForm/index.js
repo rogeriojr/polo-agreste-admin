@@ -609,7 +609,7 @@ const ProductForm = ({
                 )}
                 {categoryListLoading && (
                   <Box flex="1" display="flex" justifyContent="center">
-                    <CircularProgress size={25} style={{ color: '#ce4899' }} />
+                    <CircularProgress size={25} style={{ color: '#003B40' }} />
                   </Box>
                 )}
                 <FormButtons
@@ -628,7 +628,7 @@ const ProductForm = ({
 
 const styles = {
   purpleTitle: {
-    color: '#CE4899',
+    color: '#003B40',
     fontWeight: 'bold',
     fontSize: 16,
   },

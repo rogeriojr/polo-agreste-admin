@@ -27,7 +27,7 @@ const PageBase = ({
         <div>
           <div className={classes.loading}>
             <LinearProgress
-              color="secondary"
+              color="primary"
               className={classes.loadingIndicator}
             />
           </div>

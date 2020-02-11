@@ -55,14 +55,14 @@ const StyledGridImg = styled.img`
 const StyledFab = styled(Fab)`
   && {
     box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
-    background: #ce4899;
+    background: #003B40;
     color: white;
     width: 32px;
     height: 32px;
     margin: 0 2px;
     min-height: 0;
     &:hover {
-      background: #b53f86;
+      background: #003B40;
       box-shadow: 0 1px 6px rgba(0, 0, 0, 0.4);
     }
     &:active {
@@ -307,7 +307,7 @@ const GalleryField = ({
       <Typography
         variant="h6"
         style={{
-          color: '#282829',
+          color: '#000000',
           marginTop: 10,
           marginBottom: 14,
           marginLeft: -1,

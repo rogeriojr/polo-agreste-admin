@@ -11,7 +11,7 @@ const Default = props => <Responsive {...props} minWidth={768} />;
 const StyledTabs = styled(TabsOriginal)`
   && {
     .MuiTabs-indicator {
-      background-color: #ce4899;
+      background-color: #003B40;
     }
   }
 `;
@@ -64,7 +64,7 @@ const StyledTab = styled(TabOriginal)`
       margin-bottom: 0;
     }
     &[aria-selected='true'] .MuiTab-wrapper {
-      color: #ce4899;
+      color: #003B40;
     }
   }
 `;

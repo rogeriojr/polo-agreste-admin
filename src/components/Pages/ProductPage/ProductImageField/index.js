@@ -219,7 +219,7 @@ const ProductImageField = ({
       <Typography
         variant="h6"
         style={{
-          color: '#282829',
+          color: '#000000',
           marginTop: 10,
           marginBottom: 14,
           marginLeft: -1,

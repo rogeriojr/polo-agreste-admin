@@ -508,7 +508,7 @@ const StoreForm = ({
                   />
                 </InputItem>
                 <InputItem>
-                  <Typography variant="p" style={{ color: '#ce4899' }}>
+                  <Typography variant="p" style={{ color: '#003B40' }}>
                     Caso o campo esteja vazio ou zerado, os produtos
                     serão vendidos exclusivamente
                     em varejo
