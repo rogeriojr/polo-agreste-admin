@@ -56,6 +56,7 @@ export const formInitialValues = {
       id: '',
     },
   },
+  /*
   manager: {
     name: '',
     father_name: '',
@@ -76,6 +77,7 @@ export const formInitialValues = {
       id: '',
     },
   },
+  */
   bank: {
     bank: {
       id: '',
@@ -126,6 +128,7 @@ const schema = Yup.object().shape({
         .required('Campo obrigatório'),
     }),
   }),
+  /*
   manager: Yup.object().shape({
     name: Yup.string().required('Este campo é obrigatório'),
     email: Yup.string()
@@ -154,6 +157,7 @@ const schema = Yup.object().shape({
     image_data: '',
     image_info: '',
   }),
+  */
   bank: Yup.object().shape({
     bank: Yup.object().shape({
       id: Yup.string().test(...validators.numberNotRequired()),
