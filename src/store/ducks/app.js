@@ -37,7 +37,7 @@ const initialState = fromJS({
   selectedMenuItem,
   openViews: openedViews,
   selectedOpenedMenuItem: selectedMenuItem,
-  currentTheme: '44Express', // atom, aurelia, quiet, sky, default
+  currentTheme: 'Polo Agreste', // atom, aurelia, quiet, sky, default
   showOpenViews: false,
   showHeaderTabs: true,
   showSearch: false,

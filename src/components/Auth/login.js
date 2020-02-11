@@ -43,7 +43,7 @@ const Login = ({ classes }) => {
             <img
               style={{ maxWidth: '90%', height: 'auto' }}
               src={Logo}
-              alt="44express"
+              alt="Polo Agreste"
             />
           </div>
           <LoginForm

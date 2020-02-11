@@ -119,9 +119,9 @@ class Settings extends React.PureComponent {
                   onChange={this.themeChanged}
                 >
                   <FormControlLabel
-                    value="44express"
+                    value="Polo Agreste"
                     control={<Radio color="primary" />}
-                    label="44Express"
+                    label="Polo Agreste"
                   />
                   <FormControlLabel
                     value="default"
